@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEvent.Server", "NetEvent\Server\NetEvent.Server.csproj", "{EA8B4AF8-EB3F-46C2-9F4E-A89C2256FF2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEvent.Server", "NetEvent\Server\NetEvent.Server.csproj", "{EA8B4AF8-EB3F-46C2-9F4E-A89C2256FF2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEvent.Client", "NetEvent\Client\NetEvent.Client.csproj", "{BA051BE4-0A13-4826-8A5B-187086701F09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEvent.Client", "NetEvent\Client\NetEvent.Client.csproj", "{BA051BE4-0A13-4826-8A5B-187086701F09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEvent.Shared", "NetEvent\Shared\NetEvent.Shared.csproj", "{022166DF-4F21-4061-98C2-ED700901A221}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEvent.Shared", "NetEvent\Shared\NetEvent.Shared.csproj", "{022166DF-4F21-4061-98C2-ED700901A221}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1B9256C4-3252-41AA-9509-B3558E733FE8}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
