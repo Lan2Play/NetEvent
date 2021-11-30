@@ -20,21 +20,21 @@ namespace NetEvent.Server
 
             var manager = scope.ServiceProvider.GetRequiredService<IOpenIddictApplicationManager>();
 
-            if (await manager.FindByClientIdAsync("NetEventClient") == null)
+            if (await manager.FindByClientIdAsync("NetEvent-blazor-client") is null)
             {
                 await manager.CreateAsync(new OpenIddictApplicationDescriptor
                 {
-                    ClientId = "NetEventClient",
-                    ClientSecret = "901564A5-E7FE-42CB-B10D-61EF6A8F3654",
+                    ClientId = "NetEvent-blazor-client",
                     ConsentType = ConsentTypes.Explicit,
-                    DisplayName = "MVC client application",
+                    DisplayName = "Blazor client application",
+                    Type = ClientTypes.Public,
                     PostLogoutRedirectUris =
                     {
-                        new Uri("https://localhost:44338/signout-callback-oidc")
+                        new Uri("https://localhost:44310/authentication/logout-callback")
                     },
                     RedirectUris =
                     {
-                        new Uri("https://localhost:44338/signin-oidc")
+                        new Uri("https://localhost:44310/authentication/login-callback")
                     },
                     Permissions =
                     {
@@ -46,8 +46,7 @@ namespace NetEvent.Server
                         Permissions.ResponseTypes.Code,
                         Permissions.Scopes.Email,
                         Permissions.Scopes.Profile,
-                        Permissions.Scopes.Roles,
-                        Permissions.Prefixes.Scope + "demo_api"
+                        Permissions.Scopes.Roles
                     },
                     Requirements =
                     {

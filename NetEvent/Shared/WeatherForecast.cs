@@ -1,4 +1,4 @@
-namespace NetEvent.Shared
+﻿namespace NetEvent.Shared
 {
     public class WeatherForecast
     {
