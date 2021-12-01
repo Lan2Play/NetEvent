@@ -332,6 +332,20 @@ namespace NetEvent.Server.Controllers
             throw new InvalidOperationException("The specified grant type is not supported.");
         }
 
+        [Authorize(AuthenticationSchemes = OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)]
+        [HttpGet("~/connect/userinfo")]
+        public async Task<IActionResult> Userinfo()
+        {
+            var claimsPrincipal = (await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)).Principal;
+
+            return Ok(new
+            {
+                Name = claimsPrincipal?.GetClaim(OpenIddictConstants.Claims.Subject),
+                Occupation = "Developer",
+                Age = 43
+            });
+        }
+
         private IEnumerable<string> GetDestinations(Claim claim, ClaimsPrincipal principal)
         {
             // Note: by default, claims are NOT automatically included in the access and identity tokens.
