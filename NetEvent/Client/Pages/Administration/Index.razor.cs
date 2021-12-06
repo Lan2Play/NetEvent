@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using NetEvent.Client.GraphQL;
 using StrawberryShake;
 using System.Reactive.Linq;
 
@@ -13,7 +12,7 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         public NetEventClient? NetEventClient { get; set; }
 
-        public IReadOnlyList<IGetUsers_Users> Users { get; private set; } = new List<IGetUsers_Users>();
+        public List<string> Users { get; private set; } = new List<string>();
 
         protected override void OnInitialized()
         {
@@ -22,9 +21,18 @@ namespace NetEvent.Client.Pages.Administration
                                                       .Select(t => t.Data!.Users)
                                                       .Subscribe(result =>
                                                       {
-                                                          Users = result;
+                                                          Users.AddRange(result.Select(x=>x.UserName));
                                                           StateHasChanged();
                                                       });
+
+            _UsersSession = NetEventClient.Subscription.Watch(ExecutionStrategy.CacheFirst)
+                                                         .Where(t => !t.Errors.Any())
+                                                         .Select(t => t.Data!.UserAdded)
+                                                         .Subscribe(result =>
+                                                         {
+                                                             Users.Add(result.UserName);
+                                                             StateHasChanged();
+                                                         });
         }
 
         #region IDispose

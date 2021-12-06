@@ -4,7 +4,6 @@
   "extensions": {
     "strawberryShake": {
       "name": "NetEventClient",
-      "namespace": "NetEvent.Client.GraphQL",
       "url": "https://localhost:44310/graphql/",
       "dependencyInjection": true,
       "strictSchemaValidation": true,

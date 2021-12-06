@@ -12,7 +12,7 @@ builder.Services.AddHttpClient("NetEvent.ServerAPI")
 
 var graphQlUri = new Uri(new Uri(builder.HostEnvironment.BaseAddress), "graphql");
 var graphQlWsUri = new UriBuilder(graphQlUri);
-graphQlWsUri.Scheme = "ws";
+graphQlWsUri.Scheme = "wss";
 
 builder.Services.AddNetEventClient()
                 .ConfigureHttpClient(client => client.BaseAddress = graphQlUri)

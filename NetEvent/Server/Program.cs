@@ -4,7 +4,6 @@ using NetEvent.Server;
 using NetEvent.Server.Data;
 using NetEvent.Server.GraphQl;
 using NetEvent.Server.Models;
-using OpenIddict.Validation.AspNetCore;
 //using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
@@ -23,17 +22,22 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString),
     ServiceLifetime.Scoped);
 
+
+builder.Services.AddGraphQLServer()
+                .AddAuthorization()
+                .AddInMemorySubscriptions()
+                .AddQueryType<Query>()
+                .AddSubscriptionType<Subscription>();
+
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddUserManager<NetEventUserManager>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
 builder.Services.AddAuthentication().AddSteam();
 
-builder.Services.AddGraphQLServer()
-                .AddAuthorization()
-                .AddQueryType<Query>()
-                .AddSubscriptionType<Subscription>();
+
 
 // Configure Identity to use the same JWT claims as OpenIddict instead
 // of the legacy WS-Federation claims it uses by default (ClaimTypes),

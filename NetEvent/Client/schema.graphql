@@ -1,5 +1,6 @@
 ﻿schema {
   query: Query
+  subscription: Subscription
 }
 
 enum ApplyPolicy {
@@ -10,6 +11,15 @@ enum ApplyPolicy {
 type Query {
   users: [ApplicationUser!]!
   book: Book!
+}
+
+type Subscription {
+  userAdded: ApplicationUser!
+}
+
+type Book {
+  title: String!
+  author: Author!
 }
 
 type ApplicationUser {
@@ -30,16 +40,11 @@ type ApplicationUser {
   accessFailedCount: Int!
 }
 
-type Book {
-  title: String!
-  author: Author!
-}
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
 
 type Author {
   name: String!
 }
-
-"The `DateTime` scalar represents an ISO-8601 compliant date time type."
-scalar DateTime
 
 directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the resolver shall be executed.By default the resolver is executed after the policy has determined that the current user is allowed to access the field." apply: ApplyPolicy! = BEFORE_RESOLVER) repeatable on SCHEMA | OBJECT | FIELD_DEFINITION

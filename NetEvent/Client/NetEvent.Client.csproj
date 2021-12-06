@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <GraphQL Remove="UserAdded.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="UserAdded.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="UserAdded.graphql">
+      <GraphQL>true</GraphQL>
+    </AdditionalFiles>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="GetUsers.graphql" />
   </ItemGroup>
 
