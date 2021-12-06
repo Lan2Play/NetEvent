@@ -2,12 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server;
 using NetEvent.Server.Data;
+using NetEvent.Server.GraphQl;
 using NetEvent.Server.Models;
+using OpenIddict.Validation.AspNetCore;
 using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using HotChocolate.Execution;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     // Configure the context to use Microsoft SQL Server.
@@ -19,18 +23,27 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseOpenIddict();
 });
 
+
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
-//var authenticationBuilder = builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultAuthenticateScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
-//    options.DefaultChallengeScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
-//    options.DefaultForbidScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
-//});
+builder.Services.AddGraphQLServer()
+                .ModifyOptions(options =>
+                {
+                    options.DefaultResolverStrategy = ExecutionStrategy.Serial;
+                })
+                .AddAuthorization()
+                .AddQueryType<Query>();
+
+var authenticationBuilder = builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+    options.DefaultForbidScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+}).AddSteam();
 
 // Configure Identity to use the same JWT claims as OpenIddict instead
 // of the legacy WS-Federation claims it uses by default (ClaimTypes),
@@ -60,7 +73,8 @@ builder.Services.AddOpenIddict()
     {
         // Configure OpenIddict to use the Entity Framework Core stores and models.
         // Note: call ReplaceDefaultEntities() to replace the default OpenIddict entities.
-        options.UseEntityFrameworkCore()
+        options//.ReplaceApplicationStoreResolver<NetEventApplicationStoreResolver>()
+                .UseEntityFrameworkCore()
                .UseDbContext<ApplicationDbContext>();
 
         // Enable Quartz.NET integration.
@@ -82,8 +96,7 @@ builder.Services.AddOpenIddict()
         // Note: the sample uses the code and refresh token flows but you can enable
         // the other flows if you need to support implicit, password or client credentials.
         options.AllowAuthorizationCodeFlow()
-               .AllowRefreshTokenFlow()
-               ;//.Allow;
+               .AllowRefreshTokenFlow();
 
         // Register the signing and encryption credentials.
         options.AddDevelopmentEncryptionCertificate()
@@ -144,11 +157,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(options =>
+app.UseEndpoints(endpoints =>
 {
-    options.MapRazorPages();
-    options.MapControllers();
-    options.MapFallbackToFile("index.html");
+    endpoints.MapRazorPages();
+    endpoints.MapControllers();
+    endpoints.MapFallbackToFile("index.html");
+    endpoints.MapGraphQL();
 });
 
 await app.RunAsync();
