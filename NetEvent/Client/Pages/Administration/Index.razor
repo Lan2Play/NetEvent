@@ -1,0 +1,14 @@
+﻿@page "/administration"
+
+
+<h3>Index</h3>
+
+
+<ul>
+
+@foreach (var user in Users)
+{
+	<li>@user.Id: @user.UserName</li>
+}
+
+</ul>

@@ -5,44 +5,35 @@ using NetEvent.Server.Data;
 using NetEvent.Server.GraphQl;
 using NetEvent.Server.Models;
 using OpenIddict.Validation.AspNetCore;
-using Quartz;
+//using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    // Configure the context to use Microsoft SQL Server.
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")/*, o => o.EnableRetryOnFailure()*/);
-
-    // Register the entity sets needed by OpenIddict.
-    // Note: use the generic overload if you need
-    // to replace the default OpenIddict entities.
+    options.UseSqlite(connectionString);
     options.UseOpenIddict();
-}, contextLifetime: ServiceLifetime.Transient,
-    optionsLifetime: ServiceLifetime.Singleton);
+},
+contextLifetime: ServiceLifetime.Transient,
+optionsLifetime: ServiceLifetime.Singleton);
 
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")/*, o => o.EnableRetryOnFailure()*/),
+    options.UseSqlite(connectionString),
     ServiceLifetime.Scoped);
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
+builder.Services.AddAuthentication().AddSteam();
+
 builder.Services.AddGraphQLServer()
                 .AddAuthorization()
-                .AddQueryType<Query>();
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
-    options.DefaultForbidScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
-}).AddSteam();
+                .AddQueryType<Query>()
+                .AddSubscriptionType<Subscription>();
 
 // Configure Identity to use the same JWT claims as OpenIddict instead
 // of the legacy WS-Federation claims it uses by default (ClaimTypes),
@@ -56,15 +47,15 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 // OpenIddict offers native integration with Quartz.NET to perform scheduled tasks
 // (like pruning orphaned authorizations/tokens from the database) at regular intervals.
-builder.Services.AddQuartz(options =>
-{
-    options.UseMicrosoftDependencyInjectionJobFactory();
-    options.UseSimpleTypeLoader();
-    options.UseInMemoryStore();
-});
+//builder.Services.AddQuartz(options =>
+//{
+//    options.UseMicrosoftDependencyInjectionJobFactory();
+//    options.UseSimpleTypeLoader();
+//    options.UseInMemoryStore();
+//});
 
 // Register the Quartz.NET service and configure it to block shutdown until jobs are complete.
-builder.Services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
+//builder.Services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
 builder.Services.AddOpenIddict()
     // Register the OpenIddict core components.
@@ -152,6 +143,8 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseWebSockets();
+
 
 app.UseAuthentication();
 app.UseAuthorization();
