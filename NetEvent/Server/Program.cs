@@ -7,7 +7,6 @@ using NetEvent.Server.Models;
 using OpenIddict.Validation.AspNetCore;
 using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
-using HotChocolate.Execution;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +20,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     // Note: use the generic overload if you need
     // to replace the default OpenIddict entities.
     options.UseOpenIddict();
-});
+}, contextLifetime: ServiceLifetime.Transient,
+    optionsLifetime: ServiceLifetime.Singleton);
 
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")/*, o => o.EnableRetryOnFailure()*/),
+    ServiceLifetime.Scoped);
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -31,14 +34,10 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddDefaultUI();
 
 builder.Services.AddGraphQLServer()
-                .ModifyOptions(options =>
-                {
-                    options.DefaultResolverStrategy = ExecutionStrategy.Serial;
-                })
                 .AddAuthorization()
                 .AddQueryType<Query>();
 
-var authenticationBuilder = builder.Services.AddAuthentication(options =>
+builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;

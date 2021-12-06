@@ -1,13 +1,13 @@
-﻿using NetEvent.Server.Data;
+﻿using HotChocolate.AspNetCore.Authorization;
+using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 
 namespace NetEvent.Server.GraphQl
 {
     public class Query
     {
-        //[UseApplicationDbContext]
-        [Serial]
-        public IQueryable<ApplicationUser> GetUsers(/*[ScopedService]*/[Service] ApplicationDbContext dbContext) => dbContext.Users;
+        [UseApplicationDbContext]
+        public IQueryable<ApplicationUser> GetUsers([ScopedService] ApplicationDbContext dbContext) => dbContext.Users;
 
         public Book GetBook() =>
                 new Book
@@ -23,6 +23,7 @@ namespace NetEvent.Server.GraphQl
         {
             public string Title { get; set; }
 
+            [Authorize(Roles = new[] { "Admin" })]
             public Author Author { get; set; }
         }
 
@@ -31,6 +32,4 @@ namespace NetEvent.Server.GraphQl
             public string Name { get; set; }
         }
     }
-
-
 }
