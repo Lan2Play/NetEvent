@@ -1,4 +1,4 @@
-﻿subscription subscription{
+﻿subscription UserAdded{
     userAdded {
         id
         userName

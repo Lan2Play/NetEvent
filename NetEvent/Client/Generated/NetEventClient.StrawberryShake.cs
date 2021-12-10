@@ -15,8 +15,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 return new ClientServiceProvider(global::Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(serviceCollection));
             });
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => new global::NetEvent.Client.State.NetEventClientStoreAccessor(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityStore>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IEntityIdSerializer>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory>>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory>>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp))));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.SubscriptionSubscription>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.GetUsersQuery>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.UserAddedSubscription>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.NetEventClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.INetEventClient>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             return new global::StrawberryShake.ClientBuilder<global::NetEvent.Client.State.NetEventClientStoreAccessor>("NetEventClient", services, serviceCollection);
@@ -36,8 +36,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 var clientFactory = global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Net.Http.IHttpClientFactory>(parentServices);
                 return new global::StrawberryShake.Transport.Http.HttpConnection(() => clientFactory.CreateClient("NetEventClient"));
             });
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::NetEvent.Client.State.ApplicationUserEntity, global::NetEvent.Client.Subscription_UserAdded_ApplicationUser>, global::NetEvent.Client.State.Subscription_UserAdded_ApplicationUserFromApplicationUserEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::NetEvent.Client.State.ApplicationUserEntity, global::NetEvent.Client.GetUsers_Users_ApplicationUser>, global::NetEvent.Client.State.GetUsers_Users_ApplicationUserFromApplicationUserEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::NetEvent.Client.State.ApplicationUserEntity, global::NetEvent.Client.UserAdded_UserAdded_ApplicationUser>, global::NetEvent.Client.State.UserAdded_UserAdded_ApplicationUserFromApplicationUserEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.StringSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.BooleanSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.ByteSerializer>(services);
@@ -55,13 +55,6 @@ namespace Microsoft.Extensions.DependencyInjection
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.TimeSpanSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializer, global::StrawberryShake.Serialization.JsonSerializer>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.Serialization.ISerializerResolver>(services, sp => new global::StrawberryShake.Serialization.SerializerResolver(global::System.Linq.Enumerable.Concat(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(parentServices), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::System.Collections.Generic.IEnumerable<global::StrawberryShake.Serialization.ISerializer>>(sp))));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.ISubscriptionResult>, global::NetEvent.Client.State.SubscriptionResultFactory>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.ISubscriptionResult>>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.ISubscriptionSubscription>(sp));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::NetEvent.Client.ISubscriptionResult>, global::NetEvent.Client.State.SubscriptionBuilder>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::NetEvent.Client.ISubscriptionResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::NetEvent.Client.ISubscriptionResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.WebSockets.IWebSocketConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::NetEvent.Client.ISubscriptionResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::NetEvent.Client.SubscriptionSubscription>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::NetEvent.Client.ISubscriptionSubscription>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.SubscriptionSubscription>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IGetUsersResult>, global::NetEvent.Client.State.GetUsersResultFactory>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IGetUsersResult>>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.IGetUsersQuery>(sp));
@@ -69,6 +62,13 @@ namespace Microsoft.Extensions.DependencyInjection
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::NetEvent.Client.IGetUsersResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::NetEvent.Client.IGetUsersResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.IHttpConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::NetEvent.Client.IGetUsersResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::NetEvent.Client.GetUsersQuery>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::NetEvent.Client.IGetUsersQuery>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.GetUsersQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IUserAddedResult>, global::NetEvent.Client.State.UserAddedResultFactory>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IUserAddedResult>>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.IUserAddedSubscription>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::NetEvent.Client.IUserAddedResult>, global::NetEvent.Client.State.UserAddedBuilder>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::NetEvent.Client.IUserAddedResult>>(services, sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::NetEvent.Client.IUserAddedResult>(global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.WebSockets.IWebSocketConnection>(sp), () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::NetEvent.Client.IUserAddedResult>>(sp), global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp), strategy));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::NetEvent.Client.UserAddedSubscription>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::NetEvent.Client.IUserAddedSubscription>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.UserAddedSubscription>(sp));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityIdSerializer, global::NetEvent.Client.State.NetEventClientEntityIdFactory>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::NetEvent.Client.NetEventClient>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::NetEvent.Client.INetEventClient>(services, sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::NetEvent.Client.NetEventClient>(sp));
@@ -101,159 +101,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
 namespace NetEvent.Client
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public partial class SubscriptionResult : global::System.IEquatable<SubscriptionResult>, ISubscriptionResult
-    {
-        public SubscriptionResult(global::NetEvent.Client.ISubscription_UserAdded userAdded)
-        {
-            UserAdded = userAdded;
-        }
-
-        public global::NetEvent.Client.ISubscription_UserAdded UserAdded { get; }
-
-        public virtual global::System.Boolean Equals(SubscriptionResult? other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (UserAdded.Equals(other.UserAdded));
-        }
-
-        public override global::System.Boolean Equals(global::System.Object? obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((SubscriptionResult)obj);
-        }
-
-        public override global::System.Int32 GetHashCode()
-        {
-            unchecked
-            {
-                int hash = 5;
-                hash ^= 397 * UserAdded.GetHashCode();
-                return hash;
-            }
-        }
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public partial class Subscription_UserAdded_ApplicationUser : global::System.IEquatable<Subscription_UserAdded_ApplicationUser>, ISubscription_UserAdded_ApplicationUser
-    {
-        public Subscription_UserAdded_ApplicationUser(global::System.String? id, global::System.String? userName)
-        {
-            Id = id;
-            UserName = userName;
-        }
-
-        public global::System.String? Id { get; }
-
-        public global::System.String? UserName { get; }
-
-        public virtual global::System.Boolean Equals(Subscription_UserAdded_ApplicationUser? other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id))) && ((UserName is null && other.UserName is null) || UserName != null && UserName.Equals(other.UserName));
-        }
-
-        public override global::System.Boolean Equals(global::System.Object? obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((Subscription_UserAdded_ApplicationUser)obj);
-        }
-
-        public override global::System.Int32 GetHashCode()
-        {
-            unchecked
-            {
-                int hash = 5;
-                if (Id != null)
-                {
-                    hash ^= 397 * Id.GetHashCode();
-                }
-
-                if (UserName != null)
-                {
-                    hash ^= 397 * UserName.GetHashCode();
-                }
-
-                return hash;
-            }
-        }
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public interface ISubscriptionResult
-    {
-        public global::NetEvent.Client.ISubscription_UserAdded UserAdded { get; }
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public interface ISubscription_UserAdded
-    {
-        public global::System.String? Id { get; }
-
-        public global::System.String? UserName { get; }
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public interface ISubscription_UserAdded_ApplicationUser : ISubscription_UserAdded
-    {
-    }
-
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
     public partial class GetUsersResult : global::System.IEquatable<GetUsersResult>, IGetUsersResult
     {
@@ -411,108 +258,157 @@ namespace NetEvent.Client
     {
     }
 
-    /// <summary>
-    /// Represents the operation service of the Subscription GraphQL operation
-    /// <code>
-    /// subscription Subscription {
-    ///   userAdded {
-    ///     __typename
-    ///     id
-    ///     userName
-    ///     ... on ApplicationUser {
-    ///       id
-    ///     }
-    ///   }
-    /// }
-    /// </code>
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public partial class SubscriptionSubscriptionDocument : global::StrawberryShake.IDocument
+    public partial class UserAddedResult : global::System.IEquatable<UserAddedResult>, IUserAddedResult
     {
-        private SubscriptionSubscriptionDocument()
+        public UserAddedResult(global::NetEvent.Client.IUserAdded_UserAdded userAdded)
         {
+            UserAdded = userAdded;
         }
 
-        public static SubscriptionSubscriptionDocument Instance { get; } = new SubscriptionSubscriptionDocument();
-        public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Subscription;
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x7b, 0x20, 0x75, 0x73, 0x65, 0x72, 0x41, 0x64, 0x64, 0x65, 0x64, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x69, 0x64, 0x20, 0x75, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d};
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "935de32b10392d0c4bf7fc1ed19bc481");
-        public override global::System.String ToString()
+        public global::NetEvent.Client.IUserAdded_UserAdded UserAdded { get; }
+
+        public virtual global::System.Boolean Equals(UserAddedResult? other)
         {
-#if NETSTANDARD2_0
-        return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
-#else
-            return global::System.Text.Encoding.UTF8.GetString(Body);
-#endif
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (UserAdded.Equals(other.UserAdded));
+        }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((UserAddedResult)obj);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+                hash ^= 397 * UserAdded.GetHashCode();
+                return hash;
+            }
         }
     }
 
-    /// <summary>
-    /// Represents the operation service of the Subscription GraphQL operation
-    /// <code>
-    /// subscription Subscription {
-    ///   userAdded {
-    ///     __typename
-    ///     id
-    ///     userName
-    ///     ... on ApplicationUser {
-    ///       id
-    ///     }
-    ///   }
-    /// }
-    /// </code>
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public partial class SubscriptionSubscription : global::NetEvent.Client.ISubscriptionSubscription
+    public partial class UserAdded_UserAdded_ApplicationUser : global::System.IEquatable<UserAdded_UserAdded_ApplicationUser>, IUserAdded_UserAdded_ApplicationUser
     {
-        private readonly global::StrawberryShake.IOperationExecutor<ISubscriptionResult> _operationExecutor;
-        public SubscriptionSubscription(global::StrawberryShake.IOperationExecutor<ISubscriptionResult> operationExecutor)
+        public UserAdded_UserAdded_ApplicationUser(global::System.String? id, global::System.String? userName)
         {
-            _operationExecutor = operationExecutor ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
+            Id = id;
+            UserName = userName;
         }
 
-        global::System.Type global::StrawberryShake.IOperationRequestFactory.ResultType => typeof(ISubscriptionResult);
-        public global::System.IObservable<global::StrawberryShake.IOperationResult<ISubscriptionResult>> Watch(global::StrawberryShake.ExecutionStrategy? strategy = null)
+        public global::System.String? Id { get; }
+
+        public global::System.String? UserName { get; }
+
+        public virtual global::System.Boolean Equals(UserAdded_UserAdded_ApplicationUser? other)
         {
-            var request = CreateRequest();
-            return _operationExecutor.Watch(request, strategy);
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id))) && ((UserName is null && other.UserName is null) || UserName != null && UserName.Equals(other.UserName));
         }
 
-        private global::StrawberryShake.OperationRequest CreateRequest()
+        public override global::System.Boolean Equals(global::System.Object? obj)
         {
-            return CreateRequest(null);
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((UserAdded_UserAdded_ApplicationUser)obj);
         }
 
-        private global::StrawberryShake.OperationRequest CreateRequest(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
+        public override global::System.Int32 GetHashCode()
         {
-            return new global::StrawberryShake.OperationRequest(id: SubscriptionSubscriptionDocument.Instance.Hash.Value, name: "Subscription", document: SubscriptionSubscriptionDocument.Instance, strategy: global::StrawberryShake.RequestStrategy.Default);
-        }
+            unchecked
+            {
+                int hash = 5;
+                if (Id != null)
+                {
+                    hash ^= 397 * Id.GetHashCode();
+                }
 
-        global::StrawberryShake.OperationRequest global::StrawberryShake.IOperationRequestFactory.Create(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
-        {
-            return CreateRequest();
+                if (UserName != null)
+                {
+                    hash ^= 397 * UserName.GetHashCode();
+                }
+
+                return hash;
+            }
         }
     }
 
-    /// <summary>
-    /// Represents the operation service of the Subscription GraphQL operation
-    /// <code>
-    /// subscription Subscription {
-    ///   userAdded {
-    ///     __typename
-    ///     id
-    ///     userName
-    ///     ... on ApplicationUser {
-    ///       id
-    ///     }
-    ///   }
-    /// }
-    /// </code>
-    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public interface ISubscriptionSubscription : global::StrawberryShake.IOperationRequestFactory
+    public interface IUserAddedResult
     {
-        global::System.IObservable<global::StrawberryShake.IOperationResult<ISubscriptionResult>> Watch(global::StrawberryShake.ExecutionStrategy? strategy = null);
+        public global::NetEvent.Client.IUserAdded_UserAdded UserAdded { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
+    public interface IUserAdded_UserAdded
+    {
+        public global::System.String? Id { get; }
+
+        public global::System.String? UserName { get; }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
+    public interface IUserAdded_UserAdded_ApplicationUser : IUserAdded_UserAdded
+    {
     }
 
     /// <summary>
@@ -627,22 +523,126 @@ namespace NetEvent.Client
     }
 
     /// <summary>
+    /// Represents the operation service of the UserAdded GraphQL operation
+    /// <code>
+    /// subscription UserAdded {
+    ///   userAdded {
+    ///     __typename
+    ///     id
+    ///     userName
+    ///     ... on ApplicationUser {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// </code>
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
+    public partial class UserAddedSubscriptionDocument : global::StrawberryShake.IDocument
+    {
+        private UserAddedSubscriptionDocument()
+        {
+        }
+
+        public static UserAddedSubscriptionDocument Instance { get; } = new UserAddedSubscriptionDocument();
+        public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Subscription;
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x55, 0x73, 0x65, 0x72, 0x41, 0x64, 0x64, 0x65, 0x64, 0x20, 0x7b, 0x20, 0x75, 0x73, 0x65, 0x72, 0x41, 0x64, 0x64, 0x65, 0x64, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x69, 0x64, 0x20, 0x75, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d};
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "7aefd48b7e76faf7fb641d10feaf1f48");
+        public override global::System.String ToString()
+        {
+#if NETSTANDARD2_0
+        return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
+#else
+            return global::System.Text.Encoding.UTF8.GetString(Body);
+#endif
+        }
+    }
+
+    /// <summary>
+    /// Represents the operation service of the UserAdded GraphQL operation
+    /// <code>
+    /// subscription UserAdded {
+    ///   userAdded {
+    ///     __typename
+    ///     id
+    ///     userName
+    ///     ... on ApplicationUser {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// </code>
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
+    public partial class UserAddedSubscription : global::NetEvent.Client.IUserAddedSubscription
+    {
+        private readonly global::StrawberryShake.IOperationExecutor<IUserAddedResult> _operationExecutor;
+        public UserAddedSubscription(global::StrawberryShake.IOperationExecutor<IUserAddedResult> operationExecutor)
+        {
+            _operationExecutor = operationExecutor ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
+        }
+
+        global::System.Type global::StrawberryShake.IOperationRequestFactory.ResultType => typeof(IUserAddedResult);
+        public global::System.IObservable<global::StrawberryShake.IOperationResult<IUserAddedResult>> Watch(global::StrawberryShake.ExecutionStrategy? strategy = null)
+        {
+            var request = CreateRequest();
+            return _operationExecutor.Watch(request, strategy);
+        }
+
+        private global::StrawberryShake.OperationRequest CreateRequest()
+        {
+            return CreateRequest(null);
+        }
+
+        private global::StrawberryShake.OperationRequest CreateRequest(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
+        {
+            return new global::StrawberryShake.OperationRequest(id: UserAddedSubscriptionDocument.Instance.Hash.Value, name: "UserAdded", document: UserAddedSubscriptionDocument.Instance, strategy: global::StrawberryShake.RequestStrategy.Default);
+        }
+
+        global::StrawberryShake.OperationRequest global::StrawberryShake.IOperationRequestFactory.Create(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
+        {
+            return CreateRequest();
+        }
+    }
+
+    /// <summary>
+    /// Represents the operation service of the UserAdded GraphQL operation
+    /// <code>
+    /// subscription UserAdded {
+    ///   userAdded {
+    ///     __typename
+    ///     id
+    ///     userName
+    ///     ... on ApplicationUser {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// </code>
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
+    public interface IUserAddedSubscription : global::StrawberryShake.IOperationRequestFactory
+    {
+        global::System.IObservable<global::StrawberryShake.IOperationResult<IUserAddedResult>> Watch(global::StrawberryShake.ExecutionStrategy? strategy = null);
+    }
+
+    /// <summary>
     /// Represents the NetEventClient GraphQL client
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
     public partial class NetEventClient : global::NetEvent.Client.INetEventClient
     {
-        private readonly global::NetEvent.Client.ISubscriptionSubscription _subscription;
         private readonly global::NetEvent.Client.IGetUsersQuery _getUsers;
-        public NetEventClient(global::NetEvent.Client.ISubscriptionSubscription subscription, global::NetEvent.Client.IGetUsersQuery getUsers)
+        private readonly global::NetEvent.Client.IUserAddedSubscription _userAdded;
+        public NetEventClient(global::NetEvent.Client.IGetUsersQuery getUsers, global::NetEvent.Client.IUserAddedSubscription userAdded)
         {
-            _subscription = subscription ?? throw new global::System.ArgumentNullException(nameof(subscription));
             _getUsers = getUsers ?? throw new global::System.ArgumentNullException(nameof(getUsers));
+            _userAdded = userAdded ?? throw new global::System.ArgumentNullException(nameof(userAdded));
         }
 
         public static global::System.String ClientName => "NetEventClient";
-        public global::NetEvent.Client.ISubscriptionSubscription Subscription => _subscription;
         public global::NetEvent.Client.IGetUsersQuery GetUsers => _getUsers;
+        public global::NetEvent.Client.IUserAddedSubscription UserAdded => _userAdded;
     }
 
     /// <summary>
@@ -651,9 +651,9 @@ namespace NetEvent.Client
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
     public interface INetEventClient
     {
-        global::NetEvent.Client.ISubscriptionSubscription Subscription { get; }
-
         global::NetEvent.Client.IGetUsersQuery GetUsers { get; }
+
+        global::NetEvent.Client.IUserAddedSubscription UserAdded { get; }
     }
 }
 
@@ -671,91 +671,6 @@ namespace NetEvent.Client.State
         public global::System.String? Id { get; }
 
         public global::System.String? UserName { get; }
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public partial class SubscriptionResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.SubscriptionResult>
-    {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::NetEvent.Client.State.ApplicationUserEntity, Subscription_UserAdded_ApplicationUser> _subscription_UserAdded_ApplicationUserFromApplicationUserEntityMapper;
-        public SubscriptionResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::NetEvent.Client.State.ApplicationUserEntity, Subscription_UserAdded_ApplicationUser> subscription_UserAdded_ApplicationUserFromApplicationUserEntityMapper)
-        {
-            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _subscription_UserAdded_ApplicationUserFromApplicationUserEntityMapper = subscription_UserAdded_ApplicationUserFromApplicationUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(subscription_UserAdded_ApplicationUserFromApplicationUserEntityMapper));
-        }
-
-        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::NetEvent.Client.ISubscriptionResult);
-        public SubscriptionResult Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            if (dataInfo is SubscriptionResultInfo info)
-            {
-                return new SubscriptionResult(MapNonNullableISubscription_UserAdded(info.UserAdded, snapshot));
-            }
-
-            throw new global::System.ArgumentException("SubscriptionResultInfo expected.");
-        }
-
-        private global::NetEvent.Client.ISubscription_UserAdded MapNonNullableISubscription_UserAdded(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId.Name.Equals("ApplicationUser", global::System.StringComparison.Ordinal))
-            {
-                return _subscription_UserAdded_ApplicationUserFromApplicationUserEntityMapper.Map(snapshot.GetEntity<global::NetEvent.Client.State.ApplicationUserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot)
-        {
-            return Create(dataInfo, snapshot);
-        }
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public partial class SubscriptionResultInfo : global::StrawberryShake.IOperationResultDataInfo
-    {
-        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
-        private readonly global::System.UInt64 _version;
-        public SubscriptionResultInfo(global::StrawberryShake.EntityId userAdded, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
-        {
-            UserAdded = userAdded;
-            _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
-            _version = version;
-        }
-
-        public global::StrawberryShake.EntityId UserAdded { get; }
-
-        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
-        public global::System.UInt64 Version => _version;
-        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
-        {
-            return new SubscriptionResultInfo(UserAdded, _entityIds, version);
-        }
-    }
-
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public partial class Subscription_UserAdded_ApplicationUserFromApplicationUserEntityMapper : global::StrawberryShake.IEntityMapper<global::NetEvent.Client.State.ApplicationUserEntity, Subscription_UserAdded_ApplicationUser>
-    {
-        private readonly global::StrawberryShake.IEntityStore _entityStore;
-        public Subscription_UserAdded_ApplicationUserFromApplicationUserEntityMapper(global::StrawberryShake.IEntityStore entityStore)
-        {
-            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-        }
-
-        public Subscription_UserAdded_ApplicationUser Map(global::NetEvent.Client.State.ApplicationUserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            if (snapshot is null)
-            {
-                snapshot = _entityStore.CurrentSnapshot;
-            }
-
-            return new Subscription_UserAdded_ApplicationUser(entity.Id, entity.UserName);
-        }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
@@ -860,102 +775,87 @@ namespace NetEvent.Client.State
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
-    public partial class SubscriptionBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::NetEvent.Client.ISubscriptionResult>
+    public partial class UserAddedResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.UserAddedResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
-        private readonly global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.ISubscriptionResult> _resultDataFactory;
-        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
-        public SubscriptionBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.ISubscriptionResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        private readonly global::StrawberryShake.IEntityMapper<global::NetEvent.Client.State.ApplicationUserEntity, UserAdded_UserAdded_ApplicationUser> _userAdded_UserAdded_ApplicationUserFromApplicationUserEntityMapper;
+        public UserAddedResultFactory(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityMapper<global::NetEvent.Client.State.ApplicationUserEntity, UserAdded_UserAdded_ApplicationUser> userAdded_UserAdded_ApplicationUserFromApplicationUserEntityMapper)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
-            _resultDataFactory = resultDataFactory ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
-            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String") ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+            _userAdded_UserAdded_ApplicationUserFromApplicationUserEntityMapper = userAdded_UserAdded_ApplicationUserFromApplicationUserEntityMapper ?? throw new global::System.ArgumentNullException(nameof(userAdded_UserAdded_ApplicationUserFromApplicationUserEntityMapper));
         }
 
-        public global::StrawberryShake.IOperationResult<ISubscriptionResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
+        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::NetEvent.Client.IUserAddedResult);
+        public UserAddedResult Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
         {
-            (ISubscriptionResult Result, SubscriptionResultInfo Info)? data = null;
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.IClientError>? errors = null;
-            if (response.Exception is null)
+            if (snapshot is null)
             {
-                try
-                {
-                    if (response.Body != null)
-                    {
-                        if (response.Body.RootElement.TryGetProperty("data", out global::System.Text.Json.JsonElement dataElement) && dataElement.ValueKind == global::System.Text.Json.JsonValueKind.Object)
-                        {
-                            data = BuildData(dataElement);
-                        }
-
-                        if (response.Body.RootElement.TryGetProperty("errors", out global::System.Text.Json.JsonElement errorsElement))
-                        {
-                            errors = global::StrawberryShake.Json.JsonErrorParser.ParseErrors(errorsElement);
-                        }
-                    }
-                }
-                catch (global::System.Exception ex)
-                {
-                    errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(ex.Message, exception: ex, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
-                }
-            }
-            else
-            {
-                errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(response.Exception.Message, exception: response.Exception, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
+                snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return new global::StrawberryShake.OperationResult<ISubscriptionResult>(data?.Result, data?.Info, _resultDataFactory, errors);
+            if (dataInfo is UserAddedResultInfo info)
+            {
+                return new UserAddedResult(MapNonNullableIUserAdded_UserAdded(info.UserAdded, snapshot));
+            }
+
+            throw new global::System.ArgumentException("UserAddedResultInfo expected.");
         }
 
-        private (ISubscriptionResult, SubscriptionResultInfo) BuildData(global::System.Text.Json.JsonElement obj)
+        private global::NetEvent.Client.IUserAdded_UserAdded MapNonNullableIUserAdded_UserAdded(global::StrawberryShake.EntityId entityId, global::StrawberryShake.IEntityStoreSnapshot snapshot)
         {
-            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
-            global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
-            global::StrawberryShake.EntityId userAddedId = default !;
-            _entityStore.Update(session =>
-            {
-                userAddedId = UpdateNonNullableISubscription_UserAddedEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userAdded"), entityIds);
-                snapshot = session.CurrentSnapshot;
-            });
-            var resultInfo = new SubscriptionResultInfo(userAddedId, entityIds, snapshot.Version);
-            return (_resultDataFactory.Create(resultInfo), resultInfo);
-        }
-
-        private global::StrawberryShake.EntityId UpdateNonNullableISubscription_UserAddedEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                throw new global::System.ArgumentNullException();
-            }
-
-            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
-            entityIds.Add(entityId);
             if (entityId.Name.Equals("ApplicationUser", global::System.StringComparison.Ordinal))
             {
-                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::NetEvent.Client.State.ApplicationUserEntity? entity))
-                {
-                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
-                }
-                else
-                {
-                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
-                }
-
-                return entityId;
+                return _userAdded_UserAdded_ApplicationUserFromApplicationUserEntityMapper.Map(snapshot.GetEntity<global::NetEvent.Client.State.ApplicationUserEntity>(entityId) ?? throw new global::StrawberryShake.GraphQLClientException());
             }
 
             throw new global::System.NotSupportedException();
         }
 
-        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
+        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(global::StrawberryShake.IOperationResultDataInfo dataInfo, global::StrawberryShake.IEntityStoreSnapshot? snapshot)
         {
-            if (!obj.HasValue)
+            return Create(dataInfo, snapshot);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
+    public partial class UserAddedResultInfo : global::StrawberryShake.IOperationResultDataInfo
+    {
+        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
+        private readonly global::System.UInt64 _version;
+        public UserAddedResultInfo(global::StrawberryShake.EntityId userAdded, global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds, global::System.UInt64 version)
+        {
+            UserAdded = userAdded;
+            _entityIds = entityIds ?? throw new global::System.ArgumentNullException(nameof(entityIds));
+            _version = version;
+        }
+
+        public global::StrawberryShake.EntityId UserAdded { get; }
+
+        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
+        public global::System.UInt64 Version => _version;
+        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
+        {
+            return new UserAddedResultInfo(UserAdded, _entityIds, version);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
+    public partial class UserAdded_UserAdded_ApplicationUserFromApplicationUserEntityMapper : global::StrawberryShake.IEntityMapper<global::NetEvent.Client.State.ApplicationUserEntity, UserAdded_UserAdded_ApplicationUser>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        public UserAdded_UserAdded_ApplicationUserFromApplicationUserEntityMapper(global::StrawberryShake.IEntityStore entityStore)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+        }
+
+        public UserAdded_UserAdded_ApplicationUser Map(global::NetEvent.Client.State.ApplicationUserEntity entity, global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
             {
-                return null;
+                snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return _stringParser.Parse(obj.Value.GetString()!);
+            return new UserAdded_UserAdded_ApplicationUser(entity.Id, entity.UserName);
         }
     }
 
@@ -1039,6 +939,106 @@ namespace NetEvent.Client.State
         }
 
         private global::StrawberryShake.EntityId UpdateNonNullableIGetUsers_UsersEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+            if (entityId.Name.Equals("ApplicationUser", global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(entityId, out global::NetEvent.Client.State.ApplicationUserEntity? entity))
+                {
+                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
+                }
+                else
+                {
+                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
+    public partial class UserAddedBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::NetEvent.Client.IUserAddedResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
+        private readonly global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IUserAddedResult> _resultDataFactory;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
+        public UserAddedBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IUserAddedResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
+            _resultDataFactory = resultDataFactory ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
+            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String") ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+        }
+
+        public global::StrawberryShake.IOperationResult<IUserAddedResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
+        {
+            (IUserAddedResult Result, UserAddedResultInfo Info)? data = null;
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.IClientError>? errors = null;
+            if (response.Exception is null)
+            {
+                try
+                {
+                    if (response.Body != null)
+                    {
+                        if (response.Body.RootElement.TryGetProperty("data", out global::System.Text.Json.JsonElement dataElement) && dataElement.ValueKind == global::System.Text.Json.JsonValueKind.Object)
+                        {
+                            data = BuildData(dataElement);
+                        }
+
+                        if (response.Body.RootElement.TryGetProperty("errors", out global::System.Text.Json.JsonElement errorsElement))
+                        {
+                            errors = global::StrawberryShake.Json.JsonErrorParser.ParseErrors(errorsElement);
+                        }
+                    }
+                }
+                catch (global::System.Exception ex)
+                {
+                    errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(ex.Message, exception: ex, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
+                }
+            }
+            else
+            {
+                errors = new global::StrawberryShake.IClientError[]{new global::StrawberryShake.ClientError(response.Exception.Message, exception: response.Exception, extensions: new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>{{"body", response.Body?.RootElement.ToString()}})};
+            }
+
+            return new global::StrawberryShake.OperationResult<IUserAddedResult>(data?.Result, data?.Info, _resultDataFactory, errors);
+        }
+
+        private (IUserAddedResult, UserAddedResultInfo) BuildData(global::System.Text.Json.JsonElement obj)
+        {
+            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
+            global::StrawberryShake.IEntityStoreSnapshot snapshot = default !;
+            global::StrawberryShake.EntityId userAddedId = default !;
+            _entityStore.Update(session =>
+            {
+                userAddedId = UpdateNonNullableIUserAdded_UserAddedEntity(session, global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userAdded"), entityIds);
+                snapshot = session.CurrentSnapshot;
+            });
+            var resultInfo = new UserAddedResultInfo(userAddedId, entityIds, snapshot.Version);
+            return (_resultDataFactory.Create(resultInfo), resultInfo);
+        }
+
+        private global::StrawberryShake.EntityId UpdateNonNullableIUserAdded_UserAddedEntity(global::StrawberryShake.IEntityStoreUpdateSession session, global::System.Text.Json.JsonElement? obj, global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
         {
             if (!obj.HasValue)
             {

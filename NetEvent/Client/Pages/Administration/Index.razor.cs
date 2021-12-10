@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using NetEvent.Client.Models;
 using StrawberryShake;
 using System.Reactive.Linq;
 
@@ -12,27 +13,31 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         public NetEventClient? NetEventClient { get; set; }
 
-        public List<string> Users { get; private set; } = new List<string>();
+        public List<User> Users { get; private set; } = new List<User>();
 
         protected override void OnInitialized()
         {
-            _UsersSession = NetEventClient.GetUsers.Watch(ExecutionStrategy.CacheFirst)
-                                                      .Where(t => !t.Errors.Any())
-                                                      .Select(t => t.Data!.Users)
-                                                      .Subscribe(result =>
-                                                      {
-                                                          Users.AddRange(result.Select(x=>x.UserName));
-                                                          StateHasChanged();
-                                                      });
+            if (NetEventClient != null)
+            {
 
-            _UsersSession = NetEventClient.Subscription.Watch(ExecutionStrategy.CacheFirst)
-                                                         .Where(t => !t.Errors.Any())
-                                                         .Select(t => t.Data!.UserAdded)
-                                                         .Subscribe(result =>
-                                                         {
-                                                             Users.Add(result.UserName);
-                                                             StateHasChanged();
-                                                         });
+                _UsersSession = NetEventClient.GetUsers.Watch(ExecutionStrategy.CacheFirst)
+                                                          .Where(t => !t.Errors.Any())
+                                                          .Select(t => t.Data!.Users)
+                                                          .Subscribe(result =>
+                                                          {
+                                                              Users.AddRange(result.Select(x => x.ToUser()));
+                                                              StateHasChanged();
+                                                          });
+
+                _UsersSession = NetEventClient.UserAdded.Watch(ExecutionStrategy.CacheFirst)
+                                                             .Where(t => !t.Errors.Any())
+                                                             .Select(t => t.Data!.UserAdded)
+                                                             .Subscribe(result =>
+                                                             {
+                                                                 Users.Add(result.ToUser());
+                                                                 StateHasChanged();
+                                                             });
+            }
         }
 
         #region IDispose

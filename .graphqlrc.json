@@ -1,0 +1,12 @@
+{
+  "projects": [
+    {
+      "schema": [
+        "NetEvent/Client/schema.graphql"
+      ],
+      "documents": [
+        "NetEvent/Client/**/*.graphql"
+      ]
+    }
+  ]
+}
