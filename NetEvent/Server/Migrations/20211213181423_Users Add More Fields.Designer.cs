@@ -11,8 +11,8 @@ using NetEvent.Server.Data;
 namespace NetEvent.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211206205417_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20211213181423_Users Add More Fields")]
+    partial class UsersAddMoreFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace NetEvent.Server.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Role", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -65,7 +65,7 @@ namespace NetEvent.Server.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -88,7 +88,7 @@ namespace NetEvent.Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -112,7 +112,7 @@ namespace NetEvent.Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -127,7 +127,7 @@ namespace NetEvent.Server.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -148,7 +148,7 @@ namespace NetEvent.Server.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Server.Models.ApplicationUser", b =>
@@ -169,6 +169,14 @@ namespace NetEvent.Server.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
@@ -193,6 +201,10 @@ namespace NetEvent.Server.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<byte[]>("ProfilePicture")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
@@ -212,7 +224,7 @@ namespace NetEvent.Server.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreApplication", b =>
