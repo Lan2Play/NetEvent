@@ -11,8 +11,8 @@ using NetEvent.Server.Data;
 namespace NetEvent.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211213181423_Users Add More Fields")]
-    partial class UsersAddMoreFields
+    [Migration("20211213185230_CreateIdentitySchema")]
+    partial class CreateIdentitySchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -202,7 +202,6 @@ namespace NetEvent.Server.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<byte[]>("ProfilePicture")
-                        .IsRequired()
                         .HasColumnType("BLOB");
 
                     b.Property<string>("SecurityStamp")

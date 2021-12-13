@@ -200,7 +200,6 @@ namespace NetEvent.Server.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<byte[]>("ProfilePicture")
-                        .IsRequired()
                         .HasColumnType("BLOB");
 
                     b.Property<string>("SecurityStamp")
