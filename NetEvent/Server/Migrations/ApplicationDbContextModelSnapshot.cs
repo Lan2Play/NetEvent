@@ -41,6 +41,22 @@ namespace NetEvent.Server.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Role", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "FEAF344F-AA9B-47F5-B170-829617CDD9A4",
+                            ConcurrencyStamp = "0e37fa8e-61d1-4cc0-a494-d1128afd3fbc",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "3ECB400B-DFCF-4268-8D67-7BC9F09DD0B1",
+                            ConcurrencyStamp = "f7e0d898-efa5-42d0-8983-34b4f7270536",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -126,6 +142,13 @@ namespace NetEvent.Server.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
+                            RoleId = "FEAF344F-AA9B-47F5-B170-829617CDD9A4"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -222,6 +245,26 @@ namespace NetEvent.Server.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("User", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7bd011f8-8218-44e5-815a-713c6bbcff14",
+                            Email = "admin@admin.de",
+                            EmailConfirmed = true,
+                            FirstName = "Admin",
+                            LastName = "istrator",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.DE",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEODB0cwLayW1tEKnIAwvfuaqUQ9uenzINH5eSAIXBTZ3fXVR9m5g1uBpLOTAfL9ycA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "81af1199-fccf-448b-8614-43ab5d999437",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictEntityFrameworkCoreApplication", b =>

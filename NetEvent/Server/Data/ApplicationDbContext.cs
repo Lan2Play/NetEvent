@@ -8,6 +8,10 @@ namespace NetEvent.Server.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        private const string _AdminGuid = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD";
+        private const string _RoleAdminGuid = "FEAF344F-AA9B-47F5-B170-829617CDD9A4";
+        private const string _RoleUserGuid = "3ECB400B-DFCF-4268-8D67-7BC9F09DD0B1";
+
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
@@ -21,17 +25,36 @@ namespace NetEvent.Server.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
             builder.Entity<ApplicationUser>(entity =>
             {
                 entity.ToTable(name: "User");
+                var adminUser = new ApplicationUser
+                {
+                    Id = _AdminGuid,
+                    UserName = "admin",
+                    NormalizedUserName = "admin".ToUpper(),
+                    Email = "admin@admin.de",
+                    NormalizedEmail = "admin@admin.de".ToUpper(),
+                    FirstName = "Admin",
+                    EmailConfirmed = true,
+                    LastName = "istrator"
+                };
+                adminUser.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(adminUser, "Test123..");
+                _ = entity.HasData(adminUser); ;
             });
             builder.Entity<IdentityRole>(entity =>
             {
                 entity.ToTable(name: "Role");
+
+                // Seed Roles by Enum
+                entity.HasData(new IdentityRole { Id = _RoleAdminGuid, Name = "Admin", NormalizedName = "ADMIN" });
+                entity.HasData(new IdentityRole { Id = _RoleUserGuid, Name = "User", NormalizedName = "USER" });
             });
             builder.Entity<IdentityUserRole<string>>(entity =>
             {
                 entity.ToTable("UserRoles");
+                entity.HasData(new IdentityUserRole<string> { UserId = _AdminGuid, RoleId = _RoleAdminGuid });
             });
             builder.Entity<IdentityUserClaim<string>>(entity =>
             {

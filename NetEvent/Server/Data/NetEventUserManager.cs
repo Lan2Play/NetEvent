@@ -6,6 +6,13 @@ using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Data
 {
+    public class NetEventRoleManager : RoleManager<IdentityRole>
+    {
+        public NetEventRoleManager(IRoleStore<IdentityRole> store, IEnumerable<IRoleValidator<IdentityRole>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<IdentityRole>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
+        {
+        }
+    }
+
     public class NetEventUserManager : UserManager<ApplicationUser>
     {
         private readonly ITopicEventSender _TopicEventSender;
@@ -33,7 +40,14 @@ namespace NetEvent.Server.Data
 
             if (result.Succeeded)
             {
-                await _TopicEventSender.SendAsync(nameof(Subscription.UserAdded), user).ConfigureAwait(false);
+                try
+                {
+                    await _TopicEventSender.SendAsync(nameof(Subscription.UserAdded), user).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
 
             return result;

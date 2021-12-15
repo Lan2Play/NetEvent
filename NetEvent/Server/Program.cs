@@ -30,11 +30,13 @@ builder.Services.AddGraphQLServer()
                 .AddSubscriptionType<Subscription>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddUserManager<NetEventUserManager>()
+    .AddRoleManager<NetEventRoleManager>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
-
+ 
 builder.Services.AddAuthentication().AddSteam();
 
 
@@ -128,6 +130,8 @@ builder.Services.AddRazorPages();
 // Note: in a real world application, this step should be part of a setup script.
 builder.Services.AddHostedService<Worker>();
 
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -160,5 +164,18 @@ app.UseEndpoints(endpoints =>
     endpoints.MapFallbackToFile("index.html");
     endpoints.MapGraphQL();
 });
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var serviceProvider = scope.ServiceProvider;
+//    try
+//    {
+//        var userManager = serviceProvider.GetRequiredService<NetEventUserManager>();
+//        AdminInitializer.SeedData(userManager);
+//    }
+//    catch (Exception ex)
+//    {
+//    }
+//}
 
 await app.RunAsync();
