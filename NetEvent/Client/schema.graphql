@@ -10,19 +10,25 @@ enum ApplyPolicy {
 
 type Query {
   users: [ApplicationUser!]!
-  book: Book!
+  roles: [IdentityRole!]!
+  userRoles: [IdentityUserRoleOfString!]!
 }
 
 type Subscription {
   userAdded: ApplicationUser!
 }
 
-type Book {
-  title: String!
-  author: Author!
+type IdentityRole {
+  id: String
+  name: String
+  normalizedName: String
+  concurrencyStamp: String
 }
 
 type ApplicationUser {
+  firstName: String!
+  lastName: String!
+  profilePicture: [Byte!]
   id: String
   userName: String
   normalizedUserName: String
@@ -40,11 +46,15 @@ type ApplicationUser {
   accessFailedCount: Int!
 }
 
+type IdentityUserRoleOfString {
+  userId: String
+  roleId: String
+}
+
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime
 
-type Author {
-  name: String!
-}
+"The `Byte` scalar type represents non-fractional whole numeric values. Byte can represent values between 0 and 255."
+scalar Byte
 
 directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the resolver shall be executed.By default the resolver is executed after the policy has determined that the current user is allowed to access the field." apply: ApplyPolicy! = BEFORE_RESOLVER) repeatable on SCHEMA | OBJECT | FIELD_DEFINITION

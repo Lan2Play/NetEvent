@@ -1,4 +1,5 @@
-﻿using NetEvent.Server.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using NetEvent.Server.Models;
 
 namespace NetEvent.Server.GraphQl
 {
@@ -6,5 +7,8 @@ namespace NetEvent.Server.GraphQl
     {
         [Subscribe]
         public ApplicationUser UserAdded([EventMessage] ApplicationUser user) => user;
+
+        [Subscribe]
+        public IdentityUserRole<string> UserRoleAdded([EventMessage] IdentityUserRole<string> userRole) => userRole;
     }
 }
