@@ -36,7 +36,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddRoleManager<NetEventRoleManager>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
- 
+
 builder.Services.AddAuthentication().AddSteam();
 
 
@@ -128,7 +128,7 @@ builder.Services.AddRazorPages();
 
 // Register the worker responsible of seeding the database with the sample clients.
 // Note: in a real world application, this step should be part of a setup script.
-builder.Services.AddHostedService<Worker>();
+//builder.Services.AddHostedService<Worker>();
 
 
 

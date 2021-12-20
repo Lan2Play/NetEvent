@@ -48,13 +48,13 @@ namespace NetEvent.Server.Data
                 entity.ToTable(name: "Role");
 
                 // Seed Roles by Enum
-                entity.HasData(new IdentityRole { Id = _RoleAdminGuid, Name = "Admin", NormalizedName = "ADMIN" });
-                entity.HasData(new IdentityRole { Id = _RoleUserGuid, Name = "User", NormalizedName = "USER" });
+                entity.HasData(new IdentityRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN" });
+                entity.HasData(new IdentityRole { Id = "user", Name = "User", NormalizedName = "USER" });
             });
             builder.Entity<IdentityUserRole<string>>(entity =>
             {
                 entity.ToTable("UserRoles");
-                entity.HasData(new IdentityUserRole<string> { UserId = _AdminGuid, RoleId = _RoleAdminGuid });
+                entity.HasData(new IdentityUserRole<string> { UserId = _AdminGuid, RoleId = "admin"});
             });
             builder.Entity<IdentityUserClaim<string>>(entity =>
             {

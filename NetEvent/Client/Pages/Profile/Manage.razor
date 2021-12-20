@@ -4,34 +4,43 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 <AuthorizeView>
-    <Authorized>
-       Hello, @context.User.Identity?.Name!
-       
-       @Message
-       @*@context.User.Claims.First().Subject.*@
-    </Authorized>
-   @* <NotAuthorized>
-        <a href="authentication/register">Register</a>
-        <a href="authentication/login">Log in</a>
-    </NotAuthorized>*@
+	<Authorized>
+		Hello, @context.User.Identity?.Name!
+		Role Admin: @context.User.IsInRole("admin");
+		@foreach (var claim in @context.User.Claims)
+		{
+			<li>
+				@claim.Type - @claim.Value
+			</li>
+
+
+		}
+
+		@Message
+		@*@context.User.Claims.First().Subject.*@
+	</Authorized>
+	@* <NotAuthorized>
+		<a href="authentication/register">Register</a>
+		<a href="authentication/login">Log in</a>
+		</NotAuthorized>*@
 </AuthorizeView>
 
 @code {
-    string Message = "";
+	string Message = "";
 
-    private void LogUsername()
-    {
-        //var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        //var user = authState.User;
+	//private async void LogUsername()
+	//{
+	//    var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+	//    var user = authState.User;
 
-        //if (user.Identity.IsAuthenticated)
-        //{
-        //    var currentUser = await UserManager.GetUserAsync(user);
-        //    Message = ($"{user.Identity.Name} is authenticated. Email is { currentUser.Email }");
-        //}
-        //else
-        //{
-            Message = ("The user is NOT authenticated.");
-        //}
-    }
+	//    if (user.Identity.IsAuthenticated)
+	//    {
+	//        var currentUser = await UserManager.GetUserAsync(user);
+	//        Message = ($"{user.Identity.Name} is authenticated. Email is { currentUser.Email }");
+	//    }
+	//    else
+	//    {
+	//        Message = ("The user is NOT authenticated.");
+	//    }
+		//}
 }

@@ -1,0 +1,36 @@
+﻿@inherits MainLayout
+@inject IJSRuntime JSRuntime
+
+<div class="page d-flex flex-column vh-100">
+	<div class="sidebar">
+		<NavMenu />
+	</div>
+
+	<header>
+		<NavigationBar />
+	</header>
+
+	<!-- Begin page content -->
+	<main class="flex-shrink-0 mt-navbar">
+		<div class="container">
+			@Body
+		</div>
+	</main>
+
+	<footer class="footer mt-auto py-3 bg-light">
+		<div class="container">
+			<span class="text-muted">Place sticky footer content here.</span>
+		</div>
+	</footer>
+
+</div>
+
+@code {
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JSRuntime.InvokeAsync<IJSObjectReference>("import", new[] { "/js/bootstrap.js" });
+		}
+	}
+}

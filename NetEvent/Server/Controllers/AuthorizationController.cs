@@ -21,19 +21,22 @@ namespace NetEvent.Server.Controllers
         private readonly IOpenIddictScopeManager _scopeManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<AuthorizationController> _Logger;
 
         public AuthorizationController(
             IOpenIddictApplicationManager applicationManager,
             IOpenIddictAuthorizationManager authorizationManager,
             IOpenIddictScopeManager scopeManager,
             SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ILogger<AuthorizationController> logger)
         {
             _applicationManager = applicationManager;
             _authorizationManager = authorizationManager;
             _scopeManager = scopeManager;
             _signInManager = signInManager;
             _userManager = userManager;
+            _Logger = logger;
         }
 
         [HttpGet("~/connect/authorize")]
@@ -106,10 +109,10 @@ namespace NetEvent.Server.Controllers
             // Retrieve the permanent authorizations associated with the user and the calling client application.
             var authorizations = await _authorizationManager.FindAsync(
                 subject: await _userManager.GetUserIdAsync(user),
-                client : await _applicationManager.GetIdAsync(application),
-                status : Statuses.Valid,
-                type   : AuthorizationTypes.Permanent,
-                scopes : request.GetScopes()).ToListAsync();
+                client: await _applicationManager.GetIdAsync(application),
+                status: Statuses.Valid,
+                type: AuthorizationTypes.Permanent,
+                scopes: request.GetScopes()).ToListAsync();
 
             switch (await _applicationManager.GetConsentTypeAsync(application))
             {
@@ -135,7 +138,16 @@ namespace NetEvent.Server.Controllers
                     // Note: in this sample, the granted scopes match the requested scope
                     // but you may want to allow the user to uncheck specific scopes.
                     // For that, simply restrict the list of scopes before calling SetScopes.
-                    principal.SetScopes(request.GetScopes());
+                    var scopes = new[]
+                    {
+                        Scopes.OpenId,
+                        Scopes.Email,
+                        Scopes.Profile,
+                        Scopes.OfflineAccess,
+                        Scopes.Roles,
+                    }.Intersect(request.GetScopes());
+
+                    principal.SetScopes(scopes);
                     principal.SetResources(await _scopeManager.ListResourcesAsync(principal.GetScopes()).ToListAsync());
 
                     // Automatically create a permanent authorization to avoid requiring explicit consent
@@ -145,10 +157,10 @@ namespace NetEvent.Server.Controllers
                     {
                         authorization = await _authorizationManager.CreateAsync(
                             principal: principal,
-                            subject  : await _userManager.GetUserIdAsync(user),
-                            client   : await _applicationManager.GetIdAsync(application),
-                            type     : AuthorizationTypes.Permanent,
-                            scopes   : principal.GetScopes());
+                            subject: await _userManager.GetUserIdAsync(user),
+                            client: await _applicationManager.GetIdAsync(application),
+                            type: AuthorizationTypes.Permanent,
+                            scopes: principal.GetScopes());
                     }
 
                     principal.SetAuthorizationId(await _authorizationManager.GetIdAsync(authorization));
@@ -162,7 +174,7 @@ namespace NetEvent.Server.Controllers
 
                 // At this point, no authorization was found in the database and an error must be returned
                 // if the client application specified prompt=none in the authorization request.
-                case ConsentTypes.Explicit   when request.HasPrompt(Prompts.None):
+                case ConsentTypes.Explicit when request.HasPrompt(Prompts.None):
                 case ConsentTypes.Systematic when request.HasPrompt(Prompts.None):
                     return Forbid(
                         authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
@@ -201,10 +213,10 @@ namespace NetEvent.Server.Controllers
             // Retrieve the permanent authorizations associated with the user and the calling client application.
             var authorizations = await _authorizationManager.FindAsync(
                 subject: await _userManager.GetUserIdAsync(user),
-                client : await _applicationManager.GetIdAsync(application),
-                status : Statuses.Valid,
-                type   : AuthorizationTypes.Permanent,
-                scopes : request.GetScopes()).ToListAsync();
+                client: await _applicationManager.GetIdAsync(application),
+                status: Statuses.Valid,
+                type: AuthorizationTypes.Permanent,
+                scopes: request.GetScopes()).ToListAsync();
 
             // Note: the same check is already made in the other action but is repeated
             // here to ensure a malicious user can't abuse this POST-only endpoint and
@@ -236,10 +248,10 @@ namespace NetEvent.Server.Controllers
             {
                 authorization = await _authorizationManager.CreateAsync(
                     principal: principal,
-                    subject  : await _userManager.GetUserIdAsync(user),
-                    client   : await _applicationManager.GetIdAsync(application),
-                    type     : AuthorizationTypes.Permanent,
-                    scopes   : principal.GetScopes());
+                    subject: await _userManager.GetUserIdAsync(user),
+                    client: await _applicationManager.GetIdAsync(application),
+                    type: AuthorizationTypes.Permanent,
+                    scopes: principal.GetScopes());
             }
 
             principal.SetAuthorizationId(await _authorizationManager.GetIdAsync(authorization));
@@ -284,8 +296,7 @@ namespace NetEvent.Server.Controllers
         [HttpPost("~/connect/token"), Produces("application/json")]
         public async Task<IActionResult> Exchange()
         {
-            var request = HttpContext.GetOpenIddictServerRequest() ??
-                throw new InvalidOperationException("The OpenID Connect request cannot be retrieved.");
+            var request = HttpContext.GetOpenIddictServerRequest() ?? throw new InvalidOperationException("The OpenID Connect request cannot be retrieved.");
 
             if (request.IsAuthorizationCodeGrantType() || request.IsRefreshTokenGrantType())
             {
@@ -326,7 +337,12 @@ namespace NetEvent.Server.Controllers
                 }
 
                 // Returning a SignInResult will ask OpenIddict to issue the appropriate access/identity tokens.
-                return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+                var res = SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+                foreach (var resVal in res.Principal.Claims)
+                {
+                    _Logger.LogInformation($"{resVal.Type} - {resVal.Value}");
+                }
+                return res;
             }
 
             throw new InvalidOperationException("The specified grant type is not supported.");

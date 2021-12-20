@@ -1,14 +1,16 @@
 ﻿@page "/administration"
-
+@using Microsoft.AspNetCore.Authorization
+@layout MainLayout
+@attribute [Authorize(Roles = "Admin")]
 
 <h3>Index</h3>
 
 
 <ul>
 
-@foreach (var user in Users)
-{
-	<li>@user.Id - @user.UserName</li>
-}
+	@foreach (var user in Users)
+	{
+		<li>@user.Id - @user.UserName</li>
+	}
 
 </ul>
