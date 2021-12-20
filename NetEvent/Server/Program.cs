@@ -26,6 +26,7 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
 builder.Services.AddGraphQLServer()
                 .AddAuthorization()
                 .AddInMemorySubscriptions()
+                .AddFiltering()
                 .AddQueryType<Query>()
                 .AddSubscriptionType<Subscription>();
 

@@ -1,23 +1,38 @@
 ﻿@page "/profile/manage"
 
-@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-
 <AuthorizeView>
 	<Authorized>
 		Hello, @context.User.Identity?.Name!
 		Role Admin: @context.User.IsInRole("admin");
-		@foreach (var claim in @context.User.Claims)
+		@*@foreach (var claim in @context.User.Claims)
 		{
 			<li>
 				@claim.Type - @claim.Value
 			</li>
 
 
-		}
+		}*@
 
-		@Message
-		@*@context.User.Claims.First().Subject.*@
+		Hello, @User.Id!
+		Hello @User.FirstName
+
+		@*<form>
+		  <div class="mb-3">
+			<label for="exampleInputEmail1" class="form-label">Email address</label>
+			<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+			<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+		  </div>
+		  <div class="mb-3">
+			<label for="exampleInputPassword1" class="form-label">Password</label>
+			<input type="password" class="form-control" id="exampleInputPassword1">
+		  </div>
+		  <div class="mb-3 form-check">
+			<input type="checkbox" class="form-check-input" id="exampleCheck1">
+			<label class="form-check-label" for="exampleCheck1">Check me out</label>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>*@
+
 	</Authorized>
 	@* <NotAuthorized>
 		<a href="authentication/register">Register</a>
@@ -25,22 +40,4 @@
 		</NotAuthorized>*@
 </AuthorizeView>
 
-@code {
-	string Message = "";
 
-	//private async void LogUsername()
-	//{
-	//    var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-	//    var user = authState.User;
-
-	//    if (user.Identity.IsAuthenticated)
-	//    {
-	//        var currentUser = await UserManager.GetUserAsync(user);
-	//        Message = ($"{user.Identity.Name} is authenticated. Email is { currentUser.Email }");
-	//    }
-	//    else
-	//    {
-	//        Message = ("The user is NOT authenticated.");
-	//    }
-		//}
-}

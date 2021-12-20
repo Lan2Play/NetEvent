@@ -1,7 +1,21 @@
 ﻿query GetUsers {
   users {
-    id
-    userName
+    ...User
   }
 }
 
+query GetUserById($userId: String!)
+{
+  user(id: $userId)
+  {
+    ...User
+  }  
+}
+
+fragment User on ApplicationUser
+{
+  id,
+  firstName,
+  lastName,
+  userName
+}

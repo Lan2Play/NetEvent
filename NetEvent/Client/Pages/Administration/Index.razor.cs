@@ -13,19 +13,18 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         public NetEventClient? NetEventClient { get; set; }
 
-        public List<User> Users { get; private set; } = new List<User>();
+        public List<IUser> Users { get; private set; } = new List<IUser>();
 
         protected override void OnInitialized()
         {
             if (NetEventClient != null)
             {
-
                 _UsersSession = NetEventClient.GetUsers.Watch(ExecutionStrategy.CacheFirst)
                                                           .Where(t => !t.Errors.Any())
                                                           .Select(t => t.Data!.Users)
                                                           .Subscribe(result =>
                                                           {
-                                                              Users.AddRange(result.Select(x => x.ToUser()));
+                                                              Users.AddRange(result);
                                                               StateHasChanged();
                                                           });
 
@@ -34,7 +33,7 @@ namespace NetEvent.Client.Pages.Administration
                                                              .Select(t => t.Data!.UserAdded)
                                                              .Subscribe(result =>
                                                              {
-                                                                 Users.Add(result.ToUser());
+                                                                 Users.Add(result);
                                                                  StateHasChanged();
                                                              });
             }
