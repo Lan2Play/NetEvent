@@ -27,6 +27,8 @@ builder.Services.AddGraphQLServer()
                 .AddAuthorization()
                 .AddInMemorySubscriptions()
                 .AddFiltering()
+                //.AddMutationConventions()
+                .AddMutationType<Mutation>()
                 .AddQueryType<Query>()
                 .AddSubscriptionType<Subscription>();
 
