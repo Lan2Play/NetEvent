@@ -4,40 +4,44 @@
 	<Authorized>
 		Hello, @context.User.Identity?.Name!
 		Role Admin: @context.User.IsInRole("admin");
-		@*@foreach (var claim in @context.User.Claims)
+
+		@if (User != null)
 		{
-			<li>
-				@claim.Type - @claim.Value
-			</li>
+			<form>
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Email address</label>
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind="User.Email">
+					<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+				</div>
+
+				<div class="mb-3">
+					<label for="inputUserName" class="form-label">UserName</label>
+					<input type="text" class="form-control" id="inputUserName" aria-describedby="userNameHelp" @bind="User.UserName">
+					<div id="userNameHelp" class="form-text">We'll never share your userName with anyone else.</div>
+				</div>
 
 
-		}*@
+				<div class="mb-3">
+					<label for="inputFirstName" class="form-label">FirstName</label>
+					<input type="text" class="form-control" id="inputFirstName" aria-describedby="firstNameHelp" @bind="User.FirstName">
+					<div id="firstNameHelp" class="form-text">We'll never share your firstName with anyone else.</div>
+				</div>
 
-		Hello, @User.Id!
-		Hello @User.FirstName
+				<div class="mb-3">
+					<label for="inputLastName" class="form-label">LastName</label>
+					<input type="text" class="form-control" id="inputLastName" aria-describedby="lastNameHelp" @bind="User.LastName">
+					<div id="lastNameHelp" class="form-text">We'll never share your lastName with anyone else.</div>
+				</div>
 
-		@*<form>
-		  <div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label">Email address</label>
-			<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-			<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-		  </div>
-		  <div class="mb-3">
-			<label for="exampleInputPassword1" class="form-label">Password</label>
-			<input type="password" class="form-control" id="exampleInputPassword1">
-		  </div>
-		  <div class="mb-3 form-check">
-			<input type="checkbox" class="form-check-input" id="exampleCheck1">
-			<label class="form-check-label" for="exampleCheck1">Check me out</label>
-		  </div>
-		  <button type="submit" class="btn btn-primary">Submit</button>
-		</form>*@
+				<CommandButton type="submit" class="btn btn-primary" @onclick="@UpdateUser">Submit</CommandButton>
+			</form>
+		}
 
 	</Authorized>
-	@* <NotAuthorized>
+	<NotAuthorized>
 		<a href="authentication/register">Register</a>
 		<a href="authentication/login">Log in</a>
-		</NotAuthorized>*@
+	</NotAuthorized>
 </AuthorizeView>
 
 

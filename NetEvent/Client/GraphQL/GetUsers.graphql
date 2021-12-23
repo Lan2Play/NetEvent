@@ -15,7 +15,9 @@ query GetUserById($userId: String!)
 fragment User on ApplicationUser
 {
   id,
+  email,
   firstName,
   lastName,
-  userName
+  userName,
+  profilePicture
 }

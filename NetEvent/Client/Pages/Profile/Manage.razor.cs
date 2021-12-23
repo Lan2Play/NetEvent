@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using NetEvent.Client.Models;
 using StrawberryShake;
 using System.Reactive.Linq;
 
@@ -9,29 +10,39 @@ namespace NetEvent.Client.Pages.Profile
     {
         [Inject]
         public NetEventClient? NetEventClient { get; set; }
-        public IUser User { get; private set; }
+        public User? User { get; private set; }
 
         [CascadingParameter]
         Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            var authState = await AuthenticationStateTask;
-            var id = authState.User.Claims.FirstOrDefault(x => x.Type != null && x.Type.Equals("sub", StringComparison.OrdinalIgnoreCase))?.Value;
-            if(!string.IsNullOrEmpty(id))
+            if (firstRender)
             {
-                NetEventClient.GetUserById.Watch(id, ExecutionStrategy.CacheFirst)
-                                                          .Where(t => !t.Errors.Any())
-                                                          .Select(t => t.Data!.User)
-                                                          .Subscribe(result =>
-                                                          {
-                                                              User = result;
-                                                              StateHasChanged();
-                                                          });
+                var authState = await AuthenticationStateTask;
+                var id = authState.User.Claims.FirstOrDefault(x => x.Type != null && x.Type.Equals("sub", StringComparison.OrdinalIgnoreCase))?.Value;
+                if (!string.IsNullOrEmpty(id))
+                {
+                    NetEventClient!.GetUserById.Watch(id, ExecutionStrategy.CacheFirst)
+                                                              .Subscribe(result =>
+                                                              {
+                                                                  if (result.Data?.User != null)
+                                                                  {
+                                                                      User = result.Data.User.ToUser();
+                                                                  }
 
+                                                                  StateHasChanged();
+                                                              });
+
+                }
             }
-           
-            await base.OnInitializedAsync();
+
+            await base.OnAfterRenderAsync(firstRender);
+        }
+
+        public void UpdateUser()
+        {
+
         }
     }
 }

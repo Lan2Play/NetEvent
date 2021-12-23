@@ -178,21 +178,27 @@ namespace NetEvent.Client
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
     public partial class GetUsers_Users_ApplicationUser : global::System.IEquatable<GetUsers_Users_ApplicationUser>, IGetUsers_Users_ApplicationUser
     {
-        public GetUsers_Users_ApplicationUser(global::System.String? id, global::System.String firstName, global::System.String lastName, global::System.String? userName)
+        public GetUsers_Users_ApplicationUser(global::System.String? id, global::System.String? email, global::System.String firstName, global::System.String lastName, global::System.String? userName, global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? profilePicture)
         {
             Id = id;
+            Email = email;
             FirstName = firstName;
             LastName = lastName;
             UserName = userName;
+            ProfilePicture = profilePicture;
         }
 
         public global::System.String? Id { get; }
+
+        public global::System.String? Email { get; }
 
         public global::System.String FirstName { get; }
 
         public global::System.String LastName { get; }
 
         public global::System.String? UserName { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? ProfilePicture { get; }
 
         public virtual global::System.Boolean Equals(GetUsers_Users_ApplicationUser? other)
         {
@@ -211,7 +217,7 @@ namespace NetEvent.Client
                 return false;
             }
 
-            return (((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id))) && FirstName.Equals(other.FirstName) && LastName.Equals(other.LastName) && ((UserName is null && other.UserName is null) || UserName != null && UserName.Equals(other.UserName));
+            return (((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id))) && ((Email is null && other.Email is null) || Email != null && Email.Equals(other.Email)) && FirstName.Equals(other.FirstName) && LastName.Equals(other.LastName) && ((UserName is null && other.UserName is null) || UserName != null && UserName.Equals(other.UserName)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(ProfilePicture, other.ProfilePicture);
         }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
@@ -244,11 +250,24 @@ namespace NetEvent.Client
                     hash ^= 397 * Id.GetHashCode();
                 }
 
+                if (Email != null)
+                {
+                    hash ^= 397 * Email.GetHashCode();
+                }
+
                 hash ^= 397 * FirstName.GetHashCode();
                 hash ^= 397 * LastName.GetHashCode();
                 if (UserName != null)
                 {
                     hash ^= 397 * UserName.GetHashCode();
+                }
+
+                if (ProfilePicture != null)
+                {
+                    foreach (var ProfilePicture_elm in ProfilePicture)
+                    {
+                        hash ^= 397 * ProfilePicture_elm.GetHashCode();
+                    }
                 }
 
                 return hash;
@@ -267,11 +286,15 @@ namespace NetEvent.Client
     {
         public global::System.String? Id { get; }
 
+        public global::System.String? Email { get; }
+
         public global::System.String FirstName { get; }
 
         public global::System.String LastName { get; }
 
         public global::System.String? UserName { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? ProfilePicture { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
@@ -352,21 +375,27 @@ namespace NetEvent.Client
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
     public partial class GetUserById_User_ApplicationUser : global::System.IEquatable<GetUserById_User_ApplicationUser>, IGetUserById_User_ApplicationUser
     {
-        public GetUserById_User_ApplicationUser(global::System.String? id, global::System.String firstName, global::System.String lastName, global::System.String? userName)
+        public GetUserById_User_ApplicationUser(global::System.String? id, global::System.String? email, global::System.String firstName, global::System.String lastName, global::System.String? userName, global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? profilePicture)
         {
             Id = id;
+            Email = email;
             FirstName = firstName;
             LastName = lastName;
             UserName = userName;
+            ProfilePicture = profilePicture;
         }
 
         public global::System.String? Id { get; }
+
+        public global::System.String? Email { get; }
 
         public global::System.String FirstName { get; }
 
         public global::System.String LastName { get; }
 
         public global::System.String? UserName { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? ProfilePicture { get; }
 
         public virtual global::System.Boolean Equals(GetUserById_User_ApplicationUser? other)
         {
@@ -385,7 +414,7 @@ namespace NetEvent.Client
                 return false;
             }
 
-            return (((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id))) && FirstName.Equals(other.FirstName) && LastName.Equals(other.LastName) && ((UserName is null && other.UserName is null) || UserName != null && UserName.Equals(other.UserName));
+            return (((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id))) && ((Email is null && other.Email is null) || Email != null && Email.Equals(other.Email)) && FirstName.Equals(other.FirstName) && LastName.Equals(other.LastName) && ((UserName is null && other.UserName is null) || UserName != null && UserName.Equals(other.UserName)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(ProfilePicture, other.ProfilePicture);
         }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
@@ -418,11 +447,24 @@ namespace NetEvent.Client
                     hash ^= 397 * Id.GetHashCode();
                 }
 
+                if (Email != null)
+                {
+                    hash ^= 397 * Email.GetHashCode();
+                }
+
                 hash ^= 397 * FirstName.GetHashCode();
                 hash ^= 397 * LastName.GetHashCode();
                 if (UserName != null)
                 {
                     hash ^= 397 * UserName.GetHashCode();
+                }
+
+                if (ProfilePicture != null)
+                {
+                    foreach (var ProfilePicture_elm in ProfilePicture)
+                    {
+                        hash ^= 397 * ProfilePicture_elm.GetHashCode();
+                    }
                 }
 
                 return hash;
@@ -510,21 +552,27 @@ namespace NetEvent.Client
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
     public partial class UserAdded_UserAdded_ApplicationUser : global::System.IEquatable<UserAdded_UserAdded_ApplicationUser>, IUserAdded_UserAdded_ApplicationUser
     {
-        public UserAdded_UserAdded_ApplicationUser(global::System.String? id, global::System.String firstName, global::System.String lastName, global::System.String? userName)
+        public UserAdded_UserAdded_ApplicationUser(global::System.String? id, global::System.String? email, global::System.String firstName, global::System.String lastName, global::System.String? userName, global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? profilePicture)
         {
             Id = id;
+            Email = email;
             FirstName = firstName;
             LastName = lastName;
             UserName = userName;
+            ProfilePicture = profilePicture;
         }
 
         public global::System.String? Id { get; }
+
+        public global::System.String? Email { get; }
 
         public global::System.String FirstName { get; }
 
         public global::System.String LastName { get; }
 
         public global::System.String? UserName { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? ProfilePicture { get; }
 
         public virtual global::System.Boolean Equals(UserAdded_UserAdded_ApplicationUser? other)
         {
@@ -543,7 +591,7 @@ namespace NetEvent.Client
                 return false;
             }
 
-            return (((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id))) && FirstName.Equals(other.FirstName) && LastName.Equals(other.LastName) && ((UserName is null && other.UserName is null) || UserName != null && UserName.Equals(other.UserName));
+            return (((Id is null && other.Id is null) || Id != null && Id.Equals(other.Id))) && ((Email is null && other.Email is null) || Email != null && Email.Equals(other.Email)) && FirstName.Equals(other.FirstName) && LastName.Equals(other.LastName) && ((UserName is null && other.UserName is null) || UserName != null && UserName.Equals(other.UserName)) && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(ProfilePicture, other.ProfilePicture);
         }
 
         public override global::System.Boolean Equals(global::System.Object? obj)
@@ -576,11 +624,24 @@ namespace NetEvent.Client
                     hash ^= 397 * Id.GetHashCode();
                 }
 
+                if (Email != null)
+                {
+                    hash ^= 397 * Email.GetHashCode();
+                }
+
                 hash ^= 397 * FirstName.GetHashCode();
                 hash ^= 397 * LastName.GetHashCode();
                 if (UserName != null)
                 {
                     hash ^= 397 * UserName.GetHashCode();
+                }
+
+                if (ProfilePicture != null)
+                {
+                    foreach (var ProfilePicture_elm in ProfilePicture)
+                    {
+                        hash ^= 397 * ProfilePicture_elm.GetHashCode();
+                    }
                 }
 
                 return hash;
@@ -619,9 +680,11 @@ namespace NetEvent.Client
     /// 
     /// fragment User on ApplicationUser {
     ///   id
+    ///   email
     ///   firstName
     ///   lastName
     ///   userName
+    ///   profilePicture
     /// }
     /// </code>
     /// </summary>
@@ -634,8 +697,8 @@ namespace NetEvent.Client
 
         public static GetUsersQueryDocument Instance { get; } = new GetUsersQueryDocument();
         public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Query;
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x73, 0x20, 0x7b, 0x20, 0x75, 0x73, 0x65, 0x72, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x75, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x7d};
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "58fce481980e3b30f2548cf02bfe112b");
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x73, 0x20, 0x7b, 0x20, 0x75, 0x73, 0x65, 0x72, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x20, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x75, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x70, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x50, 0x69, 0x63, 0x74, 0x75, 0x72, 0x65, 0x20, 0x7d};
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "9f525193eb15d75f42477c14d3e6a7fb");
         public override global::System.String ToString()
         {
 #if NETSTANDARD2_0
@@ -661,9 +724,11 @@ namespace NetEvent.Client
     /// 
     /// fragment User on ApplicationUser {
     ///   id
+    ///   email
     ///   firstName
     ///   lastName
     ///   userName
+    ///   profilePicture
     /// }
     /// </code>
     /// </summary>
@@ -720,9 +785,11 @@ namespace NetEvent.Client
     /// 
     /// fragment User on ApplicationUser {
     ///   id
+    ///   email
     ///   firstName
     ///   lastName
     ///   userName
+    ///   profilePicture
     /// }
     /// </code>
     /// </summary>
@@ -748,9 +815,11 @@ namespace NetEvent.Client
     /// 
     /// fragment User on ApplicationUser {
     ///   id
+    ///   email
     ///   firstName
     ///   lastName
     ///   userName
+    ///   profilePicture
     /// }
     /// </code>
     /// </summary>
@@ -763,8 +832,8 @@ namespace NetEvent.Client
 
         public static GetUserByIdQueryDocument Instance { get; } = new GetUserByIdQueryDocument();
         public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Query;
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x42, 0x79, 0x49, 0x64, 0x28, 0x24, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x3a, 0x20, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x21, 0x29, 0x20, 0x7b, 0x20, 0x75, 0x73, 0x65, 0x72, 0x28, 0x69, 0x64, 0x3a, 0x20, 0x24, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x75, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x7d};
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "1628f2742154cae511b9540de33942ac");
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x42, 0x79, 0x49, 0x64, 0x28, 0x24, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x3a, 0x20, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x21, 0x29, 0x20, 0x7b, 0x20, 0x75, 0x73, 0x65, 0x72, 0x28, 0x69, 0x64, 0x3a, 0x20, 0x24, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x20, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x75, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x70, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x50, 0x69, 0x63, 0x74, 0x75, 0x72, 0x65, 0x20, 0x7d};
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "c1a6352f78efec9c4ce75a5a98b8c3c8");
         public override global::System.String ToString()
         {
 #if NETSTANDARD2_0
@@ -790,9 +859,11 @@ namespace NetEvent.Client
     /// 
     /// fragment User on ApplicationUser {
     ///   id
+    ///   email
     ///   firstName
     ///   lastName
     ///   userName
+    ///   profilePicture
     /// }
     /// </code>
     /// </summary>
@@ -863,9 +934,11 @@ namespace NetEvent.Client
     /// 
     /// fragment User on ApplicationUser {
     ///   id
+    ///   email
     ///   firstName
     ///   lastName
     ///   userName
+    ///   profilePicture
     /// }
     /// </code>
     /// </summary>
@@ -891,9 +964,11 @@ namespace NetEvent.Client
     /// 
     /// fragment User on ApplicationUser {
     ///   id
+    ///   email
     ///   firstName
     ///   lastName
     ///   userName
+    ///   profilePicture
     /// }
     /// </code>
     /// </summary>
@@ -906,8 +981,8 @@ namespace NetEvent.Client
 
         public static UserAddedSubscriptionDocument Instance { get; } = new UserAddedSubscriptionDocument();
         public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Subscription;
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x55, 0x73, 0x65, 0x72, 0x41, 0x64, 0x64, 0x65, 0x64, 0x20, 0x7b, 0x20, 0x75, 0x73, 0x65, 0x72, 0x41, 0x64, 0x64, 0x65, 0x64, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x75, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x7d};
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "054f9a8100786078f2db09e29221739b");
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x55, 0x73, 0x65, 0x72, 0x41, 0x64, 0x64, 0x65, 0x64, 0x20, 0x7b, 0x20, 0x75, 0x73, 0x65, 0x72, 0x41, 0x64, 0x64, 0x65, 0x64, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x55, 0x73, 0x65, 0x72, 0x20, 0x6f, 0x6e, 0x20, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x73, 0x65, 0x72, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x20, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x75, 0x73, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x70, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x50, 0x69, 0x63, 0x74, 0x75, 0x72, 0x65, 0x20, 0x7d};
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("md5Hash", "eeeb0682606b8cad2742f1d74047f0be");
         public override global::System.String ToString()
         {
 #if NETSTANDARD2_0
@@ -933,9 +1008,11 @@ namespace NetEvent.Client
     /// 
     /// fragment User on ApplicationUser {
     ///   id
+    ///   email
     ///   firstName
     ///   lastName
     ///   userName
+    ///   profilePicture
     /// }
     /// </code>
     /// </summary>
@@ -986,9 +1063,11 @@ namespace NetEvent.Client
     /// 
     /// fragment User on ApplicationUser {
     ///   id
+    ///   email
     ///   firstName
     ///   lastName
     ///   userName
+    ///   profilePicture
     /// }
     /// </code>
     /// </summary>
@@ -1039,21 +1118,27 @@ namespace NetEvent.Client.State
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
     public partial class ApplicationUserEntity
     {
-        public ApplicationUserEntity(global::System.String? id = default !, global::System.String firstName = default !, global::System.String lastName = default !, global::System.String? userName = default !)
+        public ApplicationUserEntity(global::System.String? id = default !, global::System.String? email = default !, global::System.String firstName = default !, global::System.String lastName = default !, global::System.String? userName = default !, global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? profilePicture = default !)
         {
             Id = id;
+            Email = email;
             FirstName = firstName;
             LastName = lastName;
             UserName = userName;
+            ProfilePicture = profilePicture;
         }
 
         public global::System.String? Id { get; }
+
+        public global::System.String? Email { get; }
 
         public global::System.String FirstName { get; }
 
         public global::System.String LastName { get; }
 
         public global::System.String? UserName { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? ProfilePicture { get; }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
@@ -1153,7 +1238,7 @@ namespace NetEvent.Client.State
                 snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return new GetUsers_Users_ApplicationUser(entity.Id, entity.FirstName, entity.LastName, entity.UserName);
+            return new GetUsers_Users_ApplicationUser(entity.Id, entity.Email, entity.FirstName, entity.LastName, entity.UserName, entity.ProfilePicture);
         }
     }
 
@@ -1243,7 +1328,7 @@ namespace NetEvent.Client.State
                 snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return new GetUserById_User_ApplicationUser(entity.Id, entity.FirstName, entity.LastName, entity.UserName);
+            return new GetUserById_User_ApplicationUser(entity.Id, entity.Email, entity.FirstName, entity.LastName, entity.UserName, entity.ProfilePicture);
         }
     }
 
@@ -1328,7 +1413,7 @@ namespace NetEvent.Client.State
                 snapshot = _entityStore.CurrentSnapshot;
             }
 
-            return new UserAdded_UserAdded_ApplicationUser(entity.Id, entity.FirstName, entity.LastName, entity.UserName);
+            return new UserAdded_UserAdded_ApplicationUser(entity.Id, entity.Email, entity.FirstName, entity.LastName, entity.UserName, entity.ProfilePicture);
         }
     }
 
@@ -1339,12 +1424,14 @@ namespace NetEvent.Client.State
         private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
         private readonly global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IGetUsersResult> _resultDataFactory;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Byte, global::System.Byte> _byteParser;
         public GetUsersBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IGetUsersResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
             _resultDataFactory = resultDataFactory ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
             _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String") ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+            _byteParser = serializerResolver.GetLeafValueParser<global::System.Byte, global::System.Byte>("Byte") ?? throw new global::System.ArgumentException("No serializer for type `Byte` found.");
         }
 
         public global::StrawberryShake.IOperationResult<IGetUsersResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
@@ -1424,11 +1511,11 @@ namespace NetEvent.Client.State
             {
                 if (session.CurrentSnapshot.TryGetEntity(entityId, out global::NetEvent.Client.State.ApplicationUserEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
+                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName")), DeserializeByteNonNullableArray(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "profilePicture"))));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
+                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName")), DeserializeByteNonNullableArray(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "profilePicture"))));
                 }
 
                 return entityId;
@@ -1456,6 +1543,32 @@ namespace NetEvent.Client.State
 
             return _stringParser.Parse(obj.Value.GetString()!);
         }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? DeserializeByteNonNullableArray(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var @bytes = new global::System.Collections.Generic.List<global::System.Byte>();
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                @bytes.Add(DeserializeNonNullableByte(child));
+            }
+
+            return @bytes;
+        }
+
+        private global::System.Byte DeserializeNonNullableByte(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _byteParser.Parse(obj.Value.GetByte()!);
+        }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
@@ -1465,12 +1578,14 @@ namespace NetEvent.Client.State
         private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
         private readonly global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IGetUserByIdResult> _resultDataFactory;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Byte, global::System.Byte> _byteParser;
         public GetUserByIdBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IGetUserByIdResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
             _resultDataFactory = resultDataFactory ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
             _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String") ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+            _byteParser = serializerResolver.GetLeafValueParser<global::System.Byte, global::System.Byte>("Byte") ?? throw new global::System.ArgumentException("No serializer for type `Byte` found.");
         }
 
         public global::StrawberryShake.IOperationResult<IGetUserByIdResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
@@ -1534,11 +1649,11 @@ namespace NetEvent.Client.State
             {
                 if (session.CurrentSnapshot.TryGetEntity(entityId, out global::NetEvent.Client.State.ApplicationUserEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
+                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName")), DeserializeByteNonNullableArray(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "profilePicture"))));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
+                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName")), DeserializeByteNonNullableArray(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "profilePicture"))));
                 }
 
                 return entityId;
@@ -1566,6 +1681,32 @@ namespace NetEvent.Client.State
 
             return _stringParser.Parse(obj.Value.GetString()!);
         }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? DeserializeByteNonNullableArray(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var @bytes = new global::System.Collections.Generic.List<global::System.Byte>();
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                @bytes.Add(DeserializeNonNullableByte(child));
+            }
+
+            return @bytes;
+        }
+
+        private global::System.Byte DeserializeNonNullableByte(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _byteParser.Parse(obj.Value.GetByte()!);
+        }
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.3.2.0")]
@@ -1575,12 +1716,14 @@ namespace NetEvent.Client.State
         private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
         private readonly global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IUserAddedResult> _resultDataFactory;
         private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Byte, global::System.Byte> _byteParser;
         public UserAddedBuilder(global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer idSerializer, global::StrawberryShake.IOperationResultDataFactory<global::NetEvent.Client.IUserAddedResult> resultDataFactory, global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
         {
             _entityStore = entityStore ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _idSerializer = idSerializer ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
             _resultDataFactory = resultDataFactory ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
             _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String") ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+            _byteParser = serializerResolver.GetLeafValueParser<global::System.Byte, global::System.Byte>("Byte") ?? throw new global::System.ArgumentException("No serializer for type `Byte` found.");
         }
 
         public global::StrawberryShake.IOperationResult<IUserAddedResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
@@ -1644,11 +1787,11 @@ namespace NetEvent.Client.State
             {
                 if (session.CurrentSnapshot.TryGetEntity(entityId, out global::NetEvent.Client.State.ApplicationUserEntity? entity))
                 {
-                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
+                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName")), DeserializeByteNonNullableArray(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "profilePicture"))));
                 }
                 else
                 {
-                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName"))));
+                    session.SetEntity(entityId, new global::NetEvent.Client.State.ApplicationUserEntity(DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "id")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "email")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "firstName")), DeserializeNonNullableString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "lastName")), DeserializeString(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "userName")), DeserializeByteNonNullableArray(global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(obj, "profilePicture"))));
                 }
 
                 return entityId;
@@ -1675,6 +1818,32 @@ namespace NetEvent.Client.State
             }
 
             return _stringParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::System.Byte>? DeserializeByteNonNullableArray(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var @bytes = new global::System.Collections.Generic.List<global::System.Byte>();
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                @bytes.Add(DeserializeNonNullableByte(child));
+            }
+
+            return @bytes;
+        }
+
+        private global::System.Byte DeserializeNonNullableByte(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _byteParser.Parse(obj.Value.GetByte()!);
         }
     }
 
