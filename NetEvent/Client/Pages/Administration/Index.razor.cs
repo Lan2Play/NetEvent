@@ -1,42 +1,17 @@
 using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Models;
-using StrawberryShake;
 using System.Reactive.Linq;
 
 namespace NetEvent.Client.Pages.Administration
 {
     public partial class Index : IDisposable
     {
-        private IDisposable? _UsersSession;
         private bool disposedValue;
 
-        [Inject]
-        public NetEventClient? NetEventClient { get; set; }
-
-        public List<IUser> Users { get; private set; } = new List<IUser>();
 
         protected override void OnInitialized()
         {
-            if (NetEventClient != null)
-            {
-                _UsersSession = NetEventClient.GetUsers.Watch(ExecutionStrategy.CacheFirst)
-                                                          .Where(t => !t.Errors.Any())
-                                                          .Select(t => t.Data!.Users)
-                                                          .Subscribe(result =>
-                                                          {
-                                                              Users.AddRange(result);
-                                                              StateHasChanged();
-                                                          });
-
-                _UsersSession = NetEventClient.UserAdded.Watch(ExecutionStrategy.CacheFirst)
-                                                             .Where(t => !t.Errors.Any())
-                                                             .Select(t => t.Data!.UserAdded)
-                                                             .Subscribe(result =>
-                                                             {
-                                                                 Users.Add(result);
-                                                                 StateHasChanged();
-                                                             });
-            }
+       
         }
 
         #region IDispose
@@ -47,7 +22,6 @@ namespace NetEvent.Client.Pages.Administration
             {
                 if (disposing)
                 {
-                    _UsersSession.Dispose();
                 }
 
                 disposedValue = true;

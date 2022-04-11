@@ -7,23 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <GraphQL Remove="UserAdded.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="UserAdded.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="12.3.2" />
-    <PackageReference Include="StrawberryShake.Transport.Http" Version="12.3.2" />
-    <PackageReference Include="StrawberryShake.Transport.WebSockets" Version="12.3.2" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
@@ -37,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GraphQL\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="wwwroot\css\bootstrap\bootstrap.min.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -49,6 +34,10 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

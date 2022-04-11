@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server;
 using NetEvent.Server.Data;
-using NetEvent.Server.GraphQl;
 using NetEvent.Server.Models;
 //using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -23,14 +22,7 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     ServiceLifetime.Scoped);
 
 
-builder.Services.AddGraphQLServer()
-                .AddAuthorization()
-                .AddInMemorySubscriptions()
-                .AddFiltering()
-                //.AddMutationConventions()
-                .AddMutationType<Mutation>()
-                .AddQueryType<Query>()
-                .AddSubscriptionType<Subscription>();
+builder.Services.AddAuthorization();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
@@ -165,7 +157,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
     endpoints.MapControllers();
     endpoints.MapFallbackToFile("index.html");
-    endpoints.MapGraphQL();
 });
 
 //using (var scope = app.Services.CreateScope())

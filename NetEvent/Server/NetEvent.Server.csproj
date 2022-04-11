@@ -12,9 +12,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HotChocolate.AspNetCore" Version="12.3.2" />
-		<PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.3.2" />
-		<PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.3.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.0" />

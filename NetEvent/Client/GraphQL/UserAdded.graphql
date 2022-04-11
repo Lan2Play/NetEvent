@@ -1,5 +1,0 @@
-﻿subscription UserAdded{
-    userAdded {
-        ...User
-    }
-}

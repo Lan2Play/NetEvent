@@ -1,7 +1,5 @@
-﻿using HotChocolate.Subscriptions;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using NetEvent.Server.GraphQl;
 using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Data
@@ -15,11 +13,9 @@ namespace NetEvent.Server.Data
 
     public class NetEventUserManager : UserManager<ApplicationUser>
     {
-        private readonly ITopicEventSender _TopicEventSender;
 
-        public NetEventUserManager(ITopicEventSender topicEventSender, IUserStore<ApplicationUser> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<ApplicationUser> passwordHasher, IEnumerable<IUserValidator<ApplicationUser>> userValidators, IEnumerable<IPasswordValidator<ApplicationUser>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<ApplicationUser>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
+        public NetEventUserManager(IUserStore<ApplicationUser> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<ApplicationUser> passwordHasher, IEnumerable<IUserValidator<ApplicationUser>> userValidators, IEnumerable<IPasswordValidator<ApplicationUser>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<ApplicationUser>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
-            _TopicEventSender = topicEventSender;
         }
 
         //public override async Task<IdentityResult> CreateAsync(ApplicationUser user, string password)
@@ -42,7 +38,7 @@ namespace NetEvent.Server.Data
             {
                 try
                 {
-                    await _TopicEventSender.SendAsync(nameof(Subscription.UserAdded), user).ConfigureAwait(false);
+                    //await _TopicEventSender.SendAsync(nameof(Subscription.UserAdded), user).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {

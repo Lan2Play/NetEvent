@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using NetEvent.Client;
-using System.Text.Json.Serialization;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -11,14 +8,6 @@ builder.RootComponents.Add<App>("#app");
 builder.Services.AddHttpClient("NetEvent.ServerAPI")
     .ConfigureHttpClient(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
-
-var graphQlUri = new Uri(new Uri(builder.HostEnvironment.BaseAddress), "graphql");
-var graphQlWsUri = new UriBuilder(graphQlUri);
-graphQlWsUri.Scheme = "wss";
-
-builder.Services.AddNetEventClient()
-                .ConfigureHttpClient(client => client.BaseAddress = graphQlUri)
-                .ConfigureWebSocketClient(client => client.Uri = graphQlWsUri.Uri);
 
 // Supply HttpClient instances that include access tokens when making requests to the server project.
 builder.Services.AddScoped(provider =>
