@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using NetEvent.Server;
 using NetEvent.Server.Data;
+using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
 //using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -125,7 +125,7 @@ builder.Services.AddRazorPages();
 // Note: in a real world application, this step should be part of a setup script.
 //builder.Services.AddHostedService<Worker>();
 
-
+builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof(SlugifyParameterTransformer));
 
 var app = builder.Build();
 
@@ -158,18 +158,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
     endpoints.MapFallbackToFile("index.html");
 });
-
-//using (var scope = app.Services.CreateScope())
-//{
-//    var serviceProvider = scope.ServiceProvider;
-//    try
-//    {
-//        var userManager = serviceProvider.GetRequiredService<NetEventUserManager>();
-//        AdminInitializer.SeedData(userManager);
-//    }
-//    catch (Exception ex)
-//    {
-//    }
-//}
 
 await app.RunAsync();

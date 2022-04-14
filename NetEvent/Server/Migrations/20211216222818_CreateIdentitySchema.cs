@@ -270,7 +270,7 @@ namespace NetEvent.Server.Migrations
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "f1470485-a40a-49f9-a7e7-ebfe05919a3c", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEC2GOr3+MsDB5Eovfpa5Jqr0BQykGLWFddlR4gigoTEvT0o5HpnHIAMQ26DV+t60NQ==", null, false, null, "e725fd5a-1745-4b8f-932b-f6a70ed3ebd9", false, "admin" });
-
+            // Test123..
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
