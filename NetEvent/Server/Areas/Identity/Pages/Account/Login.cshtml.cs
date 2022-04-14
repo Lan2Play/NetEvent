@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NetEvent.Server.Models;
 using System.Net.Mail;
 using NetEvent.Server.Data;
-using System.Security.Claims;
 
 namespace NetEvent.Server.Areas.Identity.Pages.Account
 {

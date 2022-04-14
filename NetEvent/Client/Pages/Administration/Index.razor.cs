@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using NetEvent.Client.Models;
-using System.Reactive.Linq;
-
 namespace NetEvent.Client.Pages.Administration
 {
     public partial class Index : IDisposable
