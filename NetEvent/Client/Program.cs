@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
 using NetEvent.Client;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -33,5 +34,7 @@ builder.Services.AddOidcAuthentication(options =>
     options.ProviderOptions.ResponseMode = "query";
     options.AuthenticationPaths.RemoteRegisterPath = "https://localhost:44310/Identity/Account/Register";
 });
+
+builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

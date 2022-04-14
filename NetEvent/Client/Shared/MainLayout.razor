@@ -1,36 +1,42 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
 
-<div class="page d-flex flex-column vh-100">
-	@*    <div class="sidebar">
-		<NavMenu />
-		</div>*@
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-	<header>
-		<NavigationBar />
-	</header>
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <AuthorizeView Roles="Admin">
+            <Authorized>
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            </Authorized>
+        </AuthorizeView>
+        <MudSpacer />
+        @*<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />*@
+        <NavigationBar />
+    </MudAppBar>
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
+                <MudDrawerHeader>
+                    <MudText Typo="Typo.h5" Class="mt-1">Application</MudText>
+                </MudDrawerHeader>
+                @*NavMenu*@
+            </MudDrawer>
+        </Authorized>
+    </AuthorizeView>
 
-	<!-- Begin page content -->
-	<main class="flex-shrink-0 mt-navbar">
-		<div class="container">
-			@Body
-		</div>
-	</main>
 
-	<footer class="footer mt-auto py-3 bg-light">
-		<div class="container">
-			<span class="text-muted">Place sticky footer content here.</span>
-		</div>
-	</footer>
-
-</div>
-
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
 @code {
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			await JSRuntime.InvokeAsync<IJSObjectReference>("import", new[] { "/js/bootstrap.js" });
-		}
-	}
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
 }
