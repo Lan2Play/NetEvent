@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
+using NetEvent.Server.Modules;
 //using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
@@ -34,6 +35,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 
 builder.Services.AddAuthentication().AddSteam();
 
+builder.Services.RegisterModules();
 
 
 // Configure Identity to use the same JWT claims as OpenIddict instead
@@ -158,5 +160,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
     endpoints.MapFallbackToFile("index.html");
 });
+
+app.MapEndpoints();
 
 await app.RunAsync();
