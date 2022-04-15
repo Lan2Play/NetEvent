@@ -133,7 +133,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    //app.UseMigrationsEndPoint();
+    app.UseMigrationsEndPoint();
     app.UseDeveloperExceptionPage();
     app.UseWebAssemblyDebugging();
 }
@@ -158,7 +158,6 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapRazorPages();
     endpoints.MapControllers();
-    endpoints.MapFallbackToFile("index.html");
 });
 
 app.MapEndpoints();
