@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NetEvent.Server;
 using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
@@ -22,7 +24,6 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString),
     ServiceLifetime.Scoped);
 
-
 builder.Services.AddAuthorization();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -36,6 +37,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddAuthentication().AddSteam();
 
 builder.Services.RegisterModules();
+
+builder.Services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, Worker>();
 
 
 // Configure Identity to use the same JWT claims as OpenIddict instead
@@ -133,7 +136,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+    //app.UseMigrationsEndPoint();
     app.UseDeveloperExceptionPage();
     app.UseWebAssemblyDebugging();
 }
@@ -158,6 +161,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapRazorPages();
     endpoints.MapControllers();
+    endpoints.MapFallbackToFile("index.html");
 });
 
 app.MapEndpoints();
