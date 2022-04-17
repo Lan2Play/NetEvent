@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using NetEvent.Server;
 using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
-using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
 //using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using NetEvent.Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,8 +38,7 @@ builder.Services.AddAuthentication().AddSteam();
 
 builder.Services.RegisterModules();
 
-builder.Services.AddSingleton<Microsoft.Extensions.Hosting.IHostedService, Worker>();
-
+builder.Services.AddSingleton<IHostedService, Worker>();
 
 // Configure Identity to use the same JWT claims as OpenIddict instead
 // of the legacy WS-Federation claims it uses by default (ClaimTypes),
@@ -125,6 +124,7 @@ builder.Services.AddOpenIddict()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
 
 // Register the worker responsible of seeding the database with the sample clients.
 // Note: in a real world application, this step should be part of a setup script.

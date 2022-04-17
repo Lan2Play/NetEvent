@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using NetEvent.Server.Models;
+using NetEvent.Shared.Models;
 
 namespace NetEvent.Server.Areas.Identity.Pages.Account
 {

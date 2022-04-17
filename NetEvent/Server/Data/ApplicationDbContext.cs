@@ -1,8 +1,8 @@
-﻿using NetEvent.Server.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.AspNetCore.Identity;
+using NetEvent.Shared.Models;
 
 namespace NetEvent.Server.Data
 {

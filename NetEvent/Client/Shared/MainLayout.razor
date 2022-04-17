@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
+@using NetEvent.Client.Pages.Administration
 
 <MudThemeProvider />
 <MudDialogProvider />
@@ -20,8 +21,9 @@
         <Authorized>
             <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
                 <MudDrawerHeader>
-                    <MudText Typo="Typo.h5" Class="mt-1">Application</MudText>
+                    <MudText Typo="Typo.h5" Class="mt-1">Administration</MudText>
                 </MudDrawerHeader>
+                <AdminMenu></AdminMenu>
                 @*NavMenu*@
             </MudDrawer>
         </Authorized>

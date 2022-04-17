@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using NetEvent.Server.Models;
+using NetEvent.Shared.Models;
 
 namespace NetEvent.Server.Data
 {

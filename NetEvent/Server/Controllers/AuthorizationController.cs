@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using NetEvent.Server.Helpers;
-using NetEvent.Server.Models;
 using NetEvent.Server.ViewModels.Authorization;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
@@ -11,6 +10,7 @@ using Microsoft.Extensions.Primitives;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using NetEvent.Shared.Models;
 
 namespace NetEvent.Server.Controllers
 {

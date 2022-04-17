@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NetEvent.Server.Models;
 using System.Net.Mail;
 using NetEvent.Server.Data;
+using NetEvent.Shared.Models;
 
 namespace NetEvent.Server.Areas.Identity.Pages.Account
 {

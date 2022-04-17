@@ -1,16 +1,23 @@
 ﻿@page "/administration"
 @using Microsoft.AspNetCore.Authorization
-@layout MainLayout
+@*@layout MainLayout*@
 @attribute [Authorize(Roles = "Admin")]
 
-<h3>Index</h3>
 
-
-<ul>
-
-	@*@foreach (var user in Users)
-	{
-		<li>@user.Id - @user.UserName</li>
-	}*@
-
-</ul>
+<MudContainer Class="mt-8 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+            <MudStack AlignItems="AlignItems.Stretch">
+                <MudButton Variant="Variant.Filled" Href="/administration/users" Class="pa-4" Style="height: 200px;">
+                    <MudStack Row="true">
+                        <MudIcon Icon="@Icons.Outlined.Group" Size="Size.Large">Users</MudIcon>
+                        <MudText Typo="Typo.h6"><strong>@Users?.Count</strong> Users</MudText>
+                    </MudStack>
+                </MudButton>
+            </MudStack>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>

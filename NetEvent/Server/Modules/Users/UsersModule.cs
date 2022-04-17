@@ -7,6 +7,8 @@ namespace NetEvent.Server.Modules.Users
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
             endpoints.MapGet("/users", GetUsers.Handle);
+            endpoints.MapGet("/users/{id}", GetUser.Handle);
+            endpoints.MapPut("/users/{id}", PutUser.Handle);
             return endpoints;
         }
 

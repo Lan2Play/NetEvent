@@ -1,36 +1,20 @@
+using Microsoft.AspNetCore.Components;
+using NetEvent.Shared.Models;
+
 namespace NetEvent.Client.Pages.Administration
 {
-    public partial class Index : IDisposable
+    public partial class Index 
     {
-        private bool disposedValue;
 
+        [Inject]
+        public HttpClient HttpClient { get; set; }
 
-        protected override void OnInitialized()
+        public List<ApplicationUser>? Users { get; private set; }
+
+        protected override async Task OnInitializedAsync()
         {
-       
+            Users = await Utils.Get<List<ApplicationUser>>(HttpClient, "users");
         }
 
-        #region IDispose
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                }
-
-                disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion
     }
 }
