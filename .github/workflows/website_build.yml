@@ -7,14 +7,14 @@ on:
     paths:
     - 'Docs/**'
     - 'packaging/Docs/**'
-    - '.github/workflows/NetEvent_website_build.yml'
+    - '.github/workflows/website_build.yml'
   pull_request:
     branches: [ OpenIdDict ]
     tags: [ v**]
     paths:
     - 'Docs/**'
     - 'packaging/Docs/**'
-    - '.github/workflows/NetEvent_website_build.yml'
+    - '.github/workflows/website_build.yml'
 
 jobs:
 
