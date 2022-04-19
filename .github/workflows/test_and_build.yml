@@ -1,0 +1,110 @@
+name: NetEvent_test_and_build
+on:
+  push:
+    branches: 
+    - OpenIdDict
+    - develop
+    tags: [ v**]
+    paths:
+    - '**'
+    - '!Docs/**'
+    - '!packaging/Docs**'
+    - '!README.md'
+    - '!.github/workflows/website_build.yml'
+  pull_request:
+    branches: 
+    - OpenIdDict
+    - develop
+    tags: [ v**]
+    paths:
+    - '**'
+    - '!Docs/**'
+    - '!packaging/Docs**'
+    - '!README.md'
+    - '!.github/workflows/website_build.yml'
+
+jobs:
+
+  test_linux_x64:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.x.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Test linux dotnet
+      run: dotnet test
+
+  build_linux_x64:
+    runs-on: ubuntu-latest
+    needs:
+    - test_linux_x64
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.x.x
+    - name: set Version
+      if: ${{ (startsWith(github.ref, 'refs/tags/v')) }}
+      run:  echo "NETEVENTVER=$(echo ${GITHUB_REF} | sed 's|refs/heads/||g' | sed 's|refs/tags/v||g' | sed 's|-beta||g' )" >> $GITHUB_ENV  
+    - name: set Version
+      if: ${{ !(startsWith(github.ref, 'refs/tags/v')) }}
+      run:  echo "NETEVENTVER=1.0.0+1" >> $GITHUB_ENV  
+    - name: set dotnetversionnumber
+      run:  echo "NETEVENTNETVER=$(echo \"$NETEVENTVER\" | sed 's|+|.|g')" >> $GITHUB_ENV
+      shell: bash
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build linux dotnet
+      run: dotnet publish -r linux-x64 -c release --output Release -p:Version=$NETEVENTNETVER
+    # - name: copy linux x64
+    #   run: mkdir -p upload/linux_x64 && cp -rf ./Release/* upload/linux_x64/ && cd upload/linux_x64/ && rm -rf *.pdb && tar cfvz ../linux_x64.tar.gz *
+    # - name: upload artifact linux x64
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: latest_linux_x64
+    #     path: upload/
+    #     retention-days: 1
+
+  build_docker_linux_x64:
+    runs-on: ubuntu-latest
+    needs:
+    - test_linux_x64
+    - build_linux_x64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1.2.0
+      - name: Pull Latest Linux Base Image
+        run: docker pull lan2play/netevent
+      - name: Build Linux Image
+        uses: docker/build-push-action@v2.10.0
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: |
+            lan2play/netevent:latest
+          build-args: |
+            BUILDNODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
+            SOURCE_COMMIT=${{ github.sha }}
+          no-cache: true
+      # - name: Test Linux Image
+      #   run: docker run --rm lan2play/netevent:latest /docker/test.sh
+      - name: Login to DockerHub
+        if: ${{ (startsWith(github.ref, 'refs/tags/v')) }}
+        uses: docker/login-action@v1.14.1
+        with:
+          username: ${{ secrets.NETEVENT_DOCKERHUB_USERNAME }}
+          password: ${{ secrets.NETEVENT_DOCKERHUB_TOKEN }}
+      - name: Push to Docker HUB
+        if: ${{ (startsWith(github.ref, 'refs/tags/v')) }}
+        run: docker push lan2play/netevent:latest

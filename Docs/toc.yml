@@ -1,0 +1,6 @@
+- name: Home
+  href: index.md
+- name: Users Guide
+  href: user/
+- name: Admin Guide
+  href: admin/
