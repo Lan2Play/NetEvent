@@ -4,6 +4,8 @@
             "files": [
                 "user/**.md",
                 "user/**/toc.yml",
+                "admin/**.md",
+                "admin/**/toc.yml",
                 "toc.yml",
                 "*.md"
             ]
