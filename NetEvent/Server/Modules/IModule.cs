@@ -1,9 +1,14 @@
-﻿namespace NetEvent.Server.Modules
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NetEvent.Server.Modules
 {
     public interface IModule
     {
         IServiceCollection RegisterModule(IServiceCollection builder);
+
         IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
+
+        void OnModelCreating(ModelBuilder builder);
     }
 
     public static class ModuleExtensions
@@ -32,6 +37,14 @@
             return app;
         }
 
+        public static void CreateModels(this ModelBuilder builder)
+        {
+            foreach (var module in registeredModules)
+            {
+                module.OnModelCreating(builder);
+            }
+        }
+
         private static IEnumerable<IModule> DiscoverModules()
         {
             return typeof(IModule).Assembly
@@ -46,6 +59,8 @@
     {
         public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
         public abstract IServiceCollection RegisterModule(IServiceCollection builder);
+
+        public abstract void OnModelCreating(ModelBuilder builder);
 
         protected IResult ToApiResult<T>(ResponseBase<T> response)
         {
@@ -62,7 +77,6 @@
             }
         }
     }
-
 
 
     public class ResponseBase<T>

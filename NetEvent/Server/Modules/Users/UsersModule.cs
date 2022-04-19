@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Modules.Users.Endpoints;
 using NetEvent.Shared.Models;
 
@@ -21,6 +22,10 @@ namespace NetEvent.Server.Modules.Users
             builder.AddMediatR(typeof(UsersModule));
 
             return builder;
+        }
+
+        public override void OnModelCreating(ModelBuilder builder)
+        {
         }
     }
 }

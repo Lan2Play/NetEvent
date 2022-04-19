@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.AspNetCore.Identity;
 using NetEvent.Shared.Models;
+using NetEvent.Server.Modules;
 
 namespace NetEvent.Server.Data
 {
@@ -72,6 +73,8 @@ namespace NetEvent.Server.Data
             {
                 entity.ToTable("UserTokens");
             });
+
+            builder.CreateModels();
         }
     }
 }

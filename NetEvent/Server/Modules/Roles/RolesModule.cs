@@ -1,4 +1,5 @@
-﻿using NetEvent.Server.Modules.Roles.Endpoints;
+﻿using Microsoft.EntityFrameworkCore;
+using NetEvent.Server.Modules.Roles.Endpoints;
 
 namespace NetEvent.Server.Modules.Roles
 {
@@ -15,6 +16,10 @@ namespace NetEvent.Server.Modules.Roles
         public IServiceCollection RegisterModule(IServiceCollection builder)
         {
             return builder;
+        }
+
+        public void OnModelCreating(ModelBuilder builder)
+        {
         }
     }
 }
