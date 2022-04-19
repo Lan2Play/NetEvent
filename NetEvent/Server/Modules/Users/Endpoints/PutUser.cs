@@ -4,7 +4,7 @@ using NetEvent.Shared.Models;
 
 namespace NetEvent.Server.Modules.Users.Endpoints
 {
-    public class PutUser
+    public class PutRole
     {
         public static async Task<IResult> Handle(ApplicationDbContext userDbContext, string id, [FromBody] ApplicationUser user)
         {

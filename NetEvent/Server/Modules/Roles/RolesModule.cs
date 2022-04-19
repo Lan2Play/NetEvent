@@ -1,14 +1,14 @@
-﻿using NetEvent.Server.Modules.Users.Endpoints;
+﻿using NetEvent.Server.Modules.Roles.Endpoints;
 
-namespace NetEvent.Server.Modules.Users
+namespace NetEvent.Server.Modules.Roles
 {
     public class RolesModule : IModule
     {
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapGet("/users", GetUsers.Handle);
-            endpoints.MapGet("/users/{id}", GetUser.Handle);
-            endpoints.MapPut("/users/{id}", PutRole.Handle);
+            endpoints.MapGet("/roles", GetRoles.Handle);
+            //endpoints.MapGet("/roles/{id}", GetUser.Handle);
+            //endpoints.MapPut("/roles/{id}", PutUser.Handle);
             return endpoints;
         }
 
