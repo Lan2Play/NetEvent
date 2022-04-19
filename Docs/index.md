@@ -1,4 +1,5 @@
-<img alt="NetEvent Logo" src="logo.svg" width="50%">
+# NetEvent
+<!-- <img alt="NetEvent Logo" src="logo.svg" width="50%"> -->
 
 is an open source software solution for organizing events, especially focused on lan partys.
 
