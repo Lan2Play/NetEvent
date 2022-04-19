@@ -16,6 +16,7 @@ using NetEvent.Client;
 using NetEvent.Client.Shared;
 using MudBlazor;
 using NetEvent.Shared.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace NetEvent.Client.Pages.Administration
 {
@@ -24,40 +25,72 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-        public List<ApplicationUser>? AllUsers { get; private set; }
-        private string _searchString;
+
 
         protected override async Task OnInitializedAsync()
         {
             AllUsers = await Utils.Get<List<ApplicationUser>>(HttpClient, "users");
+            AllRoles = await Utils.Get<List<IdentityRole>>(HttpClient, "roles");
         }
 
+        #region Users
+
+        public List<ApplicationUser>? AllUsers { get; private set; }
+        private string _usersSearchString;
 
         // quick filter - filter gobally across multiple columns with the same input
-        private Func<ApplicationUser, bool> _quickFilter => x =>
+        private Func<ApplicationUser, bool> _usersQuickFilter => x =>
         {
-            if (string.IsNullOrWhiteSpace(_searchString))
+            if (string.IsNullOrWhiteSpace(_usersSearchString))
                 return true;
 
-            if (x.UserName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            if (x.UserName.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
-            if (x.FirstName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            if (x.FirstName.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
-            if (x.LastName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            if (x.LastName.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
-            if (x.Email.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            if (x.Email.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
             return false;
         };
 
 
-        void CommittedItemChanges(ApplicationUser item)
+        void CommittedUserChanges(ApplicationUser item)
         {
             _ = Utils.Put(HttpClient, $"users/{item.Id}", item);
         }
+
+        #endregion
+
+        #region Roles
+
+        public List<IdentityRole>? AllRoles { get; private set; }
+        
+        private string _roleSearchString;
+
+        // quick filter - filter gobally across multiple columns with the same input
+        private Func<IdentityRole, bool> _roleQuickFilter => x =>
+        {
+            if (string.IsNullOrWhiteSpace(_usersSearchString))
+                return true;
+
+            if (x.Name.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            return false;
+        };
+
+
+        void CommittedRoleChanges(IdentityRole item)
+        {
+            _ = Utils.Put(HttpClient, $"role/{item.Id}", item);
+        }
+
+        #endregion
     }
 }
