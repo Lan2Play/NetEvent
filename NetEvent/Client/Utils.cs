@@ -26,13 +26,6 @@ namespace NetEvent.Client
                     {
                         return result;
                     }
-
-                    //using var responseStream = await response.Content.ReadAsStreamAsync();
-                    //var result =  await JsonSerializer.DeserializeAsync<T>(responseStream);
-                    //if (result != null)
-                    //{
-                    //    return result;
-                    //}
                 }
                 else
                 {
