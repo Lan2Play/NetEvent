@@ -1,15 +1,9 @@
 # NetEvent
 
-## Development
+is an open source software solution for organizing events, especially focused on lan partys.
 
-Download and Install .Net6 SDK https://dotnet.microsoft.com/download/dotnet/6.0
+Its currently under heavy development, so only use it for testing or development.
 
+## Documentation
 
-
-Install EntityFramework 
-`dotnet tool install --global dotnet-ef`
-
-Switch into NetEvent\Server folder
-
-Create DB
-`dotnet ef database update`
+[Documentation](https://netevent.lan2play.de/)

@@ -6,6 +6,8 @@
                 "user/**/toc.yml",
                 "admin/**.md",
                 "admin/**/toc.yml",
+                "develop/**.md",
+                "develop/**/toc.yml",
                 "toc.yml",
                 "*.md"
             ]
