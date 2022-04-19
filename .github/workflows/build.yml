@@ -10,6 +10,7 @@ on:
     - '!Docs/**'
     - '!packaging/Docs**'
     - '!README.md'
+    - '!.github/workflows/NetEvent_website_build.yml'
   pull_request:
     branches: 
     - OpenIdDict
@@ -20,6 +21,7 @@ on:
     - '!Docs/**'
     - '!packaging/Docs**'
     - '!README.md'
+    - '!.github/workflows/NetEvent_website_build.yml'
 
 jobs:
 

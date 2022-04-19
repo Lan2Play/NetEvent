@@ -6,7 +6,6 @@ on:
     tags: [ v**]
     paths:
     - 'Docs/**'
-    - 'Design/**'
     - 'packaging/Docs/**'
     - '.github/workflows/NetEvent_website_build.yml'
   pull_request:
@@ -14,7 +13,6 @@ on:
     tags: [ v**]
     paths:
     - 'Docs/**'
-    - 'Design/**'
     - 'packaging/Docs/**'
     - '.github/workflows/NetEvent_website_build.yml'
 
