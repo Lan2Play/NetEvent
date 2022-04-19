@@ -11,8 +11,8 @@ namespace NetEvent.Server.Modules.Users
         {
             //endpoints.MapGet("/users", GetUsers.Handle);
             endpoints.MapGet("/users", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetUsersRequest())));
-            endpoints.MapGet("/users/{id}", GetUser.Handle);
-            endpoints.MapPut("/users/{id}", async ([FromRoute] string id, [FromBody] ApplicationUser user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(id, user)))).RequireAuthorization("Schreibe Users");
+            endpoints.MapGet("/users/{id}", async ([FromRoute] string id, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetUserRequest(id))));
+            endpoints.MapPut("/users/{id}", async ([FromRoute] string id, [FromBody] ApplicationUser user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(id, user))));
             return endpoints;
         }
 
