@@ -7,10 +7,12 @@ namespace NetEvent.Server.Modules.Users.Endpoints
     public class PutUserHandler : IRequestHandler<PutUserRequest, PutUserResponse>
     {
         private readonly ApplicationDbContext _UserDbContext;
+        private readonly ILogger<PutUserHandler> _Logger;
 
-        public PutUserHandler(ApplicationDbContext userDbContext)
+        public PutUserHandler(ApplicationDbContext userDbContext, ILogger<PutUserHandler> logger)
         {
             _UserDbContext = userDbContext;
+            _Logger = logger;
         }
 
         public async Task<PutUserResponse> Handle(PutUserRequest request, CancellationToken cancellationToken)
