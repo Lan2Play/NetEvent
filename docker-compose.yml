@@ -1,0 +1,11 @@
+version: '3'
+services:
+    netevent:
+        image: lan2play/netevent
+        ports:
+            - '5000:5000/tcp'
+        volumes:
+            - data:/data
+
+volumes:
+    data:

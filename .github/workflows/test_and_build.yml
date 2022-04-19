@@ -95,6 +95,8 @@ jobs:
             lan2play/netevent:latest
           build-args: |
             BUILDNODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
+            BUILDID=${{ github.run_id }}
+            BUILDNUMBER=${{ github.run_number }}
             SOURCE_COMMIT=${{ github.sha }}
           no-cache: true
       # - name: Test Linux Image
