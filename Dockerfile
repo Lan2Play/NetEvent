@@ -33,7 +33,7 @@ ENV ASPNETCORE_URLS="http://+:5000"
 ENV DATADIR="/data"
 
 #User creation
-RUN groupadd -g 1010 -r NetEvent && useradd --no-log-init -u 1010 -r -g NetEvent NetEvent
+RUN groupadd -g 1010 -r NetEvent && useradd --create-home --no-log-init -u 1010 -r -g NetEvent NetEvent
 
 #default datadir
 RUN mkdir /data && chown -R NetEvent:NetEvent /data
