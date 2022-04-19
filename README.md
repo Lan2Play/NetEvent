@@ -8,7 +8,7 @@ Its currently under heavy development, so only use it for testing or development
 
 ## Developer Documentation
 
-[Documentation](https://netevent.lan2play.de/develop/quickstart.htm)
+[Documentation](https://netevent.lan2play.de/develop/quickstart.html)
 
 ## Documentation
 
