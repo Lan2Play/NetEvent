@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Data;
 using NetEvent.Shared.Models;
 
@@ -9,9 +8,12 @@ namespace NetEvent.Server.Modules.Users.Endpoints
     {
         private readonly ApplicationDbContext _UserDbContext;
 
-        public GetUserHandler(ApplicationDbContext userDbContext)
+        private readonly ILogger<GetUserHandler> _Logger;
+
+        public GetUserHandler(ApplicationDbContext userDbContext, ILogger<GetUserHandler> logger)
         {
             _UserDbContext = userDbContext;
+            _Logger = logger;
         }
 
         public async Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
