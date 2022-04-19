@@ -1,13 +1,14 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
+@using MudBlazor.ThemeManager
 @using NetEvent.Client.Pages.Administration
 
-<MudThemeProvider />
+<MudThemeProvider Theme="_themeManager.Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="1">
+    <MudAppBar ClipMode="_themeManager.DrawerClipMode" Elevation="_themeManager.DrawerElevation">
         <AuthorizeView Roles="Admin">
             <Authorized>
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
@@ -24,8 +25,13 @@
                     <MudText Typo="Typo.h5" Class="mt-1">Administration</MudText>
                 </MudDrawerHeader>
                 <AdminMenu></AdminMenu>
+                <MudThemeManagerButton OnClick="@((e) => ToggleThemeManager(true))" />
+                <MudThemeManager Open="_themeManagerOpen" OpenChanged="ToggleThemeManager" Theme="_themeManager" ThemeChanged="UpdateTheme" />
+
+
                 @*NavMenu*@
             </MudDrawer>
+
         </Authorized>
     </AuthorizeView>
 
@@ -34,11 +40,4 @@
         @Body
     </MudMainContent>
 </MudLayout>
-@code {
-    bool _drawerOpen = true;
 
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
-}

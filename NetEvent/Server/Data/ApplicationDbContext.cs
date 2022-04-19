@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.AspNetCore.Identity;
 using NetEvent.Shared.Models;
 using NetEvent.Server.Modules;
+using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Data
 {
@@ -17,6 +18,8 @@ namespace NetEvent.Server.Data
             : base(options)
         {
         }
+
+        public virtual DbSet<Theme> Themes { get; set; }
 
         public override EntityEntry<TEntity> Add<TEntity>(TEntity entity)
         {

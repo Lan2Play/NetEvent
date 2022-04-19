@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Modules.Users.Endpoints;
 using NetEvent.Shared.Dto;
 
@@ -17,6 +18,14 @@ namespace NetEvent.Server.Modules.Users
         public override IServiceCollection RegisterModule(IServiceCollection builder)
         {
             return builder;
+        }
+
+        public override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Theme>(entity =>
+            {
+                entity.ToTable(name: "Themes");
+            });
         }
     }
 }

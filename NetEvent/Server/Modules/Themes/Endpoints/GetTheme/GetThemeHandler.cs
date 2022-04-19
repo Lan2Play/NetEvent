@@ -6,16 +6,18 @@ namespace NetEvent.Server.Modules.Users.Endpoints
     public class GetThemeHandler : IRequestHandler<GetThemeRequest, GetThemeResponse>
     {
         private readonly ILogger<GetThemeHandler> _Logger;
+        private readonly ApplicationDbContext _ApplicationDbContext;
 
-        public GetThemeHandler(ILogger<GetThemeHandler> logger)
+        public GetThemeHandler(ApplicationDbContext applicationDbContext, ILogger<GetThemeHandler> logger)
         {
+            _ApplicationDbContext = applicationDbContext;
             _Logger = logger;
         }
 
-        public async Task<GetThemeResponse> Handle(GetThemeRequest request, CancellationToken cancellationToken)
+        public Task<GetThemeResponse> Handle(GetThemeRequest request, CancellationToken cancellationToken)
         {
-            // TODO Implement
-            return new GetThemeResponse(null);
+            var theme = _ApplicationDbContext.Themes.FirstOrDefault();
+            return Task.FromResult(theme != null ? new GetThemeResponse(theme) : new GetThemeResponse(ReturnType.NotFound, string.Empty));
         }
     }
 }

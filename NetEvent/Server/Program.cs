@@ -130,6 +130,15 @@ builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof
 
 var app = builder.Build();
 
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    var dbContext = app.Services.GetRequiredService<ApplicationDbContext>();
+
+    //await using var dbContext = await dbContextFactory.CreateDbContextAsync().ConfigureAwait(false);
+
+    await dbContext.Database.MigrateAsync().ConfigureAwait(false);
+}
+
 if (app.Environment.IsDevelopment())
 {
     //app.UseMigrationsEndPoint();

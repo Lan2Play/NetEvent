@@ -36,7 +36,7 @@ namespace NetEvent.Client
             {
 
             }
-            throw new NotImplementedException("Error Handling is not yet implemented!");
+            return default;
         }
 
 
