@@ -1,15 +1,15 @@
 # NetEvent
 
-## Development
+[![NetEvent_test_and_build](https://github.com/Lan2Play/NetEvent/actions/workflows/test_and_build.yml/badge.svg)](https://github.com/Lan2Play/NetEvent/actions/workflows/test_and_build.yml)
 
-Download and Install .Net6 SDK https://dotnet.microsoft.com/download/dotnet/6.0
+is an open source software solution for organizing events, especially focused on lan partys.
 
+Its currently under heavy development, so only use it for testing or development.
 
+## Developer Documentation
 
-Install EntityFramework 
-`dotnet tool install --global dotnet-ef`
+[Documentation](https://netevent.lan2play.de/develop/quickstart.htm)
 
-Switch into NetEvent\Server folder
+## Documentation
 
-Create DB
-`dotnet ef database update`
+[Documentation](https://netevent.lan2play.de/)
