@@ -1,0 +1,22 @@
+name: Update Docker Hub Description
+
+on:
+  push:
+    tags: [ v**]
+  workflow_dispatch: # Allows action to be run manually from the Actions tab
+
+jobs:
+  update-dockerhub-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Update Docker HUB Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.NETEVENT_DOCKERHUB_USERNAME }}
+          password: ${{ secrets.NETEVENT_DOCKERHUB_TOKEN }}
+          repository: lan2play/netevent
+          short-description: "NetEvent event management software"
+          readme-filepath: ./README.md
