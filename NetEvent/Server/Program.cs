@@ -20,10 +20,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 contextLifetime: ServiceLifetime.Transient,
 optionsLifetime: ServiceLifetime.Singleton);
 
-builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString),
-    ServiceLifetime.Scoped);
-
 builder.Services.AddAuthorization();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
