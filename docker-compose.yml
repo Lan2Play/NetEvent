@@ -4,6 +4,9 @@ services:
         image: lan2play/netevent
         ports:
             - '5000:5000/tcp'
+        environment:
+            ASPNETCORE_URLS: 'http://+:5000'
+            ConnectionStrings__DefaultConnection: 'Data Source=/data/netevent.db'
         volumes:
             - data:/data
 
