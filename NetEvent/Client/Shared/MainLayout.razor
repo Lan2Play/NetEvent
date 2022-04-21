@@ -3,12 +3,12 @@
 @using MudBlazor.ThemeManager
 @using NetEvent.Client.Pages.Administration
 
-<MudThemeProvider Theme="_themeManager.Theme" />
+<MudThemeProvider Theme="_ThemeManager.Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar ClipMode="_themeManager.DrawerClipMode" Elevation="_themeManager.DrawerElevation">
+    <MudAppBar ClipMode="_themeManager.DrawerClipMode" Elevation="_ThemeManager.DrawerElevation">
         <AuthorizeView Roles="Admin">
             <Authorized>
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
@@ -25,8 +25,7 @@
                     <MudText Typo="Typo.h5" Class="mt-1">Administration</MudText>
                 </MudDrawerHeader>
                 <AdminMenu></AdminMenu>
-                <MudThemeManagerButton OnClick="@((e) => ToggleThemeManager(true))" />
-                <MudThemeManager Open="_themeManagerOpen" OpenChanged="ToggleThemeManager" Theme="_themeManager" ThemeChanged="UpdateTheme" />
+
 
 
                 @*NavMenu*@
@@ -39,5 +38,8 @@
     <MudMainContent>
         @Body
     </MudMainContent>
+
+    <MudThemeManagerButton OnClick="@((e) => ToggleThemeManager(true))" />
+    <MudThemeManager Open="_themeManagerOpen" OpenChanged="ToggleThemeManager" Theme="_ThemeManager" ThemeChanged="UpdateTheme" />
 </MudLayout>
 

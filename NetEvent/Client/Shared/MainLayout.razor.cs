@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor.ThemeManager;
-using System.Text.Json;
 using NetEvent.Shared.Dto;
+using Newtonsoft.Json;
 
 namespace NetEvent.Client.Shared
 {
@@ -10,7 +10,7 @@ namespace NetEvent.Client.Shared
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-        private ThemeManagerTheme _themeManager = new ThemeManagerTheme();
+        private ThemeManagerTheme _ThemeManager = new();
         bool _drawerOpen = true;
 
         void DrawerToggle()
@@ -23,13 +23,14 @@ namespace NetEvent.Client.Shared
             var theme = await HttpClient.Get<Theme>("theme");
             if (theme?.ThemeData != null)
             {
-                _themeGuid = theme.Id;
-                var newThemeManager = JsonSerializer.Deserialize<ThemeManagerTheme>(theme.ThemeData);
-                _themeManager = newThemeManager ?? _themeManager;
+                var newThemeManager = JsonConvert.DeserializeObject<ThemeManagerTheme>(theme.ThemeData);
+                if (newThemeManager != null)
+                {
+                    _ThemeManager.Theme.Palette.AppbarBackground = newThemeManager.Theme.Palette.AppbarBackground;
+                }
             }
         }
 
-        private Guid _themeGuid;
         public bool _themeManagerOpen = false;
 
         void ToggleThemeManager(bool value)
@@ -37,17 +38,10 @@ namespace NetEvent.Client.Shared
             _themeManagerOpen = value;
         }
 
-        async Task UpdateTheme(ThemeManagerTheme value)
+        private async Task UpdateTheme(ThemeManagerTheme value)
         {
-            _themeManager = value;
-            var themeData = JsonSerializer.Serialize(_themeManager.Theme);
-            await HttpClient.Put("theme", new Theme { Id = _themeGuid, ThemeData = themeData });
-
-            if (_themeGuid == default)
-            {
-                var theme = await HttpClient.Get<Theme>("theme");
-                _themeGuid = theme.Id;
-            }
+            var themeData = JsonConvert.SerializeObject(value);
+            await HttpClient.Put("theme", new Theme { ThemeData = themeData });
         }
     }
 }
