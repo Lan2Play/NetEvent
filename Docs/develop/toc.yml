@@ -1,4 +1,4 @@
-- name: Quick Start 
+- name: Quickstart 
   href: quickstart.md
 - name: CI / CD
   href: cicd.md
