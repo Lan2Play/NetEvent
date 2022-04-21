@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using NetEvent.Shared.Models;
 using NetEvent.Server.Modules;
 using NetEvent.Shared.Dto;
-
 namespace NetEvent.Server.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

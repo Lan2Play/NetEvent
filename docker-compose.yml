@@ -4,11 +4,46 @@ services:
         image: lan2play/netevent
         ports:
             - '5000:5000/tcp'
+        env_file: .env
         environment:
             ASPNETCORE_URLS: 'http://+:5000'
-            ConnectionStrings__DefaultConnection: 'Data Source=/data/netevent.db'
+            DBProvider: "${DBProvider}"
+            DBName: "${DBName}"
+            DBServer: "${DBServer}"
+            DBPort: "${DBPort}"
+            DBUser: "${DBUser}"
+            DBPassword: "${DBPassword}"
+            TZ: 'Europe/Berlin'
         volumes:
-            - data:/data
+            - netevent_data:/data
+        networks:
+            - netevent
+        depends_on:
+            - netevent_psql
+            
+    netevent_psql:
+        image: 'postgres:latest'
+        env_file: .env
+        environment:
+            POSTGRES_PASSWORD: '${DBPassword}'
+            POSTGRES_USER: '${DBUser}'
+            POSTGRES_DB: '${DBName}'
+            TZ: 'Europe/Berlin'
+        volumes:
+            - netevent_psql:/var/lib/postgresql/data
+        networks:
+            - netevent
+        healthcheck:
+          test: ["CMD-SHELL", "pg_isready -U postgres"]
+          retries: 3
+          timeout: 5s
+
+networks:
+    netevent:
+        driver: bridge
 
 volumes:
-    data:
+  netevent_data:
+        driver: local
+  netevent_psql:
+        driver: local

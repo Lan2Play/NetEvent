@@ -30,7 +30,13 @@ LABEL org.opencontainers.image.authors="Alexander@volzit.de"
 
 #dotnet config
 ENV ASPNETCORE_URLS="http://+:5000"
-ENV ConnectionStrings__DefaultConnection="Data Source=/data/netevent.db"
+ENV DBProvider="sqlite"
+ENV DBName="/data/netevent.db"
+ENV DBServer=""
+ENV DBPort=""
+ENV DBUser=""
+ENV DBPassword=""
+ENV TZ="Europe/Berlin"
 
 #User creation
 RUN groupadd -g 1010 -r NetEvent && useradd --create-home --no-log-init -u 1010 -r -g NetEvent NetEvent
@@ -39,13 +45,19 @@ RUN groupadd -g 1010 -r NetEvent && useradd --create-home --no-log-init -u 1010 
 RUN mkdir /data && chown -R NetEvent:NetEvent /data
 VOLUME [ "/data" ]
 
+#container scripts
+COPY docker/start-container /usr/local/bin/start-container
+COPY docker/wait-for.sh /usr/local/bin/wait-for.sh
+RUN chmod +x /usr/local/bin/start-container
+RUN chmod +x /usr/local/bin/wait-for.sh
+
 #install prereqs
 RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     wget apt-transport-https
 RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 RUN rm packages-microsoft-prod.deb
-RUN apt-get update -qqy && apt-get install -y aspnetcore-runtime-6.0 libleptonica-dev libtesseract-dev libc6-dev
+RUN apt-get update -qqy && apt-get install -y aspnetcore-runtime-6.0
 RUN eval apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #copy NetEvent files
@@ -63,12 +75,6 @@ ENV SOURCE_COMMIT=$SOURCE_COMMIT
 ARG BUILDNODE
 ENV BUILDNODE=$BUILDNODE
 
-#fix libraries
-WORKDIR /NetEvent/x64
-RUN ln -s /usr/lib/x86_64-linux-gnu/liblept.so.5 liblept.so.5
-RUN ln -s /usr/lib/x86_64-linux-gnu/libleptonica.so libleptonica-1.80.0.so
-RUN ln -s /usr/lib/x86_64-linux-gnu/libtesseract.so libtesseract41.so
-
 #Expose the port used
 EXPOSE 5000/tcp
 
@@ -77,4 +83,4 @@ USER NetEvent
 
 # run
 WORKDIR /NetEvent
-CMD [ "/bin/sh", "-c", "/NetEvent/NetEvent.Server" ]
+CMD [ "/bin/sh", "-c", "start-container" ]

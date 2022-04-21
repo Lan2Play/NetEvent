@@ -11,14 +11,36 @@ using NetEvent.Shared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+switch (builder.Configuration["DBProvider"].ToLower())
 {
-    options.UseSqlite(connectionString);
-    options.UseOpenIddict();
-},
-contextLifetime: ServiceLifetime.Transient,
-optionsLifetime: ServiceLifetime.Singleton);
+    case "sqlite":
+        {
+
+            builder.Services.AddDbContext<ApplicationDbContext,SqliteApplicationDbContext>(options =>
+             {
+                 options.UseOpenIddict();
+             },
+             contextLifetime: ServiceLifetime.Transient,
+             optionsLifetime: ServiceLifetime.Singleton);
+        }
+        break;
+    case "psql":
+        {
+            builder.Services.AddDbContext<ApplicationDbContext,PsqlApplicationDbContext>(options =>
+             {
+                 options.UseOpenIddict();
+             },
+             contextLifetime: ServiceLifetime.Transient,
+             optionsLifetime: ServiceLifetime.Singleton);
+        }
+        break;
+    default:
+        {
+            throw new Exception($"DbProvider not recognized: {builder.Configuration["DBProvider"]}");
+        }
+
+}
+
 
 builder.Services.AddAuthorization();
 
@@ -62,38 +84,38 @@ builder.Services.AddOpenIddict()
     // Register the OpenIddict core components.
     .AddCore(options =>
     {
-        // Configure OpenIddict to use the Entity Framework Core stores and models.
-        // Note: call ReplaceDefaultEntities() to replace the default OpenIddict entities.
+                // Configure OpenIddict to use the Entity Framework Core stores and models.
+                // Note: call ReplaceDefaultEntities() to replace the default OpenIddict entities.
         options//.ReplaceApplicationStoreResolver<NetEventApplicationStoreResolver>()
                 .UseEntityFrameworkCore()
                .UseDbContext<ApplicationDbContext>();
 
-        // Enable Quartz.NET integration.
+                // Enable Quartz.NET integration.
         options.UseQuartz();
     })
 
     // Register the OpenIddict server components.
     .AddServer(options =>
     {
-        // Enable the authorization, logout, token and userinfo endpoints.
+                // Enable the authorization, logout, token and userinfo endpoints.
         options.SetAuthorizationEndpointUris("/connect/authorize")
                .SetLogoutEndpointUris("/connect/logout")
                .SetTokenEndpointUris("/connect/token")
                .SetUserinfoEndpointUris("/connect/userinfo");
 
-        // Mark the "email", "profile" and "roles" scopes as supported scopes.
+                // Mark the "email", "profile" and "roles" scopes as supported scopes.
         options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles);
 
-        // Note: the sample uses the code and refresh token flows but you can enable
-        // the other flows if you need to support implicit, password or client credentials.
+                // Note: the sample uses the code and refresh token flows but you can enable
+                // the other flows if you need to support implicit, password or client credentials.
         options.AllowAuthorizationCodeFlow()
                .AllowRefreshTokenFlow();
 
-        // Register the signing and encryption credentials.
+                // Register the signing and encryption credentials.
         options.AddDevelopmentEncryptionCertificate()
                .AddDevelopmentSigningCertificate();
 
-        // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
+                // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
         options.UseAspNetCore()
        .EnableAuthorizationEndpointPassthrough()
        .EnableLogoutEndpointPassthrough()
@@ -104,17 +126,17 @@ builder.Services.AddOpenIddict()
     // Register the OpenIddict validation components.
     .AddValidation(options =>
     {
-        // Import the configuration from the local OpenIddict server instance.
+                // Import the configuration from the local OpenIddict server instance.
         options.UseLocalServer();
 
-        //options.SetIssuer("http://localhost:58795/");
-        //options.AddAudiences("resource_server_1");
-        //options.UseIntrospection()
-        //                 .SetClientId("NetEvent-blazor-client")
-        //                 .SetClientSecret("846B62D0-DEF9-4215-A99D-86E6B8DAB342");
-        //options.UseSystemNetHttp();
+                //options.SetIssuer("http://localhost:58795/");
+                //options.AddAudiences("resource_server_1");
+                //options.UseIntrospection()
+                //                 .SetClientId("NetEvent-blazor-client")
+                //                 .SetClientSecret("846B62D0-DEF9-4215-A99D-86E6B8DAB342");
+                //options.UseSystemNetHttp();
 
-        // Register the ASP.NET Core host.
+                // Register the ASP.NET Core host.
         options.UseAspNetCore();
     });
 
