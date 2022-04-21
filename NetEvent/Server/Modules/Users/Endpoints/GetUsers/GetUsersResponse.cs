@@ -1,10 +1,11 @@
-﻿using NetEvent.Shared.Models;
+﻿using NetEvent.Server.Models;
+using NetEvent.Shared.Dto;
 
-namespace NetEvent.Server.Modules.Users.Endpoints
+namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
 {
-    public class GetUsersResponse : ResponseBase<List<ApplicationUser>>
+    public class GetUsersResponse : ResponseBase<IEnumerable<CurrentUser>>
     {
-        public GetUsersResponse(List<ApplicationUser>? value) : base(value)
+        public GetUsersResponse(IEnumerable<CurrentUser>? value) : base(value)
         {
         }
 

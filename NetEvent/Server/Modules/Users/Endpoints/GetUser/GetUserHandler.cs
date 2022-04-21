@@ -1,8 +1,9 @@
 ﻿using MediatR;
 using NetEvent.Server.Data;
-using NetEvent.Shared.Models;
+using NetEvent.Server.Models;
+using NetEvent.Shared.Dto;
 
-namespace NetEvent.Server.Modules.Users.Endpoints
+namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
 {
     public class GetUserHandler : IRequestHandler<GetUserRequest, GetUserResponse>
     {
@@ -24,7 +25,19 @@ namespace NetEvent.Server.Modules.Users.Endpoints
                 return new GetUserResponse(ReturnType.NotFound, "");
             }
 
-            return new GetUserResponse(user);
+            var currentUser = new CurrentUser()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                LastName = user.LastName,
+                FirstName = user.FirstName,
+                ProfileImage = user.ProfilePicture,
+                EmailConfirmed = user.EmailConfirmed,   
+                
+            };
+
+            return new GetUserResponse(currentUser);
         }
     }
 }

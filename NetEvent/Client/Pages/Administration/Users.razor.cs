@@ -1,22 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
-using Microsoft.JSInterop;
-using NetEvent.Client;
-using NetEvent.Client.Shared;
-using MudBlazor;
-using NetEvent.Shared.Models;
 using Microsoft.AspNetCore.Identity;
+using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Pages.Administration
 {
@@ -29,17 +13,17 @@ namespace NetEvent.Client.Pages.Administration
 
         protected override async Task OnInitializedAsync()
         {
-            AllUsers = await Utils.Get<List<ApplicationUser>>(HttpClient, "users");
+            AllUsers = await Utils.Get<List<CurrentUser>>(HttpClient, "users");
             AllRoles = await Utils.Get<List<IdentityRole>>(HttpClient, "roles");
         }
 
         #region Users
 
-        public List<ApplicationUser>? AllUsers { get; private set; }
+        public List<CurrentUser>? AllUsers { get; private set; }
         private string _usersSearchString;
 
         // quick filter - filter gobally across multiple columns with the same input
-        private Func<ApplicationUser, bool> _usersQuickFilter => x =>
+        private Func<CurrentUser, bool> _usersQuickFilter => x =>
         {
             if (string.IsNullOrWhiteSpace(_usersSearchString))
                 return true;
@@ -60,7 +44,7 @@ namespace NetEvent.Client.Pages.Administration
         };
 
 
-        void CommittedUserChanges(ApplicationUser item)
+        void CommittedUserChanges(CurrentUser item)
         {
             _ = Utils.Put(HttpClient, $"users/{item.Id}", item);
         }

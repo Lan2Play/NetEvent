@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using NetEvent.Shared.Models;
+using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Pages.Administration
 {
@@ -9,11 +9,11 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-        public List<ApplicationUser>? Users { get; private set; }
+        public List<CurrentUser>? Users { get; private set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Users = await Utils.Get<List<ApplicationUser>>(HttpClient, "users");
+            Users = await Utils.Get<List<CurrentUser>>(HttpClient, "users");
         }
 
     }

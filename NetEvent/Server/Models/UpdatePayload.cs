@@ -1,7 +1,6 @@
-﻿namespace NetEvent.Server.Models
+﻿namespace NetEvent.Server.Models;
+
+public class UpdatePayload
 {
-    public class UpdatePayload
-    {
-        public bool Success { get; set; }
-    }
+    public bool Success { get; set; }
 }

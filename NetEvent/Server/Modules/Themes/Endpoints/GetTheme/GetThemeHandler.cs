@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using NetEvent.Server.Data;
 
-namespace NetEvent.Server.Modules.Users.Endpoints
+namespace NetEvent.Server.Modules.Themes.Endpoints.GetTheme
 {
     public class GetThemeHandler : IRequestHandler<GetThemeRequest, GetThemeResponse>
     {
