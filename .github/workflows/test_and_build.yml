@@ -4,6 +4,7 @@ on:
     branches: 
     - OpenIdDict
     - develop
+    - 'feature/**'
     tags: [ v**]
     paths:
     - '**'
@@ -17,6 +18,7 @@ on:
     branches: 
     - OpenIdDict
     - develop
+    - 'feature/**'
     tags: [ v**]
     paths:
     - '**'
