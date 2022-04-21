@@ -1,6 +1,6 @@
-﻿using NetEvent.Shared.Models;
+﻿using NetEvent.Server.Models;
 
-namespace NetEvent.Server.Modules.Users.Endpoints
+namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
 {
     public class GetUsersResponse : ResponseBase<List<ApplicationUser>>
     {

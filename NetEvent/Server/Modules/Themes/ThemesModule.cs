@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NetEvent.Server.Modules.Users.Endpoints;
+using NetEvent.Server.Modules.Themes.Endpoints.GetTheme;
+using NetEvent.Server.Modules.Themes.Endpoints.PutTheme;
 using NetEvent.Shared.Dto;
 
-namespace NetEvent.Server.Modules.Users
+namespace NetEvent.Server.Modules.Themes
 {
     public class ThemesModule : ModuleBase
     {

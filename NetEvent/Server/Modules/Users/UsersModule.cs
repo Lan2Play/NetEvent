@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NetEvent.Server.Modules.Users.Endpoints;
-using NetEvent.Shared.Models;
+using NetEvent.Server.Models;
+using NetEvent.Server.Modules.Users.Endpoints.GetUser;
+using NetEvent.Server.Modules.Users.Endpoints.GetUsers;
+using NetEvent.Server.Modules.Users.Endpoints.PutUser;
 
 namespace NetEvent.Server.Modules.Users
 {

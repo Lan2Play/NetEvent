@@ -1,0 +1,17 @@
+﻿@page "/login"
+
+<h3>Login</h3>
+
+<EditForm Model="LoginRequest" OnValidSubmit="ExecuteLogin">
+    <DataAnnotationsValidator />
+    <MudCard >
+        <MudCardContent>         
+            <MudTextField id="Input.Email" Label="Email" @bind-Value="LoginRequest.UserName" For="@(() => LoginRequest.UserName)" />
+            <MudTextField id="Input.Password" Label="Password" @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" InputType="InputType.Password" />
+             <MudCheckBox id="Input.Remember" Label="Remember Me" @bind-Checked="LoginRequest.RememberMe" />
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ma-2 py-2">Login</MudButton>
+        </MudCardActions>
+    </MudCard>    
+</EditForm>

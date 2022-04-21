@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using NetEvent.Server.Data;
-using NetEvent.Shared.Models;
+using NetEvent.Server.Models;
 
-namespace NetEvent.Server.Modules.Users.Endpoints
+namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
 {
     public class GetUserHandler : IRequestHandler<GetUserRequest, GetUserResponse>
     {

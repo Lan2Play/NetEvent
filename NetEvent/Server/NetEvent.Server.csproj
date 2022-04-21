@@ -28,10 +28,7 @@
 		<PackageReference Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
-		<PackageReference Include="OpenIddict.AspNetCore" Version="3.1.1" />
-		<PackageReference Include="OpenIddict.EntityFrameworkCore" Version="3.1.1" />
-		<PackageReference Include="OpenIddict.Quartz" Version="3.1.1" />
-		<PackageReference Include="Quartz.Extensions.Hosting" Version="3.4.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
 	</ItemGroup>
 
 	<ItemGroup>

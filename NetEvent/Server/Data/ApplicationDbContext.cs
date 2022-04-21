@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.AspNetCore.Identity;
-using NetEvent.Shared.Models;
 using NetEvent.Server.Modules;
 using NetEvent.Shared.Dto;
+using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Data
 {

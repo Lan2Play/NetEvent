@@ -1,8 +1,7 @@
-﻿namespace NetEvent.Server.Models
+﻿namespace NetEvent.Server.Models;
+
+public enum Roles
 {
-    public enum Roles
-    {
-        Admin,
-        User
-    }
+    Admin,
+    User
 }

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using NetEvent.Server.Data;
 
-namespace NetEvent.Server.Modules.Users.Endpoints
+namespace NetEvent.Server.Modules.Themes.Endpoints.PutTheme
 {
     public class PutThemeHandler : IRequestHandler<PutThemeRequest, PutThemeResponse>
     {
@@ -16,7 +16,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
 
         public async Task<PutThemeResponse> Handle(PutThemeRequest request, CancellationToken cancellationToken)
         {
-            var oldTheme = request.Theme.Id != default ? (await _ApplicationDbContext.Themes.FindAsync(request.Theme.Id)) : _ApplicationDbContext.Themes.FirstOrDefault();
+            var oldTheme = request.Theme.Id != default ? await _ApplicationDbContext.Themes.FindAsync(request.Theme.Id) : _ApplicationDbContext.Themes.FirstOrDefault();
             if (oldTheme != null)
             {
                 oldTheme.ThemeData = request.Theme.ThemeData;

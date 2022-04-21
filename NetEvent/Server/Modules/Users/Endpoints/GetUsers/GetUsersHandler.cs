@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Data;
 
-namespace NetEvent.Server.Modules.Users.Endpoints
+namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
 {
     public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse>
     {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using NetEvent.Shared.Dto;
 
-namespace NetEvent.Server.Modules.Users.Endpoints;
+namespace NetEvent.Server.Modules.Themes.Endpoints.PutTheme;
 
 public class PutThemeRequest : IRequest<PutThemeResponse>
 {
