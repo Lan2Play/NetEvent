@@ -30,7 +30,7 @@ LABEL org.opencontainers.image.authors="Alexander@volzit.de"
 
 #dotnet config
 ENV ASPNETCORE_URLS="http://+:5000"
-ENV DATADIR="/data"
+ENV ConnectionStrings__DefaultConnection="Data Source=/data/netevent.db"
 
 #User creation
 RUN groupadd -g 1010 -r NetEvent && useradd --create-home --no-log-init -u 1010 -r -g NetEvent NetEvent
