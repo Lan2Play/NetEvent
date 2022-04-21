@@ -1,5 +1,4 @@
-﻿using NetEvent.Shared.Models;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 
 namespace NetEvent.Client

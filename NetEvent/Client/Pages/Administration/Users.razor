@@ -1,13 +1,14 @@
 ﻿@page "/administration/users"
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
-@using NetEvent.Shared.Models;
+@using NetEvent.Shared.Dto
+
 
 @attribute [Authorize(Roles = "Admin")]
 
 <MudTabs Elevation="1" Rounded="true">
     <MudTabPanel Text="User">
-        <MudDataGrid T="ApplicationUser"
+        <MudDataGrid T="CurrentUser"
                      MultiSelection="false"
                      Items="@AllUsers"
                      Sortable="true"
@@ -26,12 +27,12 @@
             </ToolBarContent>
             <Columns>
                 @*<SelectColumn T="ApplicationUser" />*@
-                <Column T="ApplicationUser" Field="UserName" Title="Username" />
-                <Column T="ApplicationUser" Field="FirstName" />
-                <Column T="ApplicationUser" Field="LastName" />
-                <Column T="ApplicationUser" Field="Email" />
-                <Column T="ApplicationUser" Field="PhoneNumber" Title="Molar mass" />
-                <Column T="ApplicationUser" Field="EmailConfirmed">
+                <Column T="CurrentUser" Field="UserName" Title="Username" />
+                <Column T="CurrentUser" Field="FirstName" />
+                <Column T="CurrentUser" Field="LastName" />
+                <Column T="CurrentUser" Field="Email" />
+                <Column T="CurrentUser" Field="PhoneNumber" Title="Molar mass" />
+                <Column T="CurrentUser" Field="EmailConfirmed">
                     <CellTemplate>
                         <MudCheckBox Checked="@context.Item.EmailConfirmed" ReadOnly="true" />
                     </CellTemplate>
@@ -39,14 +40,14 @@
                         <MudCheckBox @bind-Checked="@context.Item.EmailConfirmed" Label="Email confirmed" />
                     </EditTemplate>
                 </Column>
-                <Column T="ApplicationUser" CellClass="d-flex justify-end">
+                <Column T="CurrentUser" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
                     </CellTemplate>
                 </Column>
             </Columns>
             <PagerContent>
-                <MudDataGridPager T="ApplicationUser" />
+                <MudDataGridPager T="CurrentUser" />
             </PagerContent>
         </MudDataGrid>
     </MudTabPanel>

@@ -5,6 +5,7 @@ using NetEvent.Server.Models;
 using NetEvent.Server.Modules.Users.Endpoints.GetUser;
 using NetEvent.Server.Modules.Users.Endpoints.GetUsers;
 using NetEvent.Server.Modules.Users.Endpoints.PutUser;
+using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users
 {
@@ -15,7 +16,7 @@ namespace NetEvent.Server.Modules.Users
             //endpoints.MapGet("/users", GetUsers.Handle);
             endpoints.MapGet("/users", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetUsersRequest())));
             endpoints.MapGet("/users/{id}", async ([FromRoute] string id, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetUserRequest(id))));
-            endpoints.MapPut("/users/{id}", async ([FromRoute] string id, [FromBody] ApplicationUser user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(id, user))));
+            endpoints.MapPut("/users/{id}", async ([FromRoute] string id, [FromBody] CurrentUser user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(id, user))));
             return endpoints;
         }
 

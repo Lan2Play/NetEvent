@@ -7,13 +7,24 @@ using NetEvent.Server.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+switch (builder.Configuration["DBProvider"].ToLower())
 {
-    options.UseSqlite(connectionString);
-},
-contextLifetime: ServiceLifetime.Transient,
-optionsLifetime: ServiceLifetime.Singleton);
+    case "sqlite":
+        {
+
+            builder.Services.AddDbContext<ApplicationDbContext, SqliteApplicationDbContext>();
+        }
+        break;
+    case "psql":
+        {
+            builder.Services.AddDbContext<ApplicationDbContext, PsqlApplicationDbContext>();
+        }
+        break;
+    default:
+        {
+            throw new Exception($"DbProvider not recognized: {builder.Configuration["DBProvider"]}");
+        }
+}
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()

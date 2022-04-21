@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
+using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
 {
@@ -31,12 +32,12 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
             return new PutUserResponse();
         }
 
-        private static void UpdateOldUser(ApplicationUser oldUser, ApplicationUser user)
+        private static void UpdateOldUser(ApplicationUser oldUser, CurrentUser user)
         {
-            oldUser.EmailConfirmed = user.EmailConfirmed;
             oldUser.UserName = user.UserName;
             oldUser.FirstName = user.FirstName;
             oldUser.LastName = user.LastName;
+            oldUser.EmailConfirmed = user.EmailConfirmed;
         }
 
 

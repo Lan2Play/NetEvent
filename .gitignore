@@ -447,3 +447,9 @@ $RECYCLE.BIN/
 netevent.db
 netevent.db-shm
 netevent.db-wal
+
+##
+## Docker
+##
+.env
+docker-compose.override.yml

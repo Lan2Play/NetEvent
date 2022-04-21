@@ -1,5 +1,5 @@
-# Admins quick start Guide!
-## Running NetEvent
+# Admins quickstart guide!
+## Running NetEvent with docker
 
 ### Prerequirements
 
@@ -8,7 +8,14 @@
 
 ### Installation
 
-- Download or clone this repository (or the docker-compose.yml)
+- Download or clone this repository (or the docker-compose.yml and the .env.example)
 - if you want to use a different port than 5000/tcp, change the first 5000 the docker-compose.yml
+- copy `.env.example` to `.env` and edit at least the `DBUser` and `DBPassword` values. Attention: DBPort does not change the port of the postgres instance that is configured by default in the compose file!
 - run `docker-compose up -d`
 - visit your NetEvent installation with your browser, login with Admin and Test123.. and configure your instance
+
+### Notes
+
+- You can find the container image on [Docker Hub](https://hub.docker.com/r/lan2play/netevent)
+- You can find the `Dockerfile` inside the root of our github repository and build it yourself
+- The container is intended to be running behind any kind of reverse proxy and therfore it is started with http only

@@ -1,5 +1,4 @@
-﻿using NetEvent.Shared.Models;
-
+﻿
 namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 {
     public class PostRegisterUserResponse : ResponseBase

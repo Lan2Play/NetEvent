@@ -8,11 +8,11 @@ using NetEvent.Server.Data;
 
 #nullable disable
 
-namespace NetEvent.Server.Migrations
+namespace NetEvent.Server.Migrations.Sqlite
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220419202823_createThemes")]
-    partial class createThemes
+    [DbContext(typeof(SqliteApplicationDbContext))]
+    [Migration("20220421192924_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,14 +48,14 @@ namespace NetEvent.Server.Migrations
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "6624d117-4c36-41c2-b7c0-734150b9e52b",
+                            ConcurrencyStamp = "a9674b5b-9134-47ff-bff5-ceadb179a8c7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "c4278aea-ec15-47f5-b456-d4e3bc0280b1",
+                            ConcurrencyStamp = "43607da2-1346-4db1-a22c-c6c2695fa299",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -270,7 +270,7 @@ namespace NetEvent.Server.Migrations
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "753ecf21-23d5-4638-a6d6-63110daf781d",
+                            ConcurrencyStamp = "a5c544b6-63b8-491a-97fc-a84846feced0",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -278,9 +278,9 @@ namespace NetEvent.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPLasuelprUCTme0VYS827NuJSY09PIQd9qg+LOv4YS6yxzL4k2cDo/xaTXTxNb7PQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFL/5vknoGG2/Dk4FLxnHvKI9MWE6kCB/CWFyfahLVCIz2dHizS34H3a4L+UzLbQSQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7db3237c-e687-4cde-ba14-8904059cbadf",
+                            SecurityStamp = "372236ab-9f03-4ca3-b254-0160df3318f0",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
