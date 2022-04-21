@@ -8,3 +8,10 @@ Switch into NetEvent\Server folder
 
 Create DB
 `dotnet ef database update`
+
+
+# create migrations for the Database
+Switch into NetEvent\Server folder
+
+`dotnet ef migrations add InitialCreate --context PsqlApplicationDbContext --output-dir Migrations/Psql -- --DBProvider psql`
+`dotnet ef migrations add InitialCreate --context SqliteApplicationDbContext --output-dir Migrations/Sqlite`
