@@ -11,7 +11,14 @@ Create DB
 
 
 # create migrations for the Database
-Switch into NetEvent\Server folder
+Switch into the repository and execute 
 
-`dotnet ef migrations add InitialCreate --context PsqlApplicationDbContext --output-dir Migrations/Psql -- --DBProvider psql`
-`dotnet ef migrations add InitialCreate --context SqliteApplicationDbContext --output-dir Migrations/Sqlite`
+## with make
+
+`make migration name=MigrationName`
+
+## without make 
+
+`dotnet ef migrations add MigrationName --project NetEvent/Server --context PsqlApplicationDbContext --output-dir Migrations/Psql -- --DBProvider psql`
+
+`dotnet ef migrations add MigrationName --project NetEvent/Server --context SqliteApplicationDbContext --output-dir Migrations/Sqlite`
