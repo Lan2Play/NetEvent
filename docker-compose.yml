@@ -6,14 +6,14 @@ services:
             - '5000:5000/tcp'
         env_file: .env
         environment:
-            ASPNETCORE_URLS: 'http://+:5000'
+            ASPNETCORE_URLS: '${ASPNETCORE_URLS}'
             DBProvider: "${DBProvider}"
             DBName: "${DBName}"
             DBServer: "${DBServer}"
             DBPort: "${DBPort}"
             DBUser: "${DBUser}"
             DBPassword: "${DBPassword}"
-            TZ: 'Europe/Berlin'
+            TZ: '${TZ}'
         volumes:
             - netevent_data:/data
         networks:
@@ -28,7 +28,7 @@ services:
             POSTGRES_PASSWORD: '${DBPassword}'
             POSTGRES_USER: '${DBUser}'
             POSTGRES_DB: '${DBName}'
-            TZ: 'Europe/Berlin'
+            TZ: '${TZ}'
         volumes:
             - netevent_psql:/var/lib/postgresql/data
         networks:
