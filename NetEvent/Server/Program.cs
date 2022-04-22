@@ -11,7 +11,6 @@ switch (builder.Configuration["DBProvider"].ToLower())
 {
     case "sqlite":
         {
-
             builder.Services.AddDbContext<ApplicationDbContext, SqliteApplicationDbContext>();
         }
         break;
@@ -55,11 +54,12 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-using (IServiceScope scope = app.Services.CreateScope())
+using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
-    var dbContext = app.Services.GetRequiredService<ApplicationDbContext>();
-
-    await dbContext.Database.MigrateAsync().ConfigureAwait(false);
+    using (var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
+    {
+        ctx.Database.Migrate();
+    }
 }
 
 if (app.Environment.IsDevelopment())
