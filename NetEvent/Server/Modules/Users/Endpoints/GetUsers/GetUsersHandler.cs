@@ -20,7 +20,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
         {
             var allUsers = await _UserDbContext.Users.ToListAsync();
 
-            var convertedUsers = allUsers.Select(a => new CurrentUser()
+            var convertedUsers = allUsers.Select(a => new User()
             {
                 Id = a.Id,
                 UserName = a.UserName,

@@ -5,13 +5,13 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
 {
     public class PutUserRequest : IRequest<PutUserResponse>
     {
-        public PutUserRequest(string id, CurrentUser user)
+        public PutUserRequest(string id, User user)
         {
             Id = id;
             User = user;
         }
 
         public string Id { get; }
-        public CurrentUser User { get; }
+        public User User { get; }
     }
 }

@@ -32,7 +32,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
             return new PutUserResponse();
         }
 
-        private static void UpdateOldUser(ApplicationUser oldUser, CurrentUser user)
+        private static void UpdateOldUser(ApplicationUser oldUser, User user)
         {
             oldUser.UserName = user.UserName;
             oldUser.FirstName = user.FirstName;
