@@ -75,7 +75,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseHealthChecks("/healthcheck");
+    app.UseHealthChecks("/healthz");
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }

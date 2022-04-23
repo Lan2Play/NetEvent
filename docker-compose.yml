@@ -20,7 +20,7 @@ services:
         depends_on:
             - netevent_psql
         healthcheck:
-          test: ["CMD-SHELL", "curl --fail http://localhost:5000/healthcheck || exit"]
+          test: ["CMD-SHELL", "curl --fail http://localhost:5000/healthz || exit"]
           retries: 3
           timeout: 5s
             

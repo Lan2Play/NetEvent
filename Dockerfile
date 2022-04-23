@@ -88,4 +88,4 @@ USER NetEvent
 # run
 WORKDIR /NetEvent
 CMD [ "/bin/sh", "-c", "start-container" ]
-HEALTHCHECK --retries=3 --timeout=5s CMD curl --fail http://localhost:5000/healthcheck || exit
+HEALTHCHECK --retries=3 --timeout=5s CMD curl --fail http://localhost:5000/healthz || exit
