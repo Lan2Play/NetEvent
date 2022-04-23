@@ -22,7 +22,7 @@ services:
         healthcheck:
           test: ["CMD-SHELL", "curl --fail http://localhost:5000/healthcheck || exit"]
           retries: 3
-          timeout: 10s
+          timeout: 5s
             
     netevent_psql:
         image: 'postgres:latest'
@@ -39,7 +39,7 @@ services:
         healthcheck:
           test: ["CMD-SHELL", "pg_isready -U ${DBUser} -d ${DBName}"]
           retries: 3
-          timeout: 10s
+          timeout: 5s
 
 networks:
     netevent:

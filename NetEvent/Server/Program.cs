@@ -12,11 +12,13 @@ switch (builder.Configuration["DBProvider"].ToLower())
     case "sqlite":
         {
             builder.Services.AddDbContext<ApplicationDbContext, SqliteApplicationDbContext>();
+            builder.Services.AddHealthChecks().AddDbContextCheck<SqliteApplicationDbContext>();
         }
         break;
     case "psql":
         {
             builder.Services.AddDbContext<ApplicationDbContext, PsqlApplicationDbContext>();
+            builder.Services.AddHealthChecks().AddDbContextCheck<PsqlApplicationDbContext>();
         }
         break;
     default:
@@ -52,7 +54,6 @@ builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
