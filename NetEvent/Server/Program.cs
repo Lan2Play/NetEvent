@@ -53,6 +53,8 @@ builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 using (IServiceScope scope = app.Services.CreateScope())
@@ -72,6 +74,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
+    app.UseHealthChecks("/healthcheck");
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }

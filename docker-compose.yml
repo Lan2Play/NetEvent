@@ -3,10 +3,9 @@ services:
     netevent:
         image: lan2play/netevent
         ports:
-            - '5000:5000/tcp'
+            - '${APPPort:-5000}:5000'
         env_file: .env
         environment:
-            ASPNETCORE_URLS: '${ASPNETCORE_URLS}'
             DBProvider: "${DBProvider}"
             DBName: "${DBName}"
             DBServer: "${DBServer}"
@@ -20,6 +19,10 @@ services:
             - netevent
         depends_on:
             - netevent_psql
+        healthcheck:
+          test: ["CMD-SHELL", "curl --fail http://localhost:5000/healthcheck || exit"]
+          retries: 3
+          timeout: 10s
             
     netevent_psql:
         image: 'postgres:latest'
@@ -34,9 +37,9 @@ services:
         networks:
             - netevent
         healthcheck:
-          test: ["CMD-SHELL", "pg_isready -U postgres"]
+          test: ["CMD-SHELL", "pg_isready -U ${DBUser} -d ${DBName}"]
           retries: 3
-          timeout: 5s
+          timeout: 10s
 
 networks:
     netevent:

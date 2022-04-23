@@ -13,8 +13,12 @@ RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 RUN rm packages-microsoft-prod.deb
-RUN apt-get update -qqy && apt-get install -y dotnet-sdk-6.0
+RUN apt-get update -qqy && apt-get install -y dotnet-sdk-6.0 python3 python3-pip wget
+RUN pip install lastversion
 RUN eval apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+#get wait-for
+RUN wget -q $(lastversion https://github.com/eficode/wait-for --format assets)
 
 #get NetEvent and publish it
 COPY NetEvent /NetEvent
@@ -47,7 +51,7 @@ VOLUME [ "/data" ]
 
 #container scripts
 COPY docker/start-container /usr/local/bin/start-container
-COPY docker/wait-for.sh /usr/local/bin/wait-for.sh
+COPY --from=build /wait-for /usr/local/bin/wait-for.sh
 RUN chmod +x /usr/local/bin/start-container
 RUN chmod +x /usr/local/bin/wait-for.sh
 
@@ -57,7 +61,7 @@ RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 RUN rm packages-microsoft-prod.deb
-RUN apt-get update -qqy && apt-get install -y aspnetcore-runtime-6.0
+RUN apt-get update -qqy && apt-get install -y aspnetcore-runtime-6.0 netcat curl
 RUN eval apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #copy NetEvent files
@@ -84,3 +88,4 @@ USER NetEvent
 # run
 WORKDIR /NetEvent
 CMD [ "/bin/sh", "-c", "start-container" ]
+HEALTHCHECK --retries=3 --timeout=10s CMD curl --fail http://localhost:5000/healthcheck || exit
