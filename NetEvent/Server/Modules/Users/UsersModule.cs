@@ -14,9 +14,9 @@ namespace NetEvent.Server.Modules.Users
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
             //endpoints.MapGet("/users", GetUsers.Handle);
-            endpoints.MapGet("/users", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetUsersRequest())));
-            endpoints.MapGet("/users/{id}", async ([FromRoute] string id, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetUserRequest(id))));
-            endpoints.MapPut("/users/{id}", async ([FromRoute] string id, [FromBody] User user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(id, user))));
+            endpoints.MapGet("/api/users", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetUsersRequest())));
+            endpoints.MapGet("/api/users/{id}", async ([FromRoute] string id, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetUserRequest(id))));
+            endpoints.MapPut("/api/users/{id}", async ([FromRoute] string id, [FromBody] User user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(id, user))));
             return endpoints;
         }
 

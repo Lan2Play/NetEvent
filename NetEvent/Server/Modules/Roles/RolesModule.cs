@@ -7,9 +7,9 @@ namespace NetEvent.Server.Modules.Roles
     {
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapGet("/roles", GetRoles.Handle);
-            //endpoints.MapGet("/roles/{id}", GetUser.Handle);
-            //endpoints.MapPut("/roles/{id}", PutUser.Handle);
+            endpoints.MapGet("/api/roles", GetRoles.Handle);
+            //endpoints.MapGet("/api/roles/{id}", GetUser.Handle);
+            //endpoints.MapPut("/api/roles/{id}", PutUser.Handle);
             return endpoints;
         }
 
