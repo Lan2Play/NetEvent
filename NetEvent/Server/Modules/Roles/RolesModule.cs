@@ -8,8 +8,6 @@ namespace NetEvent.Server.Modules.Roles
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
             endpoints.MapGet("/api/roles", GetRoles.Handle);
-            //endpoints.MapGet("/api/roles/{id}", GetUser.Handle);
-            //endpoints.MapPut("/api/roles/{id}", PutUser.Handle);
             return endpoints;
         }
 
@@ -20,6 +18,7 @@ namespace NetEvent.Server.Modules.Roles
 
         public void OnModelCreating(ModelBuilder builder)
         {
+            // No need to modify database scheme
         }
     }
 }

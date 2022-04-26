@@ -24,14 +24,18 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
 
             if (user == null)
             {
-                return new PostLoginUserResponse(ReturnType.Error, "User does not exist");
+                var errorMessage = "User does not exist.";
+                _Logger.LogError(errorMessage);
+                return new PostLoginUserResponse(ReturnType.Error, errorMessage);
             }
 
             var singInResult = await _SignInManager.CheckPasswordSignInAsync(user, request.LoginRequest.Password, false);
 
             if (!singInResult.Succeeded)
             {
-                return new PostLoginUserResponse(ReturnType.Error, "Invalid password");
+                var errorMessage = "Invalid password.";
+                _Logger.LogError(errorMessage);
+                return new PostLoginUserResponse(ReturnType.Error, errorMessage);
             }
 
             await _SignInManager.SignInAsync(user, request.LoginRequest.RememberMe).ConfigureAwait(false);

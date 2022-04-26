@@ -16,7 +16,9 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
         {
             if (request.User == null)
             {
-                return new GetCurrentUserResponse(ReturnType.Error, "User not found.");
+                var errorMessage = "User not found.";
+                _Logger.LogError(errorMessage);
+                return new GetCurrentUserResponse(ReturnType.Error, errorMessage);
             }
 
             var currentUser = DtoMapper.Mapper.ClaimsPrincipalToCurrentUser(request.User);

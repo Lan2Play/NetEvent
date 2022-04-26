@@ -17,8 +17,17 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser
 
         public async Task<PostLogoutUserResponse> Handle(PostLogoutUserRequest request, CancellationToken cancellationToken)
         {
-            await _SignInManager.SignOutAsync();
-
+            try
+            {
+                await _SignInManager.SignOutAsync();
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = "Exception occured on sign out.";
+                _Logger.LogError(ex, errorMessage);
+                return new PostLogoutUserResponse(ReturnType.Error, errorMessage);
+            }
+            
             return new PostLogoutUserResponse();
         }
     }
