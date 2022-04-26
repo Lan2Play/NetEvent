@@ -18,3 +18,8 @@ Switch into the repository and execute
 `dotnet ef migrations add MigrationName --project NetEvent/Server --context PsqlApplicationDbContext --output-dir Migrations/Psql -- --DBProvider psql`
 
 `dotnet ef migrations add MigrationName --project NetEvent/Server --context SqliteApplicationDbContext --output-dir Migrations/Sqlite`
+
+
+# code analysis
+
+we do our code analysis on [sonarcloud](https://sonarcloud.io/project/overview?id=Lan2Play_NetEvent)
