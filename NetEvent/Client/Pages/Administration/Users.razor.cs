@@ -13,7 +13,7 @@ namespace NetEvent.Client.Pages.Administration
 
         protected override async Task OnInitializedAsync()
         {
-            AllUsers = await Utils.Get<List<User>>(HttpClient, "users");
+            AllUsers = await Utils.Get<List<User>>(HttpClient, "api/users");
             AllRoles = await Utils.Get<List<IdentityRole>>(HttpClient, "roles");
         }
 
@@ -46,7 +46,7 @@ namespace NetEvent.Client.Pages.Administration
 
         void CommittedUserChanges(User item)
         {
-            _ = Utils.Put(HttpClient, $"users/{item.Id}", item);
+            _ = Utils.Put(HttpClient, $"api/users/{item.Id}", item);
         }
 
         #endregion

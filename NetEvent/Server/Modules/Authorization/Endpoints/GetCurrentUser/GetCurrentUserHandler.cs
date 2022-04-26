@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using NetEvent.Shared.Dto;
+using NetEvent.Shared;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
 {
@@ -14,20 +14,13 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
 
         public async Task<GetCurrentUserResponse> Handle(GetCurrentUserRequest request, CancellationToken cancellationToken)
         {
-            var claimsPrincipal = request.User;
-
-            if (claimsPrincipal == null)
+            if (request.User == null)
             {
                 return new GetCurrentUserResponse(ReturnType.Error, "User not found.");
             }
 
-            var currentUser = new CurrentUser
-            {
-                IsAuthenticated = claimsPrincipal.Identity.IsAuthenticated,
-                UserName = claimsPrincipal.Identity.Name,
-                Claims = claimsPrincipal.Claims.ToDictionary(c => c.Type, c => c.Value)
-            };
-
+            var currentUser = DtoMapper.Mapper.ClaimsPrincipalToCurrentUser(request.User);
+            currentUser.Claims = request.User.Claims.ToDictionary(c => c.Type, c => c.Value);
             return new GetCurrentUserResponse(currentUser);
         }
     }

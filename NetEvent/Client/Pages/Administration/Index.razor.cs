@@ -13,7 +13,7 @@ namespace NetEvent.Client.Pages.Administration
 
         protected override async Task OnInitializedAsync()
         {
-            Users = await Utils.Get<List<CurrentUser>>(HttpClient, "users");
+            Users = await Utils.Get<List<CurrentUser>>(HttpClient, "api/users");
         }
 
     }

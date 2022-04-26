@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Data;
+using NetEvent.Shared;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
@@ -18,20 +19,8 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
 
         public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
         {
-            var allUsers = await _UserDbContext.Users.ToListAsync();
-
-            var convertedUsers = allUsers.Select(a => new User()
-            {
-                Id = a.Id,
-                UserName = a.UserName,
-                Email = a.Email,
-                LastName = a.LastName,
-                FirstName = a.FirstName,
-                ProfileImage = a.ProfilePicture,
-                EmailConfirmed = a.EmailConfirmed,           
-            });
-
-
+            var allUsers = await _UserDbContext.Users.ToListAsync(cancellationToken);
+            var convertedUsers = allUsers.Select(DtoMapper.Mapper.ApplicaitonUserToUser);
             return new GetUsersResponse(convertedUsers);
         }
     }

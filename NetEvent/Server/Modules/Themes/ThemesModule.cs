@@ -11,8 +11,8 @@ namespace NetEvent.Server.Modules.Themes
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapGet("/theme", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetThemeRequest())));
-            endpoints.MapPut("/theme", async ([FromBody] Theme theme, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutThemeRequest(theme))));
+            endpoints.MapGet("/api/themes/theme", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetThemeRequest())));
+            endpoints.MapPut("/api/themes/theme", async ([FromBody] Theme theme, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutThemeRequest(theme))));
             return endpoints;
         }
 
