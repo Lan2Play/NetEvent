@@ -48,11 +48,4 @@ public class GetUsersHandlerTest
         Assert.NotNull(response.ReturnValue);
         Assert.Equal(usersCount, response.ReturnValue?.Count());
     }
-
-
-    [Fact]
-    public async Task Failing_Test()
-    {
-        Assert.True(false);
-    }
 }
