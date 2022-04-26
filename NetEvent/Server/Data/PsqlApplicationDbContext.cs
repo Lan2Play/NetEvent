@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace NetEvent.Server.Data
 {
@@ -7,10 +7,10 @@ namespace NetEvent.Server.Data
     {
         private readonly IConfiguration _Configuration;
 
-        public PsqlApplicationDbContext(DbContextOptions options, IConfiguration configuration)
-            : base(options)
+        public PsqlApplicationDbContext(DbContextOptions optionsBuilder, IConfiguration configuration)
+            : base(optionsBuilder)
         {
-            this._Configuration = configuration;
+            _Configuration = configuration;
         }
        
         protected override void OnConfiguring(DbContextOptionsBuilder options)

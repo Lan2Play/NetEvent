@@ -17,7 +17,15 @@ namespace NetEvent.Server.Modules.Themes.Endpoints.GetTheme
         public Task<GetThemeResponse> Handle(GetThemeRequest request, CancellationToken cancellationToken)
         {
             var theme = _ApplicationDbContext.Themes.FirstOrDefault();
-            return Task.FromResult(theme != null ? new GetThemeResponse(theme) : new GetThemeResponse(ReturnType.NotFound, string.Empty));
+
+            if(theme == null)
+            {
+                var errorMessage = "No theme set.";
+                _Logger.LogError(errorMessage);
+                return Task.FromResult(new GetThemeResponse(ReturnType.NotFound, errorMessage));
+            }
+
+            return Task.FromResult(new GetThemeResponse(theme));
         }
     }
 }
