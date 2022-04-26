@@ -44,7 +44,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.NETEVENT_SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Lan2Play_NetEvent" /o:"lan2play" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Lan2Play_NetEvent" /o:"lan2play" /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build --no-restore
           dotnet test --no-build --no-restore
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}"
