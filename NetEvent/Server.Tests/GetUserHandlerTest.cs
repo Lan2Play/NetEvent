@@ -16,7 +16,7 @@ public class GetUserHandlerTest
     {
         //Arrange
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "NetEvent")
+            .UseInMemoryDatabase(databaseName: nameof(GetUserHandler_Success_Test))
             .Options;
 
         var userFaker = Fakers.ApplicationUserFaker();
@@ -53,7 +53,7 @@ public class GetUserHandlerTest
     {
         //Arrange
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "NetEvent")
+            .UseInMemoryDatabase(databaseName: nameof(GetUserHandler_NotFound_Test))
             .Options;
 
         var logMock = new Mock<ILogger<GetUserHandler>>();

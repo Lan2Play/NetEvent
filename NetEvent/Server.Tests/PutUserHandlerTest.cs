@@ -17,7 +17,7 @@ public class PutUserHandlerTest
     {
         //Arrange
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "NetEvent")
+            .UseInMemoryDatabase(databaseName: nameof(PutUserHandler_Success_Test))
             .Options;
 
         var applicationUserFaker = Fakers.ApplicationUserFaker();
