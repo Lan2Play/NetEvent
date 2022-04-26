@@ -13,6 +13,8 @@ on:
     - '!.env.example.yml'
     - '!README.md'
     - '!.github/workflows/website_build.yml'
+    - '!.github/workflows/update_dockerhub.yml'
+    - '!.github/dependabot.yml'
   pull_request:
     types: [opened, synchronize, reopened]
     branches: 
@@ -28,6 +30,8 @@ on:
     - '!.env.example.yml'
     - '!README.md'
     - '!.github/workflows/website_build.yml'
+    - '!.github/workflows/update_dockerhub.yml'
+    - '!.github/dependabot.yml'
 
 jobs:
 
