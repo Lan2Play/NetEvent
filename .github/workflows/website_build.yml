@@ -2,14 +2,14 @@ name: NetEvent_website_build
 
 on:
   push:
-    branches: [ OpenIdDict ]
+    branches: [ main ]
     tags: [ v**]
     paths:
     - 'Docs/**'
     - 'packaging/Docs/**'
     - '.github/workflows/website_build.yml'
   pull_request:
-    branches: [ OpenIdDict ]
+    branches: [ main ]
     tags: [ v**]
     paths:
     - 'Docs/**'

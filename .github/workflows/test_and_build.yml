@@ -2,7 +2,7 @@ name: NetEvent_test_and_build
 on:
   push:
     branches: 
-    - OpenIdDict
+    - main
     - develop
     - 'feature/**'
     tags: [ v**]
@@ -16,7 +16,7 @@ on:
     - '!.github/workflows/website_build.yml'
   pull_request:
     branches: 
-    - OpenIdDict
+    - main
     - develop
     - 'feature/**'
     tags: [ v**]
