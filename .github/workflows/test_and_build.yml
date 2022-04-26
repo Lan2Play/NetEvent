@@ -76,7 +76,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.NETEVENT_SONAR_TOKEN }}
         run:  ./sonar/scanner/dotnet-sonarscanner begin /k:"Lan2Play_NetEvent" /o:"lan2play" /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="./**/*.opencover.xml"
       - name: dotnet build
-        continue-on-error: true
         run:  dotnet build --no-restore
       - name: dotnet test
         continue-on-error: true
