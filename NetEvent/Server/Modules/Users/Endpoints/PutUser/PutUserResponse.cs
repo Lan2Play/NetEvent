@@ -2,5 +2,12 @@
 {
     public class PutUserResponse : ResponseBase
     {
+        public PutUserResponse()
+        {
+        }
+
+        public PutUserResponse(ReturnType returnType, string error) : base(returnType, error)
+        {
+        }
     }
 }

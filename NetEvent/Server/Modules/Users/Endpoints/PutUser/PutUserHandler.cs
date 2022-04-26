@@ -18,28 +18,27 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
 
         public async Task<PutUserResponse> Handle(PutUserRequest request, CancellationToken cancellationToken)
         {
-            var oldUser = _UserDbContext.Find<ApplicationUser>(request.Id);
+            var user = request.User;
+            
+            var existingUser = await _UserDbContext.FindAsync<ApplicationUser>(request.Id).ConfigureAwait(false);
 
-            if (oldUser == null)
+            if (existingUser == null)
             {
-                return null;
+                return new PutUserResponse(ReturnType.NotFound, $"User {request.Id} not found in database.");
             }
 
-            UpdateOldUser(oldUser, request.User);
-            _UserDbContext.Update(oldUser);
-            await _UserDbContext.SaveChangesAsync();
+            // TODO Validate new user
+
+            // Update existing user
+            existingUser.UserName = user.UserName;
+            existingUser.FirstName = user.FirstName;
+            existingUser.LastName = user.LastName;
+            existingUser.EmailConfirmed = user.EmailConfirmed;
+
+            _UserDbContext.Update(existingUser);
+            await _UserDbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             return new PutUserResponse();
         }
-
-        private static void UpdateOldUser(ApplicationUser oldUser, User user)
-        {
-            oldUser.UserName = user.UserName;
-            oldUser.FirstName = user.FirstName;
-            oldUser.LastName = user.LastName;
-            oldUser.EmailConfirmed = user.EmailConfirmed;
-        }
-
-
     }
 }

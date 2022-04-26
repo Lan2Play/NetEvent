@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Toolkit.Diagnostics;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
@@ -7,6 +8,9 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
     {
         public PutUserRequest(string id, User user)
         {
+            Guard.IsNotNullOrEmpty(id, nameof(id));
+            Guard.IsNotNull(user, nameof(user));
+
             Id = id;
             User = user;
         }
