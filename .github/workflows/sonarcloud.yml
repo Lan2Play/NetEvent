@@ -34,8 +34,8 @@ jobs:
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool install dotnet-sonarscanner --tool-path .\.sonar\scanner
+          New-Item -Path ./sonar/scanner -ItemType Directory
+          dotnet tool install dotnet-sonarscanner --tool-path ./sonar/scanner
       - name: Restore dependencies
         run: dotnet restore
       - name: Build and analyze
@@ -44,7 +44,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.NETEVENT_SONAR_TOKEN }}
         shell: pwsh
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Lan2Play_NetEvent" /o:"lan2play" /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          ./sonar/scanner/dotnet-sonarscanner begin /k:"Lan2Play_NetEvent" /o:"lan2play" /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build --no-restore
           dotnet test --no-build --no-restore
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}"
+          ./sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}"
