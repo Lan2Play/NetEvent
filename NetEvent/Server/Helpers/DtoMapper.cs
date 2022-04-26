@@ -16,5 +16,7 @@ namespace NetEvent.Shared
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUser.UserName))]
         [MapperIgnore(nameof(CurrentUser.Claims))]
         public partial CurrentUser ClaimsPrincipalToCurrentUser(ClaimsPrincipal claimsPrincipal);
+
+        public partial Server.Models.OrganizationData DtoOrganizationDataToOrganizationData(Dto.OrganizationData organizationData);
     }
 }
