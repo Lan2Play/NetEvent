@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Toolkit.Diagnostics;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
 {
@@ -6,6 +7,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
     {
         public GetUserRequest(string id)
         {
+            Guard.IsNotNullOrEmpty(id, nameof(id));
             Id = id;
         }
 
