@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using NetEvent.Server.Data;
+using NetEvent.Server.Models;
+using NetEvent.Shared;
 
 namespace NetEvent.Server.Modules.Organization.Endpoints.GetOrganization
 {
@@ -16,7 +18,7 @@ namespace NetEvent.Server.Modules.Organization.Endpoints.GetOrganization
 
         public Task<GetOrganizationResponse> Handle(GetOrganizationRequest request, CancellationToken cancellationToken)
         {
-            var organizationData = _ApplicationDbContext.OrganizationData.ToList();
+            var organizationData = _ApplicationDbContext.Set<OrganizationData>().Select(x => DtoMapper.Mapper.OrganizationDataToDtoOrganizationData(x)).ToList();
             return Task.FromResult(new GetOrganizationResponse(organizationData));
         }
     }

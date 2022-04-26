@@ -18,5 +18,7 @@ namespace NetEvent.Shared
         public partial CurrentUser ClaimsPrincipalToCurrentUser(ClaimsPrincipal claimsPrincipal);
 
         public partial Server.Models.OrganizationData DtoOrganizationDataToOrganizationData(Dto.OrganizationData organizationData);
+
+        public partial Dto.OrganizationData OrganizationDataToDtoOrganizationData(Server.Models.OrganizationData organizationData);
     }
 }
