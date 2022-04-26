@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEvent.Server.Tests", "NetEvent\Server.Tests\NetEvent.Server.Tests.csproj", "{CAE571E6-7953-4393-AE27-D2A93DD3DC81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{022166DF-4F21-4061-98C2-ED700901A221}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{022166DF-4F21-4061-98C2-ED700901A221}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{022166DF-4F21-4061-98C2-ED700901A221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

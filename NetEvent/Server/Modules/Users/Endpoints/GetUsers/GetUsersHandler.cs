@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Data;
 using NetEvent.Shared;
-using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
 {
