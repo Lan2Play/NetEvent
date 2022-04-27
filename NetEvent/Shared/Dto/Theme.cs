@@ -1,6 +1,6 @@
 ﻿namespace NetEvent.Shared.Dto;
 
-public class Theme
+public class ThemeDto
 {
     public Guid Id { get; set; }
 

@@ -10,15 +10,15 @@ namespace NetEvent.Shared
     {
         public static DtoMapper Mapper { get; } = new DtoMapper();
 
-        public partial User ApplicaitonUserToUser(ApplicationUser applicationUser);
+        public partial UserDto ApplicaitonUserToUserDto(ApplicationUser applicationUser);
 
-        [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUser.IsAuthenticated))]
-        [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUser.UserName))]
-        [MapperIgnore(nameof(CurrentUser.Claims))]
-        public partial CurrentUser ClaimsPrincipalToCurrentUser(ClaimsPrincipal claimsPrincipal);
+        [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
+        [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
+        [MapperIgnore(nameof(CurrentUserDto.Claims))]
+        public partial CurrentUserDto ClaimsPrincipalToCurrentUserDto(ClaimsPrincipal claimsPrincipal);
 
-        public partial Server.Models.OrganizationData DtoOrganizationDataToOrganizationData(Dto.OrganizationData organizationData);
+        public partial OrganizationData OrganizationDataDtoToOrganizationData(OrganizationDataDto organizationData);
 
-        public partial Dto.OrganizationData OrganizationDataToDtoOrganizationData(Server.Models.OrganizationData organizationData);
+        public partial OrganizationDataDto OrganizationDataToOrganizationDataDto(OrganizationData organizationData);
     }
 }

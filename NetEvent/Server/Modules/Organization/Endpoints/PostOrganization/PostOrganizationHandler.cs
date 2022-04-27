@@ -24,7 +24,7 @@ namespace NetEvent.Server.Modules.Organization.Endpoints.PostOrganization
             }
             else
             {
-                var serverData = DtoMapper.Mapper.DtoOrganizationDataToOrganizationData(request.OrganizationData);
+                var serverData = DtoMapper.Mapper.OrganizationDataDtoToOrganizationData(request.OrganizationData);
                 await _ApplicationDbContext.AddAsync(serverData, cancellationToken);
             }
 

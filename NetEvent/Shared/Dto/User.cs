@@ -2,7 +2,7 @@
 
 namespace NetEvent.Shared.Dto;
 
-public class User
+public class UserDto
 {
     [JsonPropertyName("username")]
     public string UserName { get; set; }

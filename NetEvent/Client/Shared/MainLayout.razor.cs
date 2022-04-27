@@ -20,7 +20,7 @@ namespace NetEvent.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            var theme = await HttpClient.Get<Theme>("api/themes/theme");
+            var theme = await HttpClient.Get<ThemeDto>("api/themes/theme");
             if (theme?.ThemeData != null)
             {
                 var newThemeManager = JsonConvert.DeserializeObject<ThemeManagerTheme>(theme.ThemeData);
@@ -41,7 +41,7 @@ namespace NetEvent.Client.Shared
         private async Task UpdateTheme(ThemeManagerTheme value)
         {
             var themeData = JsonConvert.SerializeObject(value);
-            await HttpClient.Put("api/themes/theme", new Theme { ThemeData = themeData });
+            await HttpClient.Put("api/themes/theme", new ThemeDto { ThemeData = themeData });
         }
     }
 }

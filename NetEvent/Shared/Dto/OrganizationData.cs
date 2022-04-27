@@ -1,6 +1,6 @@
 ﻿namespace NetEvent.Shared.Dto
 {
-    public class OrganizationData
+    public class OrganizationDataDto
     {
         public string? Key { get; set; }
 

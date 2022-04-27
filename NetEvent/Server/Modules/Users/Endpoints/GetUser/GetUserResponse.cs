@@ -3,9 +3,9 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
 {
-    public class GetUserResponse : ResponseBase<User>
+    public class GetUserResponse : ResponseBase<UserDto>
     {
-        public GetUserResponse(User value) : base(value)
+        public GetUserResponse(UserDto value) : base(value)
         {
         }
 

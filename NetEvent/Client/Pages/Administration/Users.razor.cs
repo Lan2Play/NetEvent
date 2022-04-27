@@ -13,17 +13,17 @@ namespace NetEvent.Client.Pages.Administration
 
         protected override async Task OnInitializedAsync()
         {
-            AllUsers = await Utils.Get<List<User>>(HttpClient, "api/users");
+            AllUsers = await Utils.Get<List<UserDto>>(HttpClient, "api/users");
             AllRoles = await Utils.Get<List<IdentityRole>>(HttpClient, "roles");
         }
 
         #region Users
 
-        public List<User>? AllUsers { get; private set; }
+        public List<UserDto>? AllUsers { get; private set; }
         private string _usersSearchString;
 
         // quick filter - filter gobally across multiple columns with the same input
-        private Func<User, bool> _usersQuickFilter => x =>
+        private Func<UserDto, bool> _usersQuickFilter => x =>
         {
             if (string.IsNullOrWhiteSpace(_usersSearchString))
                 return true;
@@ -44,7 +44,7 @@ namespace NetEvent.Client.Pages.Administration
         };
 
 
-        void CommittedUserChanges(User item)
+        void CommittedUserChanges(UserDto item)
         {
             _ = Utils.Put(HttpClient, $"api/users/{item.Id}", item);
         }

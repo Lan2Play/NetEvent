@@ -7,7 +7,7 @@ namespace NetEvent.Client.Services
     public class CustomStateProvider : AuthenticationStateProvider
     {
         private readonly IAuthService api;
-        private CurrentUser _currentUser;
+        private CurrentUserDto _currentUser;
         public CustomStateProvider(IAuthService api)
         {
             this.api = api;
@@ -30,7 +30,7 @@ namespace NetEvent.Client.Services
             }
             return new AuthenticationState(new ClaimsPrincipal(identity));
         }
-        private async Task<CurrentUser> GetCurrentUser()
+        private async Task<CurrentUserDto> GetCurrentUser()
         {
             if (_currentUser != null && _currentUser.IsAuthenticated) return _currentUser;
             _currentUser = await api.CurrentUserInfo();

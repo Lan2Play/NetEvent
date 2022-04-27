@@ -16,7 +16,7 @@ namespace NetEvent.Server.Modules.Authorization
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
             endpoints.MapGet("/api/organization/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetOrganizationRequest())));
-            endpoints.MapPost("/api/organization", async ([FromBody] Shared.Dto.OrganizationData organizationData, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostOrganizationRequest(organizationData))));
+            endpoints.MapPost("/api/organization", async ([FromBody] Shared.Dto.OrganizationDataDto organizationData, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostOrganizationRequest(organizationData))));
 
             return endpoints;
         }

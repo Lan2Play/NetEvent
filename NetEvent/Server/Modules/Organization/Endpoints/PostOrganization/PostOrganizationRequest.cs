@@ -9,11 +9,11 @@ namespace NetEvent.Server.Modules.Organization.Endpoints.PostOrganization
         {
         }
 
-        public PostOrganizationRequest(OrganizationData organizationData)
+        public PostOrganizationRequest(OrganizationDataDto organizationData)
         {
             OrganizationData = organizationData;
         }
 
-        public OrganizationData OrganizationData { get; }
+        public OrganizationDataDto OrganizationData { get; }
     }
 }

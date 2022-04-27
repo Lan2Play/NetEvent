@@ -5,7 +5,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
 {
     public class GetCurrentUserRequest : IRequest<GetCurrentUserResponse>
     {
-        public GetCurrentUserRequest(System.Security.Claims.ClaimsPrincipal user)
+        public GetCurrentUserRequest(ClaimsPrincipal user)
         {
             User = user;
         }
