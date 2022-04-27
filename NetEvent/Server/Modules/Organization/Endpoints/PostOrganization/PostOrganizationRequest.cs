@@ -5,10 +5,6 @@ namespace NetEvent.Server.Modules.Organization.Endpoints.PostOrganization
 {
     public class PostOrganizationRequest : IRequest<PostOrganizationResponse>
     {
-        public PostOrganizationRequest()
-        {
-        }
-
         public PostOrganizationRequest(OrganizationDataDto organizationData)
         {
             OrganizationData = organizationData;

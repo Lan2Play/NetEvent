@@ -4,9 +4,15 @@ namespace NetEvent.Server.Models
 {
     public class OrganizationData
     {
-        [Key]
-        public string Key { get; set; }
+        public OrganizationData(string key, string value)
+        {
+            Key = key;
+            Value = value;
+        }
 
-        public string Value { get; set; }
+        [Key]
+        public string Key { get; }
+
+        public string Value { get; }
     }
 }

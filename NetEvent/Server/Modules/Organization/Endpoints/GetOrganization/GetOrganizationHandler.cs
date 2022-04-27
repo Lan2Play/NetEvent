@@ -7,12 +7,10 @@ namespace NetEvent.Server.Modules.Organization.Endpoints.GetOrganization
 {
     public class GetOrganizationHandler : IRequestHandler<GetOrganizationRequest, GetOrganizationResponse>
     {
-        private readonly ILogger<GetOrganizationHandler> _Logger;
         private readonly ApplicationDbContext _ApplicationDbContext;
 
-        public GetOrganizationHandler(ILogger<GetOrganizationHandler> logger, ApplicationDbContext applicationDbContext)
+        public GetOrganizationHandler(ApplicationDbContext applicationDbContext)
         {
-            _Logger = logger;
             _ApplicationDbContext = applicationDbContext;
         }
 

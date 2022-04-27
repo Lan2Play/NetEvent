@@ -2,8 +2,14 @@
 {
     public class OrganizationDataDto
     {
-        public string? Key { get; set; }
+        public OrganizationDataDto(string key, string value)
+        {
+            Key = key;
+            Value = value;
+        }
 
-        public string? Value { get; set; }
+        public string Key { get; }
+
+        public string Value { get; }
     }
 }
