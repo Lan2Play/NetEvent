@@ -64,13 +64,13 @@ jobs:
         with:
           dotnet-version: 6.x.x
       - name: Install SonarCloud scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'false'
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
           New-Item -Path ./sonar/scanner -ItemType Directory
           dotnet tool install dotnet-sonarscanner --tool-path ./sonar/scanner
       - name: Update SonarCloud scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'false'
         shell: pwsh
         run: |
           dotnet tool update dotnet-sonarscanner --tool-path ./sonar/scanner
