@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Data;
@@ -8,6 +9,7 @@ using Xunit;
 
 namespace NetEvent.Server.Tests;
 
+[ExcludeFromCodeCoverage]
 public class PostOrganizationHandlerTest
 {
     [Fact]

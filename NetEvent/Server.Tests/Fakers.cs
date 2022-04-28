@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Bogus;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Tests
 {
+    [ExcludeFromCodeCoverage]
     internal static class Fakers
     {
         public static Faker<ApplicationUser> ApplicationUserFaker() => new Faker<ApplicationUser>()

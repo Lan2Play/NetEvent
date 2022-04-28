@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ using Xunit;
 
 namespace NetEvent.Server.Tests;
 
+[ExcludeFromCodeCoverage]
 public class GetUserHandlerTest
 {
     [Fact]
