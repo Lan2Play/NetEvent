@@ -18,7 +18,7 @@
 			<FocusOnNavigate RouteData="@routeData" Selector="h1" />
 		</Found>
 		<NotFound>
-            <PageTitle>Not found</PageTitle>
+            <PageTitle>@Localize["App.NotFound"]</PageTitle>
 			<LayoutView Layout="@typeof(MainLayout)">
 				<p role="alert">@Localize["App.NothingHere"]</p>
 			</LayoutView>
