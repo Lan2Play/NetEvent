@@ -19,7 +19,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
         public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
         {
             var allUsers = await _UserDbContext.Users.ToListAsync(cancellationToken);
-            var convertedUsers = allUsers.Select(DtoMapper.Mapper.ApplicaitonUserToUser);
+            var convertedUsers = allUsers.Select(DtoMapper.Mapper.ApplicaitonUserToUserDto);
             return new GetUsersResponse(convertedUsers);
         }
     }

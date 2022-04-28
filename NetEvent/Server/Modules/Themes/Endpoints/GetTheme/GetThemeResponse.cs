@@ -2,9 +2,9 @@
 
 namespace NetEvent.Server.Modules.Themes.Endpoints.GetTheme
 {
-    public class GetThemeResponse : ResponseBase<Theme>
+    public class GetThemeResponse : ResponseBase<ThemeDto>
     {
-        public GetThemeResponse(Theme? value) : base(value)
+        public GetThemeResponse(ThemeDto? value) : base(value)
         {
         }
 

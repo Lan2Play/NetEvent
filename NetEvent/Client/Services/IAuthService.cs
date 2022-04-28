@@ -7,6 +7,6 @@ namespace NetEvent.Client.Services
         Task Login(LoginRequest loginRequest);
         Task Register(RegisterRequest registerRequest);
         Task Logout();
-        Task<CurrentUser> CurrentUserInfo();
+        Task<CurrentUserDto> CurrentUserInfo();
     }
 }

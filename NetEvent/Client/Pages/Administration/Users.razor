@@ -10,7 +10,7 @@
 
 <MudTabs Elevation="1" Rounded="true">
     <MudTabPanel Text="User">
-        <MudDataGrid T="User"
+        <MudDataGrid T="UserDto"
                      MultiSelection="false"
                      Items="@AllUsers"
                      Sortable="true"
@@ -29,12 +29,12 @@
             </ToolBarContent>
             <Columns>
                 @*<SelectColumn T="ApplicationUser" />*@
-                <Column T="User" Field="UserName" Title="@Localize["Administration.Users.UserName"]" />
-                <Column T="User" Field="FirstName" Title="@Localize["Administration.Users.FirstName"]" />
-                <Column T="User" Field="LastName" Title="@Localize["Administration.Users.LastName"]" />
-                <Column T="User" Field="Email" Title="@Localize["Administration.Users.Email"]" />
-                @*<Column T="User" Field="PhoneNumber" Title="@Localize["Administration.Users.PhoneNumber"]" />*@
-                <Column T="User" Field="EmailConfirmed">
+                <Column T="UserDto" Field="UserName" Title="@Localize["Administration.Users.UserName"]" />
+                <Column T="UserDto" Field="FirstName" Title="@Localize["Administration.Users.FirstName"]" />
+                <Column T="UserDto" Field="LastName" Title="@Localize["Administration.Users.LastName"]" />
+                <Column T="UserDto" Field="Email" Title="@Localize["Administration.Users.Email"]" />
+                @*<Column T="UserDto" Field="PhoneNumber" Title="@Localize["Administration.Users.PhoneNumber"]" />*@
+                <Column T="UserDto" Field="EmailConfirmed">
                     <CellTemplate>
                         <MudCheckBox Checked="@context.Item.EmailConfirmed" ReadOnly="true" />
                     </CellTemplate>
@@ -42,14 +42,14 @@
                         <MudCheckBox @bind-Checked="@context.Item.EmailConfirmed" Label="@Localize["Administration.Users.EmailConfirmed"]" />
                     </EditTemplate>
                 </Column>
-                <Column T="User" CellClass="d-flex justify-end">
+                <Column T="UserDto" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
                     </CellTemplate>
                 </Column>
             </Columns>
             <PagerContent>
-                <MudDataGridPager T="User" />
+                <MudDataGridPager T="UserDto" />
             </PagerContent>
         </MudDataGrid>
     </MudTabPanel>

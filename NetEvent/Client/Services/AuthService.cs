@@ -12,19 +12,19 @@ namespace NetEvent.Client.Services
         {
             _HttpClientFactory = httpClientFactory;
         }
-        public async Task<CurrentUser> CurrentUserInfo()
+        public async Task<CurrentUserDto> CurrentUserInfo()
         {
             try
             {
                 var client = _HttpClientFactory.CreateClient(_HttpClientName);
 
-                var result = await client.GetFromJsonAsync<CurrentUser>("api/auth/user/current");
+                var result = await client.GetFromJsonAsync<CurrentUserDto>("api/auth/user/current");
                 return result;
             }
             catch (Exception ex)
             {
 
-                return new CurrentUser() { IsAuthenticated = false};
+                return new CurrentUserDto() { IsAuthenticated = false};
             }
         }
 
