@@ -51,14 +51,14 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "43c133fb-9d03-4384-926f-0cc0bdf8ed76",
+                            ConcurrencyStamp = "c5719bd7-ae7e-4a73-9ab4-749ccd170ece",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "0f0d9301-e452-45e5-9b8b-f2352f7766cc",
+                            ConcurrencyStamp = "40d745a6-bf89-451e-b041-d4f631dcade2",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -262,7 +262,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d23693f6-f4a2-4225-8b9a-0d704b0f6b36",
+                            ConcurrencyStamp = "0e150be1-623e-4fe6-8f14-35451efec037",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -270,9 +270,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ1Hma7SypiJ0f8Fpew1kKBIvqOnfIeNuwJqBqwQB6ytPaou838eJEO3au2h7J0MxA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHbIiyBeJvGwJA6MfKoNVUAa7QzsLRa/lh1RxYZYbK5IcmxgT9vGct4aiS0rFJJy4g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f7cb9a70-b856-442a-a110-a71d9d81c485",
+                            SecurityStamp = "737e3334-e483-4ef3-9366-2c31e098182e",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -284,15 +284,21 @@ namespace NetEvent.Server.Migrations.Psql
                         .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Key");
 
                     b.ToTable("OrganizationData", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Key = "Culture",
+                            Value = "en-US"
+                        });
                 });
 
-            modelBuilder.Entity("NetEvent.Shared.Dto.Theme", b =>
+            modelBuilder.Entity("NetEvent.Shared.Dto.ThemeDto", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

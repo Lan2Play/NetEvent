@@ -14,6 +14,12 @@
                         <MudText Typo="Typo.h6"><strong>@Users?.Count</strong> Users</MudText>
                     </MudStack>
                 </MudButton>
+                <MudButton Variant="Variant.Filled" Href="/administration/settings" Class="pa-4" Style="height: 200px;">
+                    <MudStack Row="true">
+                        <MudIcon Icon="@Icons.Outlined.Group" Size="Size.Large">Language</MudIcon>
+                        <MudText Typo="Typo.h6"><strong>@OrganizationData.Where(OrganizationDataEntry => OrganizationDataEntry.Key.Equals("Culture")).First().Value</strong> Language</MudText>
+                    </MudStack>
+                </MudButton>
             </MudStack>
         </MudItem>
         <MudItem xs="12" sm="6" md="4">

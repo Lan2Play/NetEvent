@@ -30,6 +30,7 @@ namespace NetEvent.Server.Modules.Authorization
             builder.Entity<OrganizationData>(entity =>
             {
                 entity.ToTable(name: "OrganizationData");
+                entity.HasData(new OrganizationData { Key="Culture", Value="en-US" });
             });
         }
     }
