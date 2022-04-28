@@ -34,7 +34,7 @@
                 <Column T="UserDto" Field="LastName" Title="@Localize["Administration.Users.LastName"]" />
                 <Column T="UserDto" Field="Email" Title="@Localize["Administration.Users.Email"]" />
                 @*<Column T="UserDto" Field="PhoneNumber" Title="@Localize["Administration.Users.PhoneNumber"]" />*@
-                <Column T="UserDto" Field="EmailConfirmed">
+                <Column T="UserDto" Field="EmailConfirmed" Title="@Localize["Administration.Users.EmailConfirmed"]">
                     <CellTemplate>
                         <MudCheckBox Checked="@context.Item.EmailConfirmed" ReadOnly="true" />
                     </CellTemplate>
