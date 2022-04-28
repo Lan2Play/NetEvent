@@ -16,6 +16,11 @@ namespace NetEvent.Server.Modules.Organization.Endpoints.PostOrganization
 
         public async Task<PostOrganizationResponse> Handle(PostOrganizationRequest request, CancellationToken cancellationToken)
         {
+            if (request.OrganizationData?.Key == null || request.OrganizationData?.Value == null)
+            {
+                return new PostOrganizationResponse(ReturnType.Error, "Empty data is not allowed");
+            }
+
             var data = await _ApplicationDbContext.FindAsync<OrganizationData>(new object[] { request.OrganizationData.Key }, cancellationToken);
             if (data != null)
             {
