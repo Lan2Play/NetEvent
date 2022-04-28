@@ -69,7 +69,7 @@ jobs:
         run: |
           New-Item -Path ./sonar/scanner -ItemType Directory
           dotnet tool install dotnet-sonarscanner --tool-path ./sonar/scanner
-      - name: update SonarCloud scanner
+      - name: Update SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
