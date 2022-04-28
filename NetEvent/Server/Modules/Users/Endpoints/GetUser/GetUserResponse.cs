@@ -1,5 +1,4 @@
-﻿using NetEvent.Server.Models;
-using NetEvent.Shared.Dto;
+﻿using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
 {

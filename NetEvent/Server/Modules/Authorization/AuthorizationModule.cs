@@ -6,10 +6,12 @@ using NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser;
 using NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser;
 using NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser;
 using NetEvent.Shared.Dto;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 
 namespace NetEvent.Server.Modules.Authorization
 {
+    [ExcludeFromCodeCoverage]
     public class AuthorizationModule : ModuleBase
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

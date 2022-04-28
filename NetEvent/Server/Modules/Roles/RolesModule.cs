@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Modules.Roles.Endpoints;
 
 namespace NetEvent.Server.Modules.Roles
 {
+    [ExcludeFromCodeCoverage]
     public class RolesModule : IModule
     {
         public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

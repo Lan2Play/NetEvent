@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Diagnostics.CodeAnalysis;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Modules.Users.Endpoints.GetUser;
@@ -8,6 +9,7 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users
 {
+    [ExcludeFromCodeCoverage]
     public class UsersModule : ModuleBase
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

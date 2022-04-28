@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Diagnostics.CodeAnalysis;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Modules.Themes.Endpoints.GetTheme;
@@ -7,6 +8,7 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Themes
 {
+    [ExcludeFromCodeCoverage]
     public class ThemesModule : ModuleBase
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

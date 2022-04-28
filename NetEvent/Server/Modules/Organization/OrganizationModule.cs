@@ -1,16 +1,14 @@
-﻿using MediatR;
+﻿using System.Diagnostics.CodeAnalysis;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Models;
-using NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser;
-using NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser;
-using NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser;
-using NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser;
 using NetEvent.Server.Modules.Organization.Endpoints.GetOrganization;
 using NetEvent.Server.Modules.Organization.Endpoints.PostOrganization;
 
 namespace NetEvent.Server.Modules.Authorization
 {
+    [ExcludeFromCodeCoverage]
     public class OrganizationModule : ModuleBase
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
