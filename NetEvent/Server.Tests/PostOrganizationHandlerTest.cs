@@ -45,6 +45,8 @@ public class PostOrganizationHandlerTest
     [Fact]
     public async Task PostOrganizationHandler_Error_Test()
     {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+        
         //Arrange
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseInMemoryDatabase(databaseName: nameof(PostOrganizationHandler_Success_Test))
@@ -66,5 +68,6 @@ public class PostOrganizationHandlerTest
         databaseOrganizationData = await context.FindAsync<OrganizationData>(postOrganizationRequest.OrganizationData.Key).ConfigureAwait(false);
         
         Assert.Equal(Modules.ReturnType.Error, response.ReturnType);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     }
 }
