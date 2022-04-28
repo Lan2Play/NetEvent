@@ -58,14 +58,12 @@ public class PostOrganizationHandlerTest
         // Add new Value
         var postOrganizationRequest = new PostOrganizationRequest(new Shared.Dto.OrganizationDataDto(null, "value"));
         var response = await postOrganizationHandler.Handle(postOrganizationRequest, CancellationToken.None).ConfigureAwait(false);
-        var databaseOrganizationData = await context.FindAsync<OrganizationData>(postOrganizationRequest.OrganizationData.Key).ConfigureAwait(false);
         
         Assert.Equal(Modules.ReturnType.Error, response.ReturnType);
 
         // Update value
         postOrganizationRequest = new PostOrganizationRequest(new Shared.Dto.OrganizationDataDto("key", null));
         response = await postOrganizationHandler.Handle(postOrganizationRequest, CancellationToken.None).ConfigureAwait(false);
-        databaseOrganizationData = await context.FindAsync<OrganizationData>(postOrganizationRequest.OrganizationData.Key).ConfigureAwait(false);
         
         Assert.Equal(Modules.ReturnType.Error, response.ReturnType);
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
