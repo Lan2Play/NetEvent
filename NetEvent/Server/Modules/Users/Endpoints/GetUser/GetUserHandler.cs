@@ -25,7 +25,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
                 return new GetUserResponse(ReturnType.NotFound, "");
             }
 
-            var currentUser = DtoMapper.Mapper.ApplicaitonUserToUser(user);
+            var currentUser = DtoMapper.Mapper.ApplicaitonUserToUserDto(user);
 
             return new GetUserResponse(currentUser);
         }

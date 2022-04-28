@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Bogus;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Tests
 {
+    [ExcludeFromCodeCoverage]
     internal static class Fakers
     {
         public static Faker<ApplicationUser> ApplicationUserFaker() => new Faker<ApplicationUser>()
@@ -15,7 +17,7 @@ namespace NetEvent.Server.Tests
             .RuleFor(u => u.UserName, (f, u) => u.Email)
             .RuleFor(u => u.Id, (f, u) => Guid.NewGuid().ToString());
 
-        public static Faker<User> UserFaker() => new Faker<User>()
+        public static Faker<UserDto> UserFaker() => new Faker<UserDto>()
             .RuleFor(u => u.FirstName, (f, u) => f.Name.FirstName())
             .RuleFor(u => u.LastName, (f, u) => f.Name.LastName())
             .RuleFor(u => u.Email, (f, u) => f.Internet.Email())

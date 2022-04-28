@@ -9,11 +9,11 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-        public List<CurrentUser>? Users { get; private set; }
+        public List<CurrentUserDto>? Users { get; private set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Users = await Utils.Get<List<CurrentUser>>(HttpClient, "api/users");
+            Users = await Utils.Get<List<CurrentUserDto>>(HttpClient, "api/users");
         }
 
     }

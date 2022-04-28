@@ -13,10 +13,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		Makefile = Makefile
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEvent.Server.Tests", "NetEvent\Server.Tests\NetEvent.Server.Tests.csproj", "{CAE571E6-7953-4393-AE27-D2A93DD3DC81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{6360A460-4B16-4D5B-9E06-FF2B60B06FF5}"
+	ProjectSection(SolutionItems) = preProject
+		.github\dependabot.yml = .github\dependabot.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F80CCC91-FA5D-4358-97A5-94A9215B116D}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\test_and_build.yml = .github\workflows\test_and_build.yml
+		.github\workflows\update_dockerhub.yml = .github\workflows\update_dockerhub.yml
+		.github\workflows\website_build.yml = .github\workflows\website_build.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +56,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F80CCC91-FA5D-4358-97A5-94A9215B116D} = {6360A460-4B16-4D5B-9E06-FF2B60B06FF5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3B2A188-85C4-4F59-9C17-4227D122EA8F}

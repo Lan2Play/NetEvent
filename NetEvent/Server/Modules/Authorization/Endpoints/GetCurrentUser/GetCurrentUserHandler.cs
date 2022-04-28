@@ -21,7 +21,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
                 return new GetCurrentUserResponse(ReturnType.Error, errorMessage);
             }
 
-            var currentUser = DtoMapper.Mapper.ClaimsPrincipalToCurrentUser(request.User);
+            var currentUser = DtoMapper.Mapper.ClaimsPrincipalToCurrentUserDto(request.User);
             currentUser.Claims = request.User.Claims.ToDictionary(c => c.Type, c => c.Value);
             return new GetCurrentUserResponse(currentUser);
         }

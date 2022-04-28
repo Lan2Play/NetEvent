@@ -2,9 +2,9 @@
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
 {
-    public class GetCurrentUserResponse : ResponseBase<CurrentUser>
+    public class GetCurrentUserResponse : ResponseBase<CurrentUserDto>
     {
-        public GetCurrentUserResponse(CurrentUser? value) : base(value)
+        public GetCurrentUserResponse(CurrentUserDto? value) : base(value)
         {
         }
 
