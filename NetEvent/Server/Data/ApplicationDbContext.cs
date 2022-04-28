@@ -21,6 +21,8 @@ namespace NetEvent.Server.Data
 
         public virtual DbSet<ThemeDto> Themes { get; set; }
 
+        public virtual DbSet<OrganizationData> OrganizationData { get; set; }
+
         public override EntityEntry<TEntity> Add<TEntity>(TEntity entity)
         {
             return base.Add(entity);

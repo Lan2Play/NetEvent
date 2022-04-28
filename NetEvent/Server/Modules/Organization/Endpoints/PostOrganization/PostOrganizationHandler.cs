@@ -19,7 +19,7 @@ namespace NetEvent.Server.Modules.Organization.Endpoints.PostOrganization
             var data = await _ApplicationDbContext.FindAsync<OrganizationData>(new object[] { request.OrganizationData.Key }, cancellationToken);
             if (data != null)
             {
-                _ApplicationDbContext.Update(new OrganizationData(data.Key, request.OrganizationData.Value));
+                data.Value = request.OrganizationData.Value;
             }
             else
             {
@@ -27,7 +27,7 @@ namespace NetEvent.Server.Modules.Organization.Endpoints.PostOrganization
                 await _ApplicationDbContext.AddAsync(serverData, cancellationToken);
             }
 
-            await _ApplicationDbContext.SaveChangesAsync();
+            await _ApplicationDbContext.SaveChangesAsync(cancellationToken);
 
             return new PostOrganizationResponse();
         }
