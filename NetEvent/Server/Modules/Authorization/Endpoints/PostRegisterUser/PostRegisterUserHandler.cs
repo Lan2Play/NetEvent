@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Text;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using NetEvent.Server.Models;
 
@@ -28,7 +29,20 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 
             if (!result.Succeeded)
             {
-                return new PostRegisterUserResponse(ReturnType.Error, result.Errors.FirstOrDefault()?.Description);
+                var sb = new StringBuilder();
+
+                sb.Append("Errors registering user: ");
+
+                foreach (var error in result.Errors)
+                {
+                    sb.Append(", ");
+                    sb.Append(error.Description);
+                }
+
+                var errorMessage = sb.ToString();
+
+                _Logger.LogError(errorMessage);
+                return new PostRegisterUserResponse(ReturnType.Error, errorMessage);
             }
 
             // TODO Schedule Task for sending E-Mail
