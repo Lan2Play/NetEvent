@@ -4,6 +4,8 @@ namespace NetEvent.Server.Models;
 
 public class ApplicationUser : IdentityUser
 {
+    private string test;
+
     public string FirstName { get; set; }
 
     public string LastName { get; set; }
