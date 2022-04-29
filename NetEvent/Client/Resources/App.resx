@@ -237,4 +237,8 @@
     <value>Email Confirmed</value>
     <comment/>
   </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+    <comment/>
+  </data>
 </root>
