@@ -7,10 +7,10 @@ namespace NetEvent.Client.Pages.Administration
     public partial class Index 
     {
         [Inject]
-        private OrganizationDataService OrganizationDataService { get; set; } = default!;
+        private IOrganizationDataService OrganizationDataService { get; set; } = default!;
 
         [Inject]
-        private UserService UserService { get; set; } = default!;
+        private IUserService UserService { get; set; } = default!;
 
         public List<UserDto>? Users { get; private set; }
         

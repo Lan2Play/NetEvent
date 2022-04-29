@@ -16,6 +16,7 @@ namespace NetEvent.Client.Services
             _Api = api;
             _Logger = logger;
         }
+
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var identity = new ClaimsIdentity();
@@ -33,8 +34,10 @@ namespace NetEvent.Client.Services
                 Console.WriteLine("Request failed:" + ex.ToString());
                 _Logger.LogError(ex, "Unable to get identity");
             }
+
             return new AuthenticationState(new ClaimsPrincipal(identity));
         }
+
         private async Task<CurrentUserDto> GetCurrentUser()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
@@ -47,6 +50,7 @@ namespace NetEvent.Client.Services
             _CurrentUser = await _Api.GetCurrentUserInfoAsync(cancellationTokenSource.Token).ConfigureAwait(false);
             return _CurrentUser;
         }
+
         public async Task Logout()
         {
             using var cancellationTokenSource = new CancellationTokenSource();

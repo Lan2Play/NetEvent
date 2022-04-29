@@ -11,7 +11,7 @@ namespace NetEvent.Client.Pages.Administration
         private IUserService UserService { get; set; } = default!;
 
         [Inject]
-        private RoleService RoleService { get; set; } = default!;
+        private IRoleService RoleService { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
