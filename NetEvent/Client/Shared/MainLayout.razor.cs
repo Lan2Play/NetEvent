@@ -1,14 +1,21 @@
+﻿using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor.ThemeManager;
-using NetEvent.Shared.Dto;
-using Newtonsoft.Json;
+using NetEvent.Client.Services;
+using NetEvent.Shared.Constants;
 
 namespace NetEvent.Client.Shared
 {
     public partial class MainLayout
     {
         [Inject]
-        public HttpClient HttpClient { get; set; }
+        private IThemeService ThemeService { get; set; } = default!;
+
+        [Inject]
+        private IOrganizationDataService OrganizationDataService { get; set; } = default!;
+
+        [Inject]
+        private ILogger<MainLayout> Logger { get; set; } = default!;
 
         private ThemeManagerTheme _ThemeManager = new();
         bool _drawerOpen = true;
@@ -20,14 +27,47 @@ namespace NetEvent.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            var theme = await HttpClient.Get<ThemeDto>("api/themes/theme");
-            if (theme?.ThemeData != null)
+            await SetThemeAsync().ConfigureAwait(false);
+
+            await SetCultureAsync().ConfigureAwait(false);
+        }
+
+        private async Task SetThemeAsync()
+        {
+            using var cancellationTokenSource = new CancellationTokenSource();
+
+            var theme = await ThemeService.GetThemeAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+
+            if (theme != null)
             {
-                var newThemeManager = JsonConvert.DeserializeObject<ThemeManagerTheme>(theme.ThemeData);
-                if (newThemeManager != null)
+                _ThemeManager.Theme.Palette.AppbarBackground = theme.Theme.Palette.AppbarBackground;
+            }
+        }
+
+        private async Task SetCultureAsync()
+        {
+            using var cancellationTokenSource = new CancellationTokenSource();
+
+            try
+            {
+                var orgData = await OrganizationDataService.GetOrganizationDataAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+
+                var organizationCulture = orgData.FirstOrDefault(a => a.Key.Equals(OrganizationDataConstants.CultureKey));
+
+                if (organizationCulture == null)
                 {
-                    _ThemeManager.Theme.Palette.AppbarBackground = newThemeManager.Theme.Palette.AppbarBackground;
+                    return;
                 }
+
+                var culture = organizationCulture.Value;
+
+                var cultureInfo = new CultureInfo(culture);
+                CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+                CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "Unable to set culture from backend.");
             }
         }
 
@@ -38,10 +78,11 @@ namespace NetEvent.Client.Shared
             _themeManagerOpen = value;
         }
 
-        private async Task UpdateTheme(ThemeManagerTheme value)
+        private async Task UpdateTheme(ThemeManagerTheme updatedTheme)
         {
-            var themeData = JsonConvert.SerializeObject(value);
-            await HttpClient.Put("api/themes/theme", new ThemeDto { ThemeData = themeData });
+            using var cancellationTokenSource = new CancellationTokenSource();
+
+            await ThemeService.UpdateThemeAsync(updatedTheme, cancellationTokenSource.Token).ConfigureAwait(false);
         }
     }
 }

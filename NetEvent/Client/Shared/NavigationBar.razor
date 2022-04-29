@@ -1,11 +1,10 @@
-﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using NetEvent.Client.Services
 
 @inject NavigationManager Navigation
-@inject CustomStateProvider SignOutManager
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
-
+@inject NetEventAuthenticationStateProvider SignOutManager
 
 <AuthorizeView>
     <Authorized>

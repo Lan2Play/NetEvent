@@ -18,13 +18,13 @@
                      ReadOnly="false"
                      EditMode="DataGridEditMode.Form"
                      EditTrigger="DataGridEditTrigger.Manual"
-                     CommittedItemChanges="@CommittedUserChanges"
+                     CommittedItemChanges="@CommittedUserChangesAsync"
                      QuickFilter="@_usersQuickFilter"
                      Hideable="true">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">@Localize["Administration.Users.Periodic"]</MudText>
                 <MudSpacer />
-                <MudTextField @bind-Value="_usersSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                <MudTextField @bind-Value="_UsersSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <Columns>
@@ -50,6 +50,38 @@
             </Columns>
             <PagerContent>
                 <MudDataGridPager T="UserDto" />
+            </PagerContent>
+        </MudDataGrid>
+    </MudTabPanel>
+        <MudTabPanel Text="Roles">
+        <MudDataGrid T="IdentityRole"
+                     MultiSelection="false"
+                     Items="@AllRoles"
+                     Sortable="true"
+                     Filterable="true"
+                     ReadOnly="false"
+                     EditMode="DataGridEditMode.Form"
+                     EditTrigger="DataGridEditTrigger.Manual"
+                     CommittedItemChanges="@CommittedRoleChangesAsync"
+                     QuickFilter="@_roleQuickFilter"
+                     Hideable="true">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Roles</MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="_RoleSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                              AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <Columns>
+                <Column T="IdentityRole" Field="Id" Title="Id" />
+                <Column T="IdentityRole" Field="Name" />
+                <Column T="IdentityRole" CellClass="d-flex justify-end">
+                    <CellTemplate>
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
+                    </CellTemplate>
+                </Column>
+            </Columns>
+            <PagerContent>
+                <MudDataGridPager T="IdentityRole" />
             </PagerContent>
         </MudDataGrid>
     </MudTabPanel>

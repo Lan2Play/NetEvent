@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 
@@ -7,10 +7,10 @@ namespace NetEvent.Client.Pages
     public partial class Login
     {
         [Inject]
-        public CustomStateProvider AuthenticationStateProvider { get; set; }
+        private NetEventAuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
         [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        private NavigationManager NavigationManager { get; set; } = default!;
 
 
         public LoginRequest LoginRequest { get; set; } = new ();
