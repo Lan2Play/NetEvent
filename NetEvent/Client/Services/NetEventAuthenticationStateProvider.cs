@@ -31,7 +31,6 @@ namespace NetEvent.Client.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Request failed:" + ex.ToString());
                 _Logger.LogError(ex, "Unable to get identity");
             }
 
