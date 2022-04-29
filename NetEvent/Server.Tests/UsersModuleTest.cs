@@ -2,6 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 using Xunit;
@@ -21,9 +23,12 @@ namespace NetEvent.Server.Tests
 
             var fakeUsers = userFaker.Generate(usersCount);
 
-            await DbContext.Users.AddRangeAsync(fakeUsers).ConfigureAwait(false);
-
-            DbContext.SaveChanges();
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.Users.AddRangeAsync(fakeUsers).ConfigureAwait(false);
+                dbContext.SaveChanges();
+            }
 
             // Act
             var users = await Client.GetFromJsonAsync<List<UserDto>>("/api/users");
@@ -41,10 +46,14 @@ namespace NetEvent.Server.Tests
 
             var fakeUser = userFaker.Generate();
 
-            await DbContext.Users.AddAsync(fakeUser).ConfigureAwait(false);
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.Users.AddAsync(fakeUser).ConfigureAwait(false);
+                dbContext.SaveChanges();
+            }
 
-            DbContext.SaveChanges();
-           
+
             // Act
             var user = await Client.GetFromJsonAsync<UserDto>($"/api/users/{fakeUser.Id}");
 
@@ -63,7 +72,7 @@ namespace NetEvent.Server.Tests
 
             // Assert
             Assert.NotNull(responseMessage);
-            Assert.Equal(System.Net.HttpStatusCode.NotFound, responseMessage.StatusCode);           
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, responseMessage.StatusCode);
         }
 
         [Fact]
@@ -74,9 +83,12 @@ namespace NetEvent.Server.Tests
 
             var applicationUser = applicationUserFaker.Generate();
 
-            await DbContext.Users.AddAsync(applicationUser).ConfigureAwait(false);
-
-            DbContext.SaveChanges();
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.Users.AddAsync(applicationUser).ConfigureAwait(false);
+                dbContext.SaveChanges();
+            }
 
             var fakeUser = userFaker.Generate();
             fakeUser.Id = applicationUser.Id;
@@ -86,13 +98,17 @@ namespace NetEvent.Server.Tests
 
             response.EnsureSuccessStatusCode();
 
-            var databaseUser = await DbContext.FindAsync<ApplicationUser>(applicationUser.Id).ConfigureAwait(false);
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var databaseUser = await dbContext.FindAsync<ApplicationUser>(applicationUser.Id).ConfigureAwait(false);
 
-            //Assert
-            Assert.Equal(fakeUser.FirstName, databaseUser?.FirstName);
-            Assert.Equal(fakeUser.LastName, databaseUser?.LastName);
-            Assert.Equal(fakeUser.EmailConfirmed, databaseUser?.EmailConfirmed);
-            Assert.Equal(fakeUser.UserName, databaseUser?.UserName);
+                //Assert
+                Assert.Equal(fakeUser.FirstName, databaseUser?.FirstName);
+                Assert.Equal(fakeUser.LastName, databaseUser?.LastName);
+                Assert.Equal(fakeUser.EmailConfirmed, databaseUser?.EmailConfirmed);
+                Assert.Equal(fakeUser.UserName, databaseUser?.UserName);
+            }
         }
     }
 }

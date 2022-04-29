@@ -12,8 +12,7 @@ namespace NetEvent.Server.Tests
     public class ModuleTestBase : IDisposable
     {
         internal WebApplicationFactory<Program> Application { get; }
-        
-        protected ApplicationDbContext DbContext { get; }
+
 
         protected System.Net.Http.HttpClient Client { get; }
 
@@ -39,8 +38,6 @@ namespace NetEvent.Server.Tests
                     });
                 });
             });
-
-            DbContext = Application.Services.GetRequiredService<ApplicationDbContext>();
 
             Client = Application.CreateClient();
         }

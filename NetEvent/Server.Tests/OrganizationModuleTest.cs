@@ -2,6 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 using Xunit;
@@ -21,8 +23,12 @@ namespace NetEvent.Server.Tests
                 new OrganizationData{ Key = "key2", Value = "value2" }
             };
 
-            await DbContext.OrganizationData.AddRangeAsync(testData);
-            await DbContext.SaveChangesAsync();
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.OrganizationData.AddRangeAsync(testData);
+                dbContext.SaveChanges();
+            }
 
             // Act
             var response = await Client.GetFromJsonAsync<List<OrganizationDataDto>>("/api/organization/all");
@@ -46,10 +52,15 @@ namespace NetEvent.Server.Tests
 
             responseCreate.EnsureSuccessStatusCode();
 
-            var databaseOrganizationDataCreate = await DbContext.FindAsync<OrganizationData>(organizationDataCreate.Key).ConfigureAwait(false);
 
-            Assert.Equal("key", databaseOrganizationDataCreate?.Key);
-            Assert.Equal("value", databaseOrganizationDataCreate?.Value);
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var databaseOrganizationDataCreate = await dbContext.FindAsync<OrganizationData>(organizationDataCreate.Key).ConfigureAwait(false);
+
+                Assert.Equal("key", databaseOrganizationDataCreate?.Key);
+                Assert.Equal("value", databaseOrganizationDataCreate?.Value);
+            }
 
             // Update value
             var organizationDataUpdate = new OrganizationDataDto("key", "value2");
@@ -58,10 +69,14 @@ namespace NetEvent.Server.Tests
 
             responseUpdate.EnsureSuccessStatusCode();
 
-            var databaseOrganizationDataUpdate = await DbContext.FindAsync<OrganizationData>(organizationDataUpdate.Key).ConfigureAwait(false);
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var databaseOrganizationDataUpdate = await dbContext.FindAsync<OrganizationData>(organizationDataUpdate.Key).ConfigureAwait(false);
 
-            Assert.Equal("key", databaseOrganizationDataUpdate?.Key);
-            Assert.Equal("value2", databaseOrganizationDataUpdate?.Value);
+                Assert.Equal("key", databaseOrganizationDataUpdate?.Key);
+                Assert.Equal("value2", databaseOrganizationDataUpdate?.Value);
+            }
         }
 
         [Fact]
