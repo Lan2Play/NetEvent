@@ -3,30 +3,38 @@ using System.Net.Http.Json;
 
 namespace NetEvent.Client.Services
 {
-    public class OrganizationDataService 
+    public class OrganizationDataService : IOrganizationDataService
     {
-        private const string _HttpClientName = "NetEvent.ServerAPI";
-
         private readonly IHttpClientFactory _HttpClientFactory;
-        public OrganizationDataService(IHttpClientFactory httpClientFactory)
+        private readonly ILogger<OrganizationDataService> _Logger;
+
+        public OrganizationDataService(IHttpClientFactory httpClientFactory, ILogger<OrganizationDataService> logger)
         {
             _HttpClientFactory = httpClientFactory;
+            _Logger = logger;
         }
-        public async Task<List<OrganizationDataDto>> GetOrganizationData()
+
+        public async Task<List<OrganizationDataDto>> GetOrganizationDataAsync(CancellationToken cancellationToken)
         {
             try
             {
-                var client = _HttpClientFactory.CreateClient(_HttpClientName);
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var result = await client.GetFromJsonAsync<List<OrganizationDataDto>>("api/organization/all");
+                var result = await client.GetFromJsonAsync<List<OrganizationDataDto>>("api/organization/all", cancellationToken);
+
+                if (result == null)
+                {
+                    _Logger.LogError("Unable to get organization data from backend");
+                    return new List<OrganizationDataDto>();
+                }
+
                 return result;
             }
             catch (Exception ex)
             {
-
-                return new List<OrganizationDataDto>() {};
+                _Logger.LogError(ex, "Unable to get organization data from backend");
+                return new List<OrganizationDataDto>();
             }
         }
-
     }
 }

@@ -16,13 +16,13 @@
                      ReadOnly="false"
                      EditMode="DataGridEditMode.Form"
                      EditTrigger="DataGridEditTrigger.Manual"
-                     CommittedItemChanges="@CommittedUserChanges"
+                     CommittedItemChanges="@CommittedUserChangesAsync"
                      QuickFilter="@_usersQuickFilter"
                      Hideable="true">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Periodic Elements</MudText>
                 <MudSpacer />
-                <MudTextField @bind-Value="_usersSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                <MudTextField @bind-Value="_UsersSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <Columns>
