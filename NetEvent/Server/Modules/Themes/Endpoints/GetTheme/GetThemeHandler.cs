@@ -16,13 +16,13 @@ namespace NetEvent.Server.Modules.Themes.Endpoints.GetTheme
 
         public Task<GetThemeResponse> Handle(GetThemeRequest request, CancellationToken cancellationToken)
         {
-            var theme = _ApplicationDbContext.Themes.FirstOrDefault();
+            var theme = _ApplicationDbContext.Themes.OrderBy(a=> a.Id).FirstOrDefault();
 
             if(theme == null)
             {
                 var errorMessage = "No theme set.";
                 _Logger.LogError(errorMessage);
-                return Task.FromResult(new GetThemeResponse(ReturnType.NotFound, errorMessage));
+                return Task.FromResult(new GetThemeResponse(ReturnType.Error, errorMessage));
             }
 
             return Task.FromResult(new GetThemeResponse(theme));
