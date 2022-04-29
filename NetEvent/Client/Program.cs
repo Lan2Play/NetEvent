@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using NetEvent.Client;
+using NetEvent.Client.Extensions;
 using NetEvent.Client.Services;
 
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
 builder.RootComponents.Add<App>("#app");
 
 builder.Services.AddOptions();
@@ -13,6 +16,8 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<NetEventAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<NetEventAuthenticationStateProvider>());
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddScoped<IOrganizationDataService, OrganizationDataService>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IThemeService, ThemeService>();
@@ -27,4 +32,7 @@ builder.Services.AddHttpClient(Constants.BackendApiSecuredHttpClientName)
 
 builder.Services.AddMudServices();
 
-await builder.Build().RunAsync();
+var app = builder.Build();
+await app.SetDefaultCultureAsync();
+
+await app.RunAsync();

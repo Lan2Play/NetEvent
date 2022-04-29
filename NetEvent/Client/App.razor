@@ -1,3 +1,5 @@
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
 <CascadingAuthenticationState>
 	<Router AppAssembly="@typeof(Program).Assembly">
 		<Found Context="routeData">
@@ -9,16 +11,16 @@
 					}
 					else
 					{
-						<p role="alert">You are not authorized to access this resource.</p>
+						<p role="alert">@Localize["App.NotAuthorized"]</p>
 					}
 				</NotAuthorized>
 			</AuthorizeRouteView>
 			<FocusOnNavigate RouteData="@routeData" Selector="h1" />
 		</Found>
 		<NotFound>
-            <PageTitle>Not found</PageTitle>
+            <PageTitle>@Localize["App.NotFound"]</PageTitle>
 			<LayoutView Layout="@typeof(MainLayout)">
-				<p role="alert">Sorry, there's nothing at this address.</p>
+				<p role="alert">@Localize["App.NothingHere"]</p>
 			</LayoutView>
 		</NotFound>
 	</Router>

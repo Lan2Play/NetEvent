@@ -3,6 +3,8 @@
 @using MudBlazor.ThemeManager
 @using NetEvent.Client.Pages.Administration
 
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
 <MudThemeProvider Theme="_ThemeManager.Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -22,7 +24,7 @@
         <Authorized>
             <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
                 <MudDrawerHeader>
-                    <MudText Typo="Typo.h5" Class="mt-1">Administration</MudText>
+                    <MudText Typo="Typo.h5" Class="mt-1">@Localize["Shared.MainLayout.Administration"]</MudText>
                 </MudDrawerHeader>
                 <AdminMenu></AdminMenu>
 

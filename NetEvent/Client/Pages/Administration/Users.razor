@@ -3,6 +3,8 @@
 @using Microsoft.AspNetCore.Identity
 @using NetEvent.Shared.Dto
 
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
 
 @attribute [Authorize(Roles = "Admin")]
 
@@ -20,24 +22,24 @@
                      QuickFilter="@_usersQuickFilter"
                      Hideable="true">
             <ToolBarContent>
-                <MudText Typo="Typo.h6">Users</MudText>
+                <MudText Typo="Typo.h6">@Localize["Administration.Users.Title"]</MudText>
                 <MudSpacer />
                 <MudTextField @bind-Value="_UsersSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <Columns>
                 @*<SelectColumn T="ApplicationUser" />*@
-                <Column T="UserDto" Field="UserName" Title="Username" />
-                <Column T="UserDto" Field="FirstName" />
-                <Column T="UserDto" Field="LastName" />
-                <Column T="UserDto" Field="Email" />
-                @*<Column T="User" Field="PhoneNumber" Title="Molar mass" />*@
-                <Column T="UserDto" Field="EmailConfirmed">
+                <Column T="UserDto" Field="UserName" Title="@Localize["Administration.Users.UserName"]" />
+                <Column T="UserDto" Field="FirstName" Title="@Localize["Administration.Users.FirstName"]" />
+                <Column T="UserDto" Field="LastName" Title="@Localize["Administration.Users.LastName"]" />
+                <Column T="UserDto" Field="Email" Title="@Localize["Administration.Users.Email"]" />
+                @*<Column T="UserDto" Field="PhoneNumber" Title="@Localize["Administration.Users.PhoneNumber"]" />*@
+                <Column T="UserDto" Field="EmailConfirmed" Title="@Localize["Administration.Users.EmailConfirmed"]">
                     <CellTemplate>
                         <MudCheckBox Checked="@context.Item.EmailConfirmed" ReadOnly="true" />
                     </CellTemplate>
                     <EditTemplate>
-                        <MudCheckBox @bind-Checked="@context.Item.EmailConfirmed" Label="Email confirmed" />
+                        <MudCheckBox @bind-Checked="@context.Item.EmailConfirmed" Label="@Localize["Administration.Users.EmailConfirmed"]" />
                     </EditTemplate>
                 </Column>
                 <Column T="UserDto" CellClass="d-flex justify-end">
