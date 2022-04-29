@@ -70,7 +70,6 @@ using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().Creat
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
     app.UseWebAssemblyDebugging();
 
     app.UseSwagger();
@@ -79,7 +78,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseHealthChecks("/healthz");
-    app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
@@ -92,6 +90,9 @@ app.UseWebSockets();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseExceptionHandler(new ExceptionHandlerOptions() { AllowStatusCode404Response = true , ExceptionHandlingPath = "/error"});
+
 
 app.UseEndpoints(endpoints =>
 {

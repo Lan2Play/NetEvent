@@ -13,10 +13,12 @@ namespace NetEvent.Server.Data
         private const string _AdminGuid = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD";
         private const string _RoleAdminGuid = "FEAF344F-AA9B-47F5-B170-829617CDD9A4";
         private const string _RoleUserGuid = "3ECB400B-DFCF-4268-8D67-7BC9F09DD0B1";
+        private readonly IReadOnlyCollection<IModule> _Modules;
 
-        public ApplicationDbContext(DbContextOptions options)
+        public ApplicationDbContext(DbContextOptions options, IReadOnlyCollection<IModule> modules)
             : base(options)
         {
+            _Modules = modules;
         }
 
         public virtual DbSet<ThemeDto> Themes { get; set; }
@@ -79,7 +81,13 @@ namespace NetEvent.Server.Data
                 entity.ToTable("UserTokens");
             });
 
-            builder.CreateModels();
+            if (_Modules != null)
+            {
+                foreach(var module in _Modules)
+                {
+                    module.OnModelCreating(builder);
+                }
+            }
         }
     }
 }

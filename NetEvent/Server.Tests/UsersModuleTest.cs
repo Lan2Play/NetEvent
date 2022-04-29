@@ -1,140 +1,98 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using NetEvent.Server.Data;
+using NetEvent.Server.Models;
+using NetEvent.Shared.Dto;
 using Xunit;
 
 namespace NetEvent.Server.Tests
 {
     [ExcludeFromCodeCoverage]
-    public class UsersModuleTest
+    public class UsersModuleTest : ModuleTestBase
     {
         [Fact]
         public async Task UsersModuleTest_GetUsersRoute_Test()
         {
-            var application = new WebApplicationFactory<Program>()
-            .WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(services =>
-                {
-                    var descriptors = services.Where(a=> a.ServiceType.Name.Contains("DbContext")).ToList();
+            // Arrange
+            var userFaker = Fakers.ApplicationUserFaker();
 
-                    foreach(var descriptor in descriptors)
-                    {
-                        services.Remove(descriptor);
-                    }
+            var usersCount = 5;
 
-                    services.AddDbContext<ApplicationDbContext>(options =>
-                    {
-                        options.UseInMemoryDatabase("InMemoryDbForTesting");
-                    });
-                });
-            });
+            var fakeUsers = userFaker.Generate(usersCount);
 
-            var client = application.CreateClient();
+            await DbContext.Users.AddRangeAsync(fakeUsers).ConfigureAwait(false);
 
-            var users = await client.GetAsync("/api/users");
+            DbContext.SaveChanges();
 
-            users.EnsureSuccessStatusCode();
+            // Act
+            var users = await Client.GetFromJsonAsync<List<UserDto>>("/api/users");
+
+            // Assert
+            Assert.NotNull(users);
+            Assert.Equal(usersCount, users?.Count);
         }
 
         [Fact]
-        public async Task UsersModuleTest_GetUserRoute_Test()
+        public async Task UsersModuleTest_GetUser_Success_Test()
         {
-            var application = new WebApplicationFactory<Program>()
-            .WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(services =>
-                {
-                    var descriptors = services.Where(a => a.ServiceType.Name.Contains("DbContext")).ToList();
-
-                    foreach (var descriptor in descriptors)
-                    {
-                        services.Remove(descriptor);
-                    }
-
-                    services.AddDbContext<ApplicationDbContext>(options =>
-                    {
-                        options.UseInMemoryDatabase("InMemoryDbForTesting");
-                    });
-                });
-            });
-
+            // Arrange
             var userFaker = Fakers.ApplicationUserFaker();
 
-            var user = userFaker.Generate();
+            var fakeUser = userFaker.Generate();
 
-            using (var scope = application.Services.CreateScope())
-            {
-                var provider = scope.ServiceProvider;
-                using (var context = provider.GetRequiredService<ApplicationDbContext>())
-                {
-                    await context.Users.AddAsync(user).ConfigureAwait(false);
+            await DbContext.Users.AddAsync(fakeUser).ConfigureAwait(false);
 
-                    context.SaveChanges();
-                }
-            }
+            DbContext.SaveChanges();
+           
+            // Act
+            var user = await Client.GetFromJsonAsync<UserDto>($"/api/users/{fakeUser.Id}");
 
-            var client = application.CreateClient();
+            // Assert
+            Assert.NotNull(user);
+            Assert.Equal(fakeUser.Id, user?.Id);
+            Assert.Equal(fakeUser.FirstName, user?.FirstName);
+            Assert.Equal(fakeUser.LastName, user?.LastName);
+        }
 
-            var users = await client.GetAsync($"/api/users/{user.Id}");
+        [Fact]
+        public async Task UsersModuleTest_GetUser_NotFound_Test()
+        {
+            // Act
+            var responseMessage = await Client.GetAsync($"/api/users/notexistinguser");
 
-            users.EnsureSuccessStatusCode();
+            // Assert
+            Assert.NotNull(responseMessage);
+            Assert.Equal(System.Net.HttpStatusCode.NotFound, responseMessage.StatusCode);           
         }
 
         [Fact]
         public async Task UsersModuleTest_PutUserRoute_Test()
         {
-            var application = new WebApplicationFactory<Program>()
-            .WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(services =>
-                {
-                    var descriptors = services.Where(a => a.ServiceType.Name.Contains("DbContext")).ToList();
-
-                    foreach (var descriptor in descriptors)
-                    {
-                        services.Remove(descriptor);
-                    }
-
-                    services.AddDbContext<ApplicationDbContext>(options =>
-                    {
-                        options.UseInMemoryDatabase("InMemoryDbForTesting");
-                    });
-                });
-            });
-
             var applicationUserFaker = Fakers.ApplicationUserFaker();
             var userFaker = Fakers.UserFaker();
 
             var applicationUser = applicationUserFaker.Generate();
 
-            using (var scope = application.Services.CreateScope())
-            {
-                var provider = scope.ServiceProvider;
-                using (var context = provider.GetRequiredService<ApplicationDbContext>())
-                {
-                    await context.Users.AddAsync(applicationUser).ConfigureAwait(false);
+            await DbContext.Users.AddAsync(applicationUser).ConfigureAwait(false);
 
-                    context.SaveChanges();
-                }
-            }
+            DbContext.SaveChanges();
 
-            var client = application.CreateClient();
+            var fakeUser = userFaker.Generate();
+            fakeUser.Id = applicationUser.Id;
 
-            var user = userFaker.Generate();
+            //Act
+            var response = await Client.PutAsJsonAsync($"/api/users/{fakeUser.Id}", fakeUser);
 
-            user.Id = applicationUser.Id;
+            response.EnsureSuccessStatusCode();
 
+            var databaseUser = await DbContext.FindAsync<ApplicationUser>(applicationUser.Id).ConfigureAwait(false);
 
-            var users = await client.PutAsync($"/api/users/{user.Id}", JsonContent.Create(user));
-
-            users.EnsureSuccessStatusCode();
+            //Assert
+            Assert.Equal(fakeUser.FirstName, databaseUser?.FirstName);
+            Assert.Equal(fakeUser.LastName, databaseUser?.LastName);
+            Assert.Equal(fakeUser.EmailConfirmed, databaseUser?.EmailConfirmed);
+            Assert.Equal(fakeUser.UserName, databaseUser?.UserName);
         }
     }
 }
