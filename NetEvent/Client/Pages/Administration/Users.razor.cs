@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
+using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Pages.Administration
@@ -7,46 +8,52 @@ namespace NetEvent.Client.Pages.Administration
     public partial class Users
     {
         [Inject]
-        public HttpClient HttpClient { get; set; }
+        private IUserService UserService { get; set; } = default!;
 
-
+        [Inject]
+        private IRoleService RoleService { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
-            AllUsers = await Utils.Get<List<UserDto>>(HttpClient, "api/users");
-            AllRoles = await Utils.Get<List<IdentityRole>>(HttpClient, "roles");
+            using var cancellationTokenSource = new CancellationTokenSource();
+            
+            AllUsers = await UserService.GetUsersAsync(cancellationTokenSource.Token);
+            AllRoles = await RoleService.GetRolesAsync(cancellationTokenSource.Token);
         }
 
         #region Users
 
         public List<UserDto>? AllUsers { get; private set; }
-        private string _usersSearchString;
+
+        private string? _UsersSearchString;
 
         // quick filter - filter gobally across multiple columns with the same input
         private Func<UserDto, bool> _usersQuickFilter => x =>
         {
-            if (string.IsNullOrWhiteSpace(_usersSearchString))
+            if (string.IsNullOrWhiteSpace(_UsersSearchString))
                 return true;
 
-            if (x.UserName.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (x.UserName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
-            if (x.FirstName.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (x.FirstName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
-            if (x.LastName.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (x.LastName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
-            if (x.Email.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (x.Email.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
             return false;
         };
 
 
-        void CommittedUserChanges(UserDto item)
+        private async Task CommittedUserChangesAsync(UserDto updatedUser)
         {
-            _ = Utils.Put(HttpClient, $"api/users/{item.Id}", item);
+            using var cancellationTokenSource = new CancellationTokenSource();
+
+            await UserService.UpdateUserAsync(updatedUser, cancellationTokenSource.Token).ConfigureAwait(false);
         }
 
         #endregion
@@ -55,24 +62,26 @@ namespace NetEvent.Client.Pages.Administration
 
         public List<IdentityRole>? AllRoles { get; private set; }
         
-        private string _roleSearchString;
+        private string? _RoleSearchString;
 
         // quick filter - filter gobally across multiple columns with the same input
         private Func<IdentityRole, bool> _roleQuickFilter => x =>
         {
-            if (string.IsNullOrWhiteSpace(_usersSearchString))
+            if (string.IsNullOrWhiteSpace(_UsersSearchString))
                 return true;
 
-            if (x.Name.Contains(_usersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (x.Name.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
             return false;
         };
 
 
-        void CommittedRoleChanges(IdentityRole item)
+        private async Task CommittedRoleChangesAsync(IdentityRole updatedRole)
         {
-            _ = Utils.Put(HttpClient, $"role/{item.Id}", item);
+            using var cancellationTokenSource = new CancellationTokenSource();
+
+            await RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
         }
 
         #endregion
