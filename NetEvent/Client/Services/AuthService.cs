@@ -42,7 +42,12 @@ namespace NetEvent.Client.Services
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
             var result = await client.PostAsJsonAsync("api/auth/login", loginRequest, cancellationToken);
-            if (result.StatusCode == System.Net.HttpStatusCode.BadRequest) throw new Exception(await result.Content.ReadAsStringAsync());
+            
+            if (result.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                throw new Exception(await result.Content.ReadAsStringAsync(cancellationToken));
+            }
+
             result.EnsureSuccessStatusCode();
         }
         public async Task LogoutAsync(CancellationToken cancellationToken)
@@ -54,8 +59,14 @@ namespace NetEvent.Client.Services
         public async Task RegisterAsync(RegisterRequest registerRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+            
             var result = await client.PostAsJsonAsync("api/auth/register", registerRequest, cancellationToken);
-            if (result.StatusCode == System.Net.HttpStatusCode.BadRequest) throw new Exception(await result.Content.ReadAsStringAsync());
+            
+            if (result.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                throw new Exception(await result.Content.ReadAsStringAsync(cancellationToken));
+            }
+
             result.EnsureSuccessStatusCode();
         }
     }
