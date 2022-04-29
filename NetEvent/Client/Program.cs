@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -8,14 +8,7 @@ using NetEvent.Client.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-//TODO get language from global and user settings
-CultureInfo cultureInfo = new CultureInfo("de-DE");
-CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
-
-
 builder.RootComponents.Add<App>("#app");
-
 
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
