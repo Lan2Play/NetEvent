@@ -1,11 +1,10 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using NetEvent.Client;
+using NetEvent.Client.Extensions;
 using NetEvent.Client.Services;
-using NetEvent.Shared.Constants;
 
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

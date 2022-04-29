@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Constants;
 
+
+namespace NetEvent.Client.Extensions;
+
 public static class WebAssemblyHostExtension
 {
     public async static Task SetDefaultCultureAsync(this WebAssemblyHost app)
