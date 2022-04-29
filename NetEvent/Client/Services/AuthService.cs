@@ -42,32 +42,48 @@ namespace NetEvent.Client.Services
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
             var result = await client.PostAsJsonAsync("api/auth/login", loginRequest, cancellationToken);
-            
-            if (result.StatusCode == System.Net.HttpStatusCode.BadRequest)
-            {
-                throw new Exception(await result.Content.ReadAsStringAsync(cancellationToken));
-            }
 
-            result.EnsureSuccessStatusCode();
+            try
+            {
+                result.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to logout.");
+                throw;
+            }
         }
         public async Task LogoutAsync(CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
             var result = await client.PostAsync("api/auth/logout", null, cancellationToken);
-            result.EnsureSuccessStatusCode();
+            
+            try
+            {
+                result.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to logout.");
+                throw;
+            }
         }
+
         public async Task RegisterAsync(RegisterRequest registerRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
             
             var result = await client.PostAsJsonAsync("api/auth/register", registerRequest, cancellationToken);
-            
-            if (result.StatusCode == System.Net.HttpStatusCode.BadRequest)
-            {
-                throw new Exception(await result.Content.ReadAsStringAsync(cancellationToken));
-            }
 
-            result.EnsureSuccessStatusCode();
+            try
+            {
+                result.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to register.");
+                throw;
+            }
         }
     }
 }
