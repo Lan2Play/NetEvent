@@ -1,5 +1,6 @@
 ﻿@inherits MainLayout
 @inject IJSRuntime JSRuntime
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 <div class="page d-flex flex-column vh-100">
 	<div class="sidebar">
@@ -19,7 +20,7 @@
 
 	<footer class="footer mt-auto py-3 bg-light">
 		<div class="container">
-			<span class="text-muted">Place sticky footer content here.</span>
+			<span class="text-muted">@Localize["Administration.AdminLayout.FooterPlaceholder"]</span>
 		</div>
 	</footer>
 

@@ -1,7 +1,9 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<h1>Hello, world!</h1>
+<PageTitle>@Localize["Index.Title"]</PageTitle>
 
-Welcome to your new app.
+<h1>@Localize["Index.Hello"]</h1>
+
+@Localize["Index.Welcome"]

@@ -1,16 +1,18 @@
 ﻿@page "/login"
 
-<h3>Login</h3>
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+<h3>@Localize["Login.Title"]</h3>
 
 <EditForm Model="LoginRequest" OnValidSubmit="ExecuteLogin">
     <DataAnnotationsValidator />
     <MudCard >
         <MudCardContent>         
-            <MudTextField id="Input.Email" Label="Email" @bind-Value="LoginRequest.UserName" For="@(() => LoginRequest.UserName)" />
-            <MudTextField id="Input.Password" Label="Password" @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" InputType="InputType.Password" />
+            <MudTextField id="Input.Email" Label="@Localize["Login.Title"]" @bind-Value="LoginRequest.UserName" For="@(() => LoginRequest.UserName)" />
+            <MudTextField id="Input.Password" Label="@Localize["Login.Password"]" @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" InputType="InputType.Password" />
         </MudCardContent>
         <MudCardActions>
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ma-2 py-2">Login</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ma-2 py-2">@Localize["Login.LoginButton"]</MudButton>
         </MudCardActions>
     </MudCard>    
 </EditForm>
