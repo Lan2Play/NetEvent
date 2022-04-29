@@ -45,7 +45,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication();//.AddSteam();
+builder.Services.AddAuthentication().AddSteam();
 
 builder.Services.RegisterModules();
 
