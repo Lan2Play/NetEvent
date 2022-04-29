@@ -16,11 +16,26 @@ namespace NetEvent.Client.Services
 
         public async Task<List<UserDto>> GetUsersAsync(CancellationToken cancellationToken)
         {
-            var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-            var users = await client.GetFromJsonAsync<List<UserDto>>("api/users", cancellationToken).ConfigureAwait(false);
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-            return users;
+                var users = await client.GetFromJsonAsync<List<UserDto>>("api/users", cancellationToken).ConfigureAwait(false);
+
+                if (users == null)
+                {
+                    _Logger.LogError("Unable to get users data from backend");
+                    return new List<UserDto>();
+                }
+
+                return users;
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to get users data from backend");
+                return new List<UserDto>();
+            }
         }
 
         public async Task<bool> UpdateUserAsync(UserDto updatedUser, CancellationToken cancellationToken)

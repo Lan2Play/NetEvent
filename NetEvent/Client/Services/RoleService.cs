@@ -17,11 +17,25 @@ namespace NetEvent.Client.Services
 
         public async Task<List<IdentityRole>> GetRolesAsync(CancellationToken cancellationToken)
         {
-            var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-            var roles = await client.GetFromJsonAsync<List<IdentityRole>>("/api/roles", cancellationToken).ConfigureAwait(false);
+                var roles = await client.GetFromJsonAsync<List<IdentityRole>>("/api/roles", cancellationToken).ConfigureAwait(false);
 
-            return roles;
+                if (roles == null)
+                {
+                    _Logger.LogError("Unable to get roles data from backend");
+                    return new List<IdentityRole>();
+                }
+
+                return roles;
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to get roles data from backend");
+                return new List<IdentityRole>();
+            }
         }
 
         public async Task<bool> UpdateRoleAsync(IdentityRole updatedRole, CancellationToken cancellationToken)
