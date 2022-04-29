@@ -1,9 +1,12 @@
+﻿using System.Globalization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using NetEvent.Client;
 using NetEvent.Client.Services;
+using NetEvent.Shared.Constants;
+
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -30,4 +33,7 @@ builder.Services.AddHttpClient(Constants.BackendApiSecuredHttpClientName)
 
 builder.Services.AddMudServices();
 
-await builder.Build().RunAsync();
+var app = builder.Build();
+await app.SetDefaultCultureAsync();
+
+await app.RunAsync();
