@@ -209,8 +209,8 @@
     <value>Users</value>
     <comment/>
   </data>
-  <data name="Administration.Users.Periodic" xml:space="preserve">
-    <value>Periodic Elements</value>
+  <data name="Administration.Users.Title" xml:space="preserve">
+    <value>Users</value>
     <comment/>
   </data>
   <data name="Administration.Users.UserName" xml:space="preserve">
