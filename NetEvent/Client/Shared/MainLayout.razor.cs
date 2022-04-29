@@ -9,10 +9,10 @@ namespace NetEvent.Client.Shared
     public partial class MainLayout
     {
         [Inject]
-        private ThemeService ThemeService { get; set; } = default!;
+        private IThemeService ThemeService { get; set; } = default!;
 
         [Inject]
-        private OrganizationDataService OrganizationDataService { get; set; } = default!;
+        private IOrganizationDataService OrganizationDataService { get; set; } = default!;
 
         [Inject]
         private ILogger<MainLayout> Logger { get; set; } = default!;

@@ -14,6 +14,7 @@ namespace NetEvent.Client.Services
         {
             _Api = api;
         }
+
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var identity = new ClaimsIdentity();
@@ -22,7 +23,7 @@ namespace NetEvent.Client.Services
                 var userInfo = await GetCurrentUser();
                 if (userInfo != null && userInfo.IsAuthenticated)
                 {
-                    var claims = new[] { new Claim(ClaimTypes.Name, _CurrentUser.UserName) }.Concat(_CurrentUser.Claims.Select(c => new Claim(c.Key, c.Value)));
+                    var claims = new[] { new Claim(ClaimTypes.Name, userInfo.UserName) }.Concat(userInfo.Claims.Select(c => new Claim(c.Key, c.Value)));
                     identity = new ClaimsIdentity(claims, "Server authentication");
                 }
             }
@@ -30,8 +31,10 @@ namespace NetEvent.Client.Services
             {
                 Console.WriteLine("Request failed:" + ex.ToString());
             }
+
             return new AuthenticationState(new ClaimsPrincipal(identity));
         }
+
         private async Task<CurrentUserDto> GetCurrentUser()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
@@ -44,6 +47,7 @@ namespace NetEvent.Client.Services
             _CurrentUser = await _Api.GetCurrentUserInfoAsync(cancellationTokenSource.Token).ConfigureAwait(false);
             return _CurrentUser;
         }
+
         public async Task Logout()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
