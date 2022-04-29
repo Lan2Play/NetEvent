@@ -21,9 +21,9 @@ namespace NetEvent.Server.Data
             _Modules = modules;
         }
 
-        public virtual DbSet<ThemeDto> Themes { get; set; }
+        public virtual DbSet<ThemeDto> Themes => Set<ThemeDto>();
 
-        public virtual DbSet<OrganizationData> OrganizationData { get; set; }
+        public virtual DbSet<OrganizationData> OrganizationData => Set<OrganizationData>();
 
         public override EntityEntry<TEntity> Add<TEntity>(TEntity entity)
         {
@@ -62,7 +62,7 @@ namespace NetEvent.Server.Data
             builder.Entity<IdentityUserRole<string>>(entity =>
             {
                 entity.ToTable("UserRoles");
-                entity.HasData(new IdentityUserRole<string> { UserId = _AdminGuid, RoleId = "admin"});
+                entity.HasData(new IdentityUserRole<string> { UserId = _AdminGuid, RoleId = "admin" });
             });
             builder.Entity<IdentityUserClaim<string>>(entity =>
             {
@@ -83,7 +83,7 @@ namespace NetEvent.Server.Data
 
             if (_Modules != null)
             {
-                foreach(var module in _Modules)
+                foreach (var module in _Modules)
                 {
                     module.OnModelCreating(builder);
                 }

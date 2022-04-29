@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,8 @@ using NetEvent.Server.Data;
 
 namespace NetEvent.Server.Tests
 {
-    public class ModuleTestBase
+    [ExcludeFromCodeCoverage]
+    public class ModuleTestBase : IDisposable
     {
         internal WebApplicationFactory<Program> Application { get; }
         
