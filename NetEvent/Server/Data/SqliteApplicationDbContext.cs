@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NetEvent.Server.Modules;
 
 namespace NetEvent.Server.Data
 {
@@ -7,8 +8,8 @@ namespace NetEvent.Server.Data
     {
         private readonly IConfiguration _Configuration;
 
-        public SqliteApplicationDbContext(DbContextOptions optionsBuilder, IConfiguration configuration)
-            : base(optionsBuilder)
+        public SqliteApplicationDbContext(DbContextOptions optionsBuilder, IConfiguration configuration, IReadOnlyCollection<IModule> modules)
+            : base(optionsBuilder, modules)
         {
             _Configuration = configuration;
         }

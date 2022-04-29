@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
@@ -59,15 +59,17 @@ var app = builder.Build();
 
 using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
-    using (var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
+    using (var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
     {
-        ctx.Database.Migrate();
+        if (context.Database.IsRelational())
+        {
+            context.Database.Migrate();
+        }
     }
 }
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
     app.UseWebAssemblyDebugging();
 
     app.UseSwagger();
@@ -76,7 +78,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseHealthChecks("/healthz");
-    app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
@@ -89,6 +90,9 @@ app.UseWebSockets();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseExceptionHandler(new ExceptionHandlerOptions() { AllowStatusCode404Response = true , ExceptionHandlingPath = "/error"});
+
 
 app.UseEndpoints(endpoints =>
 {

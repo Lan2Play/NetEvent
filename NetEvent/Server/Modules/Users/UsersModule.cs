@@ -9,7 +9,6 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users
 {
-    [ExcludeFromCodeCoverage]
     public class UsersModule : ModuleBase
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)

@@ -14,5 +14,5 @@ public class LoginRequest
     public string Password { get; set; }
 
     [JsonPropertyName("rememberme")]
-    public bool RememberMe { get; set; }
+    public bool RememberMe { get; set; } = true;
 }
