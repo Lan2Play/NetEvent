@@ -26,10 +26,8 @@ jobs:
     if: ${{ ((!startsWith(github.ref, 'refs/tags/v')) && (!contains(github.event.head_commit.message, 'forcepublish')) && github.event_name == 'pull_request') || (((!startsWith(github.ref, 'refs/tags/v')) && (!contains(github.event.head_commit.message, 'forcepublish')) && github.event_name == 'push' )) }}
     steps:
     - uses: actions/checkout@v3
-    - uses: addnab/docker-run-action@v3
-      with:
-        image: lan2play/docker-sphinxbuild:latest
-        options: -v ${{ github.workspace }}/Docs:/docs 
+    - name: build
+      run: docker run -it --rm -v ${{ github.workspace }}/Docs:/docs -e USERID=$(id -u ${USER}) -e GROUPID=$(id -g ${USER}) lan2play/docker-sphinxbuild:latest
 
 
   publish_prd:
