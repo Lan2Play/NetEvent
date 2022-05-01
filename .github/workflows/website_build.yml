@@ -51,8 +51,8 @@ jobs:
       run: git clone git@github.com:Lan2Play/netevent.lan2play.de.git
     - name: remove old things and add new
       run: rm -rf ./netevent.lan2play.de/docs/* && cp -rf ./Docs/build/html/* ./netevent.lan2play.de/docs/
-    - name: readd cname
-      run: echo "netevent.lan2play.de" >> ./netevent.lan2play.de/docs/CNAME
+    - name: readd cname and nojekyll
+      run: echo "netevent.lan2play.de" >> ./netevent.lan2play.de/docs/CNAME ; touch ./netevent.lan2play.de/docs/.nojekyll
     - name: push pages repo
       run: cd ./netevent.lan2play.de && if [ $(git status --short | wc -l) -gt 0 ]; then git add . && git commit -m "CI Build" && git push; fi
     
