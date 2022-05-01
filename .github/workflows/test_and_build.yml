@@ -38,10 +38,10 @@ jobs:
   test_linux_x64:
     runs-on: ubuntu-latest
     steps:
-      - name: View the information of the pusher
-        run: |
-          echo "The name of the pusher: ${{ github.event.pusher.name }}"
-          echo "The email of the pusher: ${{ github.event.pusher.email }}"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
