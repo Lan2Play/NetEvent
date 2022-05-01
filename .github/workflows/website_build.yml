@@ -29,7 +29,7 @@ jobs:
     - uses: addnab/docker-run-action@v3
       with:
         image: lan2play/docker-sphinxbuild:latest
-        options: -v ${{ github.workspace }}/Docs:/docs -e USERID=$(id -u ${USER}) -e GROUPID=$(id -g ${USER}) 
+        options: -v ${{ github.workspace }}/Docs:/docs 
 
 
   publish_prd:
