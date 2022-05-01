@@ -9,7 +9,10 @@ on:
     - 'packaging/Docs/**'
     - '.github/workflows/website_build.yml'
   pull_request:
-    branches: [ main ]
+    branches: 
+    - main
+    - develop
+    - 'feature/**'
     tags: [ v**]
     paths:
     - 'Docs/**'
@@ -20,24 +23,26 @@ jobs:
 
   build_only:
     runs-on: ubuntu-latest
-    if: ${{ ((!startsWith(github.ref, 'refs/tags/v')) && (!contains(github.event.head_commit.message, 'forcepublish')) && github.event_name == 'pull_request') || (((!startsWith(github.ref, 'refs/tags/v')) && (!contains(github.event.head_commit.message, 'forcepublish')) && github.event_name == 'push' ) || (startsWith(github.ref, 'refs/tags/v') && github.event_name == 'push' && (contains(github.ref, '-beta')))) }}
+    if: ${{ ((!startsWith(github.ref, 'refs/tags/v')) && (!contains(github.event.head_commit.message, 'forcepublish')) && github.event_name == 'pull_request') || 
+    (((!startsWith(github.ref, 'refs/tags/v')) && (!contains(github.event.head_commit.message, 'forcepublish')) && github.event_name == 'push' )) }}
+
     steps:
     - uses: actions/checkout@v3
-    - uses: nikeee/docfx-action@v1.0.0
-      name: Build Documentation
+    - uses: addnab/docker-run-action@v3
       with:
-        args: ./Docs/docfx.json
+        image: lan2play/docker-sphinxbuild:latest
+        options: -v ${{ github.workspace }}/Docs:/docs -e USERID=$(id -u ${USER}) -e GROUPID=$(id -g ${USER}) 
 
 
   publish_prd:
     runs-on: ubuntu-latest
-    if: ${{ (startsWith(github.ref, 'refs/tags/v') && github.event_name == 'push' && !(contains(github.ref, '-beta'))) || (contains(github.event.head_commit.message, 'forcepublish') && github.event_name == 'push') }}
+    if: ${{ (startsWith(github.ref, 'refs/tags/v') && github.event_name == 'push') || (contains(github.event.head_commit.message, 'forcepublish') && github.event_name == 'push') }}
     steps:
     - uses: actions/checkout@v3
-    - uses: nikeee/docfx-action@v1.0.0
-      name: Build Documentation
+    - uses: addnab/docker-run-action@v3
       with:
-        args: ./Docs/docfx.json
+        image: lan2play/docker-sphinxbuild:latest
+        options: -v ${{ github.workspace }}/Docs:/docs -e USERID=$(id -u ${USER}) -e GROUPID=$(id -g ${USER}) 
     - name: Install SSH key
       uses: shimataro/ssh-key-action@v2
       with:
@@ -51,7 +56,7 @@ jobs:
     - name: clone pages repo
       run: git clone git@github.com:Lan2Play/netevent.lan2play.de.git
     - name: remove old things and add new
-      run: rm -rf ./netevent.lan2play.de/docs/* && cp -rf ./Docs/_site/* ./netevent.lan2play.de/docs/
+      run: rm -rf ./netevent.lan2play.de/docs/* && cp -rf ./Docs/build/html/* ./netevent.lan2play.de/docs/
     - name: readd cname
       run: echo "netevent.lan2play.de" >> ./netevent.lan2play.de/docs/CNAME
     - name: push pages repo

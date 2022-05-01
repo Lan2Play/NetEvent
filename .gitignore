@@ -453,3 +453,9 @@ netevent.db-wal
 ##
 .env
 docker-compose.override.yml
+
+##
+## Docs
+##
+Docs/build
+
