@@ -53,7 +53,6 @@ namespace NetEvent.Server.Tests
                 dbContext.SaveChanges();
             }
 
-
             // Act
             var user = await Client.GetFromJsonAsync<UserDto>($"/api/users/{fakeUser.Id}");
 

@@ -25,7 +25,6 @@
             Error = error;
         }
 
-
         public ReturnType ReturnType { get; set; }
 
         public string? Error { get; set; }

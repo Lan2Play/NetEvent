@@ -53,7 +53,6 @@ namespace NetEvent.Client.Pages.Administration
             return false;
         };
 
-
         private async Task CommittedUserChangesAsync(UserDto updatedUser)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
@@ -80,7 +79,6 @@ namespace NetEvent.Client.Pages.Administration
 
             return false;
         };
-
 
         private async Task CommittedRoleChangesAsync(IdentityRole updatedRole)
         {

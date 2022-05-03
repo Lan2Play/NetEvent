@@ -59,7 +59,6 @@ builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 var app = builder.Build();
 
 using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
@@ -97,7 +96,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseExceptionHandler(new ExceptionHandlerOptions() { AllowStatusCode404Response = true , ExceptionHandlingPath = "/error"});
-
 
 app.UseEndpoints(endpoints =>
 {

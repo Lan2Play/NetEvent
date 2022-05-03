@@ -15,7 +15,6 @@ namespace NetEvent.Client.Pages.Administration
 
         public List<UserDto>? Users { get; private set; }
 
-
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();

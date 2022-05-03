@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Constants;
 
-
 namespace NetEvent.Client.Extensions;
 
 public static class WebAssemblyHostExtension

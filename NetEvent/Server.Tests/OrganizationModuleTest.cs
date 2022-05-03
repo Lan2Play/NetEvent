@@ -52,7 +52,6 @@ namespace NetEvent.Server.Tests
 
             responseCreate.EnsureSuccessStatusCode();
 
-
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
