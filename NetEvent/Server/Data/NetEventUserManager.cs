@@ -46,7 +46,6 @@ namespace NetEvent.Server.Data
                 }
                 catch (Exception ex)
                 {
-
                 }
             }
 

@@ -10,5 +10,4 @@ public class CurrentUserDto : UserDto
 
     [JsonPropertyName("claims")]
     public Dictionary<string, string> Claims { get; set; }
-
 }

@@ -30,6 +30,5 @@
         public string? Error { get; set; }
 
         public T? ReturnValue { get; set; }
-
     }
 }

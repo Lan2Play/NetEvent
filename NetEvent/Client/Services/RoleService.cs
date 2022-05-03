@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Services
 {

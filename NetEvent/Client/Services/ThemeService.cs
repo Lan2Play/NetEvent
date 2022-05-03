@@ -37,7 +37,6 @@ namespace NetEvent.Client.Services
                 var newThemeManager = JsonConvert.DeserializeObject<ThemeManagerTheme>(themeDto.ThemeData);
 
                 return newThemeManager;
-
             }
             catch (Exception ex)
             {

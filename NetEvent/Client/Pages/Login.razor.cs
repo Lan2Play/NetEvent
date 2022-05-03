@@ -22,7 +22,6 @@ namespace NetEvent.Client.Pages
         {
             if (firstRender)
             {
-
             }
         }
 

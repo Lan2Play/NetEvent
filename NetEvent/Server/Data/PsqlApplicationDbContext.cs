@@ -18,6 +18,5 @@ namespace NetEvent.Server.Data
        
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseNpgsql( _Configuration["DBConnection"]);
-
     }
 }
