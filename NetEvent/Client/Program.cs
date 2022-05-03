@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 using NetEvent.Client;
 using NetEvent.Client.Extensions;
 using NetEvent.Client.Services;
-
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -19,7 +20,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddScoped<IOrganizationDataService, OrganizationDataService>();
-builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IThemeService, ThemeService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 

@@ -1,10 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace NetEvent.Server.Modules
 {
     public abstract class ModuleBase : IModule
     {
         public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
+
         public abstract IServiceCollection RegisterModule(IServiceCollection builder);
 
         public abstract void OnModelCreating(ModelBuilder builder);

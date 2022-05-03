@@ -22,6 +22,7 @@ RUN wget -q $(lastversion https://github.com/eficode/wait-for --format assets)
 
 #get NetEvent and publish it
 COPY NetEvent /NetEvent
+COPY .sonarlint /.sonarlint
 WORKDIR /NetEvent
 RUN dotnet publish ./Server/NetEvent.Server.csproj -c Release -p:PublishProfile=DefaultPublish
 

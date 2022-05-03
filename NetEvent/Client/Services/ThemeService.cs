@@ -1,4 +1,9 @@
-﻿using System.Net.Http.Json;
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using MudBlazor.ThemeManager;
 using NetEvent.Shared.Dto;
 using Newtonsoft.Json;
@@ -32,7 +37,6 @@ namespace NetEvent.Client.Services
                 var newThemeManager = JsonConvert.DeserializeObject<ThemeManagerTheme>(themeDto.ThemeData);
 
                 return newThemeManager;
-
             }
             catch (Exception ex)
             {
@@ -61,6 +65,7 @@ namespace NetEvent.Client.Services
             {
                 _Logger.LogError(ex, "Unable to update theme in backend.");
             }
+
             return false;
         }
     }

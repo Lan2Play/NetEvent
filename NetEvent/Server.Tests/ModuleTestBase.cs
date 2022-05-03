@@ -13,7 +13,6 @@ namespace NetEvent.Server.Tests
     {
         internal WebApplicationFactory<Program> Application { get; }
 
-
         protected System.Net.Http.HttpClient Client { get; }
 
         private bool disposedValue;
@@ -51,6 +50,7 @@ namespace NetEvent.Server.Tests
                     Client?.Dispose();
                     Application?.Dispose();
                 }
+
                 disposedValue = true;
             }
         }

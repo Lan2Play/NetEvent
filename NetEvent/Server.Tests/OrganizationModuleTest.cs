@@ -19,8 +19,8 @@ namespace NetEvent.Server.Tests
             // Arrange
             var testData = new[]
             {
-                new OrganizationData{ Key = "key", Value = "value" },
-                new OrganizationData{ Key = "key2", Value = "value2" }
+                new OrganizationData { Key = "key", Value = "value" },
+                new OrganizationData { Key = "key2", Value = "value2" }
             };
 
             using (var scope = Application.Services.CreateScope())
@@ -51,7 +51,6 @@ namespace NetEvent.Server.Tests
             var responseCreate = await Client.PostAsync("/api/organization", JsonContent.Create(organizationDataCreate));
 
             responseCreate.EnsureSuccessStatusCode();
-
 
             using (var scope = Application.Services.CreateScope())
             {

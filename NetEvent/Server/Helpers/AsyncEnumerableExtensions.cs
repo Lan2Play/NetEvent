@@ -1,4 +1,8 @@
-﻿namespace NetEvent.Server.Helpers
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace NetEvent.Server.Helpers
 {
     public static class AsyncEnumerableExtensions
     {

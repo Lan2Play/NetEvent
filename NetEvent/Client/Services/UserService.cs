@@ -1,4 +1,10 @@
-﻿using System.Net.Http.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Services
@@ -16,7 +22,6 @@ namespace NetEvent.Client.Services
 
         public async Task<List<UserDto>> GetUsersAsync(CancellationToken cancellationToken)
         {
-
             try
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
@@ -56,6 +61,7 @@ namespace NetEvent.Client.Services
             {
                 _Logger.LogError(ex, "Unable to update user in backend.");
             }
+
             return false;
         }
     }

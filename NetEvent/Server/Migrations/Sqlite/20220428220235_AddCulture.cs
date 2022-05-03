@@ -55,7 +55,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                 table: "OrganizationData",
                 type: "TEXT",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "TEXT",
                 oldNullable: true);

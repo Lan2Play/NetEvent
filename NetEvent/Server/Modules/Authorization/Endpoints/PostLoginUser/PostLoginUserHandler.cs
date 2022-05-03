@@ -1,5 +1,8 @@
-﻿using MediatR;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
@@ -13,7 +16,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
         public PostLoginUserHandler(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<PostLoginUserHandler> logger)
         {
             _UserManager = userManager;
-            _SignInManager = signInManager; ;
+            _SignInManager = signInManager;
             _Logger = logger;
         }
 

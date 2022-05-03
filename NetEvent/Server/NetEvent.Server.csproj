@@ -3,9 +3,14 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<!--<ImplicitUsings>enable</ImplicitUsings>-->
 		<UserSecretsId>NetEvent.Server-22C6183C-4927-4801-90E6-4AC1E79183B5</UserSecretsId>
+		<CodeAnalysisRuleSet>..\..\.sonarlint\lan2play_custom.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Include="..\..\.sonarlint\lan2play_netevent\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Client\NetEvent.Client.csproj" />
@@ -31,6 +36,10 @@
 		<PackageReference Include="Microsoft.Toolkit.Diagnostics" Version="7.1.2" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
 		<PackageReference Include="Riok.Mapperly" Version="2.2.1" />
 	</ItemGroup>

@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using Microsoft.Extensions.Logging;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 
@@ -18,7 +21,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
         public async Task<PutUserResponse> Handle(PutUserRequest request, CancellationToken cancellationToken)
         {
             var user = request.User;
-            
+
             var existingUser = await _UserDbContext.FindAsync<ApplicationUser>(request.Id).ConfigureAwait(false);
 
             if (existingUser == null)

@@ -3,8 +3,13 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<!--<ImplicitUsings>enable</ImplicitUsings>-->
+		<CodeAnalysisRuleSet>..\..\.sonarlint\lan2play_custom.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Include="..\..\.sonarlint\lan2play_netevent\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4" />
@@ -17,6 +22,10 @@
 		<PackageReference Include="MudBlazor" Version="6.0.9" />
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.6" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
 		<PackageReference Include="System.Reactive" Version="5.0.0" />
 	</ItemGroup>
