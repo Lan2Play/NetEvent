@@ -61,6 +61,7 @@ namespace NetEvent.Client.Services
             {
                 _Logger.LogError(ex, "Unable to update role in backend.");
             }
+
             return false;
         }
     }

@@ -58,7 +58,7 @@ dotnet_style_prefer_conditional_expression_over_return = true:silent
 ###############################
 # Style Definitions
 dotnet_naming_style.pascal_case_style.capitalization             = pascal_case
-# Use PascalCase for constant fields  
+# Use PascalCase for constant fields
 dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.constant_fields_should_be_pascal_case.symbols  = constant_fields
 dotnet_naming_rule.constant_fields_should_be_pascal_case.style = pascal_case_style
@@ -69,13 +69,13 @@ dotnet_naming_symbols.constant_fields.required_modifiers          = const
 # Define what we will treat as private fields.
 dotnet_naming_symbols.private_fields.applicable_kinds = field
 dotnet_naming_symbols.private_fields.applicable_accessibilities = private
-# Define rule that something must begin with an underscore and be in camel case.
-dotnet_naming_style.require_underscore_prefix_and_camel_case.required_prefix = _
-dotnet_naming_style.require_underscore_prefix_and_camel_case.capitalization = pascal_case
+# Define rule that something must begin with an underscore and be in pascal case.
+dotnet_naming_style.require_underscore_prefix_and_pascal_case.required_prefix = _
+dotnet_naming_style.require_underscore_prefix_and_pascal_case.capitalization = pascal_case
 # Appy our rule to private fields.
-dotnet_naming_rule.private_fields_must_begin_with_underscore_and_be_in_camel_case.symbols = private_fields
-dotnet_naming_rule.private_fields_must_begin_with_underscore_and_be_in_camel_case.style = require_underscore_prefix_and_camel_case
-dotnet_naming_rule.private_fields_must_begin_with_underscore_and_be_in_camel_case.severity = warning
+dotnet_naming_rule.private_fields_must_begin_with_underscore_and_be_in_pascal_case.symbols = private_fields
+dotnet_naming_rule.private_fields_must_begin_with_underscore_and_be_in_pascal_case.style = require_underscore_prefix_and_pascal_case
+dotnet_naming_rule.private_fields_must_begin_with_underscore_and_be_in_pascal_case.severity = warning
 
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 tab_width = 4
@@ -169,9 +169,3 @@ csharp_style_prefer_switch_expression = true:suggestion
 csharp_style_prefer_pattern_matching = true:silent
 csharp_style_prefer_not_pattern = true:suggestion
 csharp_style_prefer_extended_property_pattern = true:suggestion
-###############################
-# VB Coding Conventions       #
-###############################
-[*.vb]
-# Modifier preferences
-visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public,Friend,NotOverridable,Overridable,MustOverride,Overloads,Overrides,MustInherit,NotInheritable,Static,Shared,Shadows,ReadOnly,WriteOnly,Dim,Const,WithEvents,Widening,Narrowing,Custom,Async:suggestion

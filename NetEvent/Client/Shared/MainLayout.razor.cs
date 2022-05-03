@@ -11,10 +11,11 @@ namespace NetEvent.Client.Shared
         [Inject]
         private IThemeService ThemeService { get; set; } = default!;
 
-        private ThemeManagerTheme _ThemeManager = new ();
-        bool _drawerOpen = true;
+        private readonly ThemeManagerTheme _ThemeManager = new();
+        private bool _themeManagerOpen;
+        private bool _drawerOpen = true;
 
-        void DrawerToggle()
+        private void DrawerToggle()
         {
             _drawerOpen = !_drawerOpen;
         }
@@ -36,9 +37,7 @@ namespace NetEvent.Client.Shared
             }
         }
 
-        public bool _themeManagerOpen = false;
-
-        void ToggleThemeManager(bool value)
+        private void ToggleThemeManager(bool value)
         {
             _themeManagerOpen = value;
         }

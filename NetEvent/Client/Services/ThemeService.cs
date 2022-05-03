@@ -65,6 +65,7 @@ namespace NetEvent.Client.Services
             {
                 _Logger.LogError(ex, "Unable to update theme in backend.");
             }
+
             return false;
         }
     }

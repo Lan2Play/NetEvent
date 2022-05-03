@@ -33,6 +33,7 @@ namespace NetEvent.Server.Modules
             {
                 module.MapEndpoints(app);
             }
+
             return app;
         }
 

@@ -58,6 +58,7 @@ namespace NetEvent.Client.Services
                 throw;
             }
         }
+
         public async Task LogoutAsync(CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);

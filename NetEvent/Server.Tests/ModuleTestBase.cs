@@ -50,6 +50,7 @@ namespace NetEvent.Server.Tests
                     Client?.Dispose();
                     Application?.Dispose();
                 }
+
                 disposedValue = true;
             }
         }

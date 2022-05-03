@@ -61,6 +61,7 @@ namespace NetEvent.Client.Services
             {
                 _Logger.LogError(ex, "Unable to update user in backend.");
             }
+
             return false;
         }
     }
