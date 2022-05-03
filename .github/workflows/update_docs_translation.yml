@@ -3,7 +3,9 @@ name: Translation files CI update
 on:
   push:
     branches:
-      - master
+      - main
+    paths:
+      - 'Docs/**'
     paths-ignore:
       - 'Docs/source/locales/**'
 

@@ -14,6 +14,7 @@ on:
     - '!README.md'
     - '!.github/workflows/website_build.yml'
     - '!.github/workflows/update_dockerhub.yml'
+    - '!.github/workflows/update_docs_translation.yml'
     - '!.github/dependabot.yml'
   pull_request:
     types: [opened, synchronize, reopened]
@@ -31,6 +32,7 @@ on:
     - '!README.md'
     - '!.github/workflows/website_build.yml'
     - '!.github/workflows/update_dockerhub.yml'
+    - '!.github/workflows/update_docs_translation.yml'
     - '!.github/dependabot.yml'
 
 jobs:
