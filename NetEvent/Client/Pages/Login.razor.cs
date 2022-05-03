@@ -1,3 +1,5 @@
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
@@ -12,12 +14,9 @@ namespace NetEvent.Client.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-
-        public LoginRequest LoginRequest { get; set; } = new ();
-
+        public LoginRequest LoginRequest { get; set; } = new();
 
         public string Error { get; set; }
-
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {

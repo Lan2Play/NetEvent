@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using NetEvent.Shared.Dto;
+using System;
+using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace NetEvent.Client.Services
 {
@@ -8,10 +12,12 @@ namespace NetEvent.Client.Services
     {
         private readonly IAuthService api;
         private CurrentUserDto _currentUser;
+
         public CustomStateProvider(IAuthService api)
         {
             this.api = api;
         }
+
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var identity = new ClaimsIdentity();
@@ -28,14 +34,17 @@ namespace NetEvent.Client.Services
             {
                 Console.WriteLine("Request failed:" + ex.ToString());
             }
+
             return new AuthenticationState(new ClaimsPrincipal(identity));
         }
+
         private async Task<CurrentUserDto> GetCurrentUser()
         {
             if (_currentUser != null && _currentUser.IsAuthenticated) return _currentUser;
             _currentUser = await api.CurrentUserInfo();
             return _currentUser;
         }
+
         public async Task Logout()
         {
             await api.Logout();

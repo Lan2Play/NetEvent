@@ -1,4 +1,8 @@
-﻿using MediatR;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using Microsoft.Extensions.Logging;
 using NetEvent.Server.Data;
 
 namespace NetEvent.Server.Modules.Themes.Endpoints.GetTheme
@@ -18,7 +22,7 @@ namespace NetEvent.Server.Modules.Themes.Endpoints.GetTheme
         {
             var theme = _ApplicationDbContext.Themes.FirstOrDefault();
 
-            if(theme == null)
+            if (theme == null)
             {
                 var errorMessage = "No theme set.";
                 _Logger.LogError(errorMessage);

@@ -1,3 +1,5 @@
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace NetEvent.Client.Pages.Administration
@@ -10,6 +12,5 @@ namespace NetEvent.Client.Pages.Administration
         protected override async Task OnInitializedAsync()
         {
         }
-
     }
 }

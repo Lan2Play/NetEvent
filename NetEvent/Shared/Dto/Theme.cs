@@ -1,4 +1,6 @@
-﻿namespace NetEvent.Shared.Dto;
+﻿using System;
+
+namespace NetEvent.Shared.Dto;
 
 public class ThemeDto
 {

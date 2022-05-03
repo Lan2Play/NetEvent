@@ -1,4 +1,8 @@
-﻿using MediatR;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using Microsoft.Extensions.Logging;
 using NetEvent.Shared;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser

@@ -1,6 +1,9 @@
 ﻿using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser

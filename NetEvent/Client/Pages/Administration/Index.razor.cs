@@ -1,11 +1,13 @@
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Pages.Administration
 {
-    public partial class Index 
+    public partial class Index
     {
-
         [Inject]
         public HttpClient HttpClient { get; set; }
 
@@ -15,6 +17,5 @@ namespace NetEvent.Client.Pages.Administration
         {
             Users = await Utils.Get<List<CurrentUserDto>>(HttpClient, "api/users");
         }
-
     }
 }

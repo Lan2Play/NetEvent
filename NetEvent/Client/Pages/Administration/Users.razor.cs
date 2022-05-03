@@ -1,3 +1,7 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using NetEvent.Shared.Dto;
@@ -8,8 +12,6 @@ namespace NetEvent.Client.Pages.Administration
     {
         [Inject]
         public HttpClient HttpClient { get; set; }
-
-
 
         protected override async Task OnInitializedAsync()
         {
@@ -54,7 +56,7 @@ namespace NetEvent.Client.Pages.Administration
         #region Roles
 
         public List<IdentityRole>? AllRoles { get; private set; }
-        
+
         private string _roleSearchString;
 
         // quick filter - filter gobally across multiple columns with the same input

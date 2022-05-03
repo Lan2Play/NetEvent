@@ -1,5 +1,8 @@
 ﻿using NetEvent.Shared.Dto;
+using System;
+using System.Net.Http;
 using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 namespace NetEvent.Client.Services
 {
@@ -12,6 +15,7 @@ namespace NetEvent.Client.Services
         {
             _HttpClientFactory = httpClientFactory;
         }
+
         public async Task<CurrentUserDto> CurrentUserInfo()
         {
             try
@@ -23,8 +27,7 @@ namespace NetEvent.Client.Services
             }
             catch (Exception ex)
             {
-
-                return new CurrentUserDto() { IsAuthenticated = false};
+                return new CurrentUserDto() { IsAuthenticated = false };
             }
         }
 
@@ -36,12 +39,14 @@ namespace NetEvent.Client.Services
             if (result.StatusCode == System.Net.HttpStatusCode.BadRequest) throw new Exception(await result.Content.ReadAsStringAsync());
             result.EnsureSuccessStatusCode();
         }
+
         public async Task Logout()
         {
             var client = _HttpClientFactory.CreateClient(_HttpClientName);
             var result = await client.PostAsync("api/auth/logout", null);
             result.EnsureSuccessStatusCode();
         }
+
         public async Task Register(RegisterRequest registerRequest)
         {
             var client = _HttpClientFactory.CreateClient(_HttpClientName);
