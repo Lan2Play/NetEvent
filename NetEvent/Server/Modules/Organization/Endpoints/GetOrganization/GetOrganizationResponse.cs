@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Organization.Endpoints.GetOrganization

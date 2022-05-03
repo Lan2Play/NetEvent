@@ -49,7 +49,6 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
             }
 
             // TODO Schedule Task for sending E-Mail
-
             return new PostRegisterUserResponse();
         }
     }

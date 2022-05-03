@@ -11,6 +11,7 @@
         }
     }
 
+#pragma warning disable SA1402 // File may only contain a single type
     public class ResponseBase<T>
     {
         public ResponseBase(T? value)
@@ -31,4 +32,5 @@
 
         public T? ReturnValue { get; set; }
     }
+#pragma warning restore SA1402 // File may only contain a single type
 }
