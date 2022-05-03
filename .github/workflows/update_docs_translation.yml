@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'Docs/**'
+      - '.github/workflows/update_docs_translation.yml'
       - '!Docs/source/locales/**'
 
 jobs:
