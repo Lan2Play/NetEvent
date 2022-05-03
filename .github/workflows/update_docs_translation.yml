@@ -6,8 +6,7 @@ on:
       - main
     paths:
       - 'Docs/**'
-    paths-ignore:
-      - 'Docs/source/locales/**'
+      - '!Docs/source/locales/**'
 
 jobs:
   regenerate_locales_docs:
