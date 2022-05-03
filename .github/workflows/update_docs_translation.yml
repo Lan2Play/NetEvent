@@ -23,7 +23,7 @@ jobs:
     - name: Commit changes
       uses: actions-x/commit@v6
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.CI_PERSONALACCESSTOKEN }}
         name: github-actions[bot]
         email: 41898282+github-actions[bot]@users.noreply.github.com
         message: Automatically updated locales
