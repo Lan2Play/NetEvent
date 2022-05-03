@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Routing;
 
 namespace NetEvent.Server.Middleware
 {
@@ -13,7 +15,7 @@ namespace NetEvent.Server.Middleware
 
             return Regex.Replace(
                 value.ToString()!,
-                    "([a-z])([A-Z])",
+                "([a-z])([A-Z])",
                 "$1-$2",
                 RegexOptions.CultureInvariant,
                 TimeSpan.FromMilliseconds(100))

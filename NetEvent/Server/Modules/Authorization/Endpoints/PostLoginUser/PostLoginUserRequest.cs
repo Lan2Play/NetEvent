@@ -7,7 +7,6 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
     {
         public PostLoginUserRequest()
         {
-
         }
 
         public PostLoginUserRequest(LoginRequest loginRequest)

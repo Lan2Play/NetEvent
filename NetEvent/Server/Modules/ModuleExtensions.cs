@@ -1,4 +1,10 @@
-﻿namespace NetEvent.Server.Modules
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace NetEvent.Server.Modules
 {
     public static class ModuleExtensions
     {
@@ -21,12 +27,13 @@
 
         public static WebApplication MapEndpoints(this WebApplication app)
         {
-           var registeredModules = app.Services.GetRequiredService<IReadOnlyCollection<IModule>>();
+            var registeredModules = app.Services.GetRequiredService<IReadOnlyCollection<IModule>>();
 
             foreach (var module in registeredModules)
             {
                 module.MapEndpoints(app);
             }
+
             return app;
         }
 

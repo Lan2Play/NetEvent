@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NetEvent.Shared.Dto;
 
@@ -9,5 +10,4 @@ public class CurrentUserDto : UserDto
 
     [JsonPropertyName("claims")]
     public Dictionary<string, string> Claims { get; set; }
-
 }

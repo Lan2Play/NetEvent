@@ -1,6 +1,11 @@
-﻿using System.Net.Http.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using NetEvent.Shared.Dto;
+using Microsoft.Extensions.Logging;
 
 namespace NetEvent.Client.Services
 {
@@ -56,6 +61,7 @@ namespace NetEvent.Client.Services
             {
                 _Logger.LogError(ex, "Unable to update role in backend.");
             }
+
             return false;
         }
     }

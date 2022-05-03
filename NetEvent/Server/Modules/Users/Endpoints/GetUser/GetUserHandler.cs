@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using Microsoft.Extensions.Logging;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared;
@@ -22,7 +25,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
             var user = await _UserDbContext.FindAsync<ApplicationUser>(request.Id);
             if (user == null)
             {
-                return new GetUserResponse(ReturnType.NotFound, "");
+                return new GetUserResponse(ReturnType.NotFound, string.Empty);
             }
 
             var currentUser = DtoMapper.Mapper.ApplicaitonUserToUserDto(user);

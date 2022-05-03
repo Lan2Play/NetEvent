@@ -1,7 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using MediatR;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Modules.Users.Endpoints.GetUser;
 using NetEvent.Server.Modules.Users.Endpoints.GetUsers;
 using NetEvent.Server.Modules.Users.Endpoints.PutUser;
@@ -13,7 +15,7 @@ namespace NetEvent.Server.Modules.Users
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-            //endpoints.MapGet("/users", GetUsers.Handle);
+            // endpoints.MapGet("/users", GetUsers.Handle);
             endpoints.MapGet("/api/users", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetUsersRequest())));
             endpoints.MapGet("/api/users/{id}", async ([FromRoute] string id, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetUserRequest(id))));
             endpoints.MapPut("/api/users/{id}", async ([FromRoute] string id, [FromBody] UserDto user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(id, user))));

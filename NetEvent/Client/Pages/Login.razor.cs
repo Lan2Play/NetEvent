@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 
@@ -12,27 +14,16 @@ namespace NetEvent.Client.Pages
         [Inject]
         private NavigationManager NavigationManager { get; set; } = default!;
 
-
-        public LoginRequest LoginRequest { get; set; } = new ();
-
+        public LoginRequest LoginRequest { get; set; } = new();
 
         public string Error { get; set; }
-
-
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-
-            }
-        }
 
         public async Task ExecuteLogin()
         {
             try
             {
                 await AuthenticationStateProvider.Login(LoginRequest);
-                NavigationManager.NavigateTo("");
+                NavigationManager.NavigateTo(string.Empty);
             }
             catch (Exception ex)
             {

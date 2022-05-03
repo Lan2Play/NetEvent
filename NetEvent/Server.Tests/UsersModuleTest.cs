@@ -53,7 +53,6 @@ namespace NetEvent.Server.Tests
                 dbContext.SaveChanges();
             }
 
-
             // Act
             var user = await Client.GetFromJsonAsync<UserDto>($"/api/users/{fakeUser.Id}");
 
@@ -93,7 +92,7 @@ namespace NetEvent.Server.Tests
             var fakeUser = userFaker.Generate();
             fakeUser.Id = applicationUser.Id;
 
-            //Act
+            // Act
             var response = await Client.PutAsJsonAsync($"/api/users/{fakeUser.Id}", fakeUser);
 
             response.EnsureSuccessStatusCode();
@@ -103,7 +102,7 @@ namespace NetEvent.Server.Tests
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 var databaseUser = await dbContext.FindAsync<ApplicationUser>(applicationUser.Id).ConfigureAwait(false);
 
-                //Assert
+                // Assert
                 Assert.Equal(fakeUser.FirstName, databaseUser?.FirstName);
                 Assert.Equal(fakeUser.LastName, databaseUser?.LastName);
                 Assert.Equal(fakeUser.EmailConfirmed, databaseUser?.EmailConfirmed);

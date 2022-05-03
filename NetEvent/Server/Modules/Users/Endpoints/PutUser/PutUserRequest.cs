@@ -16,6 +16,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
         }
 
         public string Id { get; }
+
         public UserDto User { get; }
     }
 }

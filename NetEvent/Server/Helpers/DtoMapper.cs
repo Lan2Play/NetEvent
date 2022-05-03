@@ -1,7 +1,7 @@
-﻿using NetEvent.Server.Models;
+﻿using System.Security.Claims;
+using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 using Riok.Mapperly.Abstractions;
-using System.Security.Claims;
 
 namespace NetEvent.Shared
 {

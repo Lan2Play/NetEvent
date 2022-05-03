@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
@@ -14,12 +19,14 @@ switch (builder.Configuration["DBProvider"].ToLower())
             builder.Services.AddDbContext<ApplicationDbContext, SqliteApplicationDbContext>();
             builder.Services.AddHealthChecks().AddDbContextCheck<SqliteApplicationDbContext>();
         }
+
         break;
     case "psql":
         {
             builder.Services.AddDbContext<ApplicationDbContext, PsqlApplicationDbContext>();
             builder.Services.AddHealthChecks().AddDbContextCheck<PsqlApplicationDbContext>();
         }
+
         break;
     default:
         {
@@ -53,7 +60,6 @@ builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 
@@ -91,8 +97,7 @@ app.UseWebSockets();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseExceptionHandler(new ExceptionHandlerOptions() { AllowStatusCode404Response = true , ExceptionHandlingPath = "/error"});
-
+app.UseExceptionHandler(new ExceptionHandlerOptions() { AllowStatusCode404Response = true, ExceptionHandlingPath = "/error" });
 
 app.UseEndpoints(endpoints =>
 {
