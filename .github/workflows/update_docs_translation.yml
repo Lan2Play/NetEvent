@@ -1,0 +1,27 @@
+name: Translation files CI update
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'Docs/source/locales/**'
+
+jobs:
+  regenerate_locales_docs:
+    runs-on: ubuntu-20.04
+
+    name: Update translation files
+    steps:
+    - uses: actions/checkout@v2
+    - name: make gettext
+      run: docker run --rm -v ${{ github.workspace }}/Docs:/docs -e USERID=$(id -u ${USER}) -e GROUPID=$(id -g ${USER}) -e MakeCommands=gettext lan2play/docker-sphinxbuild:latest
+    - name: intl update
+      run: docker run --rm -v ${{ github.workspace }}/Docs:/docs -e USERID=$(id -u ${USER}) -e GROUPID=$(id -g ${USER}) -e Task=intl -e IntlLangs=de,fr lan2play/docker-sphinxbuild:latest  
+    - name: Commit changes
+      uses: actions-x/commit@v2
+      with:
+        name: github-actions[bot]
+        email: 41898282+github-actions[bot]@users.noreply.github.com
+        message: Automatically updated locales
+        files: docs/source/locales/**

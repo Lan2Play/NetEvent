@@ -59,14 +59,14 @@ Its currently under heavy development, so only use it for testing or development
 Users quickstart notes
 ----------------------
 - If you just want to use NetEvent as a user go to :doc:`/user/start`
-- If you want to deploy NetEvent, please take a look into the :doc:`admin/quickstart`.
+- If you want to deploy NetEvent, please take a look into the :doc:`admin/quickstart`
 
 
 Developer notes
 ----------------------
 - Github url: https://github.com/Lan2Play/NetEvent
 
-- If you want to contribute to NetEvent, please take a look into the :doc:`develop/quickstart`.
+- If you want to contribute to NetEvent, please take a look into the :doc:`develop/quickstart`
 
 
 Indices and tables

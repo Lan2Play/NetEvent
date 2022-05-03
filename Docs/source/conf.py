@@ -69,3 +69,7 @@ html_theme = "sphinx_rtd_theme"
 #    "project_nav_name": "NetEvent",
 #    "globaltoc_depth": 3,
 #}
+
+locale_dirs = ['locale/']   # path is example but recommended.
+gettext_compact = False     # optional.
+language = "en"
