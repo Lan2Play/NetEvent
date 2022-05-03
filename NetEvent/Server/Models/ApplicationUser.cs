@@ -8,7 +8,6 @@ public class ApplicationUser : IdentityUser
 
     public string LastName { get; set; }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1011:Closing square brackets should be spaced correctly", Justification = "<Pending>")]
     public byte[]? ProfilePicture { get; set; }
 
     public override string PasswordHash { get => base.PasswordHash; set => base.PasswordHash = value; }

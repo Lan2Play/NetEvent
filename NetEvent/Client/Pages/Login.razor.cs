@@ -14,7 +14,7 @@ namespace NetEvent.Client.Pages
         [Inject]
         private NavigationManager NavigationManager { get; set; } = default!;
 
-        public LoginRequest LoginRequest { get; set; } = new ();
+        public LoginRequest LoginRequest { get; set; } = new();
 
         public string Error { get; set; }
 

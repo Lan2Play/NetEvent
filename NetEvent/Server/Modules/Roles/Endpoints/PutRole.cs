@@ -25,10 +25,10 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
 
         private static void UpdateOldRole(IdentityRole oldRole, IdentityRole user)
         {
-            //oldRole.EmailConfirmed = user.EmailConfirmed;
-            //oldRole.UserName = user.UserName;
-            //oldRole.FirstName = user.FirstName;
-            //oldRole.LastName = user.LastName;
+            // oldRole.EmailConfirmed = user.EmailConfirmed;
+            // oldRole.UserName = user.UserName;
+            // oldRole.FirstName = user.FirstName;
+            // oldRole.LastName = user.LastName;
         }
     }
 }

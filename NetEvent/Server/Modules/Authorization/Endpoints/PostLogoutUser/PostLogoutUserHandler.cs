@@ -15,7 +15,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser
 
         public PostLogoutUserHandler(SignInManager<ApplicationUser> signInManager, ILogger<PostLogoutUserHandler> logger)
         {
-            ;
+
             _SignInManager = signInManager;
             _Logger = logger;
         }

@@ -12,8 +12,6 @@ namespace NetEvent.Server.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         private const string _AdminGuid = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD";
-        private const string _RoleAdminGuid = "FEAF344F-AA9B-47F5-B170-829617CDD9A4";
-        private const string _RoleUserGuid = "3ECB400B-DFCF-4268-8D67-7BC9F09DD0B1";
         private readonly IReadOnlyCollection<IModule> _Modules;
 
         public ApplicationDbContext(DbContextOptions options, IReadOnlyCollection<IModule> modules)
@@ -50,7 +48,7 @@ namespace NetEvent.Server.Data
                     LastName = "istrator"
                 };
                 adminUser.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(adminUser, "Test123..");
-                _ = entity.HasData(adminUser); ;
+                _ = entity.HasData(adminUser);
             });
             builder.Entity<IdentityRole>(entity =>
             {
