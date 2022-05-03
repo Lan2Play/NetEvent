@@ -35,19 +35,29 @@ namespace NetEvent.Client.Pages.Administration
         private Func<UserDto, bool> _usersQuickFilter => x =>
         {
             if (string.IsNullOrWhiteSpace(_UsersSearchString))
+            {
                 return true;
+            }
 
             if (x.UserName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            {
                 return true;
+            }
 
             if (x.FirstName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            {
                 return true;
+            }
 
             if (x.LastName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            {
                 return true;
+            }
 
             if (x.Email.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            {
                 return true;
+            }
 
             return false;
         };
@@ -71,10 +81,14 @@ namespace NetEvent.Client.Pages.Administration
         private Func<IdentityRole, bool> _roleQuickFilter => x =>
         {
             if (string.IsNullOrWhiteSpace(_UsersSearchString))
+            {
                 return true;
+            }
 
             if (x.Name.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            {
                 return true;
+            }
 
             return false;
         };

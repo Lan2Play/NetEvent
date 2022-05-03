@@ -55,7 +55,7 @@ namespace NetEvent.Server.Migrations.Psql
                 table: "OrganizationData",
                 type: "text",
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "text",
                 oldNullable: true);

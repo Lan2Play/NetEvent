@@ -25,7 +25,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
             var user = await _UserDbContext.FindAsync<ApplicationUser>(request.Id);
             if (user == null)
             {
-                return new GetUserResponse(ReturnType.NotFound, "");
+                return new GetUserResponse(ReturnType.NotFound, string.Empty);
             }
 
             var currentUser = DtoMapper.Mapper.ApplicaitonUserToUserDto(user);

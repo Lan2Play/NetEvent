@@ -14,7 +14,7 @@ namespace NetEvent.Server.Data
         {
             if (userManager.FindByEmailAsync("admin@admin.de").Result == null)
             {
-                ApplicationUser user = new();
+                ApplicationUser user = new ();
                 user.UserName = "admin";
                 user.Email = "admin@admin.de";
                 user.FirstName = "Admin";
