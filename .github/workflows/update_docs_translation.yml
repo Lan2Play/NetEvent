@@ -21,9 +21,9 @@ jobs:
     - name: intl update
       run: docker run --rm -v ${{ github.workspace }}/Docs:/docs -e USERID=$(id -u ${USER}) -e GROUPID=$(id -g ${USER}) -e Task=intl -e IntlLangs=de,fr lan2play/docker-sphinxbuild:latest  
     - name: Commit changes
-      uses: actions-x/commit@v2.9
+      uses: actions-x/commit@v6
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         name: github-actions[bot]
         email: 41898282+github-actions[bot]@users.noreply.github.com
         message: Automatically updated locales
