@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sonarlint", ".sonarlint", "{2ECDCEB8-F6E8-486A-853C-4FB1D7BF3A40}"
 	ProjectSection(SolutionItems) = preProject
-		lan2play_custom.ruleset = lan2play_custom.ruleset
+		.sonarlint\lan2play_custom.ruleset = .sonarlint\lan2play_custom.ruleset
 		.sonarlint\lan2play_neteventcsharp.ruleset = .sonarlint\lan2play_neteventcsharp.ruleset
 		.sonarlint\NetEvent.slconfig = .sonarlint\NetEvent.slconfig
 	EndProjectSection
