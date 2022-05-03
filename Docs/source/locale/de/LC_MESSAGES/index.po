@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NetEvent \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 21:22+0000\n"
+"POT-Creation-Date: 2022-05-03 21:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgid ""
 msgstr ""
 
 #: ../../source/index.rst:60
-msgid "Users quickstart notes"
+msgid "Users quickstart note"
 msgstr ""
 
 #: ../../source/index.rst:61
@@ -111,7 +111,7 @@ msgid ""
 msgstr ""
 
 #: ../../source/index.rst:66
-msgid "Developer notes"
+msgid "Developer note"
 msgstr ""
 
 #: ../../source/index.rst:67
@@ -139,4 +139,10 @@ msgstr ""
 #: ../../source/index.rst:77
 msgid ":ref:`search`"
 msgstr ""
+
+#~ msgid "Users quickstart notes"
+#~ msgstr ""
+
+#~ msgid "Developer notes"
+#~ msgstr ""
 
