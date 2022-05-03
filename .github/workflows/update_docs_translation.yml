@@ -7,7 +7,7 @@ on:
     paths:
       - 'Docs/**'
       - '.github/workflows/update_docs_translation.yml'
-      - '!Docs/source/locales/**'
+      - '!Docs/source/locale/**'
 
 jobs:
   regenerate_locales_docs:
@@ -27,4 +27,4 @@ jobs:
         name: github-actions[bot]
         email: 41898282+github-actions[bot]@users.noreply.github.com
         message: Automatically updated locales
-        files: docs/source/locales/**
+        files: Docs/source/locale/**
