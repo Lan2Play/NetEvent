@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2022-05-03 21:22+0000\n"
 "PO-Revision-Date: 2022-05-03 21:55+0000\n"
 "Last-Translator: Alex <gh-contact@volzit.de>\n"
-"Language-Team: German <https://translate.lan2play.de/projects/"
-"netevent-documentation/documentation-index/de/>\n"
+"Language-Team: German <https://translate.lan2play.de/projects/netevent-"
+"documentation/documentation-index/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -38,9 +38,9 @@ msgstr ""
 
 #: ../../source/index.rst:5
 msgid ""
-"|NetEvent_test_and_build| |Lines of Code| |Quality Gate Status| "
-"|Duplicated Lines (%)| |Coverage| |Maintainability Rating| |Reliability "
-"Rating| |Security Rating| |Vulnerabilities| |Code Smells| |Bugs|"
+"|NetEvent_test_and_build| |Lines of Code| |Quality Gate Status| |Duplicated "
+"Lines (%)| |Coverage| |Maintainability Rating| |Reliability Rating| |"
+"Security Rating| |Vulnerabilities| |Code Smells| |Bugs|"
 msgstr ""
 
 #: ../../source/index.rst
@@ -109,8 +109,8 @@ msgstr ""
 
 #: ../../source/index.rst:62
 msgid ""
-"If you want to deploy NetEvent, please take a look into the "
-":doc:`admin/quickstart`"
+"If you want to deploy NetEvent, please take a look into the :doc:`admin/"
+"quickstart`"
 msgstr ""
 
 #: ../../source/index.rst:66
@@ -123,8 +123,8 @@ msgstr ""
 
 #: ../../source/index.rst:69
 msgid ""
-"If you want to contribute to NetEvent, please take a look into the "
-":doc:`develop/quickstart`"
+"If you want to contribute to NetEvent, please take a look into the :doc:"
+"`develop/quickstart`"
 msgstr ""
 
 #: ../../source/index.rst:73
@@ -141,4 +141,12 @@ msgstr ""
 
 #: ../../source/index.rst:77
 msgid ":ref:`search`"
+msgstr ""
+
+#: ../../source/index.rst:60
+msgid "Users quickstart note"
+msgstr ""
+
+#: ../../source/index.rst:66
+msgid "Developer note"
 msgstr ""
