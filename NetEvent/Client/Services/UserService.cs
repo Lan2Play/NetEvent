@@ -22,7 +22,6 @@ namespace NetEvent.Client.Services
 
         public async Task<List<UserDto>> GetUsersAsync(CancellationToken cancellationToken)
         {
-
             try
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);

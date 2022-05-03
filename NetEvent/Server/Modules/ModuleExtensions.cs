@@ -27,7 +27,7 @@ namespace NetEvent.Server.Modules
 
         public static WebApplication MapEndpoints(this WebApplication app)
         {
-           var registeredModules = app.Services.GetRequiredService<IReadOnlyCollection<IModule>>();
+            var registeredModules = app.Services.GetRequiredService<IReadOnlyCollection<IModule>>();
 
             foreach (var module in registeredModules)
             {

@@ -20,7 +20,7 @@ namespace NetEvent.Server.Modules.Themes.Endpoints.GetTheme
 
         public Task<GetThemeResponse> Handle(GetThemeRequest request, CancellationToken cancellationToken)
         {
-            var theme = _ApplicationDbContext.Themes.OrderBy(a=> a.Id).FirstOrDefault();
+            var theme = _ApplicationDbContext.Themes.OrderBy(a => a.Id).FirstOrDefault();
 
             if (theme == null)
             {

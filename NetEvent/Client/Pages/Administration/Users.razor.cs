@@ -20,7 +20,7 @@ namespace NetEvent.Client.Pages.Administration
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
-            
+
             AllUsers = await UserService.GetUsersAsync(cancellationTokenSource.Token);
             AllRoles = await RoleService.GetRolesAsync(cancellationTokenSource.Token);
         }
@@ -64,7 +64,7 @@ namespace NetEvent.Client.Pages.Administration
         #region Roles
 
         public List<IdentityRole>? AllRoles { get; private set; }
-        
+
         private string? _RoleSearchString;
 
         // quick filter - filter gobally across multiple columns with the same input

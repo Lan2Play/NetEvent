@@ -14,7 +14,8 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser
         private readonly ILogger<PostLogoutUserHandler> _Logger;
 
         public PostLogoutUserHandler(SignInManager<ApplicationUser> signInManager, ILogger<PostLogoutUserHandler> logger)
-        {;
+        {
+            ;
             _SignInManager = signInManager;
             _Logger = logger;
         }
@@ -31,7 +32,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser
                 _Logger.LogError(ex, errorMessage);
                 return new PostLogoutUserResponse(ReturnType.Error, errorMessage);
             }
-            
+
             return new PostLogoutUserResponse();
         }
     }

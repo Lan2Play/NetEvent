@@ -27,7 +27,7 @@ namespace NetEvent.Client.Services
 
                 var result = await client.GetFromJsonAsync<CurrentUserDto>("api/auth/user/current", cancellationToken);
 
-                if(result == null)
+                if (result == null)
                 {
                     _Logger.LogError("Unable to get current user from backend.");
                     return new CurrentUserDto() { IsAuthenticated = false };
@@ -38,7 +38,7 @@ namespace NetEvent.Client.Services
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to get current user from backend.");
-                return new CurrentUserDto() { IsAuthenticated = false};
+                return new CurrentUserDto() { IsAuthenticated = false };
             }
         }
 
@@ -62,7 +62,7 @@ namespace NetEvent.Client.Services
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
             var result = await client.PostAsync("api/auth/logout", null, cancellationToken);
-            
+
             try
             {
                 result.EnsureSuccessStatusCode();
@@ -77,7 +77,7 @@ namespace NetEvent.Client.Services
         public async Task RegisterAsync(RegisterRequest registerRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
-            
+
             var result = await client.PostAsJsonAsync("api/auth/register", registerRequest, cancellationToken);
 
             try
