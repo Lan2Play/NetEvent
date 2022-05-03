@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="NetEvent - Custom Rules" ToolsVersion="17.0">
-  <Include Path=".\hlan2play_neteventcsharp.ruleset" Action="Default" />
+  <Include Path=".\lan2play_neteventcsharp.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
     <Rule Id="CS0659" Action="None" />
   </Rules>
