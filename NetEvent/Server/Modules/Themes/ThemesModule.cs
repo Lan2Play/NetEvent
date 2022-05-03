@@ -23,6 +23,7 @@ namespace NetEvent.Server.Modules.Themes
 
         public override IServiceCollection RegisterModule(IServiceCollection builder)
         {
+            builder.AddMediatR(typeof(ThemesModule));
             return builder;
         }
 

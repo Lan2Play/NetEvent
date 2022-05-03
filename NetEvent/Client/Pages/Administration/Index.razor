@@ -1,5 +1,6 @@
 ﻿@page "/administration"
 @using Microsoft.AspNetCore.Authorization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 @*@layout MainLayout*@
 @attribute [Authorize(Roles = "Admin")]
 
@@ -10,10 +11,10 @@
             <MudStack AlignItems="AlignItems.Stretch">
                 <MudButton Variant="Variant.Filled" Href="/administration/users" Class="pa-4" Style="height: 200px;">
                     <MudStack Row="true">
-                        <MudIcon Icon="@Icons.Outlined.Group" Size="Size.Large">Users</MudIcon>
-                        <MudText Typo="Typo.h6"><strong>@Users?.Count</strong> Users</MudText>
+                        <MudIcon Icon="@Icons.Outlined.Group" Size="Size.Large">@Localize["Administration.Index.Users"]</MudIcon>
+                        <MudText Typo="Typo.h6"><strong>@Users?.Count</strong> @Localize["Administration.Index.Users"]</MudText>
                     </MudStack>
-                </MudButton>
+                </MudButton>                
             </MudStack>
         </MudItem>
         <MudItem xs="12" sm="6" md="4">

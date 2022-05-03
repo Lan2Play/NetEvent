@@ -1,16 +1,16 @@
 ﻿using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using MudBlazor.ThemeManager;
-using NetEvent.Shared.Dto;
-using Newtonsoft.Json;
+using NetEvent.Client.Services;
 
 namespace NetEvent.Client.Shared
 {
     public partial class MainLayout
     {
         [Inject]
-        public HttpClient HttpClient { get; set; }
+        private IThemeService ThemeService { get; set; } = default!;
 
         private ThemeManagerTheme _ThemeManager = new();
         bool _drawerOpen = true;
@@ -22,14 +22,18 @@ namespace NetEvent.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            var theme = await HttpClient.Get<ThemeDto>("api/themes/theme");
-            if (theme?.ThemeData != null)
+            await SetThemeAsync().ConfigureAwait(false);
+        }
+
+        private async Task SetThemeAsync()
+        {
+            using var cancellationTokenSource = new CancellationTokenSource();
+
+            var theme = await ThemeService.GetThemeAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+
+            if (theme != null)
             {
-                var newThemeManager = JsonConvert.DeserializeObject<ThemeManagerTheme>(theme.ThemeData);
-                if (newThemeManager != null)
-                {
-                    _ThemeManager.Theme.Palette.AppbarBackground = newThemeManager.Theme.Palette.AppbarBackground;
-                }
+                _ThemeManager.Theme.Palette.AppbarBackground = theme.Theme.Palette.AppbarBackground;
             }
         }
 
@@ -40,10 +44,11 @@ namespace NetEvent.Client.Shared
             _themeManagerOpen = value;
         }
 
-        private async Task UpdateTheme(ThemeManagerTheme value)
+        private async Task UpdateTheme(ThemeManagerTheme updatedTheme)
         {
-            var themeData = JsonConvert.SerializeObject(value);
-            await HttpClient.Put("api/themes/theme", new ThemeDto { ThemeData = themeData });
+            using var cancellationTokenSource = new CancellationTokenSource();
+
+            await ThemeService.UpdateThemeAsync(updatedTheme, cancellationTokenSource.Token).ConfigureAwait(false);
         }
     }
 }

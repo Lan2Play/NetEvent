@@ -1,5 +1,6 @@
 ﻿@page "/administration/settings"
 @using Microsoft.AspNetCore.Authorization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 
 @attribute [Authorize(Roles = "Admin")]

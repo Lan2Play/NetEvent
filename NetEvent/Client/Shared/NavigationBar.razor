@@ -1,25 +1,20 @@
-﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using NetEvent.Client.Services
 
 @inject NavigationManager Navigation
-@inject CustomStateProvider SignOutManager
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+@inject NetEventAuthenticationStateProvider SignOutManager
 
 <AuthorizeView>
     <Authorized>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="profile/manage" Match="NavLinkMatch.Prefix">Hello, @context.User.Identity?.Name!</MudButton>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Secondary" OnClick="BeginSignOut">Log out</MudButton>
+        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="profile/manage" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Hello"] @context.User.Identity?.Name!</MudButton>
+        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Secondary" OnClick="BeginSignOut">@Localize["Shared.NavigationBar.Logout"]</MudButton>
     </Authorized>
     <NotAuthorized>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="register" Match="NavLinkMatch.Prefix">Register</MudButton>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Secondary" Href="login" Match="NavLinkMatch.Prefix">Log in</MudButton>
+        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="register" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Register"]</MudButton>
+        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Secondary" Href="login" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Login"]</MudButton>
     </NotAuthorized>
 </AuthorizeView>
 
-@code {
-    private async Task BeginSignOut(MouseEventArgs args)
-    {
-        await SignOutManager.Logout();
-        Navigation.NavigateTo("/");
-    }
-}
+

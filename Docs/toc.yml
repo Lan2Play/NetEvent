@@ -1,8 +1,0 @@
-- name: Home
-  href: index.md
-- name: Users guide
-  href: user/
-- name: Admins guide
-  href: admin/
-- name: Developers guide
-  href: develop/

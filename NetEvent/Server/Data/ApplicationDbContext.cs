@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using NetEvent.Server.Modules;
 using NetEvent.Shared.Dto;
 using NetEvent.Server.Models;
+using System.Collections.Generic;
 
 namespace NetEvent.Server.Data
 {
@@ -13,15 +14,17 @@ namespace NetEvent.Server.Data
         private const string _AdminGuid = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD";
         private const string _RoleAdminGuid = "FEAF344F-AA9B-47F5-B170-829617CDD9A4";
         private const string _RoleUserGuid = "3ECB400B-DFCF-4268-8D67-7BC9F09DD0B1";
+        private readonly IReadOnlyCollection<IModule> _Modules;
 
-        public ApplicationDbContext(DbContextOptions options)
+        public ApplicationDbContext(DbContextOptions options, IReadOnlyCollection<IModule> modules)
             : base(options)
         {
+            _Modules = modules;
         }
 
-        public virtual DbSet<ThemeDto> Themes { get; set; }
+        public virtual DbSet<ThemeDto> Themes => Set<ThemeDto>();
 
-        public virtual DbSet<OrganizationData> OrganizationData { get; set; }
+        public virtual DbSet<OrganizationData> OrganizationData => Set<OrganizationData>();
 
         public override EntityEntry<TEntity> Add<TEntity>(TEntity entity)
         {
@@ -60,7 +63,7 @@ namespace NetEvent.Server.Data
             builder.Entity<IdentityUserRole<string>>(entity =>
             {
                 entity.ToTable("UserRoles");
-                entity.HasData(new IdentityUserRole<string> { UserId = _AdminGuid, RoleId = "admin"});
+                entity.HasData(new IdentityUserRole<string> { UserId = _AdminGuid, RoleId = "admin" });
             });
             builder.Entity<IdentityUserClaim<string>>(entity =>
             {
@@ -79,7 +82,13 @@ namespace NetEvent.Server.Data
                 entity.ToTable("UserTokens");
             });
 
-            builder.CreateModels();
+            if (_Modules != null)
+            {
+                foreach (var module in _Modules)
+                {
+                    module.OnModelCreating(builder);
+                }
+            }
         }
     }
 }
