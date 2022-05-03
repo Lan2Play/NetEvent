@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NetEvent.Server.Modules;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
+using NetEvent.Server.Modules;
 
 namespace NetEvent.Server.Data
 {

@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.AspNetCore.Identity;
+using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
 using NetEvent.Shared.Dto;
-using NetEvent.Server.Models;
-using System.Collections.Generic;
 
 namespace NetEvent.Server.Data
 {

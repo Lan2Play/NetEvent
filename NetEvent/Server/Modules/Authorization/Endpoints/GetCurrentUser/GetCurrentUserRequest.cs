@@ -1,5 +1,5 @@
-﻿using MediatR;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+using MediatR;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
 {

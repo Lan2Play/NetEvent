@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.Logging;
-using NetEvent.Shared.Dto;
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Logging;
+using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Services
 {
