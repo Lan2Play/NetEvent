@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NetEvent \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 21:22+0000\n"
+"POT-Creation-Date: 2022-05-03 21:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,9 @@ msgid "Users documentation"
 msgstr ""
 
 #: ../../source/user/start.rst:3
-msgid "There is no released version so far. Stay tuned!"
+msgid "There is no released version so far. Stay tuned :)"
 msgstr ""
+
+#~ msgid "There is no released version so far. Stay tuned!"
+#~ msgstr ""
 
