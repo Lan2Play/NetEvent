@@ -21,12 +21,14 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 
         public async Task<PostRegisterUserResponse> Handle(PostRegisterUserRequest request, CancellationToken cancellationToken)
         {
-            var user = new ApplicationUser()
+            var user = new ApplicationUser
             {
-                EmailConfirmed = false
+                EmailConfirmed = false,
+                UserName = request.RegisterRequest.Email,
+                Email = request.RegisterRequest.Email,
+                FirstName = request.RegisterRequest.FirstName,
+                LastName = request.RegisterRequest.LastName,
             };
-
-            user.UserName = request.RegisterRequest.Email;
 
             var result = await _UserManager.CreateAsync(user, request.RegisterRequest.Password);
 
