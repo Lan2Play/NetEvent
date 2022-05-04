@@ -1,6 +1,8 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
+using NetEvent.Shared.Dto.Administration;
 using Riok.Mapperly.Abstractions;
 
 namespace NetEvent.Shared
@@ -11,11 +13,14 @@ namespace NetEvent.Shared
         public static DtoMapper Mapper { get; } = new DtoMapper();
 
         public partial UserDto ApplicaitonUserToUserDto(ApplicationUser applicationUser);
+        public partial AdminUserDto ApplicaitonUserToAdminUserDto(ApplicationUser applicationUser);
 
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
         [MapperIgnore(nameof(CurrentUserDto.Claims))]
         public partial CurrentUserDto ClaimsPrincipalToCurrentUserDto(ClaimsPrincipal claimsPrincipal);
+
+        public partial RoleDto IdentityRoleToRoleDto(IdentityRole identityRole);
 
         public partial OrganizationData OrganizationDataDtoToOrganizationData(OrganizationDataDto organizationData);
 

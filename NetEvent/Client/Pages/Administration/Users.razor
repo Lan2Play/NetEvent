@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
 @using NetEvent.Shared.Dto
+@using NetEvent.Shared.Dto.Administration
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
@@ -10,7 +11,7 @@
 
 <MudTabs Elevation="1" Rounded="true">
     <MudTabPanel Text="User">
-        <MudDataGrid T="UserDto"
+        <MudDataGrid T="AdminUserDto"
                      MultiSelection="false"
                      Items="@AllUsers"
                      Sortable="true"
@@ -29,12 +30,12 @@
             </ToolBarContent>
             <Columns>
                 @*<SelectColumn T="ApplicationUser" />*@
-                <Column T="UserDto" Field="UserName" Title="@Localize["Administration.Users.UserName"]" />
-                <Column T="UserDto" Field="FirstName" Title="@Localize["Administration.Users.FirstName"]" />
-                <Column T="UserDto" Field="LastName" Title="@Localize["Administration.Users.LastName"]" />
-                <Column T="UserDto" Field="Email" Title="@Localize["Administration.Users.Email"]" />
-                @*<Column T="UserDto" Field="PhoneNumber" Title="@Localize["Administration.Users.PhoneNumber"]" />*@
-                <Column T="UserDto" Field="EmailConfirmed" Title="@Localize["Administration.Users.EmailConfirmed"]">
+                <Column T="AdminUserDto" Field="UserName" Title="@Localize["Administration.Users.UserName"]" />
+                <Column T="AdminUserDto" Field="FirstName" Title="@Localize["Administration.Users.FirstName"]" />
+                <Column T="AdminUserDto" Field="LastName" Title="@Localize["Administration.Users.LastName"]" />
+                <Column T="AdminUserDto" Field="Email" Title="@Localize["Administration.Users.Email"]" />
+                @*<Column T="AdminUserDto" Field="PhoneNumber" Title="@Localize["Administration.Users.PhoneNumber"]" />*@
+                <Column T="AdminUserDto" Field="EmailConfirmed" Title="@Localize["Administration.Users.EmailConfirmed"]">
                     <CellTemplate>
                         <MudCheckBox Checked="@context.Item.EmailConfirmed" ReadOnly="true" />
                     </CellTemplate>
@@ -42,19 +43,32 @@
                         <MudCheckBox @bind-Checked="@context.Item.EmailConfirmed" Label="@Localize["Administration.Users.EmailConfirmed"]" />
                     </EditTemplate>
                 </Column>
-                <Column T="UserDto" CellClass="d-flex justify-end">
+                <Column T="AdminUserDto" Field="Role" Title="@Localize["Administration.Users.Role"]">
+                    <CellTemplate>
+                        @context.Item.Role?.Name
+                    </CellTemplate>
+                </Column>
+                <Column T="AdminUserDto" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
                     </CellTemplate>
+                    <EditTemplate>
+                        <MudSelect @bind-Value="context.Item.Role" ToStringFunc="r => r.Name" Required RequiredError="You must select a Role!" Margin="@Margin.Dense">
+                            @foreach (var role in AllRoles)
+                            {
+                                <MudSelectItem Value="@(role)">@role.Name</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </EditTemplate>
                 </Column>
             </Columns>
             <PagerContent>
-                <MudDataGridPager T="UserDto" />
+                <MudDataGridPager T="AdminUserDto" />
             </PagerContent>
         </MudDataGrid>
     </MudTabPanel>
-        <MudTabPanel Text="Roles">
-        <MudDataGrid T="IdentityRole"
+    <MudTabPanel Text="Roles">
+        <MudDataGrid T="RoleDto"
                      MultiSelection="false"
                      Items="@AllRoles"
                      Sortable="true"
@@ -72,16 +86,16 @@
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <Columns>
-                <Column T="IdentityRole" Field="Id" Title="Id" />
-                <Column T="IdentityRole" Field="Name" />
-                <Column T="IdentityRole" CellClass="d-flex justify-end">
+                <Column T="RoleDto" Field="Id" Title="Id" />
+                <Column T="RoleDto" Field="Name" />
+                <Column T="RoleDto" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
                     </CellTemplate>
                 </Column>
             </Columns>
             <PagerContent>
-                <MudDataGridPager T="IdentityRole" />
+                <MudDataGridPager T="RoleDto" />
             </PagerContent>
         </MudDataGrid>
     </MudTabPanel>

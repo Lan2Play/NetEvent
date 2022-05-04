@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
+using NetEvent.Shared.Dto.Administration;
 
 namespace NetEvent.Client.Pages.Administration
 {
@@ -27,12 +28,12 @@ namespace NetEvent.Client.Pages.Administration
 
         #region Users
 
-        public List<UserDto>? AllUsers { get; private set; }
+        public List<AdminUserDto>? AllUsers { get; private set; }
 
         private string? _UsersSearchString;
 
         // quick filter - filter gobally across multiple columns with the same input
-        private Func<UserDto, bool> _usersQuickFilter => x =>
+        private Func<AdminUserDto, bool> _usersQuickFilter => x =>
         {
             if (string.IsNullOrWhiteSpace(_UsersSearchString))
             {
@@ -73,12 +74,12 @@ namespace NetEvent.Client.Pages.Administration
 
         #region Roles
 
-        public List<IdentityRole>? AllRoles { get; private set; }
+        public List<RoleDto>? AllRoles { get; private set; }
 
         private string? _RoleSearchString;
 
         // quick filter - filter gobally across multiple columns with the same input
-        private Func<IdentityRole, bool> _roleQuickFilter => x =>
+        private Func<RoleDto, bool> _roleQuickFilter => x =>
         {
             if (string.IsNullOrWhiteSpace(_UsersSearchString))
             {
@@ -93,7 +94,7 @@ namespace NetEvent.Client.Pages.Administration
             return false;
         };
 
-        private async Task CommittedRoleChangesAsync(IdentityRole updatedRole)
+        private async Task CommittedRoleChangesAsync(RoleDto updatedRole)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
         {
             var user = request.User;
 
-            var existingUser = await _UserDbContext.FindAsync<ApplicationUser>(request.Id).ConfigureAwait(false);
+            var existingUser = await _UserDbContext.FindAsync<ApplicationUser>(request.Id, cancellationToken).ConfigureAwait(false);
 
             if (existingUser == null)
             {
@@ -36,6 +37,16 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
             existingUser.FirstName = user.FirstName;
             existingUser.LastName = user.LastName;
             existingUser.EmailConfirmed = user.EmailConfirmed;
+
+            // Update user role
+            if (user.Role != null)
+            {
+                var existingUserRole = await _UserDbContext.UserRoles.FindAsync(user.Role.Name, cancellationToken);
+                if (existingUserRole != null && !existingUserRole.RoleId.Equals(user.Role.Id, StringComparison.Ordinal))
+                {
+                    existingUserRole.RoleId = user.Role.Id;
+                }
+            }
 
             _UserDbContext.Update(existingUser);
             await _UserDbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
