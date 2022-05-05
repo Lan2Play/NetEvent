@@ -1,0 +1,22 @@
+﻿@page "/completeregistration"
+
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+<h3>@Localize["Login.Title"]</h3>
+<AuthorizeView>
+    <Authorized>
+        <EditForm Model="CompleteRegistrationRequest" OnValidSubmit="CompleteRegistrationAsync" Context="CompleteRegistrationForm">
+            <DataAnnotationsValidator />
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField id="Input.Email" Label="@Localize["Administration.Users.Email"]" @bind-Value="CompleteRegistrationRequest.Email" For="@(() =>CompleteRegistrationRequest.Email)" InputType="InputType.Email" />
+                    <MudTextField id="Input.FirstName" Label="@Localize["Administration.Users.FirstName"]" @bind-Value="CompleteRegistrationRequest.FirstName" For="@(() =>CompleteRegistrationRequest.FirstName)" />
+                    <MudTextField id="Input.LastName" Label="@Localize["Administration.Users.LastName"]" @bind-Value="CompleteRegistrationRequest.LastName" For="@(() =>CompleteRegistrationRequest.LastName)" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ma-2 py-2">@Localize["Shared.NavigationBar.Register"]</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </EditForm>
+    </Authorized>
+</AuthorizeView>

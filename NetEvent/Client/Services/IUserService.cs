@@ -10,5 +10,6 @@ namespace NetEvent.Client.Services
         Task<List<UserDto>> GetUsersAsync(CancellationToken cancellationToken);
 
         Task<bool> UpdateUserAsync(UserDto updatedUser, CancellationToken cancellationToken);
+
     }
 }

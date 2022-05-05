@@ -13,5 +13,8 @@ namespace NetEvent.Client.Services
         Task LogoutAsync(CancellationToken cancellationToken);
 
         Task<CurrentUserDto> GetCurrentUserInfoAsync(CancellationToken cancellationToken);
+
+
+        Task CompleteRegistrationAsync(CompleteRegistrationRequestDto completeRegistrationRequest, CancellationToken cancellationToken);
     }
 }

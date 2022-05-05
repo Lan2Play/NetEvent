@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
@@ -29,6 +30,16 @@ namespace NetEvent.Client.Pages
             {
                 Error = ex.Message;
             }
+        }
+
+        public void LoginWithSteam()
+        {
+            var returnUrl = "/completeregistration";
+
+            var encodedReturnUrl = HttpUtility.UrlEncode(returnUrl);
+
+            
+            NavigationManager.NavigateTo($"/api/auth/login/external/Steam?returnUrl={encodedReturnUrl}", true);
         }
     }
 }

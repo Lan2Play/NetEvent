@@ -16,6 +16,11 @@ namespace NetEvent.Server.Modules
 
         protected IResult ToApiResult<T>(ResponseBase<T> response)
         {
+            if (response.ReturnValue is IResult result)
+            {
+                return result;
+            }
+
             switch (response.ReturnType)
             {
                 case ReturnType.Ok:

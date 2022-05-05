@@ -59,6 +59,23 @@ namespace NetEvent.Client.Services
             }
         }
 
+        public async Task CompleteRegistrationAsync(CompleteRegistrationRequestDto completeRegistrationRequest, CancellationToken cancellationToken)
+        {
+            var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+            var result = await client.PostAsJsonAsync("api/auth/completeregistration", completeRegistrationRequest, cancellationToken);
+
+            try
+            {
+                result.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to complete registration.");
+                throw;
+            }
+        }
+
         public async Task LogoutAsync(CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);

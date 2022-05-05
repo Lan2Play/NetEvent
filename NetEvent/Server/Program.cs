@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetEvent.Server.Configuration;
 using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
@@ -52,7 +54,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication().AddSteam();
+builder.Services.AddAuthentication().AddSteam(options =>
+{
+    options.ApplicationKey = builder.Configuration.GetSection("SteamConfig").Get<SteamConfig>().ApplicationKey;
+});
 
 builder.Services.RegisterModules();
 

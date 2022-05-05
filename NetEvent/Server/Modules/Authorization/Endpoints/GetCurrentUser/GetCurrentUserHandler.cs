@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -27,6 +28,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
 
             var currentUser = DtoMapper.Mapper.ClaimsPrincipalToCurrentUserDto(request.User);
             currentUser.Claims = request.User.Claims.ToDictionary(c => c.Type, c => c.Value);
+            currentUser.Id = request.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).First().Value;
             return new GetCurrentUserResponse(currentUser);
         }
     }
