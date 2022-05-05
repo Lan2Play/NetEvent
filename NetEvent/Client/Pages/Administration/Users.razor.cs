@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
+using MudBlazor;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Administration;
@@ -13,17 +15,24 @@ namespace NetEvent.Client.Pages.Administration
     public partial class Users
     {
         [Inject]
-        private IUserService UserService { get; set; } = default!;
+        private IUserService _UserService { get; set; } = default!;
 
         [Inject]
-        private IRoleService RoleService { get; set; } = default!;
+        private IRoleService _RoleService { get; set; } = default!;
+
+        [Inject]
+        private ISnackbar _Snackbar { get; set; } = default!;
+
+
+        [Inject]
+        private IStringLocalizer<App> _Localizer { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            AllUsers = await UserService.GetUsersAsync(cancellationTokenSource.Token);
-            AllRoles = await RoleService.GetRolesAsync(cancellationTokenSource.Token);
+            AllUsers = await _UserService.GetUsersAsync(cancellationTokenSource.Token);
+            AllRoles = await _RoleService.GetRolesAsync(cancellationTokenSource.Token);
         }
 
         #region Users
@@ -63,13 +72,21 @@ namespace NetEvent.Client.Pages.Administration
             return false;
         };
 
-        private async Task CommittedUserChangesAsync(UserDto updatedUser)
+        private async Task CommittedUserChangesAsync(AdminUserDto updatedUser)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            await UserService.UpdateUserAsync(updatedUser, cancellationTokenSource.Token).ConfigureAwait(false);
-        }
+            var result = await _UserService.UpdateUserAsync(updatedUser, cancellationTokenSource.Token).ConfigureAwait(false);
+            if (result.Successful)
+            {
+                result = await _UserService.UpdateUserRoleAsync(updatedUser.Id, updatedUser.Role.Id, cancellationTokenSource.Token).ConfigureAwait(false);
+            }
 
+            if (result.MessageKey != null)
+            {
+                _Snackbar.Add(_Localizer.GetString(result.MessageKey, updatedUser.Email), result.Successful ? Severity.Success : Severity.Error);
+            }
+        }
         #endregion
 
         #region Roles
@@ -98,7 +115,7 @@ namespace NetEvent.Client.Pages.Administration
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            await RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
         }
 
         #endregion

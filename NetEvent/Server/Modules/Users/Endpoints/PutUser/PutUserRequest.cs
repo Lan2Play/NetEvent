@@ -7,7 +7,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
 {
     public class PutUserRequest : IRequest<PutUserResponse>
     {
-        public PutUserRequest(string id, AdminUserDto user)
+        public PutUserRequest(string id, UserDto user)
         {
             Guard.IsNotNullOrEmpty(id, nameof(id));
             Guard.IsNotNull(user, nameof(user));
@@ -18,6 +18,6 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
 
         public string Id { get; }
 
-        public AdminUserDto User { get; }
+        public UserDto User { get; }
     }
 }

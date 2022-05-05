@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Modules.Users.Endpoints.GetUser;
 using NetEvent.Server.Modules.Users.Endpoints.GetUsers;
 using NetEvent.Server.Modules.Users.Endpoints.PutUser;
+using NetEvent.Server.Modules.Users.Endpoints.PutUserRole;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Administration;
 
@@ -17,8 +18,9 @@ namespace NetEvent.Server.Modules.Users
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
             endpoints.MapGet("/api/users", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetUsersRequest())));
-            endpoints.MapGet("/api/users/{id}", async ([FromRoute] string id, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetUserRequest(id))));
-            endpoints.MapPut("/api/users/{id}", async ([FromRoute] string id, [FromBody] AdminUserDto user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(id, user))));
+            endpoints.MapGet("/api/users/{userId}", async ([FromRoute] string userId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetUserRequest(userId))));
+            endpoints.MapPut("/api/users/{userId}", async ([FromRoute] string userId, [FromBody] UserDto user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(userId, user))));
+            endpoints.MapPut("/api/users/{userId}/role", async ([FromRoute] string userId, [FromBody] string roleId, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRoleRequest(userId, roleId))));
             return endpoints;
         }
 

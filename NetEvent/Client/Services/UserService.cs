@@ -44,26 +44,44 @@ namespace NetEvent.Client.Services
             }
         }
 
-        public async Task<bool> UpdateUserAsync(UserDto updatedUser, CancellationToken cancellationToken)
+        public async Task<ServiceResult> UpdateUserAsync(UserDto updatedUser, CancellationToken cancellationToken)
         {
             try
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var content = JsonContent.Create(updatedUser);
-
-                var response = await client.PutAsync($"api/user/{updatedUser.Id}", content, cancellationToken);
+                var response = await client.PutAsJsonAsync($"api/users/{updatedUser.Id}", updatedUser, cancellationToken);
 
                 response.EnsureSuccessStatusCode();
 
-                return true;
+                return ServiceResult.Success("UserService.UpdateUserAsync.Success");
             }
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to update user in backend.");
             }
 
-            return false;
+            return ServiceResult.Error("UserService.UpdateUserAsync.Error");
+        }
+
+        public async Task<ServiceResult> UpdateUserRoleAsync(string userId, string roleId, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.PutAsJsonAsync($"api/users/{userId}/role", roleId, cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+
+                return ServiceResult.Success("UserService.UpdateUserAsync.Success");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to update user in backend.");
+            }
+
+            return ServiceResult.Error("UserService.UpdateUserAsync.Error");
         }
     }
 }

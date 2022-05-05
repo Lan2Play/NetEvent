@@ -1,21 +1,19 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NetEvent.Server.Data;
-using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
 {
     public class PutUserHandler : IRequestHandler<PutUserRequest, PutUserResponse>
     {
-        private readonly ApplicationDbContext _UserDbContext;
+        private readonly NetEventUserManager _UserManager;
         private readonly ILogger<PutUserHandler> _Logger;
 
-        public PutUserHandler(ApplicationDbContext userDbContext, ILogger<PutUserHandler> logger)
+        public PutUserHandler(NetEventUserManager userManager, ILogger<PutUserHandler> logger)
         {
-            _UserDbContext = userDbContext;
+            _UserManager = userManager;
             _Logger = logger;
         }
 
@@ -23,14 +21,12 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
         {
             var user = request.User;
 
-            var existingUser = await _UserDbContext.FindAsync<ApplicationUser>(request.Id, cancellationToken).ConfigureAwait(false);
+            var existingUser = await _UserManager.FindByIdAsync(request.Id).ConfigureAwait(false);
 
             if (existingUser == null)
             {
                 return new PutUserResponse(ReturnType.NotFound, $"User {request.Id} not found in database.");
             }
-
-            // TODO Validate new user
 
             // Update existing user
             existingUser.UserName = user.UserName;
@@ -38,18 +34,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
             existingUser.LastName = user.LastName;
             existingUser.EmailConfirmed = user.EmailConfirmed;
 
-            // Update user role
-            if (user.Role != null)
-            {
-                var existingUserRole = await _UserDbContext.UserRoles.FindAsync(user.Role.Name, cancellationToken);
-                if (existingUserRole != null && !existingUserRole.RoleId.Equals(user.Role.Id, StringComparison.Ordinal))
-                {
-                    existingUserRole.RoleId = user.Role.Id;
-                }
-            }
-
-            _UserDbContext.Update(existingUser);
-            await _UserDbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            await _UserManager.UpdateAsync(existingUser);
 
             return new PutUserResponse();
         }
