@@ -17,14 +17,5 @@ namespace NetEvent.Server.Modules.Roles
             endpoints.MapGet("/api/roles", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetRolesRequest())));
             return endpoints;
         }
-
-        public override void OnModelCreating(ModelBuilder builder)
-        {
-        }
-
-        public override IServiceCollection RegisterModule(IServiceCollection builder)
-        {
-            return builder;
-        }
     }
 }

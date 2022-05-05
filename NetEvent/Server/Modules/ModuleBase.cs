@@ -1,4 +1,6 @@
 ﻿using System;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +12,16 @@ namespace NetEvent.Server.Modules
     {
         public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
 
-        public abstract IServiceCollection RegisterModule(IServiceCollection builder);
+        public virtual IServiceCollection RegisterModule(IServiceCollection builder)
+        {
+            builder.AddMediatR(typeof(ModuleBase));
+            return builder;
+        }
 
-        public abstract void OnModelCreating(ModelBuilder builder);
+        public virtual void OnModelCreating(ModelBuilder builder)
+        {
+            // Do nothing in base
+        }
 
         protected IResult ToApiResult<T>(ResponseBase<T> response)
         {
@@ -28,5 +37,6 @@ namespace NetEvent.Server.Modules
                     throw new NotSupportedException($"ReturnType {response.ReturnType} is not supported!");
             }
         }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -25,17 +26,6 @@ namespace NetEvent.Server.Modules.Authorization
             endpoints.MapGet("/api/auth/user/current", async (ClaimsPrincipal user, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetCurrentUserRequest(user)))).RequireAuthorization();
 
             return endpoints;
-        }
-
-        public override IServiceCollection RegisterModule(IServiceCollection builder)
-        {
-            builder.AddMediatR(typeof(AuthorizationModule));
-
-            return builder;
-        }
-
-        public override void OnModelCreating(ModelBuilder builder)
-        {
         }
     }
 }

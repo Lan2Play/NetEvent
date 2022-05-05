@@ -13,6 +13,7 @@ namespace NetEvent.Shared
         public static DtoMapper Mapper { get; } = new DtoMapper();
 
         public partial UserDto ApplicaitonUserToUserDto(ApplicationUser applicationUser);
+
         public partial AdminUserDto ApplicaitonUserToAdminUserDto(ApplicationUser applicationUser);
 
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
@@ -21,6 +22,8 @@ namespace NetEvent.Shared
         public partial CurrentUserDto ClaimsPrincipalToCurrentUserDto(ClaimsPrincipal claimsPrincipal);
 
         public partial RoleDto IdentityRoleToRoleDto(IdentityRole identityRole);
+
+        public partial ClaimDto ClaimToClaimDto(Claim claim);
 
         public partial OrganizationData OrganizationDataDtoToOrganizationData(OrganizationDataDto organizationData);
 

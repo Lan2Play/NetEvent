@@ -8,13 +8,14 @@ using MudBlazor.Services;
 using NetEvent.Client;
 using NetEvent.Client.Extensions;
 using NetEvent.Client.Services;
+using NetEvent.Shared;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.RootComponents.Add<App>("#app");
 
 builder.Services.AddOptions();
-builder.Services.AddAuthorizationCore();
+builder.Services.AddAuthorizationCore(config => config.AddPolicies());
 builder.Services.AddScoped<NetEventAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<NetEventAuthenticationStateProvider>());
 builder.Services.AddScoped<IAuthService, AuthService>();

@@ -9,17 +9,25 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
 {
     public class GetRolesHandler : IRequestHandler<GetRolesRequest, GetRolesResponse>
     {
-        private readonly ApplicationDbContext _ApplicationDbContext;
+        private readonly NetEventRoleManager _RoleManager;
 
-        public GetRolesHandler(ApplicationDbContext applicationDbContext)
+        public GetRolesHandler( NetEventRoleManager roleManager)
         {
-            _ApplicationDbContext = applicationDbContext;
+            _RoleManager = roleManager;
         }
 
         public Task<GetRolesResponse> Handle(GetRolesRequest request, CancellationToken cancellationToken)
         {
-            var allRoles = _ApplicationDbContext.Roles.ToList();
-            return Task.FromResult(new GetRolesResponse(allRoles.Select(x => DtoMapper.Mapper.IdentityRoleToRoleDto(x)).ToList()));
+            var allRoles = _RoleManager.Roles.ToList();
+            var roleDtos = allRoles.Select(async role =>
+            {
+                var roleDto = DtoMapper.Mapper.IdentityRoleToRoleDto(role);
+                var roleClaims = await _RoleManager.GetClaimsAsync(role);
+                roleDto.Claims = roleClaims.Select(roleClaim => DtoMapper.Mapper.ClaimToClaimDto(roleClaim)).ToList();
+                return roleDto;
+            }).Select(t => t.Result).ToList();
+
+            return Task.FromResult(new GetRolesResponse(roleDtos));
         }
     }
 }

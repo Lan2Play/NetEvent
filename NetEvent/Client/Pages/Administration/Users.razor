@@ -88,6 +88,17 @@
             <Columns>
                 <Column T="RoleDto" Field="Id" Title="Id" />
                 <Column T="RoleDto" Field="Name" />
+                <Column T="RoleDto" Title="Claims">
+                    <CellTemplate>
+                        @if (@context.Item.Claims != null)
+                        {
+                            @foreach (var claim in @context.Item.Claims)
+                            {
+                                <div>@claim.Type</div>
+                            }
+                        }
+                    </CellTemplate>
+                </Column>
                 <Column T="RoleDto" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
+using NetEvent.Shared;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Data
@@ -74,6 +75,13 @@ namespace NetEvent.Server.Data
             builder.Entity<IdentityRoleClaim<string>>(entity =>
             {
                 entity.ToTable("RoleClaims");
+
+                var policyCounter = 1;
+                foreach (var policy in Policies.AvailablePolicies)
+                {
+                    entity.HasData(new IdentityRoleClaim<string> { Id = policyCounter, ClaimType = policy, RoleId = "admin", ClaimValue = string.Empty });
+                    policyCounter++;
+                }
             });
             builder.Entity<IdentityUserToken<string>>(entity =>
             {

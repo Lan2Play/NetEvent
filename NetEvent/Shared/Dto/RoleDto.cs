@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NetEvent.Shared.Dto;
 
@@ -9,4 +10,7 @@ public class RoleDto
 
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("claims")]
+    public IReadOnlyList<ClaimDto>? Claims { get; set; }
 }
