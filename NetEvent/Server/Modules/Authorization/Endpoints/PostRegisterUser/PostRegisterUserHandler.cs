@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NetEvent.Server.Models;
 
@@ -11,11 +12,13 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
     public class PostRegisterUserHandler : IRequestHandler<PostRegisterUserRequest, PostRegisterUserResponse>
     {
         private readonly UserManager<ApplicationUser> _UserManager;
+        private readonly RoleManager<IdentityRole> _RoleManager;
         private readonly ILogger<PostRegisterUserHandler> _Logger;
 
-        public PostRegisterUserHandler(UserManager<ApplicationUser> userManager, ILogger<PostRegisterUserHandler> logger)
+        public PostRegisterUserHandler(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogger<PostRegisterUserHandler> logger)
         {
             _UserManager = userManager;
+            _RoleManager = roleManager;
             _Logger = logger;
         }
 
@@ -32,7 +35,12 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 
             var result = await _UserManager.CreateAsync(user, request.RegisterRequest.Password);
 
-            if (!result.Succeeded)
+            if (result.Succeeded)
+            {
+                var defaultRole = await _RoleManager.Roles.FirstAsync(cancellationToken);
+                await _UserManager.AddToRoleAsync(user, defaultRole.Name);
+            }
+            else
             {
                 var sb = new StringBuilder();
 
