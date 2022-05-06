@@ -56,13 +56,13 @@ Its currently under heavy development, so only use it for testing or development
    :target: https://sonarcloud.io/summary/new_code?id=Lan2Play_NetEvent
 
 
-Users quickstart notes
+Users quickstart note
 ----------------------
 - If you just want to use NetEvent as a user go to :doc:`/user/start`
 - If you want to deploy NetEvent, please take a look into the :doc:`admin/quickstart`
 
 
-Developer notes
+Developer note
 ----------------------
 - Github url: https://github.com/Lan2Play/NetEvent
 
