@@ -10,7 +10,6 @@ using NetEvent.Shared.Dto.Administration;
 
 namespace NetEvent.Client.Services
 {
-
     public class ServiceResult
     {
         private ServiceResult(bool successful, string? messageKey)

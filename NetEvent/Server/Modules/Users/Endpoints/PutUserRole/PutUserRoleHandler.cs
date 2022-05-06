@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -41,6 +40,8 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUserRole
             var currentRoles = await _UserManager.GetRolesAsync(existingUser);
             await _UserManager.RemoveFromRolesAsync(existingUser, currentRoles);
             await _UserManager.AddToRoleAsync(existingUser, existingRole.Name);
+
+            _Logger.LogInformation("User {UserName} updated", existingUser.UserName);
 
             return new PutUserRoleResponse();
         }

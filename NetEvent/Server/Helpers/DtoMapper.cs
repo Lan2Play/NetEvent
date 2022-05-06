@@ -14,6 +14,7 @@ namespace NetEvent.Shared
 
         public partial UserDto ApplicaitonUserToUserDto(ApplicationUser applicationUser);
 
+        [MapperIgnore(nameof(AdminUserDto.Role))]
         public partial AdminUserDto ApplicaitonUserToAdminUserDto(ApplicationUser applicationUser);
 
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
@@ -21,6 +22,7 @@ namespace NetEvent.Shared
         [MapperIgnore(nameof(CurrentUserDto.Claims))]
         public partial CurrentUserDto ClaimsPrincipalToCurrentUserDto(ClaimsPrincipal claimsPrincipal);
 
+        [MapperIgnore(nameof(RoleDto.C))]
         public partial RoleDto IdentityRoleToRoleDto(IdentityRole identityRole);
 
         public partial ClaimDto ClaimToClaimDto(Claim claim);

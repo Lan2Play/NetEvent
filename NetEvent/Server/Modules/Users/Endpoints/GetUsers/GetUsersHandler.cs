@@ -24,8 +24,8 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
         public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
         {
             var allUsers = await _UserDbContext.Users.ToListAsync(cancellationToken);
-            var userRoles = await _UserDbContext.UserRoles.ToListAsync();
-            var allRoles = await _UserDbContext.Roles.ToListAsync();
+            var userRoles = await _UserDbContext.UserRoles.ToListAsync(cancellationToken);
+            var allRoles = await _UserDbContext.Roles.ToListAsync(cancellationToken);
             var convertedUsers = allUsers.Select(DtoMapper.Mapper.ApplicaitonUserToAdminUserDto).ToList();
             var convertedRoles = allRoles.Select(DtoMapper.Mapper.IdentityRoleToRoleDto).ToList();
 

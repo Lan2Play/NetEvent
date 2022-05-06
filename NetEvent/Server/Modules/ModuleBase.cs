@@ -37,6 +37,5 @@ namespace NetEvent.Server.Modules
                     throw new NotSupportedException($"ReturnType {response.ReturnType} is not supported!");
             }
         }
-
     }
 }

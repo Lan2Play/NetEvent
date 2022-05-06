@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using NetEvent.Client.Services;
@@ -22,7 +21,6 @@ namespace NetEvent.Client.Pages.Administration
 
         [Inject]
         private ISnackbar _Snackbar { get; set; } = default!;
-
 
         [Inject]
         private IStringLocalizer<App> _Localizer { get; set; } = default!;

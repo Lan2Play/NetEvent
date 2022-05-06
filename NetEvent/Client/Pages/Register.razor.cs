@@ -16,8 +16,6 @@ namespace NetEvent.Client.Pages
 
         public RegisterRequest RegisterRequest { get; set; } = new();
 
-        public string Error { get; set; }
-
         public async Task ExecuteRegister()
         {
             try
@@ -27,7 +25,7 @@ namespace NetEvent.Client.Pages
             }
             catch (Exception ex)
             {
-                Error = ex.Message;
+                // TODO Fehlermelden
             }
         }
     }

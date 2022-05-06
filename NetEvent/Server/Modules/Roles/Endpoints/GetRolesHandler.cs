@@ -11,7 +11,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
     {
         private readonly NetEventRoleManager _RoleManager;
 
-        public GetRolesHandler( NetEventRoleManager roleManager)
+        public GetRolesHandler(NetEventRoleManager roleManager)
         {
             _RoleManager = roleManager;
         }
