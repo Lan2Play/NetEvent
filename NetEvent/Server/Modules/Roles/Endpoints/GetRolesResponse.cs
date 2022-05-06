@@ -3,7 +3,7 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Roles.Endpoints
 {
-    spublic class GetRolesResponse : ResponseBase<IReadOnlyCollection<RoleDto>>
+    public class GetRolesResponse : ResponseBase<IReadOnlyCollection<RoleDto>>
     {
         public GetRolesResponse(IReadOnlyCollection<RoleDto> value) : base(value)
         {
