@@ -20,6 +20,7 @@ namespace NetEvent.Shared
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
         [MapperIgnore(nameof(CurrentUserDto.Claims))]
+        [MapperIgnore(nameof(CurrentUserDto.ProfileImage))]
         public partial CurrentUserDto ClaimsPrincipalToCurrentUserDto(ClaimsPrincipal claimsPrincipal);
 
         [MapperIgnore(nameof(RoleDto.Claims))]

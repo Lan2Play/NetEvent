@@ -18,15 +18,8 @@ namespace NetEvent.Client.Pages
 
         public async Task ExecuteRegister()
         {
-            try
-            {
                 await AuthenticationStateProvider.Register(RegisterRequest);
                 NavigationManager.NavigateTo("/login");
-            }
-            catch (Exception ex)
-            {
-                // TODO Fehlermelden
-            }
         }
     }
 }
