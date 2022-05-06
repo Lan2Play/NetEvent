@@ -22,7 +22,7 @@ namespace NetEvent.Shared
         [MapperIgnore(nameof(CurrentUserDto.Claims))]
         public partial CurrentUserDto ClaimsPrincipalToCurrentUserDto(ClaimsPrincipal claimsPrincipal);
 
-        [MapperIgnore(nameof(RoleDto.C))]
+        [MapperIgnore(nameof(RoleDto.Claims))]
         public partial RoleDto IdentityRoleToRoleDto(IdentityRole identityRole);
 
         public partial ClaimDto ClaimToClaimDto(Claim claim);
