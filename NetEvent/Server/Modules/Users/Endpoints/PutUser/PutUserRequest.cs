@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Toolkit.Diagnostics;
 using NetEvent.Shared.Dto;
+using NetEvent.Shared.Dto.Administration;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
 {

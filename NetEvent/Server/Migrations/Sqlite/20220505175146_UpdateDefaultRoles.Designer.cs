@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetEvent.Server.Data;
 
@@ -10,9 +11,10 @@ using NetEvent.Server.Data;
 namespace NetEvent.Server.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteApplicationDbContext))]
-    partial class SqliteApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220505175146_UpdateDefaultRoles")]
+    partial class UpdateDefaultRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
@@ -46,21 +48,21 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "8d895ddf-ad09-43b4-88d3-6121a85cb854",
+                            ConcurrencyStamp = "e958d9c1-d9c8-4179-a919-2fd6ef0ca718",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "042e2e62-72ac-4338-86ab-354019140c9f",
+                            ConcurrencyStamp = "b33353bf-0392-48ce-b6bc-ea9a18f6f66a",
                             Name = "Orga",
                             NormalizedName = "ORGA"
                         },
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "c8d19ab7-141e-4752-aa38-75f40f182e7d",
+                            ConcurrencyStamp = "e0b8deb6-b85d-4204-8576-a2b2235996d9",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -87,22 +89,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.HasIndex("RoleId");
 
                     b.ToTable("RoleClaims", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ClaimType = "Admin.Users.Read",
-                            ClaimValue = "",
-                            RoleId = "admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ClaimType = "Admin.Users.Edit",
-                            ClaimValue = "",
-                            RoleId = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -237,6 +223,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
@@ -249,6 +236,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .HasColumnType("BLOB");
 
                     b.Property<string>("SecurityStamp")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -274,7 +262,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "149876cd-faea-46e0-a934-b6a8c94b8f94",
+                            ConcurrencyStamp = "3bc8e70a-51bf-4931-9573-bfddf81c6364",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -282,9 +270,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJqhUGq6d4egVrmS0nsa3dbBnh4cuBQFdi13FKia1sJk5pYX7SRLNcKc0ogcMlcoKQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIcuuLroSU0p/LKsh6Rxus0pgOOWi8KcRQ6AIKd3D4FK8075cMpRfKQeUYuNZwSqYQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "09c1cfb5-17e6-4346-8d21-d6b532279267",
+                            SecurityStamp = "df445398-6b45-455f-baea-c9e2a8034b48",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

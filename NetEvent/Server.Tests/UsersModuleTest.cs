@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
@@ -107,6 +108,37 @@ namespace NetEvent.Server.Tests
                 Assert.Equal(fakeUser.LastName, databaseUser?.LastName);
                 Assert.Equal(fakeUser.EmailConfirmed, databaseUser?.EmailConfirmed);
                 Assert.Equal(fakeUser.UserName, databaseUser?.UserName);
+            }
+        }
+
+        [Fact]
+        public async Task UsersModuleTest_PutUserRoleRoute_Test()
+        {
+            var applicationUserFaker = Fakers.ApplicationUserFaker();
+
+            var applicationUser = applicationUserFaker.Generate();
+            var identityRole = new IdentityRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN" };
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.Users.AddAsync(applicationUser).ConfigureAwait(false);
+                await dbContext.Roles.AddAsync(identityRole).ConfigureAwait(false);
+                dbContext.SaveChanges();
+            }
+
+            // Act
+            var response = await Client.PutAsJsonAsync($"/api/users/{applicationUser.Id}/role", identityRole.Id);
+
+            response.EnsureSuccessStatusCode();
+
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var roles = await userManager.GetRolesAsync(applicationUser);
+
+                // Assert
+                Assert.Equal(1, roles.Count);
+                Assert.Equal(identityRole.Name, roles[0]);
             }
         }
     }

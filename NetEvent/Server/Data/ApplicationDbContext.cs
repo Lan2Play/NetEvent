@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
+using NetEvent.Shared;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Data
@@ -54,9 +55,9 @@ namespace NetEvent.Server.Data
             {
                 entity.ToTable(name: "Role");
 
-                // Seed Roles by Enum
-                entity.HasData(new IdentityRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN" });
                 entity.HasData(new IdentityRole { Id = "user", Name = "User", NormalizedName = "USER" });
+                entity.HasData(new IdentityRole { Id = "orga", Name = "Orga", NormalizedName = "ORGA" });
+                entity.HasData(new IdentityRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN" });
             });
             builder.Entity<IdentityUserRole<string>>(entity =>
             {
@@ -74,6 +75,13 @@ namespace NetEvent.Server.Data
             builder.Entity<IdentityRoleClaim<string>>(entity =>
             {
                 entity.ToTable("RoleClaims");
+
+                var policyCounter = 1;
+                foreach (var policy in Policies.AvailablePolicies)
+                {
+                    entity.HasData(new IdentityRoleClaim<string> { Id = policyCounter, ClaimType = policy, RoleId = "admin", ClaimValue = string.Empty });
+                    policyCounter++;
+                }
             });
             builder.Entity<IdentityUserToken<string>>(entity =>
             {
