@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Services;
-using NetEvent.Shared.Dto;
+using NetEvent.Shared.Dto.Administration;
 
 namespace NetEvent.Client.Pages.Administration
 {
@@ -12,7 +12,7 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         private IUserService UserService { get; set; } = default!;
 
-        public List<UserDto>? Users { get; private set; }
+        public List<AdminUserDto>? Users { get; private set; }
 
         protected override async Task OnInitializedAsync()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Bogus;
+using Microsoft.AspNetCore.Identity;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 
@@ -24,5 +25,10 @@ namespace NetEvent.Server.Tests
             .RuleFor(u => u.UserName, (f, u) => u.Email)
             .RuleFor(u => u.ProfileImage, (f, u) => f.Random.Bytes(10))
             .RuleFor(u => u.Id, (f, u) => Guid.NewGuid().ToString());
+
+        public static Faker<IdentityRole> IdentityRoleFaker() => new Faker<IdentityRole>()
+              .RuleFor(r => r.Name, (f, r) => f.Name.JobArea())
+              .RuleFor(r => r.NormalizedName, (f, r) => r.Name.ToUpperInvariant())
+              .RuleFor(r => r.Id, (f, u) => Guid.NewGuid().ToString());
     }
 }

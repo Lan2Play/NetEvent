@@ -21,12 +21,6 @@ namespace NetEvent.Server.Modules.Themes
             return endpoints;
         }
 
-        public override IServiceCollection RegisterModule(IServiceCollection builder)
-        {
-            builder.AddMediatR(typeof(ThemesModule));
-            return builder;
-        }
-
         public override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ThemeDto>(entity =>
