@@ -9,6 +9,7 @@ using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
+using NetEvent.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,10 +52,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication().AddSteam();
-
 builder.Services.RegisterModules();
+
+builder.Services.AddAuthorization(config => config.AddPolicies());
+builder.Services.AddAuthentication().AddSteam();
 
 builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof(SlugifyParameterTransformer));
 

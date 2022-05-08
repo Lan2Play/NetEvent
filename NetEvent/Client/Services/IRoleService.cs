@@ -2,13 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Services
 {
     public interface IRoleService
     {
-        Task<List<IdentityRole>> GetRolesAsync(CancellationToken cancellationToken);
+        Task<List<RoleDto>> GetRolesAsync(CancellationToken cancellationToken);
 
-        Task<bool> UpdateRoleAsync(IdentityRole updatedRole, CancellationToken cancellationToken);
+        Task<bool> UpdateRoleAsync(RoleDto updatedRole, CancellationToken cancellationToken);
     }
 }
