@@ -115,7 +115,6 @@ namespace NetEvent.Server.Tests
         public async Task UsersModuleTest_PutUserRoleRoute_Test()
         {
             var applicationUserFaker = Fakers.ApplicationUserFaker();
-            var userFaker = Fakers.UserFaker();
 
             var applicationUser = applicationUserFaker.Generate();
             var identityRole = new IdentityRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN" };

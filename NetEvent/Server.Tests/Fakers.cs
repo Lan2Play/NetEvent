@@ -30,6 +30,5 @@ namespace NetEvent.Server.Tests
               .RuleFor(r => r.Name, (f, r) => f.Name.JobArea())
               .RuleFor(r => r.NormalizedName, (f, r) => r.Name.ToUpperInvariant())
               .RuleFor(r => r.Id, (f, u) => Guid.NewGuid().ToString());
-
     }
 }
