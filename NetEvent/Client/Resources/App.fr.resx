@@ -241,4 +241,28 @@
     <value>Test</value>
     <comment />
   </data>
+  <data name="Administration.Users.Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Register.Title" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Register.RegisterButton" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Register.ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Register.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Register.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="UserService.UpdateUserAsync.Error" xml:space="preserve">
+    <value>Error updating user {0}</value>
+  </data>
+  <data name="UserService.UpdateUserAsync.Success" xml:space="preserve">
+    <value>User {0} successfully updated</value>
+  </data>
 </root>
