@@ -125,4 +125,144 @@
     <value>Test</value>
     <comment />
   </data>
+  <data name="Shared.NavigationBar.Hello" xml:space="preserve">
+    <value>Hallo,</value>
+    <comment />
+  </data>
+  <data name="Shared.NavigationBar.Logout" xml:space="preserve">
+    <value>Abmelden</value>
+    <comment />
+  </data>
+  <data name="Shared.NavigationBar.Register" xml:space="preserve">
+    <value>Registrieren</value>
+    <comment />
+  </data>
+  <data name="Shared.NavigationBar.Login" xml:space="preserve">
+    <value>Anmelden</value>
+    <comment />
+  </data>
+  <data name="Shared.NavMenu.Brand" xml:space="preserve">
+    <value>NetEvent</value>
+    <comment />
+  </data>
+  <data name="Shared.NavMenu.Home" xml:space="preserve">
+    <value>Hauptseite</value>
+    <comment />
+  </data>
+  <data name="Shared.NavMenu.Counter" xml:space="preserve">
+    <value>Zähler</value>
+    <comment />
+  </data>
+  <data name="App.NotAuthorized" xml:space="preserve">
+    <value>Du hast keine Berechtigung um auf die angeforderte Ressource zuzugreifen.</value>
+    <comment />
+  </data>
+  <data name="App.NotFound" xml:space="preserve">
+    <value>Nicht gefunden</value>
+    <comment />
+  </data>
+  <data name="Login.Title" xml:space="preserve">
+    <value>Anmelden</value>
+    <comment />
+  </data>
+  <data name="Login.Password" xml:space="preserve">
+    <value>Passwort</value>
+    <comment />
+  </data>
+  <data name="Login.RememberMe" xml:space="preserve">
+    <value>Zugang speichern</value>
+    <comment />
+  </data>
+  <data name="Login.LoginButton" xml:space="preserve">
+    <value>Anmelden</value>
+    <comment />
+  </data>
+  <data name="Index.Title" xml:space="preserve">
+    <value>Hauptseite</value>
+    <comment />
+  </data>
+  <data name="Index.Welcome" xml:space="preserve">
+    <value>Willkommen zu deiner neuen App.</value>
+    <comment />
+  </data>
+  <data name="Administration.AdminLayout.FooterPlaceholder" xml:space="preserve">
+    <value>Fixen Footer Inhalt hier hinterlegen.</value>
+    <comment />
+  </data>
+  <data name="Administration.AdminMenu.Dashboard" xml:space="preserve">
+    <value>Übersicht</value>
+    <comment />
+  </data>
+  <data name="Administration.AdminMenu.Users" xml:space="preserve">
+    <value>Benutzer</value>
+    <comment />
+  </data>
+  <data name="Administration.Index.Users" xml:space="preserve">
+    <value>Benutzer</value>
+    <comment />
+  </data>
+  <data name="Administration.Users.Title" xml:space="preserve">
+    <value>Benutzer</value>
+    <comment />
+  </data>
+  <data name="Administration.Users.UserName" xml:space="preserve">
+    <value>Benutzername</value>
+    <comment />
+  </data>
+  <data name="Administration.Users.LastName" xml:space="preserve">
+    <value>Nachname</value>
+    <comment />
+  </data>
+  <data name="Administration.Users.Email" xml:space="preserve">
+    <value>Email</value>
+    <comment />
+  </data>
+  <data name="Administration.Users.PhoneNumber" xml:space="preserve">
+    <value>Telefonnummer</value>
+    <comment />
+  </data>
+  <data name="Administration.Users.EmailConfirmed" xml:space="preserve">
+    <value>Email bestätigt</value>
+    <comment />
+  </data>
+  <data name="Shared.MainLayout.Administration" xml:space="preserve">
+    <value>Administration</value>
+    <comment />
+  </data>
+  <data name="Shared.NavMenu.FetchData" xml:space="preserve">
+    <value>Lade Daten</value>
+    <comment />
+  </data>
+  <data name="App.NothingHere" xml:space="preserve">
+    <value>Entschuldige, unter dieser Adresse ist kein Inhalt zu finden.</value>
+    <comment />
+  </data>
+  <data name="Administration.Users.FirstName" xml:space="preserve">
+    <value>Vorname</value>
+    <comment />
+  </data>
+  <data name="Administration.Users.Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Register.Title" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Register.RegisterButton" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Register.ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Register.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Register.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="UserService.UpdateUserAsync.Error" xml:space="preserve">
+    <value>Error updating user {0}</value>
+  </data>
+  <data name="UserService.UpdateUserAsync.Success" xml:space="preserve">
+    <value>User {0} successfully updated</value>
+  </data>
 </root>
