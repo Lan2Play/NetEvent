@@ -245,24 +245,24 @@
     <value>Role</value>
   </data>
   <data name="Register.Title" xml:space="preserve">
-    <value>Register</value>
+    <value>Registrieren</value>
   </data>
   <data name="Register.RegisterButton" xml:space="preserve">
-    <value>Register</value>
+    <value>Registrieren</value>
   </data>
   <data name="Register.ConfirmPassword" xml:space="preserve">
-    <value>Confirm Password</value>
+    <value>Passwort bestätigen</value>
   </data>
   <data name="Register.Email" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="Register.Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Passwort</value>
   </data>
   <data name="UserService.UpdateUserAsync.Error" xml:space="preserve">
-    <value>Error updating user {0}</value>
+    <value>Fehler beim Aktualisieren des Benutzers {0}</value>
   </data>
   <data name="UserService.UpdateUserAsync.Success" xml:space="preserve">
-    <value>User {0} successfully updated</value>
+    <value>Benutzer {0} erfolgreich aktualisiert</value>
   </data>
 </root>
