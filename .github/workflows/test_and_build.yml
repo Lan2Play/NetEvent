@@ -39,7 +39,7 @@ jobs:
 
   test_linux_x64:
     runs-on: ubuntu-latest
-    if: github.actor !=	'lan2play-weblate'
+    if: ${{ !startsWith( github.event.pull_request.head.label, 'lan2play-weblate' ) }}
     steps:
       - name : machine echo github
         env : { CONTENT : "${{ toJson(github) }}" }
@@ -96,7 +96,7 @@ jobs:
 
   build_docker_linux_x64:
     runs-on: ubuntu-latest
-    if: github.actor !=	'lan2play-weblate'
+    if: ${{ !startsWith( github.event.pull_request.head.label, 'lan2play-weblate' ) }}
     needs:
     - test_linux_x64
     steps:
