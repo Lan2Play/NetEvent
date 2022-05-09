@@ -11,6 +11,7 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Lan2Play_NetEvent&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Lan2Play_NetEvent)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Lan2Play_NetEvent&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Lan2Play_NetEvent)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Lan2Play_NetEvent&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Lan2Play_NetEvent)
+[![Translation status](https://translate.lan2play.de/widgets/netevent-client/-/netevent-client/svg-badge.svg)](https://translate.lan2play.de/engage/netevent-client/)
 
 is an open source software solution for organizing events, especially focused on lan partys.
 
@@ -23,3 +24,8 @@ Its currently under heavy development, so only use it for testing or development
 ## Documentation
 
 [Documentation](https://netevent.lan2play.de/)
+
+## Client translation
+
+[![Translation status](https://translate.lan2play.de/widgets/netevent-client/-/netevent-client/multi-auto.svg)](https://translate.lan2play.de/engage/netevent-client/)
+
