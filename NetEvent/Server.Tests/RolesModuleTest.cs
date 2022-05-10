@@ -81,7 +81,7 @@ namespace NetEvent.Server.Tests
             Assert.Equal(2, roles?[0]?.Claims?.Count());
 
             /*** Remove Claims ***/
-            role.Claims = new[] { "TestClaim1"};
+            role.Claims = new[] { "TestClaim1" };
             result = await Client.PutAsJsonAsync($"/api/roles/{role.Id}", role);
             result.EnsureSuccessStatusCode();
             roles = await Client.GetFromJsonAsync<List<RoleDto>>("/api/roles");
