@@ -50,9 +50,7 @@ namespace NetEvent.Client.Services
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var content = JsonContent.Create(updatedRole);
-
-                var response = await client.PutAsync($"api/role/{updatedRole.Id}", content, cancellationToken);
+                var response = await client.PutAsJsonAsync($"api/roles/{updatedRole.Id}", updatedRole, cancellationToken);
 
                 response.EnsureSuccessStatusCode();
 

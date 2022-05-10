@@ -12,5 +12,5 @@ public class RoleDto
     public string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("claims")]
-    public IReadOnlyList<ClaimDto>? Claims { get; set; }
+    public IEnumerable<string>? Claims { get; set; } = new HashSet<string>();
 }
