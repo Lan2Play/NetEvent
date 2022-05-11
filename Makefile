@@ -20,8 +20,8 @@ else
 	rm -rf NetEvent/Server/Migrations/Psql
 	rm -rf NetEvent/Server/Migrations/Sqlite
 endif
-	dotnet ef migrations add InitialCreate --project NetEvent/Server --context SqliteApplicationDbContext --output-dir Migrations/Sqlite
-	dotnet ef migrations add InitialCreate --project NetEvent/Server --context PsqlApplicationDbContext --output-dir Migrations/Psql -- --DBProvider psql
+	dotnet ef migrations add Initial --project NetEvent/Server --context SqliteApplicationDbContext --output-dir Migrations/Sqlite
+	dotnet ef migrations add Initial --project NetEvent/Server --context PsqlApplicationDbContext --output-dir Migrations/Psql -- --DBProvider psql
 
 # Make Documentation
 docs-html:
