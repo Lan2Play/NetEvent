@@ -80,7 +80,7 @@ namespace NetEvent.Client.Services
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            var result =  await _Api.RegisterAsync(registerParameters, cancellationTokenSource.Token).ConfigureAwait(false);
+            var result = await _Api.RegisterAsync(registerParameters, cancellationTokenSource.Token).ConfigureAwait(false);
 
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
 
