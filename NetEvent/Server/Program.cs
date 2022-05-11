@@ -9,7 +9,7 @@ using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
-using NetEvent.Shared;
+using NetEvent.Shared.Policy;
 
 var builder = WebApplication.CreateBuilder(args);
 

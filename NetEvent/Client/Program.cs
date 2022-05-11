@@ -8,7 +8,7 @@ using MudBlazor.Services;
 using NetEvent.Client;
 using NetEvent.Client.Extensions;
 using NetEvent.Client.Services;
-using NetEvent.Shared;
+using NetEvent.Shared.Policy;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
