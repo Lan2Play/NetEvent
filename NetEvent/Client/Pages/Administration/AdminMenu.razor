@@ -1,7 +1,12 @@
-﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+﻿@using NetEvent.Shared
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Dashboard"]</MudButton>
-<MudDivider  />
-<MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/users" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudButton>
-<MudDivider  />
+<MudDivider />
+<AuthorizeView Policy="Admin.Users.Read">
+    <Authorized>
+        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/users" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudButton>
+        <MudDivider />
+    </Authorized>
+</AuthorizeView>
 

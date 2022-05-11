@@ -23,12 +23,6 @@ namespace NetEvent.Server.Modules.Organization
             return endpoints;
         }
 
-        public override IServiceCollection RegisterModule(IServiceCollection builder)
-        {
-            builder.AddMediatR(typeof(OrganizationModule));
-            return builder;
-        }
-
         public override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<OrganizationData>(entity =>

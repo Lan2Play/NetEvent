@@ -19,6 +19,7 @@ namespace NetEvent.Server.Tests
 
         protected ModuleTestBase()
         {
+            var dbName = $"{nameof(ModuleTestBase)}_{Guid.NewGuid()}";
             Application = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>
             {
@@ -33,7 +34,7 @@ namespace NetEvent.Server.Tests
 
                     services.AddDbContext<ApplicationDbContext>(options =>
                     {
-                        options.UseInMemoryDatabase(nameof(ModuleTestBase));
+                        options.UseInMemoryDatabase(dbName);
                     });
                 });
             });

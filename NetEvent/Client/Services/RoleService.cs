@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Services
 {
@@ -20,18 +21,18 @@ namespace NetEvent.Client.Services
             _Logger = logger;
         }
 
-        public async Task<List<IdentityRole>> GetRolesAsync(CancellationToken cancellationToken)
+        public async Task<List<RoleDto>> GetRolesAsync(CancellationToken cancellationToken)
         {
             try
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var roles = await client.GetFromJsonAsync<List<IdentityRole>>("/api/roles", cancellationToken).ConfigureAwait(false);
+                var roles = await client.GetFromJsonAsync<List<RoleDto>>("/api/roles", cancellationToken).ConfigureAwait(false);
 
                 if (roles == null)
                 {
                     _Logger.LogError("Unable to get roles data from backend");
-                    return new List<IdentityRole>();
+                    return new List<RoleDto>();
                 }
 
                 return roles;
@@ -39,19 +40,17 @@ namespace NetEvent.Client.Services
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to get roles data from backend");
-                return new List<IdentityRole>();
+                return new List<RoleDto>();
             }
         }
 
-        public async Task<bool> UpdateRoleAsync(IdentityRole updatedRole, CancellationToken cancellationToken)
+        public async Task<bool> UpdateRoleAsync(RoleDto updatedRole, CancellationToken cancellationToken)
         {
             try
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var content = JsonContent.Create(updatedRole);
-
-                var response = await client.PutAsync($"api/role/{updatedRole.Id}", content, cancellationToken);
+                var response = await client.PutAsJsonAsync($"api/roles/{updatedRole.Id}", updatedRole, cancellationToken);
 
                 response.EnsureSuccessStatusCode();
 

@@ -45,17 +45,24 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.HasData(
                         new
                         {
-                            Id = "admin",
-                            ConcurrencyStamp = "b28356af-7c77-43b5-9ae6-94d13a920993",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
+                            Id = "user",
+                            ConcurrencyStamp = "8d895ddf-ad09-43b4-88d3-6121a85cb854",
+                            Name = "User",
+                            NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "user",
-                            ConcurrencyStamp = "7d5abe61-7b08-476a-a045-b3f9ec1db046",
-                            Name = "User",
-                            NormalizedName = "USER"
+                            Id = "orga",
+                            ConcurrencyStamp = "042e2e62-72ac-4338-86ab-354019140c9f",
+                            Name = "Orga",
+                            NormalizedName = "ORGA"
+                        },
+                        new
+                        {
+                            Id = "admin",
+                            ConcurrencyStamp = "c8d19ab7-141e-4752-aa38-75f40f182e7d",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
                         });
                 });
 
@@ -80,6 +87,22 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.HasIndex("RoleId");
 
                     b.ToTable("RoleClaims", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaimType = "Admin.Users.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClaimType = "Admin.Users.Edit",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -214,7 +237,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
@@ -227,7 +249,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .HasColumnType("BLOB");
 
                     b.Property<string>("SecurityStamp")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -253,7 +274,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c4f79989-e421-4916-9111-c755b5ff3f7c",
+                            ConcurrencyStamp = "149876cd-faea-46e0-a934-b6a8c94b8f94",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -261,9 +282,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOYecvBveTxk0Uak/0OlhtvUSmeGR0l671OBLIQA+WLpfW1dGPiqPuKUIVOhRYV8lQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJqhUGq6d4egVrmS0nsa3dbBnh4cuBQFdi13FKia1sJk5pYX7SRLNcKc0ogcMlcoKQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7bce49e-fef8-44bc-9eaa-f3baaeb7d32e",
+                            SecurityStamp = "09c1cfb5-17e6-4346-8d21-d6b532279267",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

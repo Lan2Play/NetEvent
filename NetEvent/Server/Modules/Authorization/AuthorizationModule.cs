@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -29,17 +30,6 @@ namespace NetEvent.Server.Modules.Authorization
             endpoints.MapGet("/api/auth/login/external/callback", async ([FromQuery] string returnUrl, [FromQuery] string? remoteError, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetLoginExternalCallbackRequest(returnUrl))));
             endpoints.MapPost("/api/auth/completeregistration", async ([FromBody] CompleteRegistrationRequestDto completeRegistrationRequestDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostCompleteRegistrationRequest(completeRegistrationRequestDto))));
             return endpoints;
-        }
-
-        public override IServiceCollection RegisterModule(IServiceCollection builder)
-        {
-            builder.AddMediatR(typeof(AuthorizationModule));
-
-            return builder;
-        }
-
-        public override void OnModelCreating(ModelBuilder builder)
-        {
         }
     }
 }
