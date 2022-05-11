@@ -26,8 +26,6 @@ namespace NetEvent.Client.Pages
 
         public CompleteRegistrationRequestDto CompleteRegistrationRequest { get; set; } = new();
 
-        public string Error { get; set; }
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
