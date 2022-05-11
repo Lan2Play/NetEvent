@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
 namespace NetEvent.Shared.Policy
 {
-
     public class RegexClaimsAuthorizationRequirement : AuthorizationHandler<RegexClaimsAuthorizationRequirement>, IAuthorizationRequirement
     {
         public string ClaimRegEx { get; }
