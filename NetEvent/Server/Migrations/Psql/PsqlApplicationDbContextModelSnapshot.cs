@@ -51,21 +51,21 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "0d3d268a-f688-4de9-9314-2851b6b3dab5",
+                            ConcurrencyStamp = "f28e0660-d780-4f90-96b2-2e326d52036c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "0c833faf-3f02-4330-8163-c1e8bde3ce13",
+                            ConcurrencyStamp = "bc99dcc1-fd85-4d32-b831-f1f3c07dec0c",
                             Name = "Orga",
                             NormalizedName = "ORGA"
                         },
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "b301f818-14bf-44b4-962b-707dff1c8fbf",
+                            ConcurrencyStamp = "b3c89c17-d348-465e-9fdc-12d88317227e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -281,7 +281,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3ce54de9-0c49-4be8-9b62-0058a31c6038",
+                            ConcurrencyStamp = "97f54e37-a2e6-48cb-8f33-10fd6e4f2520",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -289,9 +289,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDL0ayrTnRU9HdtM5cKAg3pq7HEmW9nL84atXLj7/RJrvgsTXSbLP9asIjVE9MfAoQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGNt16UExWD8wiNsYj5znRbQqDzL9OFdW1XsHjxLYmEZmzptSkpIxbA7rsQT8aUe3w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "58483af1-b677-4bb2-8c17-5227842f80f7",
+                            SecurityStamp = "940ba0de-d13a-4958-bd4f-3596455e06d7",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
