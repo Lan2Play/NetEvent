@@ -25,7 +25,7 @@ You can find the client translation on our `Weblate project`_
 translate without weblate 
 ^^^^^^^^^^^^^^^^^^^
 
-* The resource files are located in `NetEvent/Client/Resources/` .
-* The `App.resx` is the english and default resource file and for every other language there either is a a `App.lc.resx` (lc = two letter language code. for example: de for german) file or you can create one.
+* The resource files are located in ``NetEvent/Client/Resources/`` .
+* The ``App.resx`` is the english and default resource file and for every other language there either is a a ``App.lc.resx`` (lc = two letter language code. for example: de for german) file or you can create one.
 
 

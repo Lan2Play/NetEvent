@@ -4,9 +4,7 @@ Developers quickstart guide
 
 * Download and install .Net6 SDK https://dotnet.microsoft.com/download/dotnet/6.0
 * Clone the repository https://github.com/Lan2Play/NetEvent.git
-* Install EntityFramework with `dotnet tool install --global dotnet-ef`
-* Switch into the `NetEvent\NetEvent\Server` folder and create the database with `dotnet ef database update`
-
+* Install EntityFramework with ``make install-ef`` or ``dotnet tool install --global dotnet-ef``
 
 create new migrations for the database
 ----------------------------------------
@@ -14,15 +12,17 @@ Switch into the repository and execute
 
 with make
 ^^^^^^^^^^^^^^^^^^^
+.. code-block:: bash
 
-`make migration name=MigrationName`
+    make migration name=MigrationName
 
 without make 
 ^^^^^^^^^^^^^^^^^^^
 
-`dotnet ef migrations add MigrationName --project NetEvent/Server --context PsqlApplicationDbContext --output-dir Migrations/Psql -- --DBProvider psql`
+.. code-block:: bash
 
-`dotnet ef migrations add MigrationName --project NetEvent/Server --context SqliteApplicationDbContext --output-dir Migrations/Sqlite`
+    dotnet ef migrations add MigrationName --project NetEvent/Server --context PsqlApplicationDbContext --output-dir Migrations/Psql -- --DBProvider psql
+    dotnet ef migrations add MigrationName --project NetEvent/Server --context SqliteApplicationDbContext --output-dir Migrations/Sqlite
 
 
 code analysis
