@@ -9,20 +9,20 @@ using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 {
-    public class PostRegisterUserHandler : IRequestHandler<PostRegisterUserRequest, PostRegisterUserResponse>
+    public class PostRegisterHandler : IRequestHandler<PostRegisterRequest, PostRegisterResponse>
     {
         private readonly UserManager<ApplicationUser> _UserManager;
         private readonly RoleManager<IdentityRole> _RoleManager;
-        private readonly ILogger<PostRegisterUserHandler> _Logger;
+        private readonly ILogger<PostRegisterHandler> _Logger;
 
-        public PostRegisterUserHandler(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogger<PostRegisterUserHandler> logger)
+        public PostRegisterHandler(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogger<PostRegisterHandler> logger)
         {
             _UserManager = userManager;
             _RoleManager = roleManager;
             _Logger = logger;
         }
 
-        public async Task<PostRegisterUserResponse> Handle(PostRegisterUserRequest request, CancellationToken cancellationToken)
+        public async Task<PostRegisterResponse> Handle(PostRegisterRequest request, CancellationToken cancellationToken)
         {
             var user = new ApplicationUser
             {
@@ -55,11 +55,11 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
                 var errorMessage = sb.ToString();
 
                 _Logger.LogError(errorMessage);
-                return new PostRegisterUserResponse(ReturnType.Error, errorMessage);
+                return new PostRegisterResponse(ReturnType.Error, errorMessage);
             }
 
             // TODO Schedule Task for sending E-Mail
-            return new PostRegisterUserResponse();
+            return new PostRegisterResponse();
         }
     }
 }

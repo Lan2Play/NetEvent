@@ -65,7 +65,7 @@ namespace NetEvent.Client.Services
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
 
-        public async Task<ServiceResult> Login(LoginRequest loginParameters)
+        public async Task<ServiceResult> Login(LoginRequestDto loginParameters)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
@@ -76,7 +76,7 @@ namespace NetEvent.Client.Services
             return result;
         }
 
-        public async Task<ServiceResult> Register(RegisterRequest registerParameters)
+        public async Task<ServiceResult> Register(RegisterRequestDto registerParameters)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 

@@ -25,7 +25,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternal
 
             var encodedReturnUrl = HttpUtility.UrlEncode(returnUrl);
 
-            var properties = _SignInManager.ConfigureExternalAuthenticationProperties(provider, $"/api/auth/login/external/callback?returnUrl={encodedReturnUrl}");
+            var properties = _SignInManager.ConfigureExternalAuthenticationProperties(provider, $"/api/auth/login/external/{provider}/callback?returnUrl={encodedReturnUrl}");
             return Task.FromResult(new GetLoginExternalResponse(Results.Challenge(properties, new[] { provider })));
         }
     }

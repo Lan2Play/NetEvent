@@ -3,9 +3,9 @@ using MediatR;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
 {
-    public class GetCurrentUserRequest : IRequest<GetCurrentUserResponse>
+    public class GetUserRequest : IRequest<GetUserResponse>
     {
-        public GetCurrentUserRequest(ClaimsPrincipal user)
+        public GetUserRequest(ClaimsPrincipal user)
         {
             User = user;
         }

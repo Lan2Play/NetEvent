@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternalCallback
@@ -13,11 +14,13 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternalCallba
     {
         private readonly SignInManager<ApplicationUser> _SignInManager;
         private readonly UserManager<ApplicationUser> _UserManager;
+        private readonly RoleManager<IdentityRole> _RoleManager;
 
-        public GetLoginExternalCallbackHandler(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public GetLoginExternalCallbackHandler(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _SignInManager = signInManager;
             _UserManager = userManager;
+            _RoleManager = roleManager;
         }
 
         public async Task<GetLoginExternalCallbackResponse> Handle(GetLoginExternalCallbackRequest request, CancellationToken cancellationToken)
@@ -40,36 +43,41 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternalCallba
 
             if (externalLoginResult.IsNotAllowed)
             {
-                // Redirect to not allowed site --> E-Mail erneut senden, E-Mail noch nicht bestätigt
+                return new GetLoginExternalCallbackResponse(Results.LocalRedirect("/confirmation/pending"));
             }
 
             var userName = info.Principal.FindFirstValue(ClaimTypes.Name);
-            var userId = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var steamUserId = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(steamUserId))
             {
                 return new GetLoginExternalCallbackResponse(ReturnType.Error, $"No claim found for {ClaimTypes.NameIdentifier}");
             }
 
             if (string.IsNullOrEmpty(userName))
             {
-                userName = userId.Split('/').Last();
+                userName = steamUserId.Split('/').Last();
             }
 
-            var user = new ApplicationUser { UserName = userName, Id = userId, PasswordHash = string.Empty };
-
-            _UserManager.UserValidators.Clear();
+            var user = new ApplicationUser { UserName = userName, PasswordHash = string.Empty };
 
             var result = await _UserManager.CreateAsync(user);
 
             if (result.Succeeded)
             {
-                result = await _UserManager.AddLoginAsync(user, info);
+                var defaultRole = await _RoleManager.Roles.FirstAsync(cancellationToken);
+
+                result = await _UserManager.AddToRoleAsync(user, defaultRole.Name).ConfigureAwait(false);
 
                 if (result.Succeeded)
                 {
-                    await _SignInManager.SignInAsync(user, isPersistent: false);
-                    return new GetLoginExternalCallbackResponse(Results.LocalRedirect(returnUrl));
+                    result = await _UserManager.AddLoginAsync(user, info);
+
+                    if (result.Succeeded)
+                    {
+                        await _SignInManager.SignInAsync(user, isPersistent: false);
+                        return new GetLoginExternalCallbackResponse(Results.LocalRedirect(returnUrl));
+                    }
                 }
             }
 

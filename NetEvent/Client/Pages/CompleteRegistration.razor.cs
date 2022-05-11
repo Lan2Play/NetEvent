@@ -24,7 +24,7 @@ namespace NetEvent.Client.Pages
         [Inject]
         private NetEventAuthenticationStateProvider _NetEventAuthenticationStateProvider { get; set; } = default!;
 
-        public CompleteRegistrationRequestDto CompleteRegistrationRequest { get; set; } = new();
+        public RegisterExternalCompleteRequestDto CompleteRegistrationRequest { get; set; } = new();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -45,7 +45,7 @@ namespace NetEvent.Client.Pages
             try
             {
                 await _AuthService.CompleteRegistrationAsync(CompleteRegistrationRequest, CancellationToken.None);
-                NavigationManager.NavigateTo(string.Empty);
+                NavigationManager.NavigateTo("/confirmation/pending");
             }
             catch (Exception ex)
             {

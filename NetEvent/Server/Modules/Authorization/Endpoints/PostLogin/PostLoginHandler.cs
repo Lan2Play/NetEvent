@@ -7,20 +7,20 @@ using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
 {
-    public class PostLoginUserHandler : IRequestHandler<PostLoginUserRequest, PostLoginUserResponse>
+    public class PostLoginHandler : IRequestHandler<PostLoginRequest, PostLoginResponse>
     {
         private readonly UserManager<ApplicationUser> _UserManager;
         private readonly SignInManager<ApplicationUser> _SignInManager;
-        private readonly ILogger<PostLoginUserHandler> _Logger;
+        private readonly ILogger<PostLoginHandler> _Logger;
 
-        public PostLoginUserHandler(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<PostLoginUserHandler> logger)
+        public PostLoginHandler(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<PostLoginHandler> logger)
         {
             _UserManager = userManager;
             _SignInManager = signInManager;
             _Logger = logger;
         }
 
-        public async Task<PostLoginUserResponse> Handle(PostLoginUserRequest request, CancellationToken cancellationToken)
+        public async Task<PostLoginResponse> Handle(PostLoginRequest request, CancellationToken cancellationToken)
         {
             var user = (await _UserManager.FindByNameAsync(request.LoginRequest.UserName).ConfigureAwait(false)) ??
                         await _UserManager.FindByEmailAsync(request.LoginRequest.UserName).ConfigureAwait(false);
@@ -29,7 +29,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
             {
                 var errorMessage = "User does not exist.";
                 _Logger.LogError(errorMessage);
-                return new PostLoginUserResponse(ReturnType.Error, errorMessage);
+                return new PostLoginResponse(ReturnType.Error, errorMessage);
             }
 
             var singInResult = await _SignInManager.CheckPasswordSignInAsync(user, request.LoginRequest.Password, false);
@@ -38,11 +38,11 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
             {
                 var errorMessage = "Invalid password.";
                 _Logger.LogError(errorMessage);
-                return new PostLoginUserResponse(ReturnType.Error, errorMessage);
+                return new PostLoginResponse(ReturnType.Error, errorMessage);
             }
 
             await _SignInManager.SignInAsync(user, request.LoginRequest.RememberMe).ConfigureAwait(false);
-            return new PostLoginUserResponse();
+            return new PostLoginResponse();
         }
     }
 }

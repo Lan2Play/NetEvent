@@ -25,7 +25,7 @@ namespace NetEvent.Client.Services
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var result = await client.GetFromJsonAsync<CurrentUserDto>("api/auth/user/current", cancellationToken);
+                var result = await client.GetFromJsonAsync<CurrentUserDto>("api/auth/user", cancellationToken);
 
                 if (result == null)
                 {
@@ -42,7 +42,7 @@ namespace NetEvent.Client.Services
             }
         }
 
-        public async Task<ServiceResult> LoginAsync(LoginRequest loginRequest, CancellationToken cancellationToken)
+        public async Task<ServiceResult> LoginAsync(LoginRequestDto loginRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
@@ -60,11 +60,11 @@ namespace NetEvent.Client.Services
             return ServiceResult.Success();
         }
 
-        public async Task CompleteRegistrationAsync(CompleteRegistrationRequestDto completeRegistrationRequest, CancellationToken cancellationToken)
+        public async Task CompleteRegistrationAsync(RegisterExternalCompleteRequestDto completeRegistrationRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-            var result = await client.PostAsJsonAsync("api/auth/completeregistration", completeRegistrationRequest, cancellationToken);
+            var result = await client.PostAsJsonAsync("api/auth/register/external/complete", completeRegistrationRequest, cancellationToken);
 
             try
             {
@@ -93,7 +93,7 @@ namespace NetEvent.Client.Services
             }
         }
 
-        public async Task<ServiceResult> RegisterAsync(RegisterRequest registerRequest, CancellationToken cancellationToken)
+        public async Task<ServiceResult> RegisterAsync(RegisterRequestDto registerRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 

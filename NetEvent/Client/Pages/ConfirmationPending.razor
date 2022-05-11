@@ -1,0 +1,12 @@
+﻿@page "/confirmation/pending"
+
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+<h3>@Localize["ConfirmationPending.Title"]</h3>
+
+<MudCard>
+    <MudCardContent>
+        <MudText Align="Align.Left">@Localize["ConfirmationPending.Confirm"]</MudText>
+        <MudText Align="Align.Left">@Localize["ConfirmationPending.RequestConfirmMailAgain"]</MudText>
+    </MudCardContent>
+</MudCard>

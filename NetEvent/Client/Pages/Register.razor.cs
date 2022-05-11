@@ -22,7 +22,7 @@ namespace NetEvent.Client.Pages
         [Inject]
         private IStringLocalizer<App> _Localizer { get; set; } = default!;
 
-        public RegisterRequest RegisterRequest { get; set; } = new();
+        public RegisterRequestDto RegisterRequest { get; set; } = new();
 
         public async Task ExecuteRegister()
         {

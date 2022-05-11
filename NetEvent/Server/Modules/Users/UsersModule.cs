@@ -1,17 +1,12 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Modules.Users.Endpoints.GetUser;
 using NetEvent.Server.Modules.Users.Endpoints.GetUsers;
 using NetEvent.Server.Modules.Users.Endpoints.PutUser;
 using NetEvent.Server.Modules.Users.Endpoints.PutUserRole;
-using NetEvent.Shared;
 using NetEvent.Shared.Dto;
-using NetEvent.Shared.Dto.Administration;
 
 namespace NetEvent.Server.Modules.Users
 {

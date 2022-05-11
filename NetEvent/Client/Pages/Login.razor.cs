@@ -22,7 +22,7 @@ namespace NetEvent.Client.Pages
         [Inject]
         private IStringLocalizer<App> _Localizer { get; set; } = default!;
 
-        public LoginRequest LoginRequest { get; set; } = new();
+        public LoginRequestDto LoginRequest { get; set; } = new();
 
         public async Task ExecuteLogin()
         {
@@ -41,7 +41,7 @@ namespace NetEvent.Client.Pages
 
         public void LoginWithSteam()
         {
-            var returnUrl = "/completeregistration";
+            var returnUrl = "/register/external/complete";
 
             var encodedReturnUrl = HttpUtility.UrlEncode(returnUrl);
 

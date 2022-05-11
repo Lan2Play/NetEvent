@@ -8,18 +8,18 @@ using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser
 {
-    public class PostLogoutUserHandler : IRequestHandler<PostLogoutUserRequest, PostLogoutUserResponse>
+    public class PostLogoutHandler : IRequestHandler<PostLogoutRequest, PostLogoutResponse>
     {
         private readonly SignInManager<ApplicationUser> _SignInManager;
-        private readonly ILogger<PostLogoutUserHandler> _Logger;
+        private readonly ILogger<PostLogoutHandler> _Logger;
 
-        public PostLogoutUserHandler(SignInManager<ApplicationUser> signInManager, ILogger<PostLogoutUserHandler> logger)
+        public PostLogoutHandler(SignInManager<ApplicationUser> signInManager, ILogger<PostLogoutHandler> logger)
         {
             _SignInManager = signInManager;
             _Logger = logger;
         }
 
-        public async Task<PostLogoutUserResponse> Handle(PostLogoutUserRequest request, CancellationToken cancellationToken)
+        public async Task<PostLogoutResponse> Handle(PostLogoutRequest request, CancellationToken cancellationToken)
         {
             try
             {
@@ -29,10 +29,10 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser
             {
                 var errorMessage = "Exception occured on sign out.";
                 _Logger.LogError(ex, errorMessage);
-                return new PostLogoutUserResponse(ReturnType.Error, errorMessage);
+                return new PostLogoutResponse(ReturnType.Error, errorMessage);
             }
 
-            return new PostLogoutUserResponse();
+            return new PostLogoutResponse();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser
 {
-    public class PostLogoutUserRequest : IRequest<PostLogoutUserResponse>
+    public class PostLogoutRequest : IRequest<PostLogoutResponse>
     {
     }
 }

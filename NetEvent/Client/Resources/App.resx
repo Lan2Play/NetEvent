@@ -240,4 +240,13 @@
   <data name="LoginService.RegisterError" xml:space="preserve">
     <value>Unable to register user {0}</value>
   </data>
+  <data name="ConfirmationPending.Confirm" xml:space="preserve">
+    <value>Please confirm your E-Mail address by clicking on the link in the mail you should have received.</value>
+  </data>
+  <data name="ConfirmationPending.RequestConfirmMailAgain" xml:space="preserve">
+    <value>No E-Mail received? Click on the following link to request a new mail.</value>
+  </data>
+  <data name="ConfirmationPending.Title" xml:space="preserve">
+    <value>E-Mail confirmation needed</value>
+  </data>
 </root>
