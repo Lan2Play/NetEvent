@@ -20,7 +20,9 @@ Its currently under heavy development, so only use it for testing or development
 ## Documentation
 
 [Documentation](https://netevent.lan2play.de/)
+
 [Contribution Guide](https://netevent.lan2play.de/contribution.html)
+
 [Admin Documentation](https://netevent.lan2play.de/admin/quickstart.html)
 
 ## Client translation
