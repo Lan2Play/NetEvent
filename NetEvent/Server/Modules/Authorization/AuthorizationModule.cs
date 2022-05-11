@@ -1,12 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+
 using NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser;
 using NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser;
 using NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser;
