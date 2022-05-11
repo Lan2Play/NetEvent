@@ -1,13 +1,15 @@
 ﻿@page "/administration/users"
+@attribute [Authorize(Policy = "Admin.Users.*")]
+
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
 @using NetEvent.Shared.Dto
 @using NetEvent.Shared.Dto.Administration
+@using NetEvent.Shared.Policy
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 
-@attribute [Authorize(Roles = "Admin")]
 
 <MudTabs Elevation="1" Rounded="true">
     <MudTabPanel Text="User">
@@ -109,7 +111,7 @@
                                        Label="Permissions"
                                        MultiSelectionTextFunc="@(new Func<List<string>, string>(CreateSelectionLabel))"
                                        HelperText="@value" @bind-Value="value">
-                                @foreach (var policy in NetEvent.Shared.Policies.AvailablePolicies)
+                                @foreach (var policy in Policies.AvailablePolicies)
                                 {
                                     <MudSelectItem T="string" Value="@(policy)">@policy</MudSelectItem>
                                 }

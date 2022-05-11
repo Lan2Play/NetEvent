@@ -20,15 +20,13 @@
         @*<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />*@
         <NavigationBar />
     </MudAppBar>
-    <AuthorizeView Roles="Admin">
+    <AuthorizeView Policy="Admin.*">
         <Authorized>
             <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
                 <MudDrawerHeader>
                     <MudText Typo="Typo.h5" Class="mt-1">@Localize["Shared.MainLayout.Administration"]</MudText>
                 </MudDrawerHeader>
                 <AdminMenu></AdminMenu>
-
-
 
                 @*NavMenu*@
             </MudDrawer>

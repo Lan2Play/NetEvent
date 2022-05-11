@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
-namespace NetEvent.Shared
+namespace NetEvent.Shared.Policy
 {
     public static class Policies
     {
@@ -22,13 +23,24 @@ namespace NetEvent.Shared
 
         private static AuthorizationPolicy HasClaim(string claim)
         {
-            return new AuthorizationPolicyBuilder().RequireAuthenticatedUser()
-                                                   .RequireClaim(claim)
-                                                   .Build();
+            var result = new AuthorizationPolicyBuilder().RequireAuthenticatedUser();
+            result.Requirements.Add(new RegexClaimsAuthorizationRequirement(claim));
+
+            return result.Build();
         }
 
         private static AuthorizationOptions AddPolicy(this AuthorizationOptions options, string policyName)
         {
+            var policyParts = policyName.Split('.');
+            if (policyParts.Length > 1)
+            {
+                for (int i = 1; i < policyParts.Length; i++)
+                {
+                    var regexName = $"{string.Join('.', policyParts.Take(i))}.*";
+                    options.AddPolicy(regexName, HasClaim(regexName));
+                }
+            }
+
             options.AddPolicy(policyName, HasClaim(policyName));
             return options;
         }

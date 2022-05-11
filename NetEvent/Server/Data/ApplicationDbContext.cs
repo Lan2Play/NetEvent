@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
-using NetEvent.Shared;
 using NetEvent.Shared.Dto;
+using NetEvent.Shared.Policy;
 
 namespace NetEvent.Server.Data
 {
