@@ -46,21 +46,21 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "d40ce3da-3659-40dc-90c7-13c456a42fcc",
+                            ConcurrencyStamp = "f6bb9019-a729-4313-9c12-6a655c14325b",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "3d0a6d46-0698-43b8-86a3-e61d5c31403d",
+                            ConcurrencyStamp = "05198904-5f30-4dd7-b7f1-1681e0ce17c0",
                             Name = "Orga",
                             NormalizedName = "ORGA"
                         },
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "e5437d1d-41a4-4586-ac57-ba104ae04a61",
+                            ConcurrencyStamp = "b5f6bbcc-0a37-4167-a612-08ca51505f21",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -272,7 +272,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "39e4dca5-3b6a-4ccb-8ec0-ada7012aa660",
+                            ConcurrencyStamp = "0c226eee-9a34-4b24-846b-f80bc0855298",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -280,9 +280,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELYShP1lEf6P3IpDjGIVRsvLY8Fij1oinTVWLFrxqjUuUZagbFJa/601lQ3SQYCR7Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEClkoAvvGx1jxgBfupOfKkoKPDN2BzapGJ4no+nUoHijElYgx/hCK58F9CTFVDTkwA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5a6b4300-5d49-4cb4-9515-82d556b3bc37",
+                            SecurityStamp = "3cd2bacd-a415-40aa-be24-06880b0f5762",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

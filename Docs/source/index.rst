@@ -12,6 +12,11 @@ Its currently under heavy development, so only use it for testing or development
 
 
 .. toctree::
+   :maxdepth: 2
+
+   contribution
+
+.. toctree::
    :caption: Users guide
    :maxdepth: 2
 
@@ -30,7 +35,14 @@ Its currently under heavy development, so only use it for testing or development
    :maxdepth: 1
 
    develop/quickstart
+   develop/database
+   develop/folderstructure
+   develop/models
+   develop/services
+   develop/permissions
+   develop/authenticationsystem
    develop/cicd
+   develop/release
    develop/translation
 
 .. |NetEvent_test_and_build| image:: https://github.com/Lan2Play/NetEvent/actions/workflows/test_and_build.yml/badge.svg
@@ -64,15 +76,15 @@ Its currently under heavy development, so only use it for testing or development
 Users quickstart note
 ----------------------
 - If you just want to use NetEvent as a user go to :doc:`/user/start`
-- If you want to deploy NetEvent, please take a look into the :doc:`admin/quickstart`
-- If you want to help with the translation of NetEvent, please check out our :doc:`develop/translation` section
+- If you want to deploy NetEvent, please take a look into the :doc:`/admin/quickstart`
+- If you want to help with the translation of NetEvent, please check out our :doc:`/develop/translation` section
 
 
 Developer note
 ----------------------
 - Github url: https://github.com/Lan2Play/NetEvent
-- If you want to contribute to NetEvent, please take a look into the :doc:`develop/quickstart`
-- If you want to help with the translation of NetEvent, please check out our :doc:`develop/translation` section
+- If you want to contribute to NetEvent, please take a look into the :doc:`/develop/quickstart`
+- If you want to help with the translation of NetEvent, please check out our :doc:`/develop/translation` section
 
 Indices and tables
 ==================
