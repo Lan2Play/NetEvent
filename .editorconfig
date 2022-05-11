@@ -19,6 +19,14 @@ indent_size = 2
 indent_size = 4
 insert_final_newline = true
 charset = utf-8-bom
+
+# Makefiles
+[Makefile]
+indent_style = tab
+
+# YAML Files
+[*.{yml,yaml}]
+indent_size = 2
 ###############################
 # .NET Coding Conventions     #
 ###############################
