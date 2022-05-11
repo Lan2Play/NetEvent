@@ -75,6 +75,7 @@ namespace NetEvent.Client.Pages.Administration
             using var cancellationTokenSource = new CancellationTokenSource();
 
             var result = await _UserService.UpdateUserAsync(updatedUser, cancellationTokenSource.Token).ConfigureAwait(false);
+
             if (result.Successful)
             {
                 result = await _UserService.UpdateUserRoleAsync(updatedUser.Id, updatedUser.Role.Id, cancellationTokenSource.Token).ConfigureAwait(false);

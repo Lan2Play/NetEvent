@@ -65,22 +65,26 @@ namespace NetEvent.Client.Services
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
 
-        public async Task Login(LoginRequest loginParameters)
+        public async Task<ServiceResult> Login(LoginRequest loginParameters)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            await _Api.LoginAsync(loginParameters, cancellationTokenSource.Token).ConfigureAwait(false);
+            var result = await _Api.LoginAsync(loginParameters, cancellationTokenSource.Token).ConfigureAwait(false);
 
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+
+            return result;
         }
 
-        public async Task Register(RegisterRequest registerParameters)
+        public async Task<ServiceResult> Register(RegisterRequest registerParameters)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            await _Api.RegisterAsync(registerParameters, cancellationTokenSource.Token).ConfigureAwait(false);
+            var result =  await _Api.RegisterAsync(registerParameters, cancellationTokenSource.Token).ConfigureAwait(false);
 
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+
+            return result;
         }
     }
 }

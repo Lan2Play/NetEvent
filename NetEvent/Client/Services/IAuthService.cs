@@ -6,9 +6,9 @@ namespace NetEvent.Client.Services
 {
     public interface IAuthService
     {
-        Task LoginAsync(LoginRequest loginRequest, CancellationToken cancellationToken);
+        Task<ServiceResult> LoginAsync(LoginRequest loginRequest, CancellationToken cancellationToken);
 
-        Task RegisterAsync(RegisterRequest registerRequest, CancellationToken cancellationToken);
+        Task<ServiceResult> RegisterAsync(RegisterRequest registerRequest, CancellationToken cancellationToken);
 
         Task LogoutAsync(CancellationToken cancellationToken);
 

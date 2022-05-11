@@ -17,19 +17,19 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
             _Logger = logger;
         }
 
-        public async Task<GetCurrentUserResponse> Handle(GetCurrentUserRequest request, CancellationToken cancellationToken)
+        public Task<GetCurrentUserResponse> Handle(GetCurrentUserRequest request, CancellationToken cancellationToken)
         {
             if (request.User == null)
             {
                 var errorMessage = "User not found.";
                 _Logger.LogError(errorMessage);
-                return new GetCurrentUserResponse(ReturnType.Error, errorMessage);
+                return Task.FromResult(new GetCurrentUserResponse(ReturnType.Error, errorMessage));
             }
 
             var currentUser = DtoMapper.Mapper.ClaimsPrincipalToCurrentUserDto(request.User);
             currentUser.Claims = request.User.Claims.ToDictionary(c => c.Type, c => c.Value);
             currentUser.Id = request.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            return new GetCurrentUserResponse(currentUser);
+            return Task.FromResult(new GetCurrentUserResponse(currentUser));
         }
     }
 }

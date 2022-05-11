@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Localization;
+using MudBlazor;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 
@@ -17,20 +17,25 @@ namespace NetEvent.Client.Pages
         private NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        private ILogger<Login> _Logger { get; set; } = default!;
+        private ISnackbar _Snackbar { get; set; } = default!;
+
+        [Inject]
+        private IStringLocalizer<App> _Localizer { get; set; } = default!;
 
         public LoginRequest LoginRequest { get; set; } = new();
 
         public async Task ExecuteLogin()
         {
-            try
+            var result = await AuthenticationStateProvider.Login(LoginRequest);
+
+            if (result.MessageKey != null)
             {
-                await AuthenticationStateProvider.Login(LoginRequest);
-                NavigationManager.NavigateTo(string.Empty);
+                _Snackbar.Add(_Localizer.GetString(result.MessageKey, LoginRequest.UserName), result.Successful ? Severity.Success : Severity.Error);
             }
-            catch (Exception ex)
+
+            if (result.Successful)
             {
-                _Logger.LogError(ex, "Couldn't complete login.");
+                NavigationManager.NavigateTo(string.Empty);
             }
         }
 

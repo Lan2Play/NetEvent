@@ -42,7 +42,7 @@ namespace NetEvent.Client.Services
             }
         }
 
-        public async Task LoginAsync(LoginRequest loginRequest, CancellationToken cancellationToken)
+        public async Task<ServiceResult> LoginAsync(LoginRequest loginRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
@@ -52,11 +52,12 @@ namespace NetEvent.Client.Services
             {
                 result.EnsureSuccessStatusCode();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _Logger.LogError(ex, "Unable to logout.");
-                throw;
+                return ServiceResult.Error("LoginService.LoginError");
             }
+
+            return ServiceResult.Success();
         }
 
         public async Task CompleteRegistrationAsync(CompleteRegistrationRequestDto completeRegistrationRequest, CancellationToken cancellationToken)
@@ -92,7 +93,7 @@ namespace NetEvent.Client.Services
             }
         }
 
-        public async Task RegisterAsync(RegisterRequest registerRequest, CancellationToken cancellationToken)
+        public async Task<ServiceResult> RegisterAsync(RegisterRequest registerRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
@@ -102,11 +103,12 @@ namespace NetEvent.Client.Services
             {
                 result.EnsureSuccessStatusCode();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _Logger.LogError(ex, "Unable to register.");
-                throw;
+                return ServiceResult.Error("LoginService.RegisterError");
             }
+
+            return ServiceResult.Success();
         }
     }
 }

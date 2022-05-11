@@ -234,4 +234,10 @@
   <data name="UserService.UpdateUserAsync.Success" xml:space="preserve">
     <value>User {0} successfully updated</value>
   </data>
+  <data name="LoginService.LoginError" xml:space="preserve">
+    <value>Unable to login user {0}</value>
+  </data>
+  <data name="LoginService.RegisterError" xml:space="preserve">
+    <value>Unable to register user {0}</value>
+  </data>
 </root>
