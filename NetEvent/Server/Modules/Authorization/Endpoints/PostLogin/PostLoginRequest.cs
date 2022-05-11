@@ -5,10 +5,6 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
 {
     public class PostLoginRequest : IRequest<PostLoginResponse>
     {
-        public PostLoginRequest()
-        {
-        }
-
         public PostLoginRequest(LoginRequestDto loginRequest)
         {
             LoginRequest = loginRequest;

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -29,7 +28,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
         {
             if (request.User == null)
             {
-                var errorMessage = "User not found.";
+                const string errorMessage = "User not found.";
                 _Logger.LogError(errorMessage);
                 return new GetUserResponse(ReturnType.Error, errorMessage);
             }

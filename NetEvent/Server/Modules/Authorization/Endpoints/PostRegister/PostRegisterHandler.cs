@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -42,23 +43,11 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
             }
             else
             {
-                var sb = new StringBuilder();
-
-                sb.Append("Errors registering user: ");
-
-                foreach (var error in result.Errors)
-                {
-                    sb.Append(", ");
-                    sb.Append(error.Description);
-                }
-
-                var errorMessage = sb.ToString();
-
-                _Logger.LogError(errorMessage);
-                return new PostRegisterResponse(ReturnType.Error, errorMessage);
+                _Logger.LogError("Errors occured registering user. Errors: {IdentityErrors}", string.Join(',', result.Errors.Select(a => a.Description)));
+                return new PostRegisterResponse(ReturnType.Error, "Error registering user.");
             }
 
-            // TODO Schedule Task for sending E-Mail
+            // Schedule Task for sending E-Mail
             return new PostRegisterResponse();
         }
     }

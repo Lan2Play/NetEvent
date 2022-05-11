@@ -27,7 +27,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
 
             if (user == null)
             {
-                var errorMessage = "User does not exist.";
+                const string errorMessage = "User does not exist.";
                 _Logger.LogError(errorMessage);
                 return new PostLoginResponse(ReturnType.Error, errorMessage);
             }
@@ -36,7 +36,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
 
             if (!singInResult.Succeeded)
             {
-                var errorMessage = "Invalid password.";
+                const string errorMessage = "Invalid password.";
                 _Logger.LogError(errorMessage);
                 return new PostLoginResponse(ReturnType.Error, errorMessage);
             }

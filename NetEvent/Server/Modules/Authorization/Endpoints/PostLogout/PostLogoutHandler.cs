@@ -27,7 +27,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser
             }
             catch (Exception ex)
             {
-                var errorMessage = "Exception occured on sign out.";
+                const string errorMessage = "Exception occured on sign out.";
                 _Logger.LogError(ex, errorMessage);
                 return new PostLogoutResponse(ReturnType.Error, errorMessage);
             }
