@@ -15,6 +15,7 @@ Its currently under heavy development, so only use it for testing or development
    :maxdepth: 2
 
    contribution
+   license
 
 .. toctree::
    :caption: Users guide
