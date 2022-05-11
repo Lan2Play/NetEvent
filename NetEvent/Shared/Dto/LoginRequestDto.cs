@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace NetEvent.Shared.Dto;
 
-public class LoginRequest
+public class LoginRequestDto
 {
     [Required(ErrorMessage = "UserName is required.")]
     [JsonPropertyName("username")]

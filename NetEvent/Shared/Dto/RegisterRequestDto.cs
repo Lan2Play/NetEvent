@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace NetEvent.Shared.Dto;
 
-public class RegisterRequest
+public class RegisterRequestDto
 {
     [Required(ErrorMessage = "Email is required.")]
     [JsonPropertyName("email")]

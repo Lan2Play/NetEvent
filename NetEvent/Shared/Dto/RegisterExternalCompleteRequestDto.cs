@@ -2,7 +2,7 @@
 
 namespace NetEvent.Shared.Dto;
 
-public class CompleteRegistrationRequestDto
+public class RegisterExternalCompleteRequestDto
 {
     [JsonPropertyName("firstname")]
     public string FirstName { get; set; } = default!;
