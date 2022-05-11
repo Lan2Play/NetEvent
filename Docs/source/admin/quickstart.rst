@@ -4,7 +4,7 @@ Admins quickstart guide
 Running NetEvent with docker
 -------------------------------
 
-Prerequirements
+Prerequisites
 ^^^^^^^^^^^^^^^^^^^
 - `Docker`_
 - `Docker-compose`_
@@ -16,7 +16,10 @@ Installation
 ^^^^^^^^^^^^^^^^^^^
 
 - Download or clone this repository (or the docker-compose.yml and the .env.example)
-- copy ``.env.example`` to ``.env`` and edit at least the ``DBUser`` and ``DBPassword`` values. If you want to use a different port than 5000/tcp, change ``APPPort``. Attention: DBPort does not change the port of the postgres instance that is deployed by default in the compose file!
+- copy ``.env.example`` to ``.env`` and edit at least the ``DBUser`` and ``DBPassword`` values. If you want to use a different port than 5000/tcp, change ``APPPort``. 
+ .. warning::
+
+        DBPort does not change the port of the postgres instance that is deployed by default in the compose file!
 - run ``docker-compose up -d``
 - visit your NetEvent installation with your browser, login with ``Admin`` and ``Test123..`` and configure your instance
 

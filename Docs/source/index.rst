@@ -12,6 +12,11 @@ Its currently under heavy development, so only use it for testing or development
 
 
 .. toctree::
+   :maxdepth: 2
+
+   contribution
+
+.. toctree::
    :caption: Users guide
    :maxdepth: 2
 
@@ -30,7 +35,14 @@ Its currently under heavy development, so only use it for testing or development
    :maxdepth: 1
 
    develop/quickstart
+   develop/database
+   develop/folderstructure
+   develop/models
+   develop/services
+   develop/permissions
+   develop/authenticationsystem
    develop/cicd
+   develop/release
    develop/translation
 
 .. |NetEvent_test_and_build| image:: https://github.com/Lan2Play/NetEvent/actions/workflows/test_and_build.yml/badge.svg
