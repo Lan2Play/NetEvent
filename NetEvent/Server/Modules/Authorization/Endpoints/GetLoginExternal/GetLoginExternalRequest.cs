@@ -5,7 +5,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternal
 {
     public class GetLoginExternalRequest : IRequest<GetLoginExternalResponse>
     {
-        public GetLoginExternalRequest(string provider ,string returnUrl)
+        public GetLoginExternalRequest(string provider, string returnUrl)
         {
             Guard.IsNotNullOrEmpty(provider, nameof(provider));
             Guard.IsNotNullOrEmpty(returnUrl, nameof(returnUrl));
@@ -15,6 +15,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternal
         }
 
         public string Provider { get; }
+
         public string ReturnUrl { get; }
     }
 }

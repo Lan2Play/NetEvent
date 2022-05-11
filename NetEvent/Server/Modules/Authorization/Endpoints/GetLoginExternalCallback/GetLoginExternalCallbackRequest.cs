@@ -12,7 +12,6 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternalCallba
             ReturnUrl = returnUrl;
         }
 
- 
         public string ReturnUrl { get; }
     }
 }

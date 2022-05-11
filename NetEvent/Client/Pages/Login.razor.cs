@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 
@@ -15,9 +16,10 @@ namespace NetEvent.Client.Pages
         [Inject]
         private NavigationManager NavigationManager { get; set; } = default!;
 
-        public LoginRequest LoginRequest { get; set; } = new();
+        [Inject]
+        private ILogger<Login> _Logger { get; set; } = default!;
 
-        public string Error { get; set; }
+        public LoginRequest LoginRequest { get; set; } = new();
 
         public async Task ExecuteLogin()
         {
@@ -28,7 +30,7 @@ namespace NetEvent.Client.Pages
             }
             catch (Exception ex)
             {
-                Error = ex.Message;
+                _Logger.LogError(ex, "Couldn't complete login.");
             }
         }
 
@@ -38,7 +40,6 @@ namespace NetEvent.Client.Pages
 
             var encodedReturnUrl = HttpUtility.UrlEncode(returnUrl);
 
-            
             NavigationManager.NavigateTo($"/api/auth/login/external/Steam?returnUrl={encodedReturnUrl}", true);
         }
     }

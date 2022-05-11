@@ -26,15 +26,13 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 
             if (user == null)
             {
-                var errorMessage = $"User {completeRegistrationRequest.UserId} not found.";
-                _Logger.LogError(errorMessage);
-                return new PostCompleteRegistrationResponse(ReturnType.Error, errorMessage);
+                _Logger.LogError("User {UserId} not found.", completeRegistrationRequest.UserId);
+                return new PostCompleteRegistrationResponse(ReturnType.Error, $"User {completeRegistrationRequest.UserId} not found.");
             }
 
             user.FirstName = completeRegistrationRequest.FirstName;
             user.LastName = completeRegistrationRequest.LastName;
             user.Email = completeRegistrationRequest.Email;
-            //user.UserName = completeRegistrationRequest.Email;
 
             await _UserManager.UpdateAsync(user).ConfigureAwait(false);
 

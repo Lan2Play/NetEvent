@@ -62,7 +62,6 @@ builder.Services.AddAuthentication().AddSteam(options =>
 
 builder.Services.RegisterModules();
 
-
 builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof(SlugifyParameterTransformer));
 
 builder.Services.AddEndpointsApiExplorer();

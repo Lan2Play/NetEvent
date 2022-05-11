@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 
@@ -18,6 +19,9 @@ namespace NetEvent.Client.Pages
         private IAuthService _AuthService { get; set; } = default!;
 
         [Inject]
+        private ILogger<CompleteRegistration> _Logger { get; set; } = default!;
+
+        [Inject]
         private NetEventAuthenticationStateProvider _NetEventAuthenticationStateProvider { get; set; } = default!;
 
         public CompleteRegistrationRequestDto CompleteRegistrationRequest { get; set; } = new();
@@ -30,7 +34,7 @@ namespace NetEvent.Client.Pages
             {
                 var authenticationState = await _NetEventAuthenticationStateProvider.GetAuthenticationStateAsync().ConfigureAwait(false);
 
-                var userId = authenticationState.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).First().Value;
+                var userId = authenticationState.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
                 CompleteRegistrationRequest.UserId = userId;
             }
@@ -47,7 +51,7 @@ namespace NetEvent.Client.Pages
             }
             catch (Exception ex)
             {
-                Error = ex.Message;
+                _Logger.LogError(ex, "Error completing registration.");
             }
         }
     }
