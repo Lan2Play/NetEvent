@@ -25,13 +25,13 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
             _Logger = logger;
         }
 
-        public Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
+        public async Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
         {
             if (request.User == null)
             {
                 var errorMessage = "User not found.";
                 _Logger.LogError(errorMessage);
-                return Task.FromResult(new GetUserResponse(ReturnType.Error, errorMessage));
+                return new GetUserResponse(ReturnType.Error, errorMessage);
             }
 
             var userId = request.User.Id();
@@ -41,7 +41,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser
 
             var currentUser = DtoMapper.Mapper.ClaimsPrincipalToCurrentUserDto(refreshedUser);
             currentUser.Claims = refreshedUser.Claims.ToDictionary(c => c.Type, c => c.Value);
-            return new GetCurrentUserResponse(currentUser);
+            return new GetUserResponse(currentUser);
         }
     }
 }
