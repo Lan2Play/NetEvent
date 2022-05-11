@@ -5,7 +5,7 @@ using MediatR;
 using NetEvent.Server.Data;
 using NetEvent.Shared;
 
-namespace NetEvent.Server.Modules.Roles.Endpoints
+namespace NetEvent.Server.Modules.Roles.Endpoints.GetRoles
 {
     public class GetRolesHandler : IRequestHandler<GetRolesRequest, GetRolesResponse>
     {
