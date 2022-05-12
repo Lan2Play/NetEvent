@@ -126,7 +126,7 @@ namespace NetEvent.Client.Pages.Administration
             {
                 return _Localizer["Administration.Users.Roles.NothingSelected"];
             }
-            
+
             return $"{selectedValues.Count} {(selectedValues.Count > 1 ? _Localizer["Administration.Users.Roles.SelectPermissionPlural"] : _Localizer["Administration.Users.Roles.SelectPermissionSingular"])}";
         }
 
