@@ -31,7 +31,7 @@ switch (builder.Configuration["DBProvider"].ToLower())
         break;
     default:
         {
-            throw new Exception($"DbProvider not recognized: {builder.Configuration["DBProvider"]}");
+            throw new ArgumentOutOfRangeException("DBProvider",$"DbProvider not recognized: {builder.Configuration["DBProvider"]}");
         }
 }
 

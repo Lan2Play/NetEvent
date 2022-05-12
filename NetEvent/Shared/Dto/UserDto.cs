@@ -6,19 +6,19 @@ namespace NetEvent.Shared.Dto;
 public class UserDto
 {
     [JsonPropertyName("username")]
-    public string UserName { get; set; }
+    public string? UserName { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("firstname")]
-    public string FirstName { get; set; }
+    public string? FirstName { get; set; }
 
     [JsonPropertyName("lastname")]
-    public string LastName { get; set; }
+    public string? LastName { get; set; }
 
     [JsonPropertyName("email")]
-    public string Email { get; set; }
+    public string? Email { get; set; }
 
     [JsonPropertyName("emailconfirmed")]
     public bool EmailConfirmed { get; set; }

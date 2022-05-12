@@ -15,7 +15,7 @@ namespace NetEvent.Server.Data
             _Configuration = configuration;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite(_Configuration["DBConnection"]);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlite(_Configuration["DBConnection"]);
     }
 }
