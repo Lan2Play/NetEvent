@@ -95,7 +95,7 @@ namespace NetEvent.Client.Pages.Administration
 
         private string? _RoleSearchString;
 
-        private string value { get; set; }
+        private string? value { get; set; }
 
         // quick filter - filter gobally across multiple columns with the same input
         private Func<RoleDto, bool> _roleQuickFilter => x =>
@@ -122,9 +122,12 @@ namespace NetEvent.Client.Pages.Administration
 
         private string CreateSelectionLabel(List<string> selectedValues)
         {
-            return selectedValues.Count == 0 ? _Localizer["Administration.Users.Roles.NothingSelected"] : $"{selectedValues.Count} {(selectedValues.Count > 1 ? _Localizer["Administration.Users.Roles.SelectPermissionPlural"] : _Localizer["Administration.Users.Roles.SelectPermissionSingular"])}" ;
+            if (selectedValues.Count == 0)
+            {
+                return _Localizer["Administration.Users.Roles.NothingSelected"];
+            }
             
-            
+            return $"{selectedValues.Count} {(selectedValues.Count > 1 ? _Localizer["Administration.Users.Roles.SelectPermissionPlural"] : _Localizer["Administration.Users.Roles.SelectPermissionSingular"])}";
         }
 
         #endregion
