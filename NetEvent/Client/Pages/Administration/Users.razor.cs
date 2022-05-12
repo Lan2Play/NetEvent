@@ -95,7 +95,7 @@ namespace NetEvent.Client.Pages.Administration
 
         private string? _RoleSearchString;
 
-        private string value { get; set; } = "Nothing selected";
+        private string value { get; set; }
 
         // quick filter - filter gobally across multiple columns with the same input
         private Func<RoleDto, bool> _roleQuickFilter => x =>
@@ -120,9 +120,11 @@ namespace NetEvent.Client.Pages.Administration
             await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
         }
 
-        private static string CreateSelectionLabel(List<string> selectedValues)
+        private string CreateSelectionLabel(List<string> selectedValues)
         {
-            return $"{selectedValues.Count} Permission{(selectedValues.Count > 1 ? "s" : string.Empty)}";
+            return selectedValues.Count == 0 ? _Localizer["Administration.Users.Roles.NothingSelected"] : $"{selectedValues.Count} {(selectedValues.Count > 1 ? _Localizer["Administration.Users.Roles.SelectPermissionPlural"] : _Localizer["Administration.Users.Roles.SelectPermissionSingular"])}" ;
+            
+            
         }
 
         #endregion

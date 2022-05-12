@@ -207,14 +207,53 @@
   <data name="Administration.Users.EmailConfirmed" xml:space="preserve">
     <value>Email Confirmed</value>
   </data>
-  <data name="Test" xml:space="preserve">
-    <value>Test</value>
-  </data>
   <data name="Administration.Users.Role" xml:space="preserve">
     <value>Role</value>
   </data>
+  <data name="Administration.Users.Search" xml:space="preserve">
+    <value>search for user</value>
+  </data>
+  <data name="Administration.Users.Roles.ErrorRoleRequired" xml:space="preserve">
+    <value>You must select a Role!</value>
+  </data>
+  <data name="Administration.Users.Roles.Title" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Administration.Users.Roles.Search" xml:space="preserve">
+    <value>search for role</value>
+  </data>
+  <data name="Administration.Users.Roles.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Administration.Users.Roles.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Administration.Users.Roles.Claims" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="Administration.Users.Roles.SelectAllPermissions" xml:space="preserve">
+    <value>select all permissions</value>
+  </data>
+  <data name="Administration.Users.Roles.NothingSelected" xml:space="preserve">
+    <value>no permission selected</value>
+  </data>
+  <data name="Administration.Users.Roles.Permissions" xml:space="preserve">
+    <value>permissions</value>
+  </data>
+  <data name="Administration.Users.Roles.SelectPermissionSingular" xml:space="preserve">
+    <value>permission selected</value>
+  </data>
+  <data name="Administration.Users.Roles.SelectPermissionPlural" xml:space="preserve">
+    <value>permissions selected</value>
+  </data>
   <data name="Register.Title" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="Register.Firstname" xml:space="preserve">
+    <value>Firstname</value>
+  </data>
+  <data name="Register.Lastname" xml:space="preserve">
+    <value>Lastname</value>
   </data>
   <data name="Register.RegisterButton" xml:space="preserve">
     <value>Register</value>

@@ -12,7 +12,7 @@
 
 
 <MudTabs Elevation="1" Rounded="true">
-    <MudTabPanel Text="User">
+    <MudTabPanel Text="@Localize["Administration.Users.Title"]">
         <MudDataGrid T="AdminUserDto"
                      MultiSelection="false"
                      Items="@AllUsers"
@@ -27,7 +27,7 @@
             <ToolBarContent>
                 <MudText Typo="Typo.h6">@Localize["Administration.Users.Title"]</MudText>
                 <MudSpacer />
-                <MudTextField @bind-Value="_UsersSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                <MudTextField @bind-Value="_UsersSearchString" Placeholder="@Localize["Administration.Users.Search"]" Adornment="Adornment.Start" Immediate="true"
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <Columns>
@@ -55,7 +55,7 @@
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
                     </CellTemplate>
                     <EditTemplate>
-                        <MudSelect @bind-Value="context.Item.Role" ToStringFunc="r => r.Name" Required RequiredError="You must select a Role!" Margin="@Margin.Dense">
+                        <MudSelect @bind-Value="context.Item.Role" ToStringFunc="r => r.Name" Required RequiredError="@Localize["Administration.Users.Roles.ErrorRoleRequired"]" Margin="@Margin.Dense">
                             @foreach (var role in AllRoles)
                             {
                                 <MudSelectItem Value="@(role)">@role.Name</MudSelectItem>
@@ -69,7 +69,7 @@
             </PagerContent>
         </MudDataGrid>
     </MudTabPanel>
-    <MudTabPanel Text="Roles">
+    <MudTabPanel Text="@Localize["Administration.Users.Roles.Title"]">
             <MudDataGrid T="RoleDto"
                          MultiSelection="false"
                          Items="@AllRoles"
@@ -83,15 +83,15 @@
                          QuickFilter="@_roleQuickFilter"
                          Hideable="true">
                 <ToolBarContent>
-                    <MudText Typo="Typo.h6">Roles</MudText>
+                    <MudText Typo="Typo.h6">@Localize["Administration.Users.Roles.Title"]</MudText>
                     <MudSpacer />
-                    <MudTextField @bind-Value="_RoleSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                    <MudTextField @bind-Value="_RoleSearchString" Placeholder="@Localize["Administration.Users.Roles.Search"]" Adornment="Adornment.Start" Immediate="true"
                                   AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
                 </ToolBarContent>
                 <Columns>
-                    <Column T="RoleDto" Field="Id" Title="Id" />
-                    <Column T="RoleDto" Field="Name" />
-                    <Column T="RoleDto" Title="Claims">
+                    <Column T="RoleDto" Field="Id" Title="@Localize["Administration.Users.Roles.Id"]" />
+                    <Column T="RoleDto" Field="Name" Title="@Localize["Administration.Users.Roles.Name"]" />
+                    <Column T="RoleDto" Title="@Localize["Administration.Users.Roles.Claims"]">
                         <CellTemplate>
                             @if (@context.Item.Claims != null)
                             {
@@ -107,8 +107,8 @@
                                        SelectAll="true"
                                        @bind-SelectedValues="context.Item.Claims"
                                        Margin="@Margin.Dense"
-                                       SelectAllText="Select all permissions"
-                                       Label="Permissions"
+                                       SelectAllText="@Localize["Administration.Users.Roles.SelectAllPermissions"]"
+                                       Label="@Localize["Administration.Users.Roles.Permissions"]"
                                        MultiSelectionTextFunc="@(new Func<List<string>, string>(CreateSelectionLabel))"
                                        HelperText="@value" @bind-Value="value">
                                 @foreach (var policy in Policies.AvailablePolicies)
