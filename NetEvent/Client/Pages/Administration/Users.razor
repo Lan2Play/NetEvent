@@ -110,7 +110,7 @@
                                        SelectAllText="@Localize["Administration.Users.Roles.SelectAllPermissions"]"
                                        Label="@Localize["Administration.Users.Roles.Permissions"]"
                                        MultiSelectionTextFunc="@(new Func<List<string>, string>(CreateSelectionLabel))"
-                                       HelperText="@value" @bind-Value="value">
+                                       HelperText="@SelectionLabelValue" @bind-Value="SelectionLabelValue">
                                 @foreach (var policy in Policies.AvailablePolicies)
                                 {
                                     <MudSelectItem T="string" Value="@(policy)">@policy</MudSelectItem>

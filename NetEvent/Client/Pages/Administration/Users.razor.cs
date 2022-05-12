@@ -95,7 +95,7 @@ namespace NetEvent.Client.Pages.Administration
 
         private string? _RoleSearchString;
 
-        private string? value { get; set; }
+        private string? SelectionLabelValue { get; set; }
 
         // quick filter - filter gobally across multiple columns with the same input
         private Func<RoleDto, bool> _roleQuickFilter => x =>
