@@ -35,7 +35,7 @@ namespace NetEvent.Client.Pages.Administration
 
         #region Users
 
-        public List<AdminUserDto>? AllUsers { get; private set; }
+        public List<AdminUserDto> AllUsers { get; private set; } = new List<AdminUserDto>();
 
         private string? _UsersSearchString;
 
@@ -90,7 +90,7 @@ namespace NetEvent.Client.Pages.Administration
 
         #region Roles
 
-        public List<RoleDto>? AllRoles { get; private set; }
+        public List<RoleDto> AllRoles { get; private set; } = new List<RoleDto>();
 
         public RoleDto? SelectedRole { get; private set; }
 
