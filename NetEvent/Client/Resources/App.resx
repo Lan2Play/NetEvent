@@ -249,4 +249,16 @@
   <data name="ConfirmationPending.Title" xml:space="preserve">
     <value>E-Mail confirmation needed</value>
   </data>
+  <data name="ConfirmationError.Error" xml:space="preserve">
+    <value>E-Mail validation has failed. Please contact an administrator.</value>
+  </data>
+  <data name="ConfirmationError.Title" xml:space="preserve">
+    <value>E-Mail confirmation failed</value>
+  </data>
+  <data name="ConfirmationSuccess.Success" xml:space="preserve">
+    <value>E-Mail has been successfully validated. You may now login.</value>
+  </data>
+  <data name="ConfirmationSuccess.Title" xml:space="preserve">
+    <value>E-Mail confirmation succeeded</value>
+  </data>
 </root>

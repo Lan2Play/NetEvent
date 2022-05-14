@@ -39,7 +39,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 
             var encodedCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-            var url = $"{baseUri}api/user/{user.Id}/email/confirm?code={encodedCode}";
+            var url = $"{baseUri}api/users/{user.Id}/email/confirm?code={encodedCode}";
 
             var subjectModel = new NetEventEmailRenderModel(new Dictionary<string, string>()
             {
