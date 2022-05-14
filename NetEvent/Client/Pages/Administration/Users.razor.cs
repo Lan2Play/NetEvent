@@ -122,14 +122,21 @@ namespace NetEvent.Client.Pages.Administration
 
         private string CreateSelectionLabel(List<string> selectedValues)
         {
-            if (selectedValues.Count == 0)
+            switch (selectedValues.Count)
             {
-                return _Localizer["Administration.Users.Roles.NothingSelected"];
+                case int n when n == 1:
+                    return $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionSingular"]}";
+                    break;
+
+                case int n when n > 1:
+                    return $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionPlural"]}";
+                    break;
+
+                default:
+                    return _Localizer["Administration.Users.Roles.NothingSelected"];
+                    break;
             }
-
-            return $"{selectedValues.Count} {(selectedValues.Count > 1 ? _Localizer["Administration.Users.Roles.SelectPermissionPlural"] : _Localizer["Administration.Users.Roles.SelectPermissionSingular"])}";
         }
-
         #endregion
     }
 }
