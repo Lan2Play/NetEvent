@@ -47,7 +47,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 
                 if (result.Succeeded)
                 {
-                    var emailSent = await SendConfirmEmailAsync(user, context, cancellationToken).ConfigureAwait(false);
+                    await SendConfirmEmailAsync(user, context, cancellationToken).ConfigureAwait(false);
                 }
             }
             else

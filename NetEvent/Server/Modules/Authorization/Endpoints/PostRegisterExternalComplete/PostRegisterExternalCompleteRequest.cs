@@ -13,6 +13,6 @@ public class PostRegisterExternalCompleteRequest : IRequest<PostRegisterExternal
     }
 
     public RegisterExternalCompleteRequestDto CompleteRegistrationRequest { get; }
-    
+
     public HttpContext HttpContext { get; }
 }

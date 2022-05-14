@@ -13,9 +13,9 @@ namespace NetEvent.Server.Services
             _Logger = logger;
         }
 
-        public Task SendEmailAsync(string recipient, string subject, string message, CancellationToken cancellationToken)
+        public Task SendEmailAsync(string recipient, string subject, string content, CancellationToken cancellationToken)
         {
-            _Logger.LogInformation("NullEmailSender was asked to send E-Mail to {Receiver} with {Subject} and {Message}", recipient, subject, message);
+            _Logger.LogInformation("NullEmailSender was asked to send E-Mail to {Receiver} with {Subject} and {Message}", recipient, subject, content);
 
             return Task.CompletedTask;
         }

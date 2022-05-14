@@ -13,5 +13,6 @@ public class PostRegisterRequest : IRequest<PostRegisterResponse>
     }
 
     public RegisterRequestDto RegisterRequest { get; }
+
     public HttpContext HttpContext { get; }
 }

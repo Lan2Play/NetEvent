@@ -23,10 +23,12 @@ namespace NetEvent.Server.Services
         {
             if (string.IsNullOrEmpty(_SendGridConfiguration.SendGridKey))
             {
-                throw new ArgumentNullException(nameof(_SendGridConfiguration.SendGridKey), "SendGridKey is not set");
+                _Logger.LogError("SendGridKey is not set");
+                return;
             }
 
             var client = new SendGridClient(_SendGridConfiguration.SendGridKey);
+
             var msg = new SendGridMessage
             {
                 From = new EmailAddress(_SendGridConfiguration.EmailSenderAddress),
