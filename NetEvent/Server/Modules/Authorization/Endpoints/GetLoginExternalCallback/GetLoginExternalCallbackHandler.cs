@@ -38,6 +38,13 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternalCallba
 
             if (externalLoginResult.Succeeded)
             {
+                var existingUser = await _UserManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey).ConfigureAwait(false);
+
+                if (existingUser.EmailConfirmed)
+                {
+                    return new GetLoginExternalCallbackResponse(Results.LocalRedirect("/"));
+                }
+
                 return new GetLoginExternalCallbackResponse(Results.LocalRedirect(returnUrl));
             }
 
