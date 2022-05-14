@@ -46,21 +46,21 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "0abf641a-efe4-44c5-be5e-66d470552fff",
+                            ConcurrencyStamp = "f7e61d71-8e65-4791-908e-4563efba1efe",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "277a4365-bb0c-4f4f-914b-0dc964fcfc43",
+                            ConcurrencyStamp = "a380c13c-a121-4f97-bb9d-885afaaeb08d",
                             Name = "Orga",
                             NormalizedName = "ORGA"
                         },
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "84632355-974a-4ede-8ad2-10fd2ea7205b",
+                            ConcurrencyStamp = "a9e950cd-a0b4-48c9-8329-724c6b3d69d0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -272,7 +272,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "57bd9dd0-2bf9-46bb-a5d7-344c635fd9e6",
+                            ConcurrencyStamp = "2dcf5f91-a56b-467a-82e5-dd927e51ab4d",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -280,11 +280,37 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJsjQn0D+D9bxeePXTyg8t69rtC5NS32qd8SRPx3g1/kuAthsqT0MM2t0Kq9t3Hizw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDS5p8JIep3tOgH2QGUNDy/CrdYXB0iduqDWi52faobvGV+bd02ymX6dCbi2l1vxkw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "87f068aa-8fd8-4fde-99bc-830be17ffb33",
+                            SecurityStamp = "0ff48cc5-ed35-47fe-8379-a60dd474ce31",
                             TwoFactorEnabled = false,
                             UserName = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.EmailTemplate", b =>
+                {
+                    b.Property<string>("TemplateId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContentTemplate")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubjectTemplate")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("TemplateId");
+
+                    b.ToTable("EmailTemplates", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            TemplateId = "UserEmailConfirmEmailTemplate",
+                            ContentTemplate = "<h1>Welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ",
+                            SubjectTemplate = "Please confirm your E-Mail address."
                         });
                 });
 

@@ -5,15 +5,16 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using NetEvent.Server.Models;
+using NetEvent.Server.Services;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 {
-    public class PostRegisterExternalCompleteHandler : IRequestHandler<PostRegisterExternalCompleteRequest, PostRegisterExternalCompleteResponse>
+    public class PostRegisterExternalCompleteHandler : AuthRegisterHandlerBase, IRequestHandler<PostRegisterExternalCompleteRequest, PostRegisterExternalCompleteResponse>
     {
         private readonly UserManager<ApplicationUser> _UserManager;
         private readonly ILogger<PostRegisterExternalCompleteHandler> _Logger;
 
-        public PostRegisterExternalCompleteHandler(UserManager<ApplicationUser> userManager, ILogger<PostRegisterExternalCompleteHandler> logger)
+        public PostRegisterExternalCompleteHandler(UserManager<ApplicationUser> userManager, IEmailService emailService, ILogger<PostRegisterExternalCompleteHandler> logger) : base(userManager, emailService)
         {
             _UserManager = userManager;
             _Logger = logger;
@@ -22,6 +23,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
         public async Task<PostRegisterExternalCompleteResponse> Handle(PostRegisterExternalCompleteRequest request, CancellationToken cancellationToken)
         {
             var completeRegistrationRequest = request.CompleteRegistrationRequest;
+            var context = request.HttpContext;
 
             var user = await _UserManager.FindByIdAsync(completeRegistrationRequest.UserId);
 
@@ -45,6 +47,8 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 
                 return new PostRegisterExternalCompleteResponse(ReturnType.Error, $"User {completeRegistrationRequest.UserId} couldn't be updated.");
             }
+
+            var emailSent = await SendConfirmEmailAsync(user, context, cancellationToken).ConfigureAwait(false);
 
             return new PostRegisterExternalCompleteResponse();
         }

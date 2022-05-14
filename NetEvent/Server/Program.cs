@@ -5,12 +5,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using NetEvent.Server.Configuration;
 using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
+using NetEvent.Server.Services;
 using NetEvent.Shared.Policy;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -70,6 +72,27 @@ builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+builder.Services.AddSingleton<IEmailRenderer, RazorEmailRenderer>();
+
+var emailConfig = builder.Configuration.GetSection("EmailConfig").Get<EmailConfig>();
+
+if (emailConfig?.SendGridConfig != null)
+{
+    builder.Services.TryAddSingleton(emailConfig.SendGridConfig);
+    builder.Services.TryAddScoped<IEmailSender, SendGridEmailSender>();
+}
+else if (emailConfig?.SmtpConfig != null)
+{
+    builder.Services.TryAddSingleton(emailConfig.SmtpConfig);
+    builder.Services.TryAddScoped<IEmailSender, SmtpEmailSender>();
+}
+else
+{
+    builder.Services.TryAddScoped<IEmailSender, NullEmailSender>();
+}
 
 var app = builder.Build();
 

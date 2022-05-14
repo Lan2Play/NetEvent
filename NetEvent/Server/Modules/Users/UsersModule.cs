@@ -18,6 +18,7 @@ namespace NetEvent.Server.Modules.Users
             endpoints.MapGet("/api/users/{userId}", async ([FromRoute] string userId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetUserRequest(userId))));
             endpoints.MapPut("/api/users/{userId}", async ([FromRoute] string userId, [FromBody] UserDto user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRequest(userId, user))));
             endpoints.MapPut("/api/users/{userId}/role", async ([FromRoute] string userId, [FromBody] string roleId, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutUserRoleRequest(userId, roleId))));
+            endpoints.MapGet("/api/users/{userId}/email/confirm", async ([FromRoute] string userId, [FromQuery] string code, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetUserRequest(userId))));
             return endpoints;
         }
     }

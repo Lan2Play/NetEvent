@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser;
@@ -24,8 +25,8 @@ namespace NetEvent.Server.Modules.Authorization
             endpoints.MapGet("/api/auth/login/external/{provider}", async ([FromRoute] string provider, [FromQuery] string returnUrl, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetLoginExternalRequest(provider, returnUrl))));
             endpoints.MapGet("/api/auth/login/external/{provider}/callback", async ([FromQuery] string returnUrl, [FromQuery] string? remoteError, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetLoginExternalCallbackRequest(returnUrl))));
             endpoints.MapPost("/api/auth/logout", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new PostLogoutRequest()))).RequireAuthorization();
-            endpoints.MapPost("/api/auth/register", async ([FromBody] RegisterRequestDto registerRequestDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostRegisterRequest(registerRequestDto))));
-            endpoints.MapPost("/api/auth/register/external/complete", async ([FromBody] RegisterExternalCompleteRequestDto registerCompleteRequestDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostRegisterExternalCompleteRequest(registerCompleteRequestDto))));
+            endpoints.MapPost("/api/auth/register", async ([FromBody] RegisterRequestDto registerRequestDto, HttpContext httpContext, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostRegisterRequest(registerRequestDto, httpContext))));
+            endpoints.MapPost("/api/auth/register/external/complete", async ([FromBody] RegisterExternalCompleteRequestDto registerCompleteRequestDto, HttpContext httpContext, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostRegisterExternalCompleteRequest(registerCompleteRequestDto, httpContext))));
             return endpoints;
         }
     }

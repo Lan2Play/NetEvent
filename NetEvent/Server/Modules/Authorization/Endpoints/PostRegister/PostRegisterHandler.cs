@@ -1,22 +1,24 @@
-﻿using System.Linq;
-using System.Text;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NetEvent.Server.Models;
+using NetEvent.Server.Services;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 {
-    public class PostRegisterHandler : IRequestHandler<PostRegisterRequest, PostRegisterResponse>
+    public class PostRegisterHandler : AuthRegisterHandlerBase, IRequestHandler<PostRegisterRequest, PostRegisterResponse>
     {
         private readonly UserManager<ApplicationUser> _UserManager;
         private readonly RoleManager<IdentityRole> _RoleManager;
         private readonly ILogger<PostRegisterHandler> _Logger;
 
-        public PostRegisterHandler(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogger<PostRegisterHandler> logger)
+        public PostRegisterHandler(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IEmailService emailService, ILogger<PostRegisterHandler> logger) : base(userManager, emailService)
         {
             _UserManager = userManager;
             _RoleManager = roleManager;
@@ -25,6 +27,8 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 
         public async Task<PostRegisterResponse> Handle(PostRegisterRequest request, CancellationToken cancellationToken)
         {
+            var context = request.HttpContext;
+
             var user = new ApplicationUser
             {
                 EmailConfirmed = false,
@@ -39,7 +43,12 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
             if (result.Succeeded)
             {
                 var defaultRole = await _RoleManager.Roles.FirstAsync(cancellationToken);
-                await _UserManager.AddToRoleAsync(user, defaultRole.Name);
+                result = await _UserManager.AddToRoleAsync(user, defaultRole.Name);
+
+                if (result.Succeeded)
+                {
+                    var emailSent = await SendConfirmEmailAsync(user, context, cancellationToken).ConfigureAwait(false);
+                }
             }
             else
             {
