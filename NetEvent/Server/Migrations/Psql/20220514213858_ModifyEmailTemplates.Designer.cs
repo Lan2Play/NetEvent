@@ -2,37 +2,44 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetEvent.Server.Data;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace NetEvent.Server.Migrations.Sqlite
+namespace NetEvent.Server.Migrations.Psql
 {
-    [DbContext(typeof(SqliteApplicationDbContext))]
-    partial class SqliteApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(PsqlApplicationDbContext))]
+    [Migration("20220514213858_ModifyEmailTemplates")]
+    partial class ModifyEmailTemplates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -46,21 +53,21 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "45e24a20-7c3d-4fb8-b794-61b68b8f83d7",
+                            ConcurrencyStamp = "6547e48a-4e21-48be-9670-b1d8a019a820",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "d519f414-8044-4d2d-aab8-b7116ce26d2a",
+                            ConcurrencyStamp = "3b51e485-2609-43e0-adb0-49ac0e238bd5",
                             Name = "Orga",
                             NormalizedName = "ORGA"
                         },
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "b7b30950-199a-4a7e-b775-75d093c8b97f",
+                            ConcurrencyStamp = "c5bee0d2-6312-4a3f-b501-dc6001b35603",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -70,17 +77,19 @@ namespace NetEvent.Server.Migrations.Sqlite
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -109,17 +118,19 @@ namespace NetEvent.Server.Migrations.Sqlite
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -132,18 +143,18 @@ namespace NetEvent.Server.Migrations.Sqlite
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -155,10 +166,10 @@ namespace NetEvent.Server.Migrations.Sqlite
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -177,18 +188,18 @@ namespace NetEvent.Server.Migrations.Sqlite
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -198,63 +209,63 @@ namespace NetEvent.Server.Migrations.Sqlite
             modelBuilder.Entity("NetEvent.Server.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<byte[]>("ProfilePicture")
-                        .HasColumnType("BLOB");
+                        .HasColumnType("bytea");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -272,7 +283,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0805bcc0-5ef4-4e2f-bb4c-f9fa62026b43",
+                            ConcurrencyStamp = "02ab97c5-1d17-4091-86d0-90a4e543528f",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -280,9 +291,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK9djjvzIvs8zYvjmzdj4OxG14H0pe9ZtLCZcPkb0mDfupn+nzaEC+Lecor1udpnWQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENsJgZLpNMsHlYIa6U13ES8HrzYCSVLStFH0JpKehnO+9rkYz7coFQHqJ2PO/jSKtw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "36011a58-a5ee-4c8d-ab5e-71c2d46a0fa0",
+                            SecurityStamp = "6db79444-ab20-4d81-8a81-0f893229528a",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -291,15 +302,15 @@ namespace NetEvent.Server.Migrations.Sqlite
             modelBuilder.Entity("NetEvent.Server.Models.EmailTemplate", b =>
                 {
                     b.Property<string>("TemplateId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ContentTemplate")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("SubjectTemplate")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("TemplateId");
 
@@ -317,10 +328,10 @@ namespace NetEvent.Server.Migrations.Sqlite
             modelBuilder.Entity("NetEvent.Server.Models.OrganizationData", b =>
                 {
                     b.Property<string>("Key")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Key");
 
@@ -338,11 +349,11 @@ namespace NetEvent.Server.Migrations.Sqlite
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ThemeData")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

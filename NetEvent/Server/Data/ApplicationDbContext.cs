@@ -94,7 +94,7 @@ namespace NetEvent.Server.Data
             {
                 entity.ToTable(name: nameof(EmailTemplates));
 
-                entity.HasData(new EmailTemplate { TemplateId = "UserEmailConfirmEmailTemplate", ContentTemplate= "<h1>Welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ", SubjectTemplate = "Please confirm your E-Mail address." });
+                entity.HasData(new EmailTemplate { TemplateId = "UserEmailConfirmEmailTemplate", ContentTemplate= "<h1>@Model.TemplateVariables[\"firstName\"], welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ", SubjectTemplate = "@Model.TemplateVariables[\"firstName\"], please confirm your E-Mail address." });
             });
 
             if (_Modules != null)

@@ -43,11 +43,12 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 
             var subjectModel = new NetEventEmailRenderModel(new Dictionary<string, string>()
             {
-
+                { "firstName", user.FirstName ?? string.Empty }
             });
 
             var contentModel = new NetEventEmailRenderModel(new Dictionary<string, string>()
             {
+                { "firstName", user.FirstName ?? string.Empty },
                 { "confirmUrl", url }
             });
 

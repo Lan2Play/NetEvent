@@ -27,7 +27,24 @@ namespace NetEvent.Server.Services
                 EnableSsl = true,
             };
 
-            await smtpClient.SendMailAsync(_SmtpConfig.EmailSenderAddress, recipient, subject, content, cancellationToken).ConfigureAwait(false);
+            var message = new MailMessage
+            {
+                Subject = subject,
+                Body = content,
+                IsBodyHtml = true,
+                From = new MailAddress(_SmtpConfig.EmailSenderAddress)
+            };
+
+            message.To.Add(recipient);
+
+            try
+            {
+                await smtpClient.SendMailAsync(message, cancellationToken).ConfigureAwait(false);
+            }
+            catch (System.Exception ex)
+            {
+                _Logger.LogError(ex, "Error sending mail to {Recipient}", recipient);
+            }
         }
     }
 }

@@ -51,21 +51,21 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "8d4a545f-a52c-4da7-b6a2-84a6b74b4598",
+                            ConcurrencyStamp = "6547e48a-4e21-48be-9670-b1d8a019a820",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "60e60ecc-36eb-4ab3-9056-639239ecfaae",
+                            ConcurrencyStamp = "3b51e485-2609-43e0-adb0-49ac0e238bd5",
                             Name = "Orga",
                             NormalizedName = "ORGA"
                         },
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "96e012c4-e3dd-4443-a2ce-9031dafeb83c",
+                            ConcurrencyStamp = "c5bee0d2-6312-4a3f-b501-dc6001b35603",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -281,7 +281,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6de3dce-0e88-49b1-ba42-65f604cda396",
+                            ConcurrencyStamp = "02ab97c5-1d17-4091-86d0-90a4e543528f",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -289,9 +289,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEqFQbDflodnoBrfOkS/UR+FEd8KBGGchtzYAWy/sFhCMy/U7dDCQ0MO7mT+9SX8Ng==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENsJgZLpNMsHlYIa6U13ES8HrzYCSVLStFH0JpKehnO+9rkYz7coFQHqJ2PO/jSKtw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "92d206a4-6b7e-44df-9051-0e781cc7e1e8",
+                            SecurityStamp = "6db79444-ab20-4d81-8a81-0f893229528a",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -318,8 +318,8 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             TemplateId = "UserEmailConfirmEmailTemplate",
-                            ContentTemplate = "<h1>Welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ",
-                            SubjectTemplate = "Please confirm your E-Mail address."
+                            ContentTemplate = "<h1>@Model.TemplateVariables[\"firstName\"], welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ",
+                            SubjectTemplate = "@Model.TemplateVariables[\"firstName\"], please confirm your E-Mail address."
                         });
                 });
 
