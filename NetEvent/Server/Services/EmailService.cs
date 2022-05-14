@@ -21,7 +21,7 @@ namespace NetEvent.Server.Services
             _Logger = logger;
         }
 
-        public async Task SendMailAsync(string templateId, string recipient, NetEventEmailRenderModel subjectModel, NetEventEmailRenderModel templateModel, CancellationToken cancellationToken)
+        public async Task SendMailAsync(string templateId, string receipient, NetEventEmailRenderModel subjectModel, NetEventEmailRenderModel templateModel, CancellationToken cancellationToken)
         {
             // Find Email template
             var emailTemplate = await _ApplicationDbContext.EmailTemplates.FindAsync(new[] { templateId }, cancellationToken).ConfigureAwait(false);
@@ -48,7 +48,7 @@ namespace NetEvent.Server.Services
                 return;
             }
 
-            await _EmailSender.SendEmailAsync(recipient, subjectRenderResult, contentRenderResult, cancellationToken).ConfigureAwait(false);
+            await _EmailSender.SendEmailAsync(receipient, subjectRenderResult, contentRenderResult, cancellationToken).ConfigureAwait(false);
         }
     }
 }

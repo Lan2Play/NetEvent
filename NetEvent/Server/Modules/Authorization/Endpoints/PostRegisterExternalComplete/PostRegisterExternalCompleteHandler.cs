@@ -48,7 +48,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
                 return new PostRegisterExternalCompleteResponse(ReturnType.Error, $"User {completeRegistrationRequest.UserId} couldn't be updated.");
             }
 
-            var emailSent = await SendConfirmEmailAsync(user, context, cancellationToken).ConfigureAwait(false);
+            await SendConfirmEmailAsync(user, context, cancellationToken).ConfigureAwait(false);
 
             return new PostRegisterExternalCompleteResponse();
         }
