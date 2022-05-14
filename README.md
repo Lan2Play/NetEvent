@@ -17,13 +17,13 @@ is an open source software solution for organizing events, especially focused on
 
 Its currently under heavy development, so only use it for testing or development.
 
-## Developer Documentation
-
-[Documentation](https://netevent.lan2play.de/develop/quickstart.html)
-
 ## Documentation
 
 [Documentation](https://netevent.lan2play.de/)
+
+[Contribution Guide](https://netevent.lan2play.de/contribution.html)
+
+[Admin Documentation](https://netevent.lan2play.de/admin/quickstart.html)
 
 ## Client translation
 
