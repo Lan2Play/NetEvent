@@ -261,4 +261,46 @@
   <data name="UserService.UpdateUserAsync.Success" xml:space="preserve">
     <value>Benutzer {0} erfolgreich aktualisiert</value>
   </data>
+  <data name="Administration.Users.Search" xml:space="preserve">
+    <value>Suche nach Benutzer</value>
+  </data>
+  <data name="Administration.Users.Roles.ErrorRoleRequired" xml:space="preserve">
+    <value>Du musst eine Rolle auswählen!</value>
+  </data>
+  <data name="Administration.Users.Roles.Title" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="Administration.Users.Roles.Search" xml:space="preserve">
+    <value>Suche nach Rolle</value>
+  </data>
+  <data name="Administration.Users.Roles.Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Administration.Users.Roles.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Administration.Users.Roles.Claims" xml:space="preserve">
+    <value>Berechtigungen</value>
+  </data>
+  <data name="Administration.Users.Roles.SelectAllPermissions" xml:space="preserve">
+    <value>alle Berechtigungen auswählen</value>
+  </data>
+  <data name="Administration.Users.Roles.NothingSelected" xml:space="preserve">
+    <value>keine Berechtigung ausgewählt</value>
+  </data>
+  <data name="Administration.Users.Roles.Permissions" xml:space="preserve">
+    <value>Berechtigungen</value>
+  </data>
+  <data name="Administration.Users.Roles.SelectPermissionSingular" xml:space="preserve">
+    <value>Berechtigung ausgewählt</value>
+  </data>
+  <data name="Administration.Users.Roles.SelectPermissionPlural" xml:space="preserve">
+    <value>Berechtigungen ausgewählt</value>
+  </data>
+  <data name="Register.Firstname" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="Register.Lastname" xml:space="preserve">
+    <value>Nachname</value>
+  </data>
 </root>
