@@ -121,10 +121,6 @@
     <value>Hallo, Welt!</value>
     <comment />
   </data>
-  <data name="Test" xml:space="preserve">
-    <value>Test</value>
-    <comment />
-  </data>
   <data name="Shared.NavigationBar.Hello" xml:space="preserve">
     <value>Hallo,</value>
     <comment />
