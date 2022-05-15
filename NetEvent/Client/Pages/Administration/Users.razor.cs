@@ -126,15 +126,12 @@ namespace NetEvent.Client.Pages.Administration
             {
                 case int n when n == 1:
                     return $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionSingular"]}";
-                    break;
 
                 case int n when n > 1:
                     return $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionPlural"]}";
-                    break;
 
                 default:
                     return _Localizer["Administration.Users.Roles.NothingSelected"];
-                    break;
             }
         }
         #endregion
