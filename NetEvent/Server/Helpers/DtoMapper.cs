@@ -26,6 +26,8 @@ namespace NetEvent.Shared
         [MapperIgnore(nameof(RoleDto.Claims))]
         public partial RoleDto IdentityRoleToRoleDto(IdentityRole identityRole);
 
+        public partial IdentityRole RoleDtoToIdentityRole(RoleDto roleDto);
+
         public partial ClaimDto ClaimToClaimDto(Claim claim);
 
         public partial OrganizationData OrganizationDataDtoToOrganizationData(OrganizationDataDto organizationData);

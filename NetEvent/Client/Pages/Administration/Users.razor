@@ -3,6 +3,7 @@
 
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
+@using NetEvent.Client.Components
 @using NetEvent.Shared.Dto
 @using NetEvent.Shared.Dto.Administration
 @using NetEvent.Shared.Policy
@@ -13,17 +14,17 @@
 
 <MudTabs Elevation="1" Rounded="true">
     <MudTabPanel Text="User">
-        <MudDataGrid T="AdminUserDto"
-                     MultiSelection="false"
-                     Items="@AllUsers"
-                     Sortable="true"
-                     Filterable="true"
-                     ReadOnly="false"
-                     EditMode="DataGridEditMode.Form"
-                     EditTrigger="DataGridEditTrigger.Manual"
-                     CommittedItemChanges="@CommittedUserChangesAsync"
-                     QuickFilter="@_usersQuickFilter"
-                     Hideable="true">
+        <NetEventDataGrid T="AdminUserDto"
+                          MultiSelection="false"
+                          Items="@AllUsers"
+                          Sortable="true"
+                          Filterable="true"
+                          ReadOnly="false"
+                          EditMode="DataGridEditMode.Form"
+                          EditTrigger="DataGridEditTrigger.Manual"
+                          CommittedItemChanges="@CommittedUserChangesAsync"
+                          QuickFilter="@_usersQuickFilter"
+                          Hideable="true">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">@Localize["Administration.Users.Title"]</MudText>
                 <MudSpacer />
@@ -67,66 +68,106 @@
             <PagerContent>
                 <MudDataGridPager T="AdminUserDto" />
             </PagerContent>
-        </MudDataGrid>
+        </NetEventDataGrid>
     </MudTabPanel>
     <MudTabPanel Text="Roles">
-            <MudDataGrid T="RoleDto"
-                         MultiSelection="false"
-                         Items="@AllRoles"
-                         Sortable="true"
-                         Filterable="true"
-                         ReadOnly="false"
-                         @bind-SelectedItem="@SelectedRole"
-                         EditMode="DataGridEditMode.Form"
-                         EditTrigger="DataGridEditTrigger.Manual"
-                         CommittedItemChanges="@CommittedRoleChangesAsync"
-                         QuickFilter="@_roleQuickFilter"
-                         Hideable="true">
-                <ToolBarContent>
-                    <MudText Typo="Typo.h6">Roles</MudText>
-                    <MudSpacer />
-                    <MudTextField @bind-Value="_RoleSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
-                                  AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-                </ToolBarContent>
-                <Columns>
-                    <Column T="RoleDto" Field="Id" Title="Id" />
-                    <Column T="RoleDto" Field="Name" />
-                    <Column T="RoleDto" Title="Claims">
-                        <CellTemplate>
-                            @if (@context.Item.Claims != null)
+        <NetEventDataGrid T="RoleDto"
+                          MultiSelection="false"
+                          @ref="RolesDataGrid"
+                          Items="@AllRoles"
+                          Sortable="true"
+                          Filterable="true"
+                          ReadOnly="false"
+                          @bind-SelectedItem="@SelectedRole"
+                          EditMode="DataGridEditMode.Form"
+                          EditTrigger="DataGridEditTrigger.Manual"
+                          CommittedItemChanges="@CommittedRoleChangesAsync"
+                          QuickFilter="@_roleQuickFilter"
+                          Hideable="true">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Roles</MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="_RoleSearchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                              AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Add" OnClick="RolesDataGrid.AddNewItemAsync" />
+            </ToolBarContent>
+            <Columns>
+                <Column T="RoleDto" Field="Id" Title="Id" IsEditable="false" />
+                <Column T="RoleDto" Field="Name" />
+                <Column T="RoleDto" Title="Claims">
+                    <CellTemplate>
+                        @if (@context.Item.Claims != null)
+                        {
+                            @foreach (var claim in @context.Item.Claims)
                             {
-                                @foreach (var claim in @context.Item.Claims)
-                                {
-                                    <div>@claim</div>
-                                }
+                                <div>@claim</div>
                             }
-                        </CellTemplate>
-                        <EditTemplate>
-                            <MudSelect T="string"
-                                       MultiSelection="true"
-                                       SelectAll="true"
-                                       @bind-SelectedValues="context.Item.Claims"
-                                       Margin="@Margin.Dense"
-                                       SelectAllText="Select all permissions"
-                                       Label="Permissions"
-                                       MultiSelectionTextFunc="@(new Func<List<string>, string>(CreateSelectionLabel))"
-                                       HelperText="@value" @bind-Value="value">
-                                @foreach (var policy in Policies.AvailablePolicies)
-                                {
-                                    <MudSelectItem T="string" Value="@(policy)">@policy</MudSelectItem>
-                                }
-                            </MudSelect>
-                        </EditTemplate>
-                    </Column>
-                    <Column T="RoleDto" CellClass="d-flex justify-end">
-                        <CellTemplate>
-                            <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
-                        </CellTemplate>
-                    </Column>
-                </Columns>
-                <PagerContent>
-                    <MudDataGridPager T="RoleDto" />
-                </PagerContent>
-            </MudDataGrid>
+                        }
+                    </CellTemplate>
+                    <EditTemplate>
+                        <MudSelect T="string"
+                                   MultiSelection="true"
+                                   SelectAll="true"
+                                   @bind-SelectedValues="context.Item.Claims"
+                                   Margin="@Margin.Dense"
+                                   SelectAllText="Select all permissions"
+                                   Label="Permissions"
+                                   MultiSelectionTextFunc="@(new Func<List<string>, string>(CreateSelectionLabel))"
+                                   HelperText="@value" @bind-Value="value">
+                            @foreach (var policy in Policies.AvailablePolicies)
+                            {
+                                <MudSelectItem T="string" Value="@(policy)">@policy</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </EditTemplate>
+                </Column>
+                <Column T="RoleDto" CellClass="d-flex justify-end">
+                    <CellTemplate>
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
+                    </CellTemplate>
+                </Column>
+            </Columns>
+            <PagerContent>
+                <MudDataGridPager T="RoleDto" />
+            </PagerContent>
+        </NetEventDataGrid>
+
+        @* <MudDialog @bind-IsVisible="isAddRole" Options="EditDialogOptions">
+        <TitleContent>
+        <MudText Typo="Typo.h6">
+        @Localize["Administration.Users.AddRoleTitle"]
+        </MudText>
+        </TitleContent>
+        <DialogContent>
+        <MudForm>
+        @foreach (var column in @_columns)
+        {
+        var cell = new Cell<T>(this, column, _editingItem);
+
+        if (column.EditTemplate != null)
+        {
+        @column.EditTemplate(cell.cellContext)
+        }
+        else
+        {
+        if (column.dataType == typeof(string))
+        {
+        <MudTextField T="string" Label="@column.computedTitle" Value="@cell.valueString" ValueChanged="@cell.StringValueChangedAsync" Margin="@Margin.Dense"
+        Required="true" Variant="@Variant.Outlined" Disabled="@(!column.IsEditable || ReadOnly)" Class="mt-4" />
+        }
+        else if (column.isNumber)
+        {
+        <MudNumericField T="double" Label="@column.computedTitle" Value="@cell.valueNumber" ValueChanged="@cell.NumberValueChangedAsync" Margin="@Margin.Dense"
+        Required="true" Variant="@Variant.Outlined" Disabled="@(!column.IsEditable || ReadOnly)" Class="mt-4" />
+        }
+        }
+        }
+        </MudForm>
+        </DialogContent>
+        <DialogActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Default" OnClick="@CancelEditingItemAsync" Class="px-10">Cancel</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@CommitItemChangesAsync" Class="px-10">Save</MudButton>
+        </DialogActions>
+        </MudDialog>*@
     </MudTabPanel>
 </MudTabs>

@@ -234,4 +234,10 @@
   <data name="UserService.UpdateUserAsync.Success" xml:space="preserve">
     <value>User {0} successfully updated</value>
   </data>
+  <data name="Administration.Users.AddRole" xml:space="preserve">
+    <value>New Role</value>
+  </data>
+  <data name="Administration.Users.AddRoleTitle" xml:space="preserve">
+    <value>Add Role</value>
+  </data>
 </root>

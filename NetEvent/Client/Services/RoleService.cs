@@ -63,5 +63,27 @@ namespace NetEvent.Client.Services
 
             return false;
         }
+
+        public async Task<bool> AddRoleAsync(RoleDto newRole, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.PostAsJsonAsync($"api/roles", newRole, cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+
+                newRole.Id = await response.Content.ReadAsStringAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to update role in backend.");
+            }
+
+            return false;
+        }
     }
 }

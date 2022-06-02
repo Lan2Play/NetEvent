@@ -3,10 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Data;
-using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 using Xunit;
 
@@ -86,6 +84,33 @@ namespace NetEvent.Server.Tests
             result.EnsureSuccessStatusCode();
             roles = await Client.GetFromJsonAsync<List<RoleDto>>("/api/roles");
             Assert.Equal(1, roles?[0]?.Claims?.Count());
+        }
+
+        [Fact]
+        public async Task RolesModuleTest_PostRoleRoute_Test()
+        {
+            // Arrange
+            var claimCount = 5;
+            var roleFaker = Fakers.RoleFaker(claimCount);
+
+            var fakeRole = roleFaker.Generate();
+
+            var postRole = await Client.PostAsJsonAsync("/api/roles", fakeRole);
+            postRole.EnsureSuccessStatusCode();
+
+            // Act
+            var loadedRoles = await Client.GetFromJsonAsync<List<RoleDto>>("/api/roles");
+
+            // Assert
+            Assert.NotNull(loadedRoles);
+            Assert.Equal(1, loadedRoles?.Count);
+
+            var claims = loadedRoles?.First().Claims;
+            Assert.NotNull(claims);
+            if (claims != null)
+            {
+                Assert.Equal(claimCount, claims.Count());
+            }
         }
     }
 }

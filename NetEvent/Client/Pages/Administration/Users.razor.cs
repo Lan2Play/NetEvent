@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using NetEvent.Client.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Administration;
@@ -24,6 +25,8 @@ namespace NetEvent.Client.Pages.Administration
 
         [Inject]
         private IStringLocalizer<App> _Localizer { get; set; } = default!;
+
+        private NetEventDataGrid<RoleDto> RolesDataGrid;
 
         protected override async Task OnInitializedAsync()
         {
@@ -117,7 +120,14 @@ namespace NetEvent.Client.Pages.Administration
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            if (updatedRole.Id != null)
+            {
+                await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            }
+            else
+            {
+                await _RoleService.AddRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            }
         }
 
         private static string CreateSelectionLabel(List<string> selectedValues)
