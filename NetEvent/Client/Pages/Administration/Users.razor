@@ -92,7 +92,7 @@
                 <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Add" OnClick="RolesDataGrid.AddNewItemAsync" />
             </ToolBarContent>
             <Columns>
-                    <Column T="RoleDto" Field="Id" Title="@Localize["Administration.Users.Roles.Id"]" />
+                    <Column T="RoleDto" Field="Id" Title="@Localize["Administration.Users.Roles.Id"]" IsEditable="false" />
                     <Column T="RoleDto" Field="Name" Title="@Localize["Administration.Users.Roles.Name"]" />
                     <Column T="RoleDto" Title="@Localize["Administration.Users.Roles.Claims"]">
                     <CellTemplate>
@@ -113,7 +113,7 @@
                                    SelectAllText="@Localize["Administration.Users.Roles.SelectAllPermissions"]"
                                    Label="@Localize["Administration.Users.Roles.Permissions"]"
                                    MultiSelectionTextFunc="@(new Func<List<string>, string>(CreateSelectionLabel))"
-                                   HelperText="@value" @bind-Value="value">
+                                   HelperText="@SelectionLabelValue" @bind-Value="SelectionLabelValue">
                             @foreach (var policy in Policies.AvailablePolicies)
                             {
                                 <MudSelectItem T="string" Value="@(policy)">@policy</MudSelectItem>

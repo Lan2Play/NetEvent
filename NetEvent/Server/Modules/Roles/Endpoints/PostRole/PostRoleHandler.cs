@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -29,8 +31,16 @@ namespace NetEvent.Server.Modules.Roles.Endpoints.PostRole
             }
 
             var identityRole = DtoMapper.Mapper.RoleDtoToIdentityRole(request.Role);
+            identityRole.Id = identityRole.Name.ToLowerInvariant();
+            identityRole.NormalizedName = identityRole.Name.ToUpperInvariant();
 
-            await _RoleManager.CreateAsync(identityRole);
+            var createResult = await _RoleManager.CreateAsync(identityRole);
+
+            if (!createResult.Succeeded)
+            {
+                return new PostRoleResponse(ReturnType.NotFound, $"Error creating Role {request.Role.Name}. {string.Join(", ", createResult.Errors.Select(x => x.Description))}");
+            }
+
             if (request.Role.Claims != null)
             {
                 foreach (var claim in request.Role.Claims)
