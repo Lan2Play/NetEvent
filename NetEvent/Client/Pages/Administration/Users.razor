@@ -82,6 +82,7 @@
                           EditMode="DataGridEditMode.Form"
                           EditTrigger="DataGridEditTrigger.Manual"
                           CommittedItemChanges="@CommittedRoleChangesAsync"
+                          DeletedItemChanges="@DeletedItemChanges"
                           QuickFilter="@_roleQuickFilter"
                           Hideable="true">
             <ToolBarContent>
@@ -124,6 +125,7 @@
                 <Column T="RoleDto" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Delete" OnClick="@(() => RolesDataGrid.DeleteItem(context.Item))" />
                     </CellTemplate>
                 </Column>
             </Columns>

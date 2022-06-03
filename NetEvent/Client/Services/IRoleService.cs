@@ -13,5 +13,7 @@ namespace NetEvent.Client.Services
         Task<bool> UpdateRoleAsync(RoleDto updatedRole, CancellationToken cancellationToken);
 
         Task<bool> AddRoleAsync(RoleDto newRole, CancellationToken cancellationToken);
+
+        Task<bool> DeleteRoleAsync(RoleDto deletedRole, CancellationToken cancellationToken);
     }
 }

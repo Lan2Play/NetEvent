@@ -2,14 +2,21 @@
 using System.Collections;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using MudBlazor;
 
 namespace NetEvent.Client.Components
 {
     public class NetEventDataGrid<T> : MudBlazor.MudDataGrid<T>
     {
-        public NetEventDataGrid()
-        {
-        }
+        [Inject] 
+        private IDialogService _DialogService { get; set; }
+
+        [Inject]
+        private IStringLocalizer<App> _Localizer { get; set; } = default!;
+
+        [Parameter]
+        public EventCallback<T> DeletedItemChanges { get; set; }
 
         public async Task AddNewItemAsync()
         {
@@ -38,6 +45,28 @@ namespace NetEvent.Client.Components
 
                 list.Add(newItem);
                 await SetEditingItemAsync(newItem);
+            }
+        }
+
+        public async Task DeleteItem(T item)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            if (Items is not IList list)
+            {
+                throw new NotSupportedException($"ItemsSource of Type '{Items.GetType().Name}' is not supported! It has to be of Type 'IList'");
+            }
+
+            bool? result = await _DialogService.ShowMessageBox(_Localizer.GetString("NetEventDataGrid.DeleteDialog.Title"), _Localizer.GetString("NetEventDataGrid.DeleteDialog.Message"), yesText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Delete"), cancelText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Cancel"));
+            if (result == true)
+            {
+                StateHasChanged();
+
+                list.Remove(item);
+                await DeletedItemChanges.InvokeAsync(item);
             }
         }
     }

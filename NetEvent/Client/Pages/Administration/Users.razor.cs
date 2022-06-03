@@ -130,6 +130,12 @@ namespace NetEvent.Client.Pages.Administration
             }
         }
 
+        private async Task DeletedItemChanges(RoleDto deletedRole)
+        {
+            using var cancellationTokenSource = new CancellationTokenSource();
+            await _RoleService.DeleteRoleAsync(deletedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+        }
+
         private string CreateSelectionLabel(List<string> selectedValues)
         {
             switch (selectedValues.Count)

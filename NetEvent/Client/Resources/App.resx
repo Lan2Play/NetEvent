@@ -279,4 +279,16 @@
   <data name="Administration.Users.AddRoleTitle" xml:space="preserve">
     <value>Add Role</value>
   </data>
+  <data name="NetEventDataGrid.DeleteDialog.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="NetEventDataGrid.DeleteDialog.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="NetEventDataGrid.DeleteDialog.Message" xml:space="preserve">
+    <value>Deleting can not be undone!</value>
+  </data>
+  <data name="NetEventDataGrid.DeleteDialog.Title" xml:space="preserve">
+    <value>Warning</value>
+  </data>
 </root>

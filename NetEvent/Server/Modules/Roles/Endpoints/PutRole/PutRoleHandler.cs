@@ -29,7 +29,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints.PutRole
                 return new PutRoleResponse(ReturnType.NotFound, $"Role {request.Id} not found in database.");
             }
 
-            // Update existing user
+            // Update existing role
             existingRole.Name = request.Role.Name;
             existingRole.NormalizedName = request.Role.Name.ToUpperInvariant();
 

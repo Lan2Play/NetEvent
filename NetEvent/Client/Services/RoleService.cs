@@ -85,5 +85,25 @@ namespace NetEvent.Client.Services
 
             return false;
         }
+
+        public async Task<bool> DeleteRoleAsync(RoleDto deletedRole, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.DeleteAsync($"api/roles/{deletedRole.Id}", cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to update role in backend.");
+            }
+
+            return false;
+        }
     }
 }
