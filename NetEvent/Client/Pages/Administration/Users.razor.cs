@@ -26,7 +26,7 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         private IStringLocalizer<App> _Localizer { get; set; } = default!;
 
-        private NetEventDataGrid<RoleDto>? RolesDataGrid = default;
+        private NetEventDataGrid<RoleDto> RolesDataGrid = default!;
 
         protected override async Task OnInitializedAsync()
         {
