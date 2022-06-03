@@ -9,8 +9,8 @@ namespace NetEvent.Client.Components
 {
     public class NetEventDataGrid<T> : MudBlazor.MudDataGrid<T>
     {
-        [Inject] 
-        private IDialogService _DialogService { get; set; }
+        [Inject]
+        private IDialogService _DialogService { get; set; } = default;
 
         [Inject]
         private IStringLocalizer<App> _Localizer { get; set; } = default!;
@@ -48,7 +48,7 @@ namespace NetEvent.Client.Components
             }
         }
 
-        public async Task DeleteItem(T item)
+        public async Task DeleteItemAsync(T item)
         {
             if (item == null)
             {
@@ -60,6 +60,11 @@ namespace NetEvent.Client.Components
                 throw new NotSupportedException($"ItemsSource of Type '{Items.GetType().Name}' is not supported! It has to be of Type 'IList'");
             }
 
+            await DeleteItemsInternalAsync(item, list);
+        }
+
+        private async Task DeleteItemsInternalAsync(T item, IList list)
+        {
             bool? result = await _DialogService.ShowMessageBox(_Localizer.GetString("NetEventDataGrid.DeleteDialog.Title"), _Localizer.GetString("NetEventDataGrid.DeleteDialog.Message"), yesText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Delete"), cancelText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Cancel"));
             if (result == true)
             {

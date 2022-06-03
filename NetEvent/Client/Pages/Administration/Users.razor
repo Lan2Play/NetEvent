@@ -125,7 +125,7 @@
                 <Column T="RoleDto" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Delete" OnClick="@(() => RolesDataGrid.DeleteItem(context.Item))" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Delete" OnClick="@(() => RolesDataGrid.DeleteItemAsync(context.Item))" />
                     </CellTemplate>
                 </Column>
             </Columns>

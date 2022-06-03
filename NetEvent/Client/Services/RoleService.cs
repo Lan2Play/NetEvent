@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using NetEvent.Shared.Dto;
 
@@ -74,7 +73,7 @@ namespace NetEvent.Client.Services
 
                 response.EnsureSuccessStatusCode();
 
-                newRole.Id = await response.Content.ReadAsStringAsync();
+                newRole.Id = await response.Content.ReadAsStringAsync(cancellationToken);
 
                 return true;
             }

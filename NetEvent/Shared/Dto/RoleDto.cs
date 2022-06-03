@@ -6,7 +6,7 @@ namespace NetEvent.Shared.Dto;
 public class RoleDto
 {
     [JsonPropertyName("id")]
-    public string Id { get; set; } = string.Empty;//"not set";
+    public string Id { get; set; } = string.Empty;
 
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;
