@@ -33,6 +33,8 @@ namespace NetEvent.Shared
 
         public partial ClaimDto ClaimToClaimDto(Claim claim);
 
+        public partial Claim ClaimDtoToClaim(ClaimDto claimDto);
+
         public partial OrganizationData OrganizationDataDtoToOrganizationData(OrganizationDataDto organizationData);
 
         public partial OrganizationDataDto OrganizationDataToOrganizationDataDto(OrganizationData organizationData);

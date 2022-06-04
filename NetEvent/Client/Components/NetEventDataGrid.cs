@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -7,7 +8,8 @@ using MudBlazor;
 
 namespace NetEvent.Client.Components
 {
-    public class NetEventDataGrid<T> : MudBlazor.MudDataGrid<T>
+    [ExcludeFromCodeCoverage(Justification = "Ignore UI Controls")]
+    public class NetEventDataGrid<T> : MudDataGrid<T>
     {
         [Inject]
         private IDialogService _DialogService { get; set; } = default!;
