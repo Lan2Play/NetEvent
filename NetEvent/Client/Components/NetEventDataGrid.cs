@@ -27,40 +27,35 @@ namespace NetEvent.Client.Components
                     throw new NotSupportedException($"ItemsSource of Type '{Items.GetType().Name}' is not supported! It has to be of Type 'IList'");
                 }
 
-                await InternalAddNewItemAsync(list);
+                var newItem = Activator.CreateInstance<T>();
+
+                var oldCommittedItemChanges = CommittedItemChanges;
+                CommittedItemChanges = new EventCallbackFactory().Create<T>(this, async d =>
+                {
+                    await oldCommittedItemChanges.InvokeAsync(d);
+                    CommittedItemChanges = oldCommittedItemChanges;
+                });
+                var oldCancelledEditingItem = CancelledEditingItem;
+                CancelledEditingItem = new EventCallbackFactory().Create<T>(this, async d =>
+                {
+                    list.Remove(newItem);
+                    await oldCancelledEditingItem.InvokeAsync(d);
+                    CancelledEditingItem = oldCancelledEditingItem;
+                });
+
+                list.Add(newItem);
+                await SetEditingItemAsync(newItem);
             }
         }
 
-        private async Task InternalAddNewItemAsync(IList list)
-        {
-            var newItem = Activator.CreateInstance<T>();
-
-            var oldCommittedItemChanges = CommittedItemChanges;
-            CommittedItemChanges = new EventCallbackFactory().Create<T>(this, async d =>
-            {
-                await oldCommittedItemChanges.InvokeAsync(d);
-                CommittedItemChanges = oldCommittedItemChanges;
-            });
-            var oldCancelledEditingItem = CancelledEditingItem;
-            CancelledEditingItem = new EventCallbackFactory().Create<T>(this, async d =>
-            {
-                list.Remove(newItem);
-                await oldCancelledEditingItem.InvokeAsync(d);
-                CancelledEditingItem = oldCancelledEditingItem;
-            });
-
-            list.Add(newItem);
-            await SetEditingItemAsync(newItem);
-        }
-
-        public async Task DeleteItemAsync(T item)
+        public Task DeleteItemAsync(T item)
         {
             if (item is null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            await DeleteItemsInternalAsync(item);
+            return DeleteItemsInternalAsync(item);
         }
 
         private async Task DeleteItemsInternalAsync(T item)

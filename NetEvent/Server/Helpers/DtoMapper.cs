@@ -28,6 +28,7 @@ namespace NetEvent.Shared
 
         [MapperIgnore(nameof(IdentityRole.NormalizedName))]
         [MapperIgnore(nameof(IdentityRole.ConcurrencyStamp))]
+        [MapperIgnore(nameof(RoleDto.Claims))]
         public partial IdentityRole RoleDtoToIdentityRole(RoleDto roleDto);
 
         public partial ClaimDto ClaimToClaimDto(Claim claim);
