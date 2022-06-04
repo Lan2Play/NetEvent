@@ -32,6 +32,7 @@ namespace NetEvent.Shared
 
         public partial ClaimDto ClaimToClaimDto(Claim claim);
 
+        [MapperIgnore(nameof(Claim.Issuer))]
         public partial Claim ClaimDtoToClaim(ClaimDto claimDto);
 
         public partial OrganizationData OrganizationDataDtoToOrganizationData(OrganizationDataDto organizationData);
