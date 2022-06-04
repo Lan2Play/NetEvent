@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 
-#pragma warning disable RMG020 // Source property is not mapped to any target property
 namespace NetEvent.Server.Tests
 {
     [ExcludeFromCodeCoverage]
@@ -43,4 +42,3 @@ namespace NetEvent.Server.Tests
               .RuleFor(r => r.Value, (f, u) => string.Empty);
     }
 }
-#pragma warning restore RMG020
