@@ -30,12 +30,12 @@ namespace NetEvent.Server.Tests
             .RuleFor(u => u.Id, (f, u) => Guid.NewGuid().ToString());
 
         public static Faker<IdentityRole> IdentityRoleFaker() => new Faker<IdentityRole>()
-              .RuleFor(r => r.Name, (f, r) => f.Name.JobArea())
+              .RuleFor(r => r.Name, (f, r) => f.Internet.UserName(f.UniqueIndex.ToString()))
               .RuleFor(r => r.NormalizedName, (f, r) => r.Name.ToUpperInvariant())
               .RuleFor(r => r.Id, (f, u) => Guid.NewGuid().ToString());
 
         public static Faker<RoleDto> RoleFaker(int numOfClaims = -1) => new Faker<RoleDto>()
-              .RuleFor(r => r.Name, (f, r) => f.Name.JobArea())
+              .RuleFor(r => r.Name, (f, r) =>  f.Name.JobArea())
               .RuleFor(r => r.Id, (f, r) => Guid.NewGuid().ToString())
               .RuleFor(r => r.Claims, (f, r) => ClaimFaker().Generate(numOfClaims < 0 ? Random.Shared.Next(100) : numOfClaims).Select(x => x.Type));
 

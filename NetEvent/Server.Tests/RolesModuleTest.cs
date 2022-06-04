@@ -124,7 +124,7 @@ namespace NetEvent.Server.Tests
             var roleCount = 5;
 
             var fakeRoles = roleFaker.Generate(roleCount);
-            var fakeCllaims = claimFaker.Generate(roleCount);
+            var fakeClaims = claimFaker.Generate(roleCount);
 
             using (var scope = Application.Services.CreateScope())
             {
@@ -132,7 +132,7 @@ namespace NetEvent.Server.Tests
                 foreach (var role in fakeRoles)
                 {
                     await roleManager.CreateAsync(role);
-                    foreach (var claim in fakeCllaims)
+                    foreach (var claim in fakeClaims)
                     {
                         await roleManager.AddClaimAsync(role, DtoMapper.Mapper.ClaimDtoToClaim(claim));
                     }
