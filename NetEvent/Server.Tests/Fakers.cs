@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Security.Claims;
 using Bogus;
 using Microsoft.AspNetCore.Identity;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 
+#pragma warning disable RMG020 // Source property is not mapped to any target property
 namespace NetEvent.Server.Tests
 {
     [ExcludeFromCodeCoverage]
@@ -35,7 +34,7 @@ namespace NetEvent.Server.Tests
               .RuleFor(r => r.Id, (f, u) => Guid.NewGuid().ToString());
 
         public static Faker<RoleDto> RoleFaker(int numOfClaims = -1) => new Faker<RoleDto>()
-              .RuleFor(r => r.Name, (f, r) =>  f.Name.JobArea())
+              .RuleFor(r => r.Name, (f, r) => f.Name.JobArea())
               .RuleFor(r => r.Id, (f, r) => Guid.NewGuid().ToString())
               .RuleFor(r => r.Claims, (f, r) => ClaimFaker().Generate(numOfClaims < 0 ? Random.Shared.Next(100) : numOfClaims).Select(x => x.Type));
 
@@ -44,3 +43,4 @@ namespace NetEvent.Server.Tests
               .RuleFor(r => r.Value, (f, u) => string.Empty);
     }
 }
+#pragma warning restore RMG020
