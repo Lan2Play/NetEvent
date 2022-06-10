@@ -26,7 +26,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints.PostRole
 
             if (existingRole != null)
             {
-                return new PostRoleResponse(ReturnType.NotFound, $"Role {request.Role.Name} already exists.");
+                return new PostRoleResponse(ReturnType.Error, $"Role {request.Role.Name} already exists.");
             }
 
             var identityRole = DtoMapper.Mapper.RoleDtoToIdentityRole(request.Role);

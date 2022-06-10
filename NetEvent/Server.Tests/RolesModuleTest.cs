@@ -115,6 +115,22 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
+        public async Task RolesModuleTest_PostExistingRole_Test()
+        {
+            // Arrange
+            var claimCount = 5;
+            var roleFaker = Fakers.RoleFaker(claimCount);
+
+            var fakeRole = roleFaker.Generate();
+
+            var postRole = await Client.PostAsJsonAsync("/api/roles", fakeRole);
+            postRole.EnsureSuccessStatusCode();
+
+            postRole = await Client.PostAsJsonAsync("/api/roles", fakeRole);
+            Assert.Equal(System.Net.HttpStatusCode.BadRequest, postRole.StatusCode);
+        }
+
+        [Fact]
         public async Task RolesModuleTest_DeleteRoleRoute_Test()
         {
             // Arrange
