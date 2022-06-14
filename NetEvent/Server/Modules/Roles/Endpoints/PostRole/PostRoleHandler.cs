@@ -29,11 +29,11 @@ namespace NetEvent.Server.Modules.Roles.Endpoints.PostRole
                 return new PostRoleResponse(ReturnType.Error, $"Role {request.Role.Name} already exists.");
             }
 
-            var identityRole = DtoMapper.Mapper.RoleDtoToIdentityRole(request.Role);
-            identityRole.Id = identityRole.Name.ToLowerInvariant();
-            identityRole.NormalizedName = identityRole.Name.ToUpperInvariant();
+            var applicationRole = DtoMapper.Mapper.RoleDtoToApplicationRole(request.Role);
+            applicationRole.Id = applicationRole.Name.ToLowerInvariant();
+            applicationRole.NormalizedName = applicationRole.Name.ToUpperInvariant();
 
-            var createResult = await _RoleManager.CreateAsync(identityRole);
+            var createResult = await _RoleManager.CreateAsync(applicationRole);
 
             if (!createResult.Succeeded)
             {
@@ -44,13 +44,13 @@ namespace NetEvent.Server.Modules.Roles.Endpoints.PostRole
             {
                 foreach (var claim in request.Role.Claims)
                 {
-                    await _RoleManager.AddClaimAsync(identityRole, new Claim(claim, string.Empty));
+                    await _RoleManager.AddClaimAsync(applicationRole, new Claim(claim, string.Empty));
                 }
             }
 
-            _Logger.LogDebug("Role created {name}", identityRole.Name);
+            _Logger.LogDebug("Role created {name}", applicationRole.Name);
 
-            return new PostRoleResponse(identityRole.Id);
+            return new PostRoleResponse(applicationRole.Id);
         }
     }
 }

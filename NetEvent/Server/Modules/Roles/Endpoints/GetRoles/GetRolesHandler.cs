@@ -21,7 +21,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints.GetRoles
             var allRoles = _RoleManager.Roles.ToList();
             var roleDtos = allRoles.Select(async role =>
             {
-                var roleDto = DtoMapper.Mapper.IdentityRoleToRoleDto(role);
+                var roleDto = DtoMapper.Mapper.ApplicationRoleToRoleDto(role);
                 var roleClaims = await _RoleManager.GetClaimsAsync(role);
                 roleDto.Claims = roleClaims.Select(roleClaim => roleClaim.Type).ToList();
                 return roleDto;

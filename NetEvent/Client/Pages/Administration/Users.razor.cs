@@ -120,20 +120,36 @@ namespace NetEvent.Client.Pages.Administration
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
+            ServiceResult result;
             if (string.IsNullOrEmpty(updatedRole.Id))
             {
-                await _RoleService.AddRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+                result = await _RoleService.AddRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
             }
             else
             {
-                await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+                result = await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            }
+
+            if (!string.IsNullOrEmpty(result.MessageKey))
+            {
+                _Snackbar.Add(_Localizer.GetString(result.MessageKey, updatedRole.Name), result.Successful ? Severity.Success : Severity.Error);
             }
         }
 
-        private async Task DeletedItemChanges(RoleDto deletedRole)
+        private async Task DeletedItemChanges(EventCallbackArgs<RoleDto> deletedRoleArgs)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
-            await _RoleService.DeleteRoleAsync(deletedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            var result = await _RoleService.DeleteRoleAsync(deletedRoleArgs.Value, cancellationTokenSource.Token).ConfigureAwait(false);
+
+            if (!string.IsNullOrEmpty(result.MessageKey))
+            {
+                _Snackbar.Add(_Localizer.GetString(result.MessageKey, deletedRoleArgs.Value.Name), result.Successful ? Severity.Success : Severity.Error);
+            }
+
+            if (!result.Successful)
+            {
+                deletedRoleArgs.Cancel = true;
+            }
         }
 
         private string CreateSelectionLabel(List<string> selectedValues)

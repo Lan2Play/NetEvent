@@ -12,10 +12,10 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
     public class PostRegisterUserHandler : IRequestHandler<PostRegisterUserRequest, PostRegisterUserResponse>
     {
         private readonly UserManager<ApplicationUser> _UserManager;
-        private readonly RoleManager<IdentityRole> _RoleManager;
+        private readonly RoleManager<ApplicationRole> _RoleManager;
         private readonly ILogger<PostRegisterUserHandler> _Logger;
 
-        public PostRegisterUserHandler(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogger<PostRegisterUserHandler> logger)
+        public PostRegisterUserHandler(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, ILogger<PostRegisterUserHandler> logger)
         {
             _UserManager = userManager;
             _RoleManager = roleManager;

@@ -31,6 +31,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints.PutRole
 
             // Update existing role
             existingRole.Name = request.Role.Name;
+            existingRole.IsDefault = request.Role.IsDefault;
             existingRole.NormalizedName = request.Role.Name.ToUpperInvariant();
 
             await _RoleManager.UpdateAsync(existingRole);

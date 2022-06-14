@@ -18,36 +18,38 @@ namespace NetEvent.Client.Components
         private IStringLocalizer<App> _Localizer { get; set; } = default!;
 
         [Parameter]
-        public EventCallback<T> DeletedItemChanges { get; set; }
+        public EventCallback<EventCallbackArgs<T>> DeletedItemChanges { get; set; }
 
         public async Task AddNewItemAsync()
         {
-            if (!ReadOnly)
+            if (ReadOnly)
             {
-                if (Items is not IList list)
-                {
-                    throw new NotSupportedException($"ItemsSource of Type '{Items.GetType().Name}' is not supported! It has to be of Type 'IList'");
-                }
-
-                var newItem = Activator.CreateInstance<T>();
-
-                var oldCommittedItemChanges = CommittedItemChanges;
-                CommittedItemChanges = new EventCallbackFactory().Create<T>(this, async d =>
-                {
-                    await oldCommittedItemChanges.InvokeAsync(d);
-                    CommittedItemChanges = oldCommittedItemChanges;
-                });
-                var oldCancelledEditingItem = CancelledEditingItem;
-                CancelledEditingItem = new EventCallbackFactory().Create<T>(this, async d =>
-                {
-                    list.Remove(newItem);
-                    await oldCancelledEditingItem.InvokeAsync(d);
-                    CancelledEditingItem = oldCancelledEditingItem;
-                });
-
-                list.Add(newItem);
-                await SetEditingItemAsync(newItem);
+                return;
             }
+
+            if (Items is not IList list)
+            {
+                throw new NotSupportedException($"ItemsSource of Type '{Items.GetType().Name}' is not supported! It has to be of Type 'IList'");
+            }
+
+            var newItem = Activator.CreateInstance<T>();
+
+            var oldCommittedItemChanges = CommittedItemChanges;
+            CommittedItemChanges = new EventCallbackFactory().Create<T>(this, async d =>
+            {
+                await oldCommittedItemChanges.InvokeAsync(d);
+                CommittedItemChanges = oldCommittedItemChanges;
+            });
+            var oldCancelledEditingItem = CancelledEditingItem;
+            CancelledEditingItem = new EventCallbackFactory().Create<T>(this, async d =>
+            {
+                list.Remove(newItem);
+                await oldCancelledEditingItem.InvokeAsync(d);
+                CancelledEditingItem = oldCancelledEditingItem;
+            });
+
+            list.Add(newItem);
+            await SetEditingItemAsync(newItem);
         }
 
         public Task DeleteItemAsync(T item)
@@ -67,13 +69,22 @@ namespace NetEvent.Client.Components
                 throw new NotSupportedException($"ItemsSource of Type '{Items.GetType().Name}' is not supported! It has to be of Type 'IList'");
             }
 
+            if (ReadOnly)
+            {
+                return;
+            }
+
             bool? result = await _DialogService.ShowMessageBox(_Localizer.GetString("NetEventDataGrid.DeleteDialog.Title"), _Localizer.GetString("NetEventDataGrid.DeleteDialog.Message"), yesText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Delete"), cancelText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Cancel"));
             if (result == true)
             {
                 StateHasChanged();
 
-                list.Remove(item);
-                await DeletedItemChanges.InvokeAsync(item);
+                var eventArgs = new EventCallbackArgs<T>(item);
+                await DeletedItemChanges.InvokeAsync(eventArgs);
+                if (!eventArgs.Cancel)
+                {
+                    list.Remove(item);
+                }
             }
         }
     }

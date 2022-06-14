@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Administration;
@@ -24,11 +23,11 @@ namespace NetEvent.Shared
         public partial CurrentUserDto ClaimsPrincipalToCurrentUserDto(ClaimsPrincipal claimsPrincipal);
 
         [MapperIgnore(nameof(RoleDto.Claims))]
-        public partial RoleDto IdentityRoleToRoleDto(IdentityRole identityRole);
+        public partial RoleDto ApplicationRoleToRoleDto(ApplicationRole applicationRole);
 
-        [MapperIgnore(nameof(IdentityRole.NormalizedName))]
-        [MapperIgnore(nameof(IdentityRole.ConcurrencyStamp))]
-        public partial IdentityRole RoleDtoToIdentityRole(RoleDto roleDto);
+        [MapperIgnore(nameof(ApplicationRole.NormalizedName))]
+        [MapperIgnore(nameof(ApplicationRole.ConcurrencyStamp))]
+        public partial ApplicationRole RoleDtoToApplicationRole(RoleDto roleDto);
 
         public partial ClaimDto ClaimToClaimDto(Claim claim);
 

@@ -43,7 +43,7 @@ namespace NetEvent.Client.Services
             }
         }
 
-        public async Task<bool> UpdateRoleAsync(RoleDto updatedRole, CancellationToken cancellationToken)
+        public async Task<ServiceResult> UpdateRoleAsync(RoleDto updatedRole, CancellationToken cancellationToken)
         {
             try
             {
@@ -53,17 +53,17 @@ namespace NetEvent.Client.Services
 
                 response.EnsureSuccessStatusCode();
 
-                return true;
+                return ServiceResult.Success("RoleService.UpdateRoleAsync.Success");
             }
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to update role in backend.");
             }
 
-            return false;
+            return ServiceResult.Error("RoleService.UpdateRoleAsync.Error");
         }
 
-        public async Task<bool> AddRoleAsync(RoleDto newRole, CancellationToken cancellationToken)
+        public async Task<ServiceResult> AddRoleAsync(RoleDto newRole, CancellationToken cancellationToken)
         {
             try
             {
@@ -75,17 +75,17 @@ namespace NetEvent.Client.Services
 
                 newRole.Id = await response.Content.ReadAsStringAsync(cancellationToken);
 
-                return true;
+                return ServiceResult.Success("RoleService.AddRoleAsync.Success");
             }
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to update role in backend.");
             }
 
-            return false;
+            return ServiceResult.Error("RoleService.AddRoleAsync.Error");
         }
 
-        public async Task<bool> DeleteRoleAsync(RoleDto deletedRole, CancellationToken cancellationToken)
+        public async Task<ServiceResult> DeleteRoleAsync(RoleDto deletedRole, CancellationToken cancellationToken)
         {
             try
             {
@@ -94,15 +94,14 @@ namespace NetEvent.Client.Services
                 var response = await client.DeleteAsync($"api/roles/{deletedRole.Id}", cancellationToken);
 
                 response.EnsureSuccessStatusCode();
-
-                return true;
+                return ServiceResult.Success("RoleService.DeleteRoleAsync.Success");
             }
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to update role in backend.");
             }
 
-            return false;
+            return ServiceResult.Error("RoleService.DeleteRoleAsync.Error");
         }
     }
 }

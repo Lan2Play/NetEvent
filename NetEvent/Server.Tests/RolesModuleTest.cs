@@ -18,7 +18,7 @@ namespace NetEvent.Server.Tests
         public async Task RolesModuleTest_GetRolesRoute_Test()
         {
             // Arrange
-            var roleFaker = Fakers.IdentityRoleFaker();
+            var roleFaker = Fakers.ApplicationRoleFaker();
 
             var roleCount = 5;
 
@@ -43,7 +43,7 @@ namespace NetEvent.Server.Tests
         public async Task RolesModuleTest_PutRolesRoute_Test()
         {
             // Arrange
-            var roleFaker = Fakers.IdentityRoleFaker();
+            var roleFaker = Fakers.ApplicationRoleFaker();
 
             var roleCount = 5;
 
@@ -134,7 +134,7 @@ namespace NetEvent.Server.Tests
         public async Task RolesModuleTest_DeleteRoleRoute_Test()
         {
             // Arrange
-            var roleFaker = Fakers.IdentityRoleFaker();
+            var roleFaker = Fakers.ApplicationRoleFaker();
             var claimFaker = Fakers.ClaimFaker();
 
             var roleCount = 5;

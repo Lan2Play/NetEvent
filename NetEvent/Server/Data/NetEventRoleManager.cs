@@ -1,13 +1,53 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using NetEvent.Server.Models;
 
 namespace NetEvent.Server.Data
 {
-    public class NetEventRoleManager : RoleManager<IdentityRole>
+    public class NetEventRoleManager : RoleManager<ApplicationRole>
     {
-        public NetEventRoleManager(IRoleStore<IdentityRole> store, IEnumerable<IRoleValidator<IdentityRole>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<IdentityRole>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
+        public NetEventRoleManager(IRoleStore<ApplicationRole> store, IEnumerable<IRoleValidator<ApplicationRole>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<ApplicationRole>> logger) : base(store, roleValidators, keyNormalizer, errors, logger)
         {
+        }
+
+        public override async Task<IdentityResult> CreateAsync(ApplicationRole role)
+        {
+            var result = await base.CreateAsync(role);
+            await UpdateIsDefaultAsync(role, result);
+            return result;
+        }
+
+        protected override async Task<IdentityResult> UpdateRoleAsync(ApplicationRole role)
+        {
+            var result = await base.UpdateRoleAsync(role);
+            await UpdateIsDefaultAsync(role, result);
+            return result;
+        }
+
+        public override Task<IdentityResult> DeleteAsync(ApplicationRole role)
+        {
+            if (role.IsDefault)
+            {
+                return Task.FromResult(IdentityResult.Failed(new IdentityError { Code = "NotAllowed", Description = "Default Role can not be deleted!" }));
+            }
+
+            return base.DeleteAsync(role);
+        }
+
+        private async Task UpdateIsDefaultAsync(ApplicationRole role, IdentityResult result)
+        {
+            if (result.Succeeded && role.IsDefault)
+            {
+                var rolesToUnsetDefault = Roles.AsEnumerable().Where(x => x.IsDefault && !x.Id.Equals(role.Id, System.StringComparison.OrdinalIgnoreCase));
+                foreach (var roleToUnser in rolesToUnsetDefault)
+                {
+                    role.IsDefault = false;
+                    var resasd = await UpdateAsync(role);
+                }
+            }
         }
     }
 }

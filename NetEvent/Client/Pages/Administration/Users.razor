@@ -32,12 +32,10 @@
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <Columns>
-                @*<SelectColumn T="ApplicationUser" />*@
                 <Column T="AdminUserDto" Field="UserName" Title="@Localize["Administration.Users.UserName"]" />
                 <Column T="AdminUserDto" Field="FirstName" Title="@Localize["Administration.Users.FirstName"]" />
                 <Column T="AdminUserDto" Field="LastName" Title="@Localize["Administration.Users.LastName"]" />
                 <Column T="AdminUserDto" Field="Email" Title="@Localize["Administration.Users.Email"]" />
-                @*<Column T="AdminUserDto" Field="PhoneNumber" Title="@Localize["Administration.Users.PhoneNumber"]" />*@
                 <Column T="AdminUserDto" Field="EmailConfirmed" Title="@Localize["Administration.Users.EmailConfirmed"]">
                     <CellTemplate>
                         <MudCheckBox Checked="@context.Item.EmailConfirmed" ReadOnly="true" />
@@ -93,9 +91,17 @@
                 <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Add" OnClick="RolesDataGrid.AddNewItemAsync" />
             </ToolBarContent>
             <Columns>
-                    <Column T="RoleDto" Field="Id" Title="@Localize["Administration.Users.Roles.Id"]" IsEditable="false" />
-                    <Column T="RoleDto" Field="Name" Title="@Localize["Administration.Users.Roles.Name"]" />
-                    <Column T="RoleDto" Title="@Localize["Administration.Users.Roles.Claims"]">
+                <Column T="RoleDto" Field="Id" Title="@Localize["Administration.Users.Roles.Id"]" IsEditable="false" />
+                <Column T="RoleDto" Field="Name" Title="@Localize["Administration.Users.Roles.Name"]" />
+                <Column T="RoleDto" Field="IsDefault" Title="@Localize["Administration.Users.Roles.IsDefault"]">
+                    <CellTemplate>
+                        <MudCheckBox Checked="@context.Item.IsDefault" ReadOnly="true" />
+                    </CellTemplate>
+                    <EditTemplate>
+                        <MudCheckBox @bind-Checked="@context.Item.IsDefault" Label="@Localize["Administration.Users.Roles.IsDefault"]" />
+                    </EditTemplate>
+                </Column>
+                <Column T="RoleDto" Title="@Localize["Administration.Users.Roles.Claims"]">
                     <CellTemplate>
                         @if (@context.Item.Claims != null)
                         {
@@ -133,43 +139,5 @@
                 <MudDataGridPager T="RoleDto" />
             </PagerContent>
         </NetEventDataGrid>
-
-        @* <MudDialog @bind-IsVisible="isAddRole" Options="EditDialogOptions">
-        <TitleContent>
-        <MudText Typo="Typo.h6">
-        @Localize["Administration.Users.AddRoleTitle"]
-        </MudText>
-        </TitleContent>
-        <DialogContent>
-        <MudForm>
-        @foreach (var column in @_columns)
-        {
-        var cell = new Cell<T>(this, column, _editingItem);
-
-        if (column.EditTemplate != null)
-        {
-        @column.EditTemplate(cell.cellContext)
-        }
-        else
-        {
-        if (column.dataType == typeof(string))
-        {
-        <MudTextField T="string" Label="@column.computedTitle" Value="@cell.valueString" ValueChanged="@cell.StringValueChangedAsync" Margin="@Margin.Dense"
-        Required="true" Variant="@Variant.Outlined" Disabled="@(!column.IsEditable || ReadOnly)" Class="mt-4" />
-        }
-        else if (column.isNumber)
-        {
-        <MudNumericField T="double" Label="@column.computedTitle" Value="@cell.valueNumber" ValueChanged="@cell.NumberValueChangedAsync" Margin="@Margin.Dense"
-        Required="true" Variant="@Variant.Outlined" Disabled="@(!column.IsEditable || ReadOnly)" Class="mt-4" />
-        }
-        }
-        }
-        </MudForm>
-        </DialogContent>
-        <DialogActions>
-        <MudButton Variant="Variant.Filled" Color="Color.Default" OnClick="@CancelEditingItemAsync" Class="px-10">Cancel</MudButton>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@CommitItemChangesAsync" Class="px-10">Save</MudButton>
-        </DialogActions>
-        </MudDialog>*@
     </MudTabPanel>
 </MudTabs>

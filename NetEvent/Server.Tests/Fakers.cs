@@ -27,10 +27,11 @@ namespace NetEvent.Server.Tests
             .RuleFor(u => u.ProfileImage, (f, u) => f.Random.Bytes(10))
             .RuleFor(u => u.Id, (f, u) => Guid.NewGuid().ToString());
 
-        public static Faker<IdentityRole> IdentityRoleFaker() => new Faker<IdentityRole>()
-              .RuleFor(r => r.Name, (f, r) => f.Internet.UserName(f.UniqueIndex.ToString()))
-              .RuleFor(r => r.NormalizedName, (f, r) => r.Name.ToUpperInvariant())
-              .RuleFor(r => r.Id, (f, u) => Guid.NewGuid().ToString());
+        public static Faker<ApplicationRole> ApplicationRoleFaker() => new Faker<ApplicationRole>()
+            .RuleFor(r => r.IsDefault, (f, r) => f.IndexVariable == 0)
+            .RuleFor(r => r.Name, (f, r) => f.Internet.UserName(f.UniqueIndex.ToString()))
+            .RuleFor(r => r.NormalizedName, (f, r) => r.Name.ToUpperInvariant())
+            .RuleFor(r => r.Id, (f, u) => Guid.NewGuid().ToString());
 
         public static Faker<RoleDto> RoleFaker(int numOfClaims = -1) => new Faker<RoleDto>()
               .RuleFor(r => r.Name, (f, r) => f.Name.JobArea())
