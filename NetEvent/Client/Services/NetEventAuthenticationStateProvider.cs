@@ -28,7 +28,7 @@ namespace NetEvent.Client.Services
             try
             {
                 var userInfo = await GetCurrentUser();
-                if (userInfo != null && userInfo.IsAuthenticated)
+                if (userInfo?.UserName != null && userInfo?.Claims != null && userInfo.IsAuthenticated)
                 {
                     var claims = new[] { new Claim(ClaimTypes.Name, userInfo.UserName) }.Concat(userInfo.Claims.Select(c => new Claim(c.Key, c.Value)));
                     identity = new ClaimsIdentity(claims, "Server authentication");
