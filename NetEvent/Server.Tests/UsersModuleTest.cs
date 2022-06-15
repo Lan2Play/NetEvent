@@ -117,17 +117,17 @@ namespace NetEvent.Server.Tests
             var applicationUserFaker = Fakers.ApplicationUserFaker();
 
             var applicationUser = applicationUserFaker.Generate();
-            var identityRole = new IdentityRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN" };
+            var applicationRole = new ApplicationRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN" };
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 await dbContext.Users.AddAsync(applicationUser).ConfigureAwait(false);
-                await dbContext.Roles.AddAsync(identityRole).ConfigureAwait(false);
+                await dbContext.Roles.AddAsync(applicationRole).ConfigureAwait(false);
                 dbContext.SaveChanges();
             }
 
             // Act
-            var response = await Client.PutAsJsonAsync($"/api/users/{applicationUser.Id}/role", identityRole.Id);
+            var response = await Client.PutAsJsonAsync($"/api/users/{applicationUser.Id}/role", applicationRole.Id);
 
             response.EnsureSuccessStatusCode();
 
@@ -138,7 +138,7 @@ namespace NetEvent.Server.Tests
 
                 // Assert
                 Assert.Equal(1, roles.Count);
-                Assert.Equal(identityRole.Name, roles[0]);
+                Assert.Equal(applicationRole.Name, roles[0]);
             }
         }
     }

@@ -25,7 +25,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
             var userRoles = await _UserDbContext.UserRoles.ToListAsync(cancellationToken);
             var allRoles = await _UserDbContext.Roles.ToListAsync(cancellationToken);
             var convertedUsers = allUsers.Select(DtoMapper.Mapper.ApplicaitonUserToAdminUserDto).ToList();
-            var convertedRoles = allRoles.Select(DtoMapper.Mapper.IdentityRoleToRoleDto).ToList();
+            var convertedRoles = allRoles.Select(DtoMapper.Mapper.ApplicationRoleToRoleDto).ToList();
 
             foreach (var userRole in userRoles)
             {

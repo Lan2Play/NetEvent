@@ -36,7 +36,7 @@ switch (builder.Configuration["DBProvider"].ToLower())
 }
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
+    .AddRoles<ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddUserManager<NetEventUserManager>()
     .AddRoleManager<NetEventRoleManager>()

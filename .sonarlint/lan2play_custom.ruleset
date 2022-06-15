@@ -38,4 +38,8 @@
     <Rule Id="SA1642" Action="None" />
     <Rule Id="SA1643" Action="None" />
   </Rules>
+  <Rules AnalyzerId="Riok.Mapperly" RuleNamespace="Riok.Mapperly">
+    <Rule Id="RMG012" Action="None" />
+    <Rule Id="RMG020" Action="None" />
+  </Rules>
 </RuleSet>
