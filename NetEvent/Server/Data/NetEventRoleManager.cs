@@ -41,11 +41,11 @@ namespace NetEvent.Server.Data
         {
             if (result.Succeeded && role.IsDefault)
             {
-                var rolesToUnsetDefault = Roles.AsEnumerable().Where(x => x.IsDefault && !x.Id.Equals(role.Id, System.StringComparison.OrdinalIgnoreCase));
-                foreach (var roleToUnser in rolesToUnsetDefault)
+                var rolesToUnsetDefault = Roles.Where(x => x.Id != role.Id && x.IsDefault).ToList();
+                foreach (var roleToUnset in rolesToUnsetDefault)
                 {
-                    role.IsDefault = false;
-                    var resasd = await UpdateAsync(role);
+                    roleToUnset.IsDefault = false;
+                    await UpdateAsync(roleToUnset);
                 }
             }
         }

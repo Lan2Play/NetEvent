@@ -33,7 +33,12 @@ namespace NetEvent.Client.Pages.Administration
             using var cancellationTokenSource = new CancellationTokenSource();
 
             AllUsers = await _UserService.GetUsersAsync(cancellationTokenSource.Token);
-            AllRoles = await _RoleService.GetRolesAsync(cancellationTokenSource.Token);
+            await LoadRoles(cancellationTokenSource.Token);
+        }
+
+        private async Task LoadRoles(CancellationToken cancellationToken)
+        {
+            AllRoles = await _RoleService.GetRolesAsync(cancellationToken);
         }
 
         #region Users
@@ -134,6 +139,8 @@ namespace NetEvent.Client.Pages.Administration
             {
                 _Snackbar.Add(_Localizer.GetString(result.MessageKey, updatedRole.Name), result.Successful ? Severity.Success : Severity.Error);
             }
+
+            await LoadRoles(cancellationTokenSource.Token);
         }
 
         private async Task DeletedItemChanges(EventCallbackArgs<RoleDto> deletedRoleArgs)
