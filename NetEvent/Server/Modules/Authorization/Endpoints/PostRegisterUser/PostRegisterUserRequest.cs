@@ -14,5 +14,5 @@ public class PostRegisterUserRequest : IRequest<PostRegisterUserResponse>
         RegisterRequest = registerRequest;
     }
 
-    public RegisterRequest RegisterRequest { get; }
+    public RegisterRequest? RegisterRequest { get; }
 }

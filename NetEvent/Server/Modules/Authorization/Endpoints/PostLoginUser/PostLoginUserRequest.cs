@@ -14,6 +14,6 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
             LoginRequest = loginRequest;
         }
 
-        public LoginRequest LoginRequest { get; }
+        public LoginRequest? LoginRequest { get; }
     }
 }

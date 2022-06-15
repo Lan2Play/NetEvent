@@ -16,7 +16,7 @@ namespace NetEvent.Client.Pages
 
         public LoginRequest LoginRequest { get; set; } = new();
 
-        public string Error { get; set; }
+        public string? Error { get; set; }
 
         public async Task ExecuteLogin()
         {

@@ -12,12 +12,9 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
     {
         private readonly ApplicationDbContext _UserDbContext;
 
-        private readonly ILogger<GetUserHandler> _Logger;
-
-        public GetUserHandler(ApplicationDbContext userDbContext, ILogger<GetUserHandler> logger)
+        public GetUserHandler(ApplicationDbContext userDbContext)
         {
             _UserDbContext = userDbContext;
-            _Logger = logger;
         }
 
         public async Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)

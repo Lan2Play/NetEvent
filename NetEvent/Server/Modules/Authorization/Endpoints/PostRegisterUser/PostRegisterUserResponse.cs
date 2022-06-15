@@ -1,5 +1,4 @@
-﻿
-namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
+﻿namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 {
     public class PostRegisterUserResponse : ResponseBase
     {
