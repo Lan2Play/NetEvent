@@ -55,22 +55,22 @@ namespace NetEvent.Client.Pages.Administration
                 return true;
             }
 
-            if (x.UserName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(x.UserName) && x.UserName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            if (x.FirstName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(x.FirstName) && x.FirstName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            if (x.LastName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(x.LastName) && x.LastName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            if (x.Email.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(x.Email) && x.Email.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
@@ -88,7 +88,7 @@ namespace NetEvent.Client.Pages.Administration
                 result = await _UserService.UpdateUserRoleAsync(updatedUser.Id, updatedUser.Role.Id, cancellationTokenSource.Token).ConfigureAwait(false);
             }
 
-            if (result.MessageKey != null)
+            if (!string.IsNullOrEmpty(result.MessageKey) && !string.IsNullOrEmpty(updatedUser.Email))
             {
                 _Snackbar.Add(_Localizer.GetString(result.MessageKey, updatedUser.Email), result.Successful ? Severity.Success : Severity.Error);
             }
@@ -161,17 +161,12 @@ namespace NetEvent.Client.Pages.Administration
 
         private string CreateSelectionLabel(List<string> selectedValues)
         {
-            switch (selectedValues.Count)
+            return selectedValues.Count switch
             {
-                case int n when n == 1:
-                    return $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionSingular"]}";
-
-                case int n when n > 1:
-                    return $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionPlural"]}";
-
-                default:
-                    return _Localizer["Administration.Users.Roles.NothingSelected"];
-            }
+                int n when n == 1 => $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionSingular"]}",
+                int n when n > 1 => $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionPlural"]}",
+                _ => (string)_Localizer["Administration.Users.Roles.NothingSelected"],
+            };
         }
         #endregion
     }

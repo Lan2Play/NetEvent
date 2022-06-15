@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -24,16 +25,26 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
 
         public async Task<PostRegisterUserResponse> Handle(PostRegisterUserRequest request, CancellationToken cancellationToken)
         {
+            if (request?.RegisterRequest == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            return await InternalHandle(request, cancellationToken);
+        }
+
+        private async Task<PostRegisterUserResponse> InternalHandle(PostRegisterUserRequest request, CancellationToken cancellationToken)
+        {
             var user = new ApplicationUser
             {
                 EmailConfirmed = false,
-                UserName = request.RegisterRequest.Email,
-                Email = request.RegisterRequest.Email,
-                FirstName = request.RegisterRequest.FirstName,
-                LastName = request.RegisterRequest.LastName,
+                UserName = request.RegisterRequest!.Email,
+                Email = request.RegisterRequest!.Email,
+                FirstName = request.RegisterRequest!.FirstName,
+                LastName = request.RegisterRequest!.LastName,
             };
 
-            var result = await _UserManager.CreateAsync(user, request.RegisterRequest.Password);
+            var result = await _UserManager.CreateAsync(user, request.RegisterRequest!.Password);
 
             if (result.Succeeded)
             {

@@ -11,6 +11,13 @@
     <Rule Id="IDE0051" Action="None" />
     <Rule Id="IDE1006" Action="None" />
   </Rules>
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+    <Rule Id="CA2254" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Riok.Mapperly" RuleNamespace="Riok.Mapperly">
+    <Rule Id="RMG012" Action="None" />
+    <Rule Id="RMG020" Action="None" />
+  </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1101" Action="None" />
     <Rule Id="SA1108" Action="None" />
@@ -37,9 +44,5 @@
     <Rule Id="SA1633" Action="None" />
     <Rule Id="SA1642" Action="None" />
     <Rule Id="SA1643" Action="None" />
-  </Rules>
-  <Rules AnalyzerId="Riok.Mapperly" RuleNamespace="Riok.Mapperly">
-    <Rule Id="RMG012" Action="None" />
-    <Rule Id="RMG020" Action="None" />
   </Rules>
 </RuleSet>
