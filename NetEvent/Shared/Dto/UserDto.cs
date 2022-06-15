@@ -9,7 +9,7 @@ public class UserDto
     public string? UserName { get; set; }
 
     [JsonPropertyName("id")]
-    public string? Id { get; set; }
+    public string Id { get; set; } = default!;
 
     [JsonPropertyName("firstname")]
     public string? FirstName { get; set; }

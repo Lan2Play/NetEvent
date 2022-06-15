@@ -19,7 +19,7 @@ namespace NetEvent.Server.Modules.Themes.Endpoints.PutTheme
 
         public async Task<PutThemeResponse> Handle(PutThemeRequest request, CancellationToken cancellationToken)
         {
-            var oldTheme = request.Theme.Id != Guid.Empty ? await _ApplicationDbContext.Themes.FindAsync(request.Theme.Id, cancellationToken) : _ApplicationDbContext.Themes.FirstOrDefault();
+            var oldTheme = request.Theme.Id != Guid.Empty ? await _ApplicationDbContext.Themes.FindAsync(new object[] { request.Theme.Id }, cancellationToken) : _ApplicationDbContext.Themes.FirstOrDefault();
             if (oldTheme != null)
             {
                 oldTheme.ThemeData = request.Theme.ThemeData;
