@@ -5,7 +5,7 @@ using MediatR;
 using NetEvent.Server.Data;
 using NetEvent.Shared;
 
-namespace NetEvent.Server.Modules.Roles.Endpoints
+namespace NetEvent.Server.Modules.Roles.Endpoints.GetRoles
 {
     public class GetRolesHandler : IRequestHandler<GetRolesRequest, GetRolesResponse>
     {
@@ -21,7 +21,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
             var allRoles = _RoleManager.Roles.ToList();
             var roleDtos = allRoles.Select(async role =>
             {
-                var roleDto = DtoMapper.Mapper.IdentityRoleToRoleDto(role);
+                var roleDto = DtoMapper.Mapper.ApplicationRoleToRoleDto(role);
                 var roleClaims = await _RoleManager.GetClaimsAsync(role);
                 roleDto.Claims = roleClaims.Select(roleClaim => roleClaim.Type).ToList();
                 return roleDto;

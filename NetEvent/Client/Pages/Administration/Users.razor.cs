@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using NetEvent.Client.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Administration;
@@ -25,12 +26,19 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         private IStringLocalizer<App> _Localizer { get; set; } = default!;
 
+        private NetEventDataGrid<RoleDto> RolesDataGrid = default!;
+
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
             AllUsers = await _UserService.GetUsersAsync(cancellationTokenSource.Token);
-            AllRoles = await _RoleService.GetRolesAsync(cancellationTokenSource.Token);
+            await LoadRoles(cancellationTokenSource.Token);
+        }
+
+        private async Task LoadRoles(CancellationToken cancellationToken)
+        {
+            AllRoles = await _RoleService.GetRolesAsync(cancellationToken);
         }
 
         #region Users
@@ -117,7 +125,38 @@ namespace NetEvent.Client.Pages.Administration
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            ServiceResult result;
+            if (string.IsNullOrEmpty(updatedRole.Id))
+            {
+                result = await _RoleService.AddRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            }
+            else
+            {
+                result = await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            }
+
+            if (!string.IsNullOrEmpty(result.MessageKey))
+            {
+                _Snackbar.Add(_Localizer.GetString(result.MessageKey, updatedRole.Name), result.Successful ? Severity.Success : Severity.Error);
+            }
+
+            await LoadRoles(cancellationTokenSource.Token);
+        }
+
+        private async Task DeletedItemChanges(EventCallbackArgs<RoleDto> deletedRoleArgs)
+        {
+            using var cancellationTokenSource = new CancellationTokenSource();
+            var result = await _RoleService.DeleteRoleAsync(deletedRoleArgs.Value, cancellationTokenSource.Token).ConfigureAwait(false);
+
+            if (!string.IsNullOrEmpty(result.MessageKey))
+            {
+                _Snackbar.Add(_Localizer.GetString(result.MessageKey, deletedRoleArgs.Value.Name), result.Successful ? Severity.Success : Severity.Error);
+            }
+
+            if (!result.Successful)
+            {
+                deletedRoleArgs.Cancel = true;
+            }
         }
 
         private string CreateSelectionLabel(List<string> selectedValues)

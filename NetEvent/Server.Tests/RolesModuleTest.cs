@@ -3,10 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Data;
-using NetEvent.Server.Models;
+using NetEvent.Shared;
 using NetEvent.Shared.Dto;
 using Xunit;
 
@@ -19,7 +18,7 @@ namespace NetEvent.Server.Tests
         public async Task RolesModuleTest_GetRolesRoute_Test()
         {
             // Arrange
-            var roleFaker = Fakers.IdentityRoleFaker();
+            var roleFaker = Fakers.ApplicationRoleFaker();
 
             var roleCount = 5;
 
@@ -44,7 +43,7 @@ namespace NetEvent.Server.Tests
         public async Task RolesModuleTest_PutRolesRoute_Test()
         {
             // Arrange
-            var roleFaker = Fakers.IdentityRoleFaker();
+            var roleFaker = Fakers.ApplicationRoleFaker();
 
             var roleCount = 5;
 
@@ -86,6 +85,91 @@ namespace NetEvent.Server.Tests
             result.EnsureSuccessStatusCode();
             roles = await Client.GetFromJsonAsync<List<RoleDto>>("/api/roles");
             Assert.Equal(1, roles?[0]?.Claims?.Count());
+        }
+
+        [Fact]
+        public async Task RolesModuleTest_PostRoleRoute_Test()
+        {
+            // Arrange
+            var claimCount = 5;
+            var roleFaker = Fakers.RoleFaker(claimCount);
+
+            var fakeRole = roleFaker.Generate();
+
+            var postRole = await Client.PostAsJsonAsync("/api/roles", fakeRole);
+            postRole.EnsureSuccessStatusCode();
+
+            // Act
+            var loadedRoles = await Client.GetFromJsonAsync<List<RoleDto>>("/api/roles");
+
+            // Assert
+            Assert.NotNull(loadedRoles);
+            Assert.Equal(1, loadedRoles?.Count);
+
+            var claims = loadedRoles?.First().Claims;
+            Assert.NotNull(claims);
+            if (claims != null)
+            {
+                Assert.Equal(claimCount, claims.Count());
+            }
+        }
+
+        [Fact]
+        public async Task RolesModuleTest_PostExistingRole_Test()
+        {
+            // Arrange
+            var claimCount = 5;
+            var roleFaker = Fakers.RoleFaker(claimCount);
+
+            var fakeRole = roleFaker.Generate();
+
+            var postRole = await Client.PostAsJsonAsync("/api/roles", fakeRole);
+            postRole.EnsureSuccessStatusCode();
+
+            postRole = await Client.PostAsJsonAsync("/api/roles", fakeRole);
+            Assert.Equal(System.Net.HttpStatusCode.BadRequest, postRole.StatusCode);
+        }
+
+        [Fact]
+        public async Task RolesModuleTest_DeleteRoleRoute_Test()
+        {
+            // Arrange
+            var roleFaker = Fakers.ApplicationRoleFaker();
+            var claimFaker = Fakers.ClaimFaker();
+
+            var roleCount = 5;
+
+            var fakeRoles = roleFaker.Generate(roleCount);
+            var fakeClaims = claimFaker.Generate(roleCount);
+
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var roleManager = scope.ServiceProvider.GetRequiredService<NetEventRoleManager>();
+                foreach (var role in fakeRoles)
+                {
+                    await roleManager.CreateAsync(role);
+                    foreach (var claim in fakeClaims)
+                    {
+                        await roleManager.AddClaimAsync(role, DtoMapper.Mapper.ClaimDtoToClaim(claim));
+                    }
+                }
+            }
+
+            // Act
+            var roles = await Client.GetFromJsonAsync<List<RoleDto>>("/api/roles");
+
+            // Assert
+            Assert.NotNull(roles);
+            Assert.Equal(roleCount, roles?.Count);
+
+            var response = await Client.DeleteAsync($"api/roles/{roles?.First().Id}");
+            response.EnsureSuccessStatusCode();
+
+            roles = await Client.GetFromJsonAsync<List<RoleDto>>("/api/roles");
+
+            // Assert
+            Assert.NotNull(roles);
+            Assert.Equal(roleCount - 1, roles?.Count);
         }
     }
 }

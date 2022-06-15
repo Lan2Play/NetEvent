@@ -10,6 +10,10 @@ namespace NetEvent.Client.Services
     {
         Task<List<RoleDto>> GetRolesAsync(CancellationToken cancellationToken);
 
-        Task<bool> UpdateRoleAsync(RoleDto updatedRole, CancellationToken cancellationToken);
+        Task<ServiceResult> UpdateRoleAsync(RoleDto updatedRole, CancellationToken cancellationToken);
+
+        Task<ServiceResult> AddRoleAsync(RoleDto newRole, CancellationToken cancellationToken);
+
+        Task<ServiceResult> DeleteRoleAsync(RoleDto deletedRole, CancellationToken cancellationToken);
     }
 }
