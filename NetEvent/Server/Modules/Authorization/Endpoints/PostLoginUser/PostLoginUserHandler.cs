@@ -21,14 +21,14 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
             _Logger = logger;
         }
 
-        public async Task<PostLoginUserResponse> Handle(PostLoginUserRequest request, CancellationToken cancellationToken)
+        public Task<PostLoginUserResponse> Handle(PostLoginUserRequest request, CancellationToken cancellationToken)
         {
             if (request?.LoginRequest == null)
             {
                 throw new ArgumentOutOfRangeException(nameof(request));
             }
 
-            return await InternalHandle(request).ConfigureAwait(false);
+            return InternalHandle(request);
         }
 
         private async Task<PostLoginUserResponse> InternalHandle(PostLoginUserRequest request)

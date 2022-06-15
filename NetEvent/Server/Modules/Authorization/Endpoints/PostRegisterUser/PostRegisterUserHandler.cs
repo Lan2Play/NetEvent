@@ -23,14 +23,14 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
             _Logger = logger;
         }
 
-        public async Task<PostRegisterUserResponse> Handle(PostRegisterUserRequest request, CancellationToken cancellationToken)
+        public Task<PostRegisterUserResponse> Handle(PostRegisterUserRequest request, CancellationToken cancellationToken)
         {
             if (request?.RegisterRequest == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
 
-            return await InternalHandle(request, cancellationToken);
+            return InternalHandle(request, cancellationToken);
         }
 
         private async Task<PostRegisterUserResponse> InternalHandle(PostRegisterUserRequest request, CancellationToken cancellationToken)
