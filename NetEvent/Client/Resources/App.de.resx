@@ -303,4 +303,43 @@
   <data name="Register.Lastname" xml:space="preserve">
     <value>Nachname</value>
   </data>
+  <data name="NetEventDataGrid.DeleteDialog.Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="NetEventDataGrid.DeleteDialog.Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="NetEventDataGrid.DeleteDialog.Message" xml:space="preserve">
+    <value>Gelöschte Einträge können nicht wiederhergestellt werden!</value>
+  </data>
+  <data name="NetEventDataGrid.DeleteDialog.Title" xml:space="preserve">
+    <value>Warnung</value>
+  </data>
+  <data name="Administration.Users.Roles.IsDefault" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="RoleService.AddRoleAsync.Success" xml:space="preserve">
+    <value>Die Rolle {0} wurde erfolgreich hinzugefügt</value>
+  </data>
+  <data name="RoleService.DeleteRoleAsync.Error" xml:space="preserve">
+    <value>Beim löschen der Rolle {0} ist ein Fehler aufgetreten</value>
+  </data>
+  <data name="RoleService.DeleteRoleAsync.Success" xml:space="preserve">
+    <value>Die Rolle {0} wurde erfolgreich gelöscht</value>
+  </data>
+  <data name="RoleService.UpdateRoleAsync.Success" xml:space="preserve">
+    <value>Die Rolle {0} wurde erfolgreich aktualisiert</value>
+  </data>
+  <data name="Administration.Users.AddRole" xml:space="preserve">
+    <value>Neue Rolle</value>
+  </data>
+  <data name="Administration.Users.AddRoleTitle" xml:space="preserve">
+    <value>Rolle hinzufügen</value>
+  </data>
+  <data name="RoleService.AddRoleAsync.Error" xml:space="preserve">
+    <value>Beim hinzufügen der Rolle {0} ist ein Fehler aufgetreten</value>
+  </data>
+  <data name="RoleService.UpdateRoleAsync.Error" xml:space="preserve">
+    <value>Beim aktualisieren der Rolle {0} ist ein Fehler aufgetreten</value>
+  </data>
 </root>
