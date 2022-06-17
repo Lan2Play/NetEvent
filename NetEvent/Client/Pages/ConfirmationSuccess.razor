@@ -1,0 +1,11 @@
+﻿@page "/confirmation/success"
+
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+<h3>@Localize["ConfirmationSuccess.Title"]</h3>
+
+<MudCard>
+    <MudCardContent>
+        <MudText Align="Align.Left">@Localize["ConfirmationSuccess.Success"]</MudText>
+    </MudCardContent>
+</MudCard>

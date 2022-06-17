@@ -15,7 +15,7 @@ namespace NetEvent.Server.Migrations.Sqlite
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.6");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -178,7 +178,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "c7787fac-56f2-498c-8a98-29feea30a300",
+                            ConcurrencyStamp = "e229d4d2-9892-4efb-a115-81586251b02f",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -186,7 +186,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "389e8584-bdb1-40b8-88ea-57c723cfc6dc",
+                            ConcurrencyStamp = "7942e7b1-3708-442c-8621-6b9c3293c6cf",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -194,7 +194,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "219b2215-22e1-4f0a-b2eb-caa8e14ae291",
+                            ConcurrencyStamp = "9b4ddc31-decd-41ee-87c2-d2c4bc1f4fea",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -221,11 +221,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
@@ -280,7 +278,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e60ea89-eb14-4a3c-9dbf-623564ebf66e",
+                            ConcurrencyStamp = "364f7d4c-c4ad-4516-b01f-5d0a2585fbd9",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -288,11 +286,37 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGlEW89TC/vNJ2oJz+sqOlaDktk6i0UiuP+kmw5ptwBtdeGCGDg1Dxb0+HNZ1pIuYg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGxWnFAvg2n5sEiJtLijRLrJqVNQ51O2sMCo6nMjG1KfXsC7L2te3MojnphVQKzz1w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "40f29586-2376-4925-b193-87908ede5dd2",
+                            SecurityStamp = "d7d797cd-bfba-4719-807f-fcfc4cdc1999",
                             TwoFactorEnabled = false,
                             UserName = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.EmailTemplate", b =>
+                {
+                    b.Property<string>("TemplateId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContentTemplate")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubjectTemplate")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("TemplateId");
+
+                    b.ToTable("EmailTemplates", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            TemplateId = "UserEmailConfirmEmailTemplate",
+                            ContentTemplate = "<h1>@Model.TemplateVariables[\"firstName\"], welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ",
+                            SubjectTemplate = "@Model.TemplateVariables[\"firstName\"], please confirm your E-Mail address."
                         });
                 });
 
@@ -323,7 +347,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ThemeData")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

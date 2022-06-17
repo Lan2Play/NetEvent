@@ -25,7 +25,7 @@ namespace NetEvent.Client.Services
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var result = await client.GetFromJsonAsync<CurrentUserDto>("api/auth/user/current", cancellationToken);
+                var result = await client.GetFromJsonAsync<CurrentUserDto>("api/auth/user", cancellationToken);
 
                 if (result == null)
                 {
@@ -42,7 +42,7 @@ namespace NetEvent.Client.Services
             }
         }
 
-        public async Task LoginAsync(LoginRequest loginRequest, CancellationToken cancellationToken)
+        public async Task<ServiceResult> LoginAsync(LoginRequestDto loginRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
@@ -52,9 +52,27 @@ namespace NetEvent.Client.Services
             {
                 result.EnsureSuccessStatusCode();
             }
+            catch (Exception)
+            {
+                return ServiceResult.Error("LoginService.LoginError");
+            }
+
+            return ServiceResult.Success();
+        }
+
+        public async Task CompleteRegistrationAsync(RegisterExternalCompleteRequestDto completeRegistrationRequest, CancellationToken cancellationToken)
+        {
+            var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+            var result = await client.PostAsJsonAsync("api/auth/register/external/complete", completeRegistrationRequest, cancellationToken);
+
+            try
+            {
+                result.EnsureSuccessStatusCode();
+            }
             catch (Exception ex)
             {
-                _Logger.LogError(ex, "Unable to logout.");
+                _Logger.LogError(ex, "Unable to complete registration.");
                 throw;
             }
         }
@@ -75,7 +93,7 @@ namespace NetEvent.Client.Services
             }
         }
 
-        public async Task RegisterAsync(RegisterRequest registerRequest, CancellationToken cancellationToken)
+        public async Task<ServiceResult> RegisterAsync(RegisterRequestDto registerRequest, CancellationToken cancellationToken)
         {
             var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
@@ -85,11 +103,12 @@ namespace NetEvent.Client.Services
             {
                 result.EnsureSuccessStatusCode();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _Logger.LogError(ex, "Unable to register.");
-                throw;
+                return ServiceResult.Error("LoginService.RegisterError");
             }
+
+            return ServiceResult.Success();
         }
     }
 }

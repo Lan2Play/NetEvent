@@ -3,12 +3,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using NetEvent.Server.Configuration;
 using NetEvent.Server.Data;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
+using NetEvent.Server.Services;
 using NetEvent.Shared.Policy;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,7 +39,11 @@ switch (builder.Configuration["DBProvider"].ToLower())
         }
 }
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = true;
+        options.User.AllowedUserNameCharacters = string.Empty;
+    })
     .AddRoles<ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddUserManager<NetEventUserManager>()
@@ -52,15 +60,39 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
-builder.Services.RegisterModules();
-
 builder.Services.AddAuthorization(config => config.AddPolicies());
-builder.Services.AddAuthentication().AddSteam();
+builder.Services.AddAuthentication().AddSteam(options =>
+{
+    options.ApplicationKey = builder.Configuration.GetSection("SteamConfig").Get<SteamConfig>().ApplicationKey;
+});
+
+builder.Services.RegisterModules();
 
 builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof(SlugifyParameterTransformer));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+builder.Services.AddSingleton<IEmailRenderer, RazorEmailRenderer>();
+
+var emailConfig = builder.Configuration.GetSection("EmailConfig").Get<EmailConfig>();
+
+if (emailConfig?.SendGridConfig != null)
+{
+    builder.Services.TryAddSingleton(emailConfig.SendGridConfig);
+    builder.Services.TryAddScoped<IEmailSender, SendGridEmailSender>();
+}
+else if (emailConfig?.SmtpConfig != null)
+{
+    builder.Services.TryAddSingleton(emailConfig.SmtpConfig);
+    builder.Services.TryAddScoped<IEmailSender, SmtpEmailSender>();
+}
+else
+{
+    builder.Services.TryAddScoped<IEmailSender, NullEmailSender>();
+}
 
 var app = builder.Build();
 

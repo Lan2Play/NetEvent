@@ -10,7 +10,7 @@ using NetEvent.Server.Modules.Organization.Endpoints.GetOrganization;
 using NetEvent.Server.Modules.Organization.Endpoints.PostOrganization;
 using NetEvent.Shared.Constants;
 
-namespace NetEvent.Server.Modules.Authorization
+namespace NetEvent.Server.Modules.Organization
 {
     [ExcludeFromCodeCoverage]
     public class OrganizationModule : ModuleBase

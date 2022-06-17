@@ -43,7 +43,7 @@ namespace NetEvent.Client.Pages.Administration
 
         #region Users
 
-        public List<AdminUserDto>? AllUsers { get; private set; }
+        public List<AdminUserDto> AllUsers { get; private set; } = new List<AdminUserDto>();
 
         private string? _UsersSearchString;
 
@@ -83,6 +83,7 @@ namespace NetEvent.Client.Pages.Administration
             using var cancellationTokenSource = new CancellationTokenSource();
 
             var result = await _UserService.UpdateUserAsync(updatedUser, cancellationTokenSource.Token).ConfigureAwait(false);
+
             if (result.Successful)
             {
                 result = await _UserService.UpdateUserRoleAsync(updatedUser.Id, updatedUser.Role.Id, cancellationTokenSource.Token).ConfigureAwait(false);
@@ -97,7 +98,7 @@ namespace NetEvent.Client.Pages.Administration
 
         #region Roles
 
-        public List<RoleDto>? AllRoles { get; private set; }
+        public List<RoleDto> AllRoles { get; private set; } = new List<RoleDto>();
 
         public RoleDto? SelectedRole { get; private set; }
 

@@ -273,6 +273,33 @@
   <data name="UserService.UpdateUserAsync.Success" xml:space="preserve">
     <value>User {0} successfully updated</value>
   </data>
+  <data name="LoginService.LoginError" xml:space="preserve">
+    <value>Unable to login user {0}</value>
+  </data>
+  <data name="LoginService.RegisterError" xml:space="preserve">
+    <value>Unable to register user {0}</value>
+  </data>
+  <data name="ConfirmationPending.Confirm" xml:space="preserve">
+    <value>Please confirm your E-Mail address by clicking on the link in the mail you should have received.</value>
+  </data>
+  <data name="ConfirmationPending.RequestConfirmMailAgain" xml:space="preserve">
+    <value>No E-Mail received? Click on the following link to request a new mail.</value>
+  </data>
+  <data name="ConfirmationPending.Title" xml:space="preserve">
+    <value>E-Mail confirmation needed</value>
+  </data>
+  <data name="ConfirmationError.Error" xml:space="preserve">
+    <value>E-Mail validation has failed. Please contact an administrator.</value>
+  </data>
+  <data name="ConfirmationError.Title" xml:space="preserve">
+    <value>E-Mail confirmation failed</value>
+  </data>
+  <data name="ConfirmationSuccess.Success" xml:space="preserve">
+    <value>E-Mail has been successfully validated. You may now login.</value>
+  </data>
+  <data name="ConfirmationSuccess.Title" xml:space="preserve">
+    <value>E-Mail confirmation succeeded</value>
+  </data>
   <data name="Administration.Users.AddRole" xml:space="preserve">
     <value>New Role</value>
   </data>

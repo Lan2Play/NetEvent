@@ -30,7 +30,7 @@ namespace NetEvent.Client.Services
                 var userInfo = await GetCurrentUser();
                 if (userInfo?.UserName != null && userInfo?.Claims != null && userInfo.IsAuthenticated)
                 {
-                    var claims = new[] { new Claim(ClaimTypes.Name, userInfo.UserName) }.Concat(userInfo.Claims.Select(c => new Claim(c.Key, c.Value)));
+                    var claims = userInfo.Claims.Select(c => new Claim(c.Key, c.Value));
                     identity = new ClaimsIdentity(claims, "Server authentication");
                 }
             }
@@ -65,22 +65,26 @@ namespace NetEvent.Client.Services
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
 
-        public async Task Login(LoginRequest loginParameters)
+        public async Task<ServiceResult> Login(LoginRequestDto loginParameters)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            await _Api.LoginAsync(loginParameters, cancellationTokenSource.Token).ConfigureAwait(false);
+            var result = await _Api.LoginAsync(loginParameters, cancellationTokenSource.Token).ConfigureAwait(false);
 
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+
+            return result;
         }
 
-        public async Task Register(RegisterRequest registerParameters)
+        public async Task<ServiceResult> Register(RegisterRequestDto registerParameters)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            await _Api.RegisterAsync(registerParameters, cancellationTokenSource.Token).ConfigureAwait(false);
+            var result = await _Api.RegisterAsync(registerParameters, cancellationTokenSource.Token).ConfigureAwait(false);
 
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+
+            return result;
         }
     }
 }

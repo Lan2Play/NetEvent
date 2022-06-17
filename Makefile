@@ -14,8 +14,8 @@ migration:
 # create initial migrations | Attention: Do not use this until you know what you are doing!
 force-initial-migration:
 ifeq ($(OS),Windows_NT)
-	rmdir /S/Q NetEvent\Server\Migrations\Psql
-	rmdir /S/Q NetEvent\Server\Migrations\Sqlite
+	if exist NetEvent\Server\Migrations\Psql rmdir /S/Q NetEvent\Server\Migrations\Psql
+	if exist NetEvent\Server\Migrations\Sqlite rmdir /S/Q NetEvent\Server\Migrations\Sqlite
 else
 	rm -rf NetEvent/Server/Migrations/Psql
 	rm -rf NetEvent/Server/Migrations/Sqlite

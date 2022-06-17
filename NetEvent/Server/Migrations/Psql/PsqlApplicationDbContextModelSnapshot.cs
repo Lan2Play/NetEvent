@@ -17,7 +17,7 @@ namespace NetEvent.Server.Migrations.Psql
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -187,7 +187,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "d519b0e6-cf75-4aad-a9b5-1ced2d869f19",
+                            ConcurrencyStamp = "f20266b3-0818-424a-8912-57407a9ac7ac",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -195,7 +195,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "078db93e-a8c8-4912-a0c0-788a681528d7",
+                            ConcurrencyStamp = "b936a507-0748-487f-8061-877224424289",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -203,7 +203,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "c9171f3d-f2a4-46b4-915e-d0af55f72ec2",
+                            ConcurrencyStamp = "28e6c0d4-a4dd-4fca-b3e6-1b27e52a3ef6",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -230,11 +230,9 @@ namespace NetEvent.Server.Migrations.Psql
                         .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
@@ -289,7 +287,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ef73f3b1-ad8f-4299-b253-b6fedcc402ad",
+                            ConcurrencyStamp = "ecd75b12-2d1a-4a43-a498-de16cb67472b",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -297,11 +295,37 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL/JTtbzwem+lbh5eGBcNhKU4fmu7NZBzw51YtrkI12gQ7soH1G06MXsdpOPu0aamg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJxpoo1UFte3o9DHttOjC1TmSEqHKyn/p4zpgepbLjy3B1WkVPRLPpF23d6o1n4b5Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aeac1001-bab0-47d4-9fbe-2ce2f8b1d49f",
+                            SecurityStamp = "cb994e3b-9a82-4415-8533-59c6253f476d",
                             TwoFactorEnabled = false,
                             UserName = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.EmailTemplate", b =>
+                {
+                    b.Property<string>("TemplateId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContentTemplate")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubjectTemplate")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("TemplateId");
+
+                    b.ToTable("EmailTemplates", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            TemplateId = "UserEmailConfirmEmailTemplate",
+                            ContentTemplate = "<h1>@Model.TemplateVariables[\"firstName\"], welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ",
+                            SubjectTemplate = "@Model.TemplateVariables[\"firstName\"], please confirm your E-Mail address."
                         });
                 });
 
@@ -332,7 +356,6 @@ namespace NetEvent.Server.Migrations.Psql
                         .HasColumnType("uuid");
 
                     b.Property<string>("ThemeData")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

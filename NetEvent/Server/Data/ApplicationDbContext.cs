@@ -25,6 +25,8 @@ namespace NetEvent.Server.Data
 
         public virtual DbSet<OrganizationData> OrganizationData => Set<OrganizationData>();
 
+        public virtual DbSet<EmailTemplate> EmailTemplates => Set<EmailTemplate>();
+
         public override EntityEntry<TEntity> Add<TEntity>(TEntity entity)
         {
             return base.Add(entity);
@@ -86,6 +88,13 @@ namespace NetEvent.Server.Data
             builder.Entity<IdentityUserToken<string>>(entity =>
             {
                 entity.ToTable("UserTokens");
+            });
+
+            builder.Entity<EmailTemplate>(entity =>
+            {
+                entity.ToTable(name: nameof(EmailTemplates));
+
+                entity.HasData(new EmailTemplate { TemplateId = "UserEmailConfirmEmailTemplate", ContentTemplate = "<h1>@Model.TemplateVariables[\"firstName\"], welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ", SubjectTemplate = "@Model.TemplateVariables[\"firstName\"], please confirm your E-Mail address." });
             });
 
             if (_Modules != null)
