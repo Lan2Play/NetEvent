@@ -108,12 +108,12 @@ namespace NetEvent.Client.Pages.Administration
         // quick filter - filter gobally across multiple columns with the same input
         private Func<RoleDto, bool> _roleQuickFilter => x =>
         {
-            if (string.IsNullOrWhiteSpace(_UsersSearchString))
+            if (string.IsNullOrWhiteSpace(_RoleSearchString))
             {
                 return true;
             }
 
-            if (x.Name.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (x.Name.Contains(_RoleSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
