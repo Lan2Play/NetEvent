@@ -10,6 +10,19 @@ namespace NetEvent.Server.Migrations.Sqlite
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "EmailTemplates",
+                columns: table => new
+                {
+                    TemplateId = table.Column<string>(type: "TEXT", nullable: false),
+                    SubjectTemplate = table.Column<string>(type: "TEXT", nullable: false),
+                    ContentTemplate = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailTemplates", x => x.TemplateId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrganizationData",
                 columns: table => new
                 {
@@ -41,7 +54,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ThemeData = table.Column<string>(type: "TEXT", nullable: false)
+                    ThemeData = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -183,48 +196,34 @@ namespace NetEvent.Server.Migrations.Sqlite
                 });
 
             migrationBuilder.InsertData(
+                table: "EmailTemplates",
+                columns: new[] { "TemplateId", "ContentTemplate", "SubjectTemplate" },
+                values: new object[] { "UserEmailConfirmEmailTemplate", "<h1>@Model.TemplateVariables[\"firstName\"], welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ", "@Model.TemplateVariables[\"firstName\"], please confirm your E-Mail address." });
+
+            migrationBuilder.InsertData(
                 table: "OrganizationData",
                 columns: new[] { "Key", "Value" },
                 values: new object[] { "Culture", "en-US" });
 
             migrationBuilder.InsertData(
                 table: "Role",
-<<<<<<<< HEAD:NetEvent/Server/Migrations/Sqlite/20220511203046_Initial.cs
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "admin", "84632355-974a-4ede-8ad2-10fd2ea7205b", "Admin", "ADMIN" });
-
-            migrationBuilder.InsertData(
-                table: "Role",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "orga", "277a4365-bb0c-4f4f-914b-0dc964fcfc43", "Orga", "ORGA" });
-
-            migrationBuilder.InsertData(
-                table: "Role",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "user", "0abf641a-efe4-44c5-be5e-66d470552fff", "User", "USER" });
-========
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "admin", "219b2215-22e1-4f0a-b2eb-caa8e14ae291", false, "Admin", "ADMIN" });
+                values: new object[] { "admin", "9b4ddc31-decd-41ee-87c2-d2c4bc1f4fea", false, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "orga", "389e8584-bdb1-40b8-88ea-57c723cfc6dc", false, "Orga", "ORGA" });
+                values: new object[] { "orga", "7942e7b1-3708-442c-8621-6b9c3293c6cf", false, "Orga", "ORGA" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "user", "c7787fac-56f2-498c-8a98-29feea30a300", true, "User", "USER" });
->>>>>>>> main:NetEvent/Server/Migrations/Sqlite/20220614181642_Initial.cs
+                values: new object[] { "user", "e229d4d2-9892-4efb-a115-81586251b02f", true, "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-<<<<<<<< HEAD:NetEvent/Server/Migrations/Sqlite/20220511203046_Initial.cs
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "57bd9dd0-2bf9-46bb-a5d7-344c635fd9e6", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEJsjQn0D+D9bxeePXTyg8t69rtC5NS32qd8SRPx3g1/kuAthsqT0MM2t0Kq9t3Hizw==", null, false, null, "87f068aa-8fd8-4fde-99bc-830be17ffb33", false, "admin" });
-========
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "9e60ea89-eb14-4a3c-9dbf-623564ebf66e", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEGlEW89TC/vNJ2oJz+sqOlaDktk6i0UiuP+kmw5ptwBtdeGCGDg1Dxb0+HNZ1pIuYg==", null, false, null, "40f29586-2376-4925-b193-87908ede5dd2", false, "admin" });
->>>>>>>> main:NetEvent/Server/Migrations/Sqlite/20220614181642_Initial.cs
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "364f7d4c-c4ad-4516-b01f-5d0a2585fbd9", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEGxWnFAvg2n5sEiJtLijRLrJqVNQ51O2sMCo6nMjG1KfXsC7L2te3MojnphVQKzz1w==", null, false, null, "d7d797cd-bfba-4719-807f-fcfc4cdc1999", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
@@ -281,6 +280,9 @@ namespace NetEvent.Server.Migrations.Sqlite
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "EmailTemplates");
+
             migrationBuilder.DropTable(
                 name: "OrganizationData");
 

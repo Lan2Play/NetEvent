@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using NetEvent.Server.Modules.Authorization.Endpoints.GetCurrentUser;
 using NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternal;
 using NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternalCallback;
-using NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser;
+using NetEvent.Server.Modules.Authorization.Endpoints.PostLogin;
 using NetEvent.Server.Modules.Authorization.Endpoints.PostLogoutUser;
 using NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser;
 using NetEvent.Shared.Dto;

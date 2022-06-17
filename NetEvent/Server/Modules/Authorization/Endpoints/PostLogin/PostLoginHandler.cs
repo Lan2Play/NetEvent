@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using NetEvent.Server.Models;
 
-namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
+namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogin
 {
     public class PostLoginHandler : IRequestHandler<PostLoginRequest, PostLoginResponse>
     {
@@ -21,7 +21,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
             _Logger = logger;
         }
 
-        public Task<PostLoginUserResponse> Handle(PostLoginResponse request, CancellationToken cancellationToken)
+        public Task<PostLoginResponse> Handle(PostLoginRequest request, CancellationToken cancellationToken)
         {
             if (request?.LoginRequest == null)
             {
@@ -31,7 +31,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
             return InternalHandle(request);
         }
 
-        private async Task<PostLoginUserResponse> InternalHandle(PostLoginResponse request)
+        private async Task<PostLoginResponse> InternalHandle(PostLoginRequest request)
         {
             var user = (await _UserManager.FindByNameAsync(request.LoginRequest!.UserName).ConfigureAwait(false)) ??
                                     await _UserManager.FindByEmailAsync(request.LoginRequest!.UserName).ConfigureAwait(false);

@@ -15,56 +15,7 @@ namespace NetEvent.Server.Migrations.Sqlite
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
-
-                    b.ToTable("Role", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "user",
-                            ConcurrencyStamp = "45e24a20-7c3d-4fb8-b794-61b68b8f83d7",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "orga",
-                            ConcurrencyStamp = "d519f414-8044-4d2d-aab8-b7116ce26d2a",
-                            Name = "Orga",
-                            NormalizedName = "ORGA"
-                        },
-                        new
-                        {
-                            Id = "admin",
-                            ConcurrencyStamp = "b7b30950-199a-4a7e-b775-75d093c8b97f",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
-                });
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.6");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -195,6 +146,61 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.ToTable("UserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("NetEvent.Server.Models.ApplicationRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("Role", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "user",
+                            ConcurrencyStamp = "e229d4d2-9892-4efb-a115-81586251b02f",
+                            IsDefault = true,
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "orga",
+                            ConcurrencyStamp = "7942e7b1-3708-442c-8621-6b9c3293c6cf",
+                            IsDefault = false,
+                            Name = "Orga",
+                            NormalizedName = "ORGA"
+                        },
+                        new
+                        {
+                            Id = "admin",
+                            ConcurrencyStamp = "9b4ddc31-decd-41ee-87c2-d2c4bc1f4fea",
+                            IsDefault = false,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
+                });
+
             modelBuilder.Entity("NetEvent.Server.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -272,7 +278,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0805bcc0-5ef4-4e2f-bb4c-f9fa62026b43",
+                            ConcurrencyStamp = "364f7d4c-c4ad-4516-b01f-5d0a2585fbd9",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -280,9 +286,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK9djjvzIvs8zYvjmzdj4OxG14H0pe9ZtLCZcPkb0mDfupn+nzaEC+Lecor1udpnWQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGxWnFAvg2n5sEiJtLijRLrJqVNQ51O2sMCo6nMjG1KfXsC7L2te3MojnphVQKzz1w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "36011a58-a5ee-4c8d-ab5e-71c2d46a0fa0",
+                            SecurityStamp = "d7d797cd-bfba-4719-807f-fcfc4cdc1999",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -341,7 +347,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ThemeData")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -351,7 +356,7 @@ namespace NetEvent.Server.Migrations.Sqlite
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("NetEvent.Server.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -378,7 +383,7 @@ namespace NetEvent.Server.Migrations.Sqlite
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("NetEvent.Server.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)

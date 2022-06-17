@@ -14,9 +14,9 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternalCallba
     {
         private readonly SignInManager<ApplicationUser> _SignInManager;
         private readonly UserManager<ApplicationUser> _UserManager;
-        private readonly RoleManager<IdentityRole> _RoleManager;
+        private readonly RoleManager<ApplicationRole> _RoleManager;
 
-        public GetLoginExternalCallbackHandler(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public GetLoginExternalCallbackHandler(SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _SignInManager = signInManager;
             _UserManager = userManager;
@@ -72,7 +72,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.GetLoginExternalCallba
 
             if (result.Succeeded)
             {
-                var defaultRole = await _RoleManager.Roles.FirstAsync(cancellationToken);
+                var defaultRole = await _RoleManager.Roles.FirstAsync(x => x.IsDefault, cancellationToken);
 
                 result = await _UserManager.AddToRoleAsync(user, defaultRole.Name).ConfigureAwait(false);
 

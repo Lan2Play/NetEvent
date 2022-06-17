@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Text;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -17,16 +15,16 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
     {
         private readonly UserManager<ApplicationUser> _UserManager;
         private readonly RoleManager<ApplicationRole> _RoleManager;
-        private readonly ILogger<PostRegisterUserHandler> _Logger;
+        private readonly ILogger<PostRegisterHandler> _Logger;
 
-        public PostRegisterHandler(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, ILogger<PostRegisterUserHandler> logger)
+        public PostRegisterHandler(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IEmailService emailService, ILogger<PostRegisterHandler> logger) : base(userManager, emailService)
         {
             _UserManager = userManager;
             _RoleManager = roleManager;
             _Logger = logger;
         }
 
-        public Task<PostRegisterUserResponse> Handle(PostRegisterRequest request, CancellationToken cancellationToken)
+        public Task<PostRegisterResponse> Handle(PostRegisterRequest request, CancellationToken cancellationToken)
         {
             if (request?.RegisterRequest == null)
             {
@@ -36,7 +34,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostRegisterUser
             return InternalHandle(request, cancellationToken);
         }
 
-        private async Task<PostRegisterUserResponse> InternalHandle(PostRegisterRequest request, CancellationToken cancellationToken)
+        private async Task<PostRegisterResponse> InternalHandle(PostRegisterRequest request, CancellationToken cancellationToken)
         {
             var context = request.HttpContext;
 

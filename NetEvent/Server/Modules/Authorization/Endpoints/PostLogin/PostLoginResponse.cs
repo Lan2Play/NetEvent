@@ -1,4 +1,4 @@
-﻿namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
+﻿namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLogin
 {
     public class PostLoginResponse : ResponseBase
     {
