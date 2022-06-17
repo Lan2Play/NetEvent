@@ -9,5 +9,5 @@ public class CurrentUserDto : UserDto
     public bool IsAuthenticated { get; set; }
 
     [JsonPropertyName("claims")]
-    public Dictionary<string, string> Claims { get; set; }
+    public Dictionary<string, string>? Claims { get; set; }
 }

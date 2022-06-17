@@ -10,7 +10,7 @@ using NetEvent.Shared.Policy;
 
 namespace NetEvent.Server.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         private const string _AdminGuid = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD";
         private readonly IReadOnlyCollection<IModule> _Modules;
@@ -53,13 +53,13 @@ namespace NetEvent.Server.Data
                 adminUser.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(adminUser, "Test123..");
                 _ = entity.HasData(adminUser);
             });
-            builder.Entity<IdentityRole>(entity =>
+            builder.Entity<ApplicationRole>(entity =>
             {
                 entity.ToTable(name: "Role");
 
-                entity.HasData(new IdentityRole { Id = "user", Name = "User", NormalizedName = "USER" });
-                entity.HasData(new IdentityRole { Id = "orga", Name = "Orga", NormalizedName = "ORGA" });
-                entity.HasData(new IdentityRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN" });
+                entity.HasData(new ApplicationRole { Id = "user", Name = "User", NormalizedName = "USER", IsDefault = true });
+                entity.HasData(new ApplicationRole { Id = "orga", Name = "Orga", NormalizedName = "ORGA" });
+                entity.HasData(new ApplicationRole { Id = "admin", Name = "Admin", NormalizedName = "ADMIN" });
             });
             builder.Entity<IdentityUserRole<string>>(entity =>
             {

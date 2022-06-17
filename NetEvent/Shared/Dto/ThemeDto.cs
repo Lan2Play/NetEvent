@@ -6,5 +6,5 @@ public class ThemeDto
 {
     public Guid Id { get; set; }
 
-    public string ThemeData { get; set; }
+    public string? ThemeData { get; set; }
 }

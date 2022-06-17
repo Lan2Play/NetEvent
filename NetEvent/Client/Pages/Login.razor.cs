@@ -21,6 +21,7 @@ namespace NetEvent.Client.Pages
 
         [Inject]
         private IStringLocalizer<App> _Localizer { get; set; } = default!;
+        public string? Error { get; set; }
 
         public LoginRequestDto LoginRequest { get; set; } = new();
 

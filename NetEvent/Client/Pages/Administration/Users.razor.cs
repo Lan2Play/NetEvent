@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using NetEvent.Client.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Administration;
@@ -25,12 +26,19 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         private IStringLocalizer<App> _Localizer { get; set; } = default!;
 
+        private NetEventDataGrid<RoleDto> RolesDataGrid = default!;
+
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
             AllUsers = await _UserService.GetUsersAsync(cancellationTokenSource.Token);
-            AllRoles = await _RoleService.GetRolesAsync(cancellationTokenSource.Token);
+            await LoadRoles(cancellationTokenSource.Token);
+        }
+
+        private async Task LoadRoles(CancellationToken cancellationToken)
+        {
+            AllRoles = await _RoleService.GetRolesAsync(cancellationToken);
         }
 
         #region Users
@@ -47,22 +55,22 @@ namespace NetEvent.Client.Pages.Administration
                 return true;
             }
 
-            if (x.UserName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(x.UserName) && x.UserName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            if (x.FirstName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(x.FirstName) && x.FirstName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            if (x.LastName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(x.LastName) && x.LastName.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            if (x.Email.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(x.Email) && x.Email.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
@@ -81,7 +89,7 @@ namespace NetEvent.Client.Pages.Administration
                 result = await _UserService.UpdateUserRoleAsync(updatedUser.Id, updatedUser.Role.Id, cancellationTokenSource.Token).ConfigureAwait(false);
             }
 
-            if (result.MessageKey != null)
+            if (!string.IsNullOrEmpty(result.MessageKey) && !string.IsNullOrEmpty(updatedUser.Email))
             {
                 _Snackbar.Add(_Localizer.GetString(result.MessageKey, updatedUser.Email), result.Successful ? Severity.Success : Severity.Error);
             }
@@ -96,17 +104,17 @@ namespace NetEvent.Client.Pages.Administration
 
         private string? _RoleSearchString;
 
-        private string value { get; set; } = "Nothing selected";
+        private string? SelectionLabelValue { get; set; }
 
         // quick filter - filter gobally across multiple columns with the same input
         private Func<RoleDto, bool> _roleQuickFilter => x =>
         {
-            if (string.IsNullOrWhiteSpace(_UsersSearchString))
+            if (string.IsNullOrWhiteSpace(_RoleSearchString))
             {
                 return true;
             }
 
-            if (x.Name.Contains(_UsersSearchString, StringComparison.OrdinalIgnoreCase))
+            if (x.Name.Contains(_RoleSearchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
@@ -118,14 +126,49 @@ namespace NetEvent.Client.Pages.Administration
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            ServiceResult result;
+            if (string.IsNullOrEmpty(updatedRole.Id))
+            {
+                result = await _RoleService.AddRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            }
+            else
+            {
+                result = await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+            }
+
+            if (!string.IsNullOrEmpty(result.MessageKey))
+            {
+                _Snackbar.Add(_Localizer.GetString(result.MessageKey, updatedRole.Name), result.Successful ? Severity.Success : Severity.Error);
+            }
+
+            await LoadRoles(cancellationTokenSource.Token);
         }
 
-        private static string CreateSelectionLabel(List<string> selectedValues)
+        private async Task DeletedItemChanges(EventCallbackArgs<RoleDto> deletedRoleArgs)
         {
-            return $"{selectedValues.Count} Permission{(selectedValues.Count > 1 ? "s" : string.Empty)}";
+            using var cancellationTokenSource = new CancellationTokenSource();
+            var result = await _RoleService.DeleteRoleAsync(deletedRoleArgs.Value, cancellationTokenSource.Token).ConfigureAwait(false);
+
+            if (!string.IsNullOrEmpty(result.MessageKey))
+            {
+                _Snackbar.Add(_Localizer.GetString(result.MessageKey, deletedRoleArgs.Value.Name), result.Successful ? Severity.Success : Severity.Error);
+            }
+
+            if (!result.Successful)
+            {
+                deletedRoleArgs.Cancel = true;
+            }
         }
 
+        private string CreateSelectionLabel(List<string> selectedValues)
+        {
+            return selectedValues.Count switch
+            {
+                int n when n == 1 => $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionSingular"]}",
+                int n when n > 1 => $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionPlural"]}",
+                _ => (string)_Localizer["Administration.Users.Roles.NothingSelected"],
+            };
+        }
         #endregion
     }
 }

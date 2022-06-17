@@ -12,18 +12,23 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetEvent.Server.Migrations.Psql
 {
     [DbContext(typeof(PsqlApplicationDbContext))]
+<<<<<<<< HEAD:NetEvent/Server/Migrations/Psql/20220511203026_Initial.Designer.cs
     [Migration("20220511203026_Initial")]
+========
+    [Migration("20220614181658_Initial")]
+>>>>>>>> main:NetEvent/Server/Migrations/Psql/20220614181658_Initial.Designer.cs
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+<<<<<<<< HEAD:NetEvent/Server/Migrations/Psql/20220511203026_Initial.Designer.cs
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -73,6 +78,8 @@ namespace NetEvent.Server.Migrations.Psql
                         });
                 });
 
+========
+>>>>>>>> main:NetEvent/Server/Migrations/Psql/20220614181658_Initial.Designer.cs
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -206,6 +213,61 @@ namespace NetEvent.Server.Migrations.Psql
                     b.ToTable("UserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("NetEvent.Server.Models.ApplicationRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("Role", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "user",
+                            ConcurrencyStamp = "d519b0e6-cf75-4aad-a9b5-1ced2d869f19",
+                            IsDefault = true,
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "orga",
+                            ConcurrencyStamp = "078db93e-a8c8-4912-a0c0-788a681528d7",
+                            IsDefault = false,
+                            Name = "Orga",
+                            NormalizedName = "ORGA"
+                        },
+                        new
+                        {
+                            Id = "admin",
+                            ConcurrencyStamp = "c9171f3d-f2a4-46b4-915e-d0af55f72ec2",
+                            IsDefault = false,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
+                });
+
             modelBuilder.Entity("NetEvent.Server.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -283,7 +345,11 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
+<<<<<<<< HEAD:NetEvent/Server/Migrations/Psql/20220511203026_Initial.Designer.cs
                             ConcurrencyStamp = "97f54e37-a2e6-48cb-8f33-10fd6e4f2520",
+========
+                            ConcurrencyStamp = "ef73f3b1-ad8f-4299-b253-b6fedcc402ad",
+>>>>>>>> main:NetEvent/Server/Migrations/Psql/20220614181658_Initial.Designer.cs
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -291,9 +357,15 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
+<<<<<<<< HEAD:NetEvent/Server/Migrations/Psql/20220511203026_Initial.Designer.cs
                             PasswordHash = "AQAAAAEAACcQAAAAEGNt16UExWD8wiNsYj5znRbQqDzL9OFdW1XsHjxLYmEZmzptSkpIxbA7rsQT8aUe3w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "940ba0de-d13a-4958-bd4f-3596455e06d7",
+========
+                            PasswordHash = "AQAAAAEAACcQAAAAEL/JTtbzwem+lbh5eGBcNhKU4fmu7NZBzw51YtrkI12gQ7soH1G06MXsdpOPu0aamg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "aeac1001-bab0-47d4-9fbe-2ce2f8b1d49f",
+>>>>>>>> main:NetEvent/Server/Migrations/Psql/20220614181658_Initial.Designer.cs
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -336,7 +408,7 @@ namespace NetEvent.Server.Migrations.Psql
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("NetEvent.Server.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -363,7 +435,7 @@ namespace NetEvent.Server.Migrations.Psql
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("NetEvent.Server.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)

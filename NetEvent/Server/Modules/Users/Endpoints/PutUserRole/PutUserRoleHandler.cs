@@ -30,7 +30,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUserRole
                 return new PutUserRoleResponse(ReturnType.NotFound, $"User {request.UserId} not found in database.");
             }
 
-            var existingRole = await _UserDbContext.FindAsync<IdentityRole>(new[] { request.RoleId }, cancellationToken).ConfigureAwait(false);
+            var existingRole = await _UserDbContext.FindAsync<ApplicationRole>(new[] { request.RoleId }, cancellationToken).ConfigureAwait(false);
 
             if (existingRole == null)
             {

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -20,10 +21,20 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
             _Logger = logger;
         }
 
-        public async Task<PostLoginResponse> Handle(PostLoginRequest request, CancellationToken cancellationToken)
+        public Task<PostLoginUserResponse> Handle(PostLoginResponse request, CancellationToken cancellationToken)
         {
-            var user = (await _UserManager.FindByNameAsync(request.LoginRequest.UserName).ConfigureAwait(false)) ??
-                        await _UserManager.FindByEmailAsync(request.LoginRequest.UserName).ConfigureAwait(false);
+            if (request?.LoginRequest == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(request));
+            }
+
+            return InternalHandle(request);
+        }
+
+        private async Task<PostLoginUserResponse> InternalHandle(PostLoginResponse request)
+        {
+            var user = (await _UserManager.FindByNameAsync(request.LoginRequest!.UserName).ConfigureAwait(false)) ??
+                                    await _UserManager.FindByEmailAsync(request.LoginRequest!.UserName).ConfigureAwait(false);
 
             if (user == null)
             {
@@ -32,7 +43,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
                 return new PostLoginResponse(ReturnType.Error, errorMessage);
             }
 
-            var singInResult = await _SignInManager.CheckPasswordSignInAsync(user, request.LoginRequest.Password, false);
+            var singInResult = await _SignInManager.CheckPasswordSignInAsync(user, request.LoginRequest!.Password, false);
 
             if (!singInResult.Succeeded)
             {
@@ -41,7 +52,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints.PostLoginUser
                 return new PostLoginResponse(ReturnType.Error, errorMessage);
             }
 
-            await _SignInManager.SignInAsync(user, request.LoginRequest.RememberMe).ConfigureAwait(false);
+            await _SignInManager.SignInAsync(user, request.LoginRequest!.RememberMe).ConfigureAwait(false);
             return new PostLoginResponse();
         }
     }

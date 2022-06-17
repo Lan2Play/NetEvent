@@ -13,12 +13,10 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
     public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse>
     {
         private readonly ApplicationDbContext _UserDbContext;
-        private readonly ILogger<GetUsersHandler> _Logger;
 
-        public GetUsersHandler(ApplicationDbContext userDbContext, ILogger<GetUsersHandler> logger)
+        public GetUsersHandler(ApplicationDbContext userDbContext)
         {
             _UserDbContext = userDbContext;
-            _Logger = logger;
         }
 
         public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
@@ -27,7 +25,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints.GetUsers
             var userRoles = await _UserDbContext.UserRoles.ToListAsync(cancellationToken);
             var allRoles = await _UserDbContext.Roles.ToListAsync(cancellationToken);
             var convertedUsers = allUsers.Select(DtoMapper.Mapper.ApplicaitonUserToAdminUserDto).ToList();
-            var convertedRoles = allRoles.Select(DtoMapper.Mapper.IdentityRoleToRoleDto).ToList();
+            var convertedRoles = allRoles.Select(DtoMapper.Mapper.ApplicationRoleToRoleDto).ToList();
 
             foreach (var userRole in userRoles)
             {

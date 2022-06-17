@@ -9,12 +9,10 @@ namespace NetEvent.Server.Modules.Users.Endpoints.PutUser
     public class PutUserHandler : IRequestHandler<PutUserRequest, PutUserResponse>
     {
         private readonly NetEventUserManager _UserManager;
-        private readonly ILogger<PutUserHandler> _Logger;
 
-        public PutUserHandler(NetEventUserManager userManager, ILogger<PutUserHandler> logger)
+        public PutUserHandler(NetEventUserManager userManager)
         {
             _UserManager = userManager;
-            _Logger = logger;
         }
 
         public async Task<PutUserResponse> Handle(PutUserRequest request, CancellationToken cancellationToken)

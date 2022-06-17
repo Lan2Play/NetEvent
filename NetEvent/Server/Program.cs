@@ -35,7 +35,7 @@ switch (builder.Configuration["DBProvider"].ToLower())
         break;
     default:
         {
-            throw new Exception($"DbProvider not recognized: {builder.Configuration["DBProvider"]}");
+            throw new NotSupportedException($"DbProvider not recognized: {builder.Configuration["DBProvider"]}");
         }
 }
 
@@ -44,7 +44,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
         options.SignIn.RequireConfirmedAccount = true;
         options.User.AllowedUserNameCharacters = string.Empty;
     })
-    .AddRoles<IdentityRole>()
+    .AddRoles<ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddUserManager<NetEventUserManager>()
     .AddRoleManager<NetEventRoleManager>()
