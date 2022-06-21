@@ -1,9 +1,56 @@
 ﻿@page "/administration/settings"
-@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Policy = "Admin.Settings.*")]
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
+@using Microsoft.AspNetCore.Authorization
+@using NetEvent.Shared.Config
 
-@attribute [Authorize(Roles = "Admin")]
+<h3>Organization</h3>
+
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+
+    <AuthorizeView Policy="Admin.Settings.Organization.*">
+        <Authorized>
+            <MudTabPanel Text="@Localize["Administration.AdminMenu.Organization"]">
+                @if (_Loading)
+                {
+                    <div>Loading Data...</div>
+                }
+                else
+                {
+                    @foreach (var systemSetting in _SystemSettings.OrganizationData)
+                    {
+                        @switch (systemSetting.ValueType)
+                        {
+                            @case StringValueType svt:
+                                <MudTextField T="string" Value="@_OrganizationData.First(x=>x.Key == systemSetting.Key).Value" ValueChanged="@((v) => OnSettingsValueChanged(systemSetting, v))" Label="@systemSetting.TextKey" HelperText="@systemSetting.TextKey" Variant="Variant.Text" />
+                                break;
+                            @default:
+                                <div>Missing InputType @systemSetting.ValueType.GetType().Name for Setting @systemSetting.Key with Value- @_OrganizationData.First(x=>x.Key == systemSetting.Key).Value</div>
+                                break;
+                        }
+                    }
+                }
+            </MudTabPanel>
+        </Authorized>
+    </AuthorizeView>
+
+
+    @*<MudTabPanel Text="Tab Two">
+    <MudText>Content Two</MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="Tab Three">
+    <MudText>Content Three</MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="Tab Disabled" Disabled="true">
+    <MudText>Content Disabled</MudText>
+    </MudTabPanel>*@
+</MudTabs>
 
 
 
+@*@foreach (var organizationData in _OrganizationData)
+{
+    <div>  @organizationData.Key - @organizationData.Value</div>
+}
+*@

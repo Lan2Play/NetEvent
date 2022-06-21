@@ -60,6 +60,20 @@ namespace NetEvent.Server.Migrations.Psql
                             ClaimType = "Admin.Users.Edit",
                             ClaimValue = "",
                             RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClaimType = "Admin.Organization.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClaimType = "Admin.Organization.Edit",
+                            ClaimValue = "",
+                            RoleId = "admin"
                         });
                 });
 
@@ -187,7 +201,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "f20266b3-0818-424a-8912-57407a9ac7ac",
+                            ConcurrencyStamp = "11f03c58-f679-4c09-a04e-7392e3745ff0",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -195,7 +209,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "b936a507-0748-487f-8061-877224424289",
+                            ConcurrencyStamp = "1dc18c52-75af-4f04-b2d0-52c95439c84d",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -203,7 +217,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "28e6c0d4-a4dd-4fca-b3e6-1b27e52a3ef6",
+                            ConcurrencyStamp = "e065e4c2-0965-45f7-9d44-eff172081a53",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -287,7 +301,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ecd75b12-2d1a-4a43-a498-de16cb67472b",
+                            ConcurrencyStamp = "2c469ac6-3769-41bc-9b2a-e83b9c445f11",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -295,9 +309,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJxpoo1UFte3o9DHttOjC1TmSEqHKyn/p4zpgepbLjy3B1WkVPRLPpF23d6o1n4b5Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGdRaTUJwfmfbelbYLjkQEZr7n/5WyzlnDOnrf+penz02FZ9A34l1IECO2NcwE3MoQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb994e3b-9a82-4415-8533-59c6253f476d",
+                            SecurityStamp = "f8f485be-d325-4ff8-b72c-5d681d290c11",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -329,12 +343,12 @@ namespace NetEvent.Server.Migrations.Psql
                         });
                 });
 
-            modelBuilder.Entity("NetEvent.Server.Models.OrganizationData", b =>
+            modelBuilder.Entity("NetEvent.Server.Models.SystemSettingValue", b =>
                 {
                     b.Property<string>("Key")
                         .HasColumnType("text");
 
-                    b.Property<string>("Value")
+                    b.Property<string>("SerializedValue")
                         .HasColumnType("text");
 
                     b.HasKey("Key");
@@ -344,8 +358,13 @@ namespace NetEvent.Server.Migrations.Psql
                     b.HasData(
                         new
                         {
-                            Key = "Culture",
-                            Value = "en-US"
+                            Key = "OrganizationName",
+                            SerializedValue = "NetEvent"
+                        },
+                        new
+                        {
+                            Key = "DataCultureInfo",
+                            SerializedValue = "en-US"
                         });
                 });
 

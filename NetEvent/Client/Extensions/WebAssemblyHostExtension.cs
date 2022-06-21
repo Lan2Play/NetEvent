@@ -15,7 +15,7 @@ public static class WebAssemblyHostExtension
 {
     public static async Task SetDefaultCultureAsync(this WebAssemblyHost app)
     {
-        var organizationDataService = app.Services.GetRequiredService<IOrganizationDataService>();
+        var organizationDataService = app.Services.GetRequiredService<ISystemSettingsDataService>();
         var logger = app.Services.GetRequiredService<ILogger<WebAssemblyHost>>();
 
         try

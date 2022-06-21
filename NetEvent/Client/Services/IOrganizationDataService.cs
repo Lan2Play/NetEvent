@@ -5,8 +5,8 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Services
 {
-    public interface IOrganizationDataService
+    public interface ISystemSettingsDataService
     {
-        Task<List<OrganizationDataDto>> GetOrganizationDataAsync(CancellationToken cancellationToken);
+        Task<List<SystemSettingValueDto>> GetOrganizationDataAsync(CancellationToken cancellationToken);
     }
 }

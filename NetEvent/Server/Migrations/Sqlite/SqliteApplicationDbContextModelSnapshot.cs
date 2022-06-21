@@ -53,6 +53,20 @@ namespace NetEvent.Server.Migrations.Sqlite
                             ClaimType = "Admin.Users.Edit",
                             ClaimValue = "",
                             RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClaimType = "Admin.Organization.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClaimType = "Admin.Organization.Edit",
+                            ClaimValue = "",
+                            RoleId = "admin"
                         });
                 });
 
@@ -178,7 +192,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "e229d4d2-9892-4efb-a115-81586251b02f",
+                            ConcurrencyStamp = "b3fb6eeb-876b-41c6-b4a5-b59453e6953d",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -186,7 +200,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "7942e7b1-3708-442c-8621-6b9c3293c6cf",
+                            ConcurrencyStamp = "81a0df7b-912d-462d-8fab-b7af83621d96",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -194,7 +208,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "9b4ddc31-decd-41ee-87c2-d2c4bc1f4fea",
+                            ConcurrencyStamp = "6d92e2f2-d766-491f-8350-61a4f1d1db6b",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -278,7 +292,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "364f7d4c-c4ad-4516-b01f-5d0a2585fbd9",
+                            ConcurrencyStamp = "a7c1bf62-5857-4b02-9bcd-0ac44ba87b10",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -286,9 +300,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGxWnFAvg2n5sEiJtLijRLrJqVNQ51O2sMCo6nMjG1KfXsC7L2te3MojnphVQKzz1w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDIgPUsdcHP2kMhN3bRhMeaVUmmPrlAyC3InaGhDYXTcCfU6zzFAVBm3iVNskY2iiQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7d797cd-bfba-4719-807f-fcfc4cdc1999",
+                            SecurityStamp = "84982ebd-308a-4aa0-b188-748123e2133a",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -320,12 +334,12 @@ namespace NetEvent.Server.Migrations.Sqlite
                         });
                 });
 
-            modelBuilder.Entity("NetEvent.Server.Models.OrganizationData", b =>
+            modelBuilder.Entity("NetEvent.Server.Models.SystemSettingValue", b =>
                 {
                     b.Property<string>("Key")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Value")
+                    b.Property<string>("SerializedValue")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Key");
@@ -335,8 +349,13 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.HasData(
                         new
                         {
-                            Key = "Culture",
-                            Value = "en-US"
+                            Key = "OrganizationName",
+                            SerializedValue = "NetEvent"
+                        },
+                        new
+                        {
+                            Key = "DataCultureInfo",
+                            SerializedValue = "en-US"
                         });
                 });
 

@@ -339,4 +339,7 @@
   <data name="RoleService.UpdateRoleAsync.Success" xml:space="preserve">
     <value>Role {0} successfully updated</value>
   </data>
+  <data name="Administration.AdminMenu.Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
 </root>

@@ -34,8 +34,9 @@ namespace NetEvent.Shared
         [MapperIgnore(nameof(Claim.Issuer))]
         public partial Claim ClaimDtoToClaim(ClaimDto claimDto);
 
-        public partial OrganizationData OrganizationDataDtoToOrganizationData(OrganizationDataDto organizationData);
+        public partial SystemSettingValue SystemSettingValueDtoToSystemSettingValue(SystemSettingValueDto organizationData);
 
-        public partial OrganizationDataDto OrganizationDataToOrganizationDataDto(OrganizationData organizationData);
+        [MapProperty(nameof(SystemSettingValue.SerializedValue), nameof(SystemSettingValueDto.Value))]
+        public partial SystemSettingValueDto SystemSettingValueToSystemSettingValueDto(SystemSettingValue organizationData);
     }
 }
