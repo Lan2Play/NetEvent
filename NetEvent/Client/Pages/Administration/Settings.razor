@@ -9,10 +9,10 @@
 
     <AuthorizeView Policy="Admin.Settings.Organization.*">
         <Authorized>
-            <MudTabPanel Text="@Localize["Administration.AdminMenu.Organization"]">
+            <MudTabPanel Text="@Localize["Administration.Settings.Organization"]">
                 @if (_Loading)
                 {
-                    <div>Loading Data...</div>
+                    <div>@Localize["Administration.Settings.LoadingData"]</div>
                 }
                 else
                 {
@@ -22,9 +22,11 @@
                         {
                             @case StringValueType svt:
                                 <MudTextField T="string" Value="@_OrganizationData.First(x=>x.Key == systemSetting.Key).Value" ValueChanged="@((v) => OnSettingsValueChanged(systemSetting, v))" Label="@systemSetting.TextKey" HelperText="@systemSetting.TextKey" Variant="Variant.Text" />
+
                                 break;
                             @default:
-                                <div>Missing InputType @systemSetting.ValueType.GetType().Name for Setting @systemSetting.Key with Value- @_OrganizationData.First(x=>x.Key == systemSetting.Key).Value</div>
+
+                                <div>@Localize["Administration.Settings.MissingType", systemSetting.ValueType.GetType().Name, systemSetting.Key, _OrganizationData.First(x=>x.Key == systemSetting.Key).Value]</div>
                                 break;
                         }
                     }
