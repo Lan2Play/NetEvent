@@ -38,5 +38,10 @@ namespace NetEvent.Shared
 
         [MapProperty(nameof(SystemSettingValue.SerializedValue), nameof(SystemSettingValueDto.Value))]
         public partial SystemSettingValueDto SystemSettingValueToSystemSettingValueDto(SystemSettingValue organizationData);
+
+        public partial SystemInfo SystemInfoDtoToSystemInfo(SystemInfoDto systemInfo);
+
+        public partial SystemInfoDto SystemInfoToSystemInfoDto(SystemInfo systemInfo);
+
     }
 }
