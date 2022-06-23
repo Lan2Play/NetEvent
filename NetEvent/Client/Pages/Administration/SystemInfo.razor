@@ -1,0 +1,41 @@
+﻿@page "/administration/systeminfo"
+@attribute [Authorize(Policy = "Admin.SystemInfo.*")]
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using NetEvent.Client.Components
+@using NetEvent.Shared.Dto
+@using NetEvent.Shared.Dto.Administration
+@using NetEvent.Shared.Policy
+
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+
+<MudTabs Elevation="1" Rounded="true">
+    <MudTabPanel Text="@Localize["Administration.Users.Roles.Version"]">
+        
+    </MudTabPanel>
+    <MudTabPanel Text="@Localize["Administration.Users.Roles.Components"]">
+       @* <MudTable Items="@Elements" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<String,bool>(FilterFunc1)">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">@Localize["Administration.Systeminfo.Title"]</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString1" Placeholder="@Localize["Administration.Systeminfo.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Component</MudTh>
+            <MudTh>Version</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nr">@context.Component</MudTd>
+            <MudTd DataLabel="Sign">@context.Version</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+        </MudTable> *@
+    </MudTabPanel>
+    <MudTabPanel Text="@Localize["Administration.Systeminfo.Health"]">
+        
+    </MudTabPanel>
+</MudTabs>

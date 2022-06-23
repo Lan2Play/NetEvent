@@ -215,15 +215,15 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "admin", "fa8ddcf4-c455-41fc-943a-79dd584ab128", false, "Admin", "ADMIN" },
-                    { "orga", "8cf0d188-2245-4b1d-bf33-bdda33571bb3", false, "Orga", "ORGA" },
-                    { "user", "7a2dfe08-9005-4593-ae99-7a82d6ed367f", true, "User", "USER" }
+                    { "admin", "2021bc90-e57c-482b-9114-efdc8a5ea121", false, "Admin", "ADMIN" },
+                    { "orga", "c28fe28d-c1a3-4bff-a011-96f64ce885d6", false, "Orga", "ORGA" },
+                    { "user", "45a6cb7c-aaf1-4848-b6bc-2cd862ff5811", true, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "a6e293ce-3c1a-4852-8923-9fa388bc93e8", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEPv8Z6ja6KQ+ViRy4u3xrCKsSOF9OXQfEQpU7hiKjBDdu4mERkIrDhyNEV5E/EUM5g==", null, false, null, "344cbade-de1c-4675-9ba3-007cf295b1bc", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "c6a72ee0-fff8-4f26-a244-d3fb8a1f8cf7", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEJ0BKr2toTWO6M+ggiEagZgZFvhAsZvEaZ3wVTaLS5UYUFj3S3idv80dguHDy2GqZw==", null, false, null, "8221083c-a4c9-4466-8338-a3d5c87024a8", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
@@ -233,7 +233,8 @@ namespace NetEvent.Server.Migrations.Psql
                     { 1, "Admin.Users.Read", "", "admin" },
                     { 2, "Admin.Users.Edit", "", "admin" },
                     { 3, "Admin.Settings.Organization.Read", "", "admin" },
-                    { 4, "Admin.Settings.Organization.Edit", "", "admin" }
+                    { 4, "Admin.Settings.Organization.Edit", "", "admin" },
+                    { 5, "Admin.SystemInfo.Read", "", "admin" }
                 });
 
             migrationBuilder.InsertData(

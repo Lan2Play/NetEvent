@@ -16,3 +16,10 @@
         <MudDivider />
     </Authorized>
 </AuthorizeView>
+<MudDivider />
+<AuthorizeView Policy="Admin.SystemInfo.Read">
+    <Authorized>
+        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/systeminfo" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.SystemInfo"]</MudButton>
+        <MudDivider />
+    </Authorized>
+</AuthorizeView>

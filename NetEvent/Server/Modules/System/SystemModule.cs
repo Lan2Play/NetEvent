@@ -16,6 +16,8 @@ namespace NetEvent.Server.Modules.System
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
+            endpoints.MapGet("/api/system/info/all", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemSettingsRequest(systemSettingGroup))));
+            //TODO: move to system/settings/
             endpoints.MapGet("/api/system/{systemSettingGroup}/all", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemSettingsRequest(systemSettingGroup))));
             endpoints.MapPost("/api/system/{systemSettingGroup}", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromBody] Shared.Dto.SystemSettingValueDto systemSettingsValue, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostSystemSettingsRequest(systemSettingGroup, systemSettingsValue))));
 
