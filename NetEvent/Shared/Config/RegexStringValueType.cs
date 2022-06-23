@@ -2,10 +2,9 @@
 
 namespace NetEvent.Shared.Config
 {
-
     public class RegexStringValueType : ValueType<string>
     {
-        private Regex _ValidationRegex;
+        private readonly Regex _ValidationRegex;
 
         // TODO Add StringSyntax Attribute with .Net7
         internal RegexStringValueType(string defaultValue, /*[StringSyntax(...)]*/ string validationRegEx) : base(defaultValue)

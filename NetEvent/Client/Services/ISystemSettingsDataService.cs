@@ -9,6 +9,7 @@ namespace NetEvent.Client.Services
     public interface ISystemSettingsDataService
     {
         Task<List<SystemSettingValueDto>> GetSystemSettingsAsync(SystemSettingGroup systemSettingGroup, CancellationToken cancellationToken);
+
         Task<ServiceResult> UpdateSystemSetting(SystemSettingGroup systemSettingGroup, SystemSettingValueDto systemSetting, CancellationToken cancellationToken);
     }
 }

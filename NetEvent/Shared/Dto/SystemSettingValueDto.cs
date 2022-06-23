@@ -4,7 +4,6 @@
     {
         public SystemSettingValueDto()
         {
-
         }
 
         public SystemSettingValueDto(string key, string value)
