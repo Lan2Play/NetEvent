@@ -13,7 +13,7 @@
 
         public SystemSetting CreateSystemSetting(string key, ValueType valueType)
         {
-            return new SystemSetting(SettingGroup.ToString(), key, valueType);
+            return new SystemSetting(SettingGroup, key, valueType);
         }
     }
 }

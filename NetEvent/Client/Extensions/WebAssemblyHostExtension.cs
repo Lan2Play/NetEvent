@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetEvent.Client.Services;
+using NetEvent.Shared.Config;
 using NetEvent.Shared.Constants;
 
 namespace NetEvent.Client.Extensions;
@@ -22,7 +23,7 @@ public static class WebAssemblyHostExtension
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            var orgData = await organizationDataService.GetOrganizationDataAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+            var orgData = await organizationDataService.GetSystemSettingsAsync(SystemSettingGroup.OrganizationData ,cancellationTokenSource.Token).ConfigureAwait(false);
 
             var organizationCulture = orgData.FirstOrDefault(a => a.Key.Equals(OrganizationDataConstants.CultureKey));
 
