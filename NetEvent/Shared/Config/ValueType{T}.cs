@@ -1,6 +1,5 @@
 ﻿namespace NetEvent.Shared.Config
 {
-
     public abstract class ValueType<T> : ValueType
     {
         protected ValueType(T defaultValue)
