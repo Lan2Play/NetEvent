@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Reflection;
+using System.Security.Policy;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +25,14 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
         public Task<GetSystemInfoResponse> Handle(GetSystemInfoRequest request, CancellationToken cancellationToken)
         {
             var systeminfo = new List<SystemInfoDto>();
-            systeminfo.Add(new SystemInfoDto("hallo","hallo"));
+
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            Assembly[] assems = currentDomain.GetAssemblies();
+            foreach (Assembly assem in assems)
+            {
+                systeminfo.Add(new SystemInfoDto(assem.ToString(),assem.ToString()));
+            }
+
             return Task.FromResult(new GetSystemInfoResponse(systeminfo));
         }
     }

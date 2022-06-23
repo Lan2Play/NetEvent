@@ -10,7 +10,6 @@
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-
 <MudTabs Elevation="1" Rounded="true">
     <MudTabPanel Text="@Localize["Administration.Users.Roles.Version"]">
         
@@ -24,12 +23,12 @@
             @* <MudTextField @bind-Value="searchString1" Placeholder="@Localize["Administration.Systeminfo.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> *@
         </ToolBarContent>
         <HeaderContent>
-            <MudTh>Component</MudTh>
-            <MudTh>Version</MudTh>
+            <MudTh>Key</MudTh>
+            <MudTh>Value</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Nr">@context.Key</MudTd>
-            <MudTd DataLabel="Sign">@context.Value</MudTd>
+            <MudTd DataLabel="Key">@context.Key</MudTd>
+            <MudTd DataLabel="Value">@context.Value</MudTd>
         </RowTemplate>
         <PagerContent>
             <MudTablePager />

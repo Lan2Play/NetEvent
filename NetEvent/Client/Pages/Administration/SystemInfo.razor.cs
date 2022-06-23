@@ -49,15 +49,12 @@ namespace NetEvent.Client.Pages.Administration
 
 
         private IList<SystemInfoDto> _SystemInfos = new List<SystemInfoDto>();
-        private SystemInfo _SystemInfo = new SystemInfo();
 
         protected override async Task OnInitializedAsync()
         {
             var cts = new CancellationTokenSource();
             _SystemInfos = await _SystemInfoDataService.GetSystemInfoDataAsync(cts.Token);
         }
-
-
 
     }
 }
