@@ -30,7 +30,7 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
             Assembly[] assems = currentDomain.GetAssemblies();
             foreach (Assembly assem in assems)
             {
-                systeminfo.Add(new SystemInfoDto(assem.ToString(),assem.ToString()));
+                systeminfo.Add(new SystemInfoDto(assem.ManifestModule.Name.ToString(),assem.ToString()));
             }
 
             return Task.FromResult(new GetSystemInfoResponse(systeminfo));

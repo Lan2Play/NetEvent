@@ -14,31 +14,6 @@ namespace NetEvent.Client.Pages.Administration
 {
     public partial class SystemInfo
     {
-    // private string searchString1 = "";
-
-    // private HashSet<Element> selectedItems = new HashSet<Element>();
-
-    // private IEnumerable<String> Elements = new List<String>();
-
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     Elements = await httpClient.GetFromJsonAsync<List<Element>>("webapi/periodictable");
-    // }
-
-    // private bool FilterFunc1(Element element) => FilterFunc(element, searchString1);
-
-    // private bool FilterFunc(Element element, string searchString)
-    // {
-    //     if (string.IsNullOrWhiteSpace(searchString))
-    //         return true;
-    //     if (element.Sign.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-    //         return true;
-    //     if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-    //         return true;
-    //     if ($"{element.Number} {element.Position} {element.Molar}".Contains(searchString))
-    //         return true;
-    //     return false;
-    // }
 
         #region Injects
 
@@ -46,14 +21,28 @@ namespace NetEvent.Client.Pages.Administration
         private ISystemInfoDataService _SystemInfoDataService { get; set; } = default!;
 
         #endregion
-
-
         private IList<SystemInfoDto> _SystemInfos = new List<SystemInfoDto>();
+        private string searchString1 = "";
+
 
         protected override async Task OnInitializedAsync()
         {
             var cts = new CancellationTokenSource();
             _SystemInfos = await _SystemInfoDataService.GetSystemInfoDataAsync(cts.Token);
+        }
+
+
+        private bool FilterFunc1(SystemInfoDto systeminfo) => FilterFunc(systeminfo, searchString1);
+
+        private bool FilterFunc(SystemInfoDto systeminfo, string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (systeminfo.Key.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (systeminfo.Value.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            return false;
         }
 
     }

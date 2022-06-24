@@ -11,28 +11,23 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 <MudTabs Elevation="1" Rounded="true">
-    <MudTabPanel Text="@Localize["Administration.Users.Roles.Version"]">
+    <MudTabPanel Text="@Localize["Administration.Systeminfo.Versions"]">
         
     </MudTabPanel>
-    <MudTabPanel Text="@Localize["Administration.Users.Roles.Components"]">
-       <MudTable Items="@_SystemInfos" Dense="true" Hover="true" Bordered="false" Striped="true">
-       @* <MudTable Items="@_SystemInfos" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<String,bool>(FilterFunc1)"> *@
+    <MudTabPanel Text="@Localize["Administration.Systeminfo.Components"]">
+        <MudTable Items="@_SystemInfos" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<SystemInfoDto,bool>(FilterFunc1)"> 
         <ToolBarContent>
-            <MudText Typo="Typo.h6">@Localize["Administration.Systeminfo.Title"]</MudText>
             <MudSpacer />
-            @* <MudTextField @bind-Value="searchString1" Placeholder="@Localize["Administration.Systeminfo.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> *@
+             <MudTextField @bind-Value="searchString1" Placeholder="@Localize["Administration.Systeminfo.Components.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> 
         </ToolBarContent>
         <HeaderContent>
-            <MudTh>Key</MudTh>
-            <MudTh>Value</MudTh>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SystemInfoDto, object>(x=>x.Key)">@Localize["Administration.Systeminfo.Components.Key"]</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoDto, object>(x=>x.Value)">@Localize["Administration.Systeminfo.Components.Value"]</MudTableSortLabel></MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd DataLabel="Key">@context.Key</MudTd>
             <MudTd DataLabel="Value">@context.Value</MudTd>
         </RowTemplate>
-        <PagerContent>
-            <MudTablePager />
-        </PagerContent>
         </MudTable> 
     </MudTabPanel>
     <MudTabPanel Text="@Localize["Administration.Systeminfo.Health"]">
