@@ -2,14 +2,14 @@
 {
     public class SystemSetting
     {
-        internal SystemSetting(string settingType, string key, ValueType valueType)
+        internal SystemSetting(SystemSettingGroup settingType, string key, ValueType valueType)
         {
             SettingType = settingType;
             Key = key;
             ValueType = valueType;
         }
 
-        public string SettingType { get; }
+        public SystemSettingGroup SettingType { get; }
 
         public string Key { get; }
 

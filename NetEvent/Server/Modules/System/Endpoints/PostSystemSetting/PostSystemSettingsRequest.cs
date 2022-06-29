@@ -13,6 +13,7 @@ namespace NetEvent.Server.Modules.System.Endpoints.PostOrganization
         }
 
         public SystemSettingGroup SystemSettingGroup { get; }
+
         public SystemSettingValueDto OrganizationData { get; }
     }
 }
