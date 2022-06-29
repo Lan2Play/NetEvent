@@ -3,9 +3,9 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
 {
-    public class GetSystemInfoResponse : ResponseBase<List<SystemInfoDto>>
+    public class GetSystemInfoResponse : ResponseBase<SystemInfoDto>
     {
-        public GetSystemInfoResponse(List<SystemInfoDto> value) : base(value)
+        public GetSystemInfoResponse(SystemInfoDto value) : base(value)
         {
         }
 

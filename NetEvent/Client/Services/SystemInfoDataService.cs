@@ -21,18 +21,18 @@ namespace NetEvent.Client.Services
             _Logger = logger;
         }
 
-        public async Task<List<SystemInfoDto>> GetSystemInfoDataAsync(CancellationToken cancellationToken)
+        public async Task<SystemInfoDto> GetSystemInfoDataAsync(CancellationToken cancellationToken)
         {
             try
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var result = await client.GetFromJsonAsync<List<SystemInfoDto>>($"api/system/info/all", cancellationToken);
+                var result = await client.GetFromJsonAsync<SystemInfoDto>($"api/system/info/all", cancellationToken);
 
                 if (result == null)
                 {
                     _Logger.LogError("Unable to get SystemInfo data from backend");
-                    return new List<SystemInfoDto>();
+                    return new SystemInfoDto();
                 }
 
                 return result;
@@ -40,7 +40,7 @@ namespace NetEvent.Client.Services
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to get SystemInfo data from backend");
-                return new List<SystemInfoDto>();
+                return new SystemInfoDto();
             }
         }
     }

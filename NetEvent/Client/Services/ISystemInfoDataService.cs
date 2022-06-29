@@ -7,6 +7,6 @@ namespace NetEvent.Client.Services
 {
     public interface ISystemInfoDataService
     {
-        Task<List<SystemInfoDto>> GetSystemInfoDataAsync(CancellationToken cancellationToken);
+        Task<SystemInfoDto> GetSystemInfoDataAsync(CancellationToken cancellationToken);
     }
 }

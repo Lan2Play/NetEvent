@@ -1,4 +1,6 @@
-﻿namespace NetEvent.Shared.Dto
+﻿using System.Collections.Generic;
+
+namespace NetEvent.Shared.Dto
 {
     public class SystemInfoDto
     {
@@ -7,14 +9,20 @@
 
         }
 
-        public SystemInfoDto(string key, string value)
+        public SystemInfoDto(List<SystemInfoComponentEntryDto> components, List<SystemInfoHealthEntryDto> health, List<SystemInfoVersionEntryDto> versions)
         {
-            Key = key;
-            Value = value;
+            Components = components;
+            Health = health;
+            Versions = versions;
         }
 
-        public string Key { get; set; } = default!;
+        public List<SystemInfoComponentEntryDto> Components { get; set; } = default!;
 
-        public string Value { get; set; } = default!;
+        public List<SystemInfoHealthEntryDto> Health { get; set; } = default!;
+
+        public List<SystemInfoVersionEntryDto> Versions { get; set; } = default!;
+
     }
+
+
 }

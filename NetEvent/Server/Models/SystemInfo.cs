@@ -1,12 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NetEvent.Server.Models
 {
     public class SystemInfo
     {
-        [Key]
-        public string? Key { get; set; }
+        public List<SystemInfoComponentEntry>? Components { get; set; }
 
-        public string? Value { get; set; }
+        public List<SystemInfoHealthEntry>? Health { get; set; }
+
+        public List<SystemInfoVersionEntry>? Versions { get; set; }
     }
+
 }

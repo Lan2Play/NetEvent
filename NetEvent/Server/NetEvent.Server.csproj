@@ -17,6 +17,9 @@
   </ItemGroup>
   <PropertyGroup>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>  
+  <PropertyGroup>
+    <Version>0.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MediatR" Version="10.0.1" />
