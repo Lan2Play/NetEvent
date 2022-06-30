@@ -344,11 +344,8 @@
   </data>
   <data name="Administration.Settings.Organization" xml:space="preserve">
     <value>Organization</value>
-  </data>  
+  </data>
   <data name="Administration.Settings.LoadingData" xml:space="preserve">
     <value>Loading Data...</value>
-  </data>
-  <data name="Administration.Settings.MissingType" xml:space="preserve">
-    <value>Missing InputType {0} for Setting {1} with Value- {2}</value>
   </data>
 </root>
