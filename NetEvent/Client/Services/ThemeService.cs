@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -10,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace NetEvent.Client.Services
 {
+    [ExcludeFromCodeCoverage(Justification = "Ignore UI Services")]
     public class ThemeService : IThemeService
     {
         private readonly IHttpClientFactory _HttpClientFactory;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -10,6 +11,7 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Services
 {
+    [ExcludeFromCodeCoverage(Justification = "Ignore UI Services")]
     public class SystemSettingsService : ISystemSettingsDataService
     {
         private readonly IHttpClientFactory _HttpClientFactory;
