@@ -86,9 +86,9 @@ jobs:
       - name: dotnet build
         run:  dotnet build --no-restore
       - name: dotnet test
-        continue-on-error: true
         run:  dotnet test --no-build --no-restore --collect "XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
       - name: stop sonarscanner
+        if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           SONAR_TOKEN: ${{ secrets.NETEVENT_SONAR_TOKEN }}
