@@ -32,7 +32,7 @@ namespace NetEvent.Server.Tests
             }
 
             // Act
-            var response = await Client.GetFromJsonAsync<List<SystemSettingValueDto>>($"/api/system/{SystemSettingGroup.OrganizationData}/all");
+            var response = await Client.GetFromJsonAsync<List<SystemSettingValueDto>>($"/api/system/settings/{SystemSettingGroup.OrganizationData}/all");
 
             // Assert
             Assert.NotNull(response);
@@ -49,7 +49,7 @@ namespace NetEvent.Server.Tests
             // Insert
             var organizationDataCreate = new SystemSettingValueDto("key", "value");
 
-            var responseCreate = await Client.PostAsync($"/api/system/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataCreate));
+            var responseCreate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataCreate));
 
             responseCreate.EnsureSuccessStatusCode();
 
@@ -65,7 +65,7 @@ namespace NetEvent.Server.Tests
             // Update value
             var organizationDataUpdate = new SystemSettingValueDto("key", "value2");
 
-            var responseUpdate = await Client.PostAsync($"/api/system/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataUpdate));
+            var responseUpdate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataUpdate));
 
             responseUpdate.EnsureSuccessStatusCode();
 
@@ -84,9 +84,9 @@ namespace NetEvent.Server.Tests
         {
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 
-            var responseCreate = await Client.PostAsync($"/api/system/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto(null, "value")));
+            var responseCreate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto(null, "value")));
             Assert.False(responseCreate.IsSuccessStatusCode);
-            var responseUpdate = await Client.PostAsync($"/api/system/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto("key", null)));
+            var responseUpdate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto("key", null)));
             Assert.False(responseUpdate.IsSuccessStatusCode);
 
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.

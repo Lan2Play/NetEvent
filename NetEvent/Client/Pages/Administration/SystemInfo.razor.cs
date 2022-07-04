@@ -17,6 +17,8 @@ namespace NetEvent.Client.Pages.Administration
         private ISystemInfoDataService _SystemInfoDataService { get; set; } = default!;
 
         #endregion
+
+        // TODO: deceide if _ClientComponents should be SystemInfoComponentEntryDto or not
         private readonly IList<SystemInfoComponentEntryDto> _ClientComponents = new List<SystemInfoComponentEntryDto>();
         private SystemInfoDto _SystemInfos = new SystemInfoDto();
         private string searchStringComponents = string.Empty;
@@ -37,6 +39,7 @@ namespace NetEvent.Client.Pages.Administration
             }
         }
 
+        // TODO: maybe consolidate filter functions?
         private bool FilterFuncComponents1(SystemInfoComponentEntryDto systeminfocomponententry) => FilterFuncComponents(systeminfocomponententry, searchStringComponents);
 
         private static bool FilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry, string searchString)
