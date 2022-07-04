@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using NetEvent.Shared.Config;
 
 namespace NetEvent.Client.Extensions;
 
+[ExcludeFromCodeCoverage(Justification = "Ignore UI Extensions")]
 public static class DefaultCultureExtension
 {
     public static async Task SetDefaultCultureAsync(this WebAssemblyHost app)
