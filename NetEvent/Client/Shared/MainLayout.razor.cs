@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using MudBlazor.ThemeManager;
 using NetEvent.Client.Services;
+using NetEvent.Shared.Config;
 
 namespace NetEvent.Client.Shared
 {
@@ -11,7 +12,12 @@ namespace NetEvent.Client.Shared
         [Inject]
         private IThemeService ThemeService { get; set; } = default!;
 
+        [Inject]
+        private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
+
         private readonly ThemeManagerTheme _ThemeManager = new();
+
+        private string? _OrganizationName;
         private bool _themeManagerOpen;
         private bool _drawerOpen = true;
 
@@ -22,6 +28,9 @@ namespace NetEvent.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
+            using var cancellationTokenSource = new CancellationTokenSource();
+
+            _OrganizationName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationName, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
             await SetThemeAsync().ConfigureAwait(false);
         }
 

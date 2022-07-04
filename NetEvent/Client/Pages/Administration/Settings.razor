@@ -16,20 +16,30 @@
                 }
                 else
                 {
-                    @foreach (var systemSetting in _SystemSettings.OrganizationData)
-                    {
-                        @switch (systemSetting.ValueType)
+                    <MudGrid>
+                        @foreach (var systemSetting in _SystemSettings.OrganizationData)
                         {
-                            @case StringValueType svt:
-                                <MudTextField T="string" Value="@_OrganizationData.First(x=>x.Key == systemSetting.Key).Value" ValueChanged="@((v) => OnSettingsValueChanged(systemSetting, v))" Label="@systemSetting.TextKey" HelperText="@systemSetting.TextKey" Variant="Variant.Text" />
-
-                                break;
-                            @default:
-
-                                <div>Missing InputType @systemSetting.ValueType.GetType().Name for Setting @systemSetting.Key with Value- @_OrganizationData.First(x=>x.Key == systemSetting.Key).Value</div>
-                                break;
+                            <MudItem xs="12" md="6">
+                                @switch (systemSetting.ValueType)
+                                {
+                                    @case StringValueType svt:
+                                        <MudTextField T="string" Value="@GetValue(systemSetting.Key)" ValueChanged="@(v => OnSettingsValueChanged(systemSetting, v))" Label="@Localize[systemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(systemSetting.DescriptionKey) ? string.Empty : Localize[systemSetting.DescriptionKey])" Variant="Variant.Outlined" />
+                                        break;
+                                    @case EnumValueType<string> esvt:
+                                        <MudSelect T="string" Value="@GetValue(systemSetting.Key)" ValueChanged="@(v => OnSettingsValueChanged(systemSetting, v))" Label="@Localize[systemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(systemSetting.DescriptionKey) ? string.Empty : Localize[systemSetting.DescriptionKey])" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                                            @foreach (var enumItem in esvt.EnumItems)
+                                            {
+                                                <MudSelectItem Value="@enumItem" />
+                                            }
+                                        </MudSelect>
+                                        break;
+                                    @default:
+                                        <div>Missing InputType @systemSetting.ValueType.GetType().Name for Setting @systemSetting.Key with Value- @_OrganizationData.First(x=>x.Key == systemSetting.Key).Value</div>
+                                        break;
+                                }
+                            </MudItem>
                         }
-                    }
+                    </MudGrid>
                 }
             </MudTabPanel>
         </Authorized>

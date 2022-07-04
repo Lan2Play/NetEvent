@@ -348,4 +348,10 @@
   <data name="Administration.Settings.LoadingData" xml:space="preserve">
     <value>Loading Data...</value>
   </data>
+  <data name="SystemSetting.OrganizationData.DataCultureInfo.Label" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.OrganizationName.Label" xml:space="preserve">
+    <value>Name of Organization</value>
+  </data>
 </root>

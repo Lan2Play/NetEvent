@@ -27,7 +27,7 @@ namespace NetEvent.Server.Modules.System
             builder.Entity<SystemSettingValue>(entity =>
             {
                 entity.ToTable(name: "OrganizationData");
-                foreach (var setting in new SystemSettings().OrganizationData)
+                foreach (var setting in SystemSettings.Instance.OrganizationData)
                 {
                     entity.HasData(new SystemSettingValue { Key = setting.Key, SerializedValue = setting.ValueType.DefaultValueSerialized });
                 }
