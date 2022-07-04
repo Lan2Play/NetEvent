@@ -342,4 +342,49 @@
   <data name="RoleService.UpdateRoleAsync.Error" xml:space="preserve">
     <value>Beim aktualisieren der Rolle {0} ist ein Fehler aufgetreten</value>
   </data>
+  <data name="Administration.AdminMenu.Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="ConfirmationSuccess.Success" xml:space="preserve">
+    <value>E-Mail Adresse wurde erfolgreich überprüft. Bitte melden Sie sich nun an.</value>
+  </data>
+  <data name="Administration.Settings.LoadingData" xml:space="preserve">
+    <value>Lade Daten...</value>
+  </data>
+  <data name="LoginService.LoginError" xml:space="preserve">
+    <value>Benutzer {0} kann nicht angemeldet werden</value>
+  </data>
+  <data name="LoginService.RegisterError" xml:space="preserve">
+    <value>Benutzer {0} kann nicht registriert werden</value>
+  </data>
+  <data name="ConfirmationPending.Confirm" xml:space="preserve">
+    <value>Bitte bestätigen Sie Ihre E-Mail Adresse durch klick auf den Link in der erhaltenen E-Mail.</value>
+  </data>
+  <data name="ConfirmationPending.RequestConfirmMailAgain" xml:space="preserve">
+    <value>Sie haben keine E-Mail erhalten? Klicken Sie auf den nachfolgenden Link um die E-Mail erneut anzufordern.</value>
+  </data>
+  <data name="ConfirmationPending.Title" xml:space="preserve">
+    <value>Bestätigung der E-Mail Adresse wird benötigt</value>
+  </data>
+  <data name="ConfirmationError.Error" xml:space="preserve">
+    <value>Überprüfung der E-Mail ist fehlgeschlagen. Bitte kontaktieren Sie einen Administrator.</value>
+  </data>
+  <data name="ConfirmationError.Title" xml:space="preserve">
+    <value>Bestätigung der E-Mail Adresse ist fehlgeschlagen</value>
+  </data>
+  <data name="ConfirmationSuccess.Title" xml:space="preserve">
+    <value>Bestätigung der E-Mail Adresse war erfolgreich</value>
+  </data>
+  <data name="Administration.Settings.Organization" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.DataCultureInfo.Label" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.OrganizationName.Label" xml:space="preserve">
+    <value>Name der Organisation</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.DataCultureInfo.Hint" xml:space="preserve">
+    <value>Systemweite Sprache. Ändern führt zu einem erneuten Laden der Seite.</value>
+  </data>
 </root>
