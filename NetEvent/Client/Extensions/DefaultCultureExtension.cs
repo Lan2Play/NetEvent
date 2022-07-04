@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -9,11 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Config;
-using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Extensions;
 
-public static class WebAssemblyHostExtension
+public static class DefaultCultureExtension
 {
     public static async Task SetDefaultCultureAsync(this WebAssemblyHost app)
     {
@@ -27,10 +25,13 @@ public static class WebAssemblyHostExtension
             var organizationCulture = await organizationDataService.GetSystemSettingAsync(
                 SystemSettingGroup.OrganizationData,
                 SystemSettings.DataCultureInfo,
-                _ =>
+                newCulture =>
                 {
-                    var navigationManager = app.Services.GetRequiredService<NavigationManager>();
-                    navigationManager.NavigateTo(navigationManager.Uri, true);
+                    if (CultureInfo.DefaultThreadCurrentCulture?.Name.Equals(newCulture.Value, StringComparison.OrdinalIgnoreCase) != true)
+                    {
+                        var navigationManager = app.Services.GetRequiredService<NavigationManager>();
+                        navigationManager.NavigateTo(navigationManager.Uri, true);
+                    }
                 },
                 cancellationTokenSource.Token).ConfigureAwait(false);
 
