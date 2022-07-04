@@ -42,6 +42,29 @@ else
 	rm -rf NetEvent/Server/netevent.db-wal
 endif
 
+#remove development objects
+remove-dev-objects:
+ifeq ($(OS),Windows_NT)
+	if exist NetEvent\Client\bin rmdir /S/Q NetEvent\Client\bin
+	if exist NetEvent\Client\obj rmdir /S/Q NetEvent\Client\obj
+	if exist NetEvent\Server\bin rmdir /S/Q NetEvent\Server\bin
+	if exist NetEvent\Server\obj rmdir /S/Q NetEvent\Server\obj
+	if exist NetEvent\Server.Tests\bin rmdir /S/Q NetEvent\Server.Tests\bin
+	if exist NetEvent\Server.Tests\obj rmdir /S/Q NetEvent\Server.Tests\obj
+	if exist NetEvent\Shared\bin rmdir /S/Q NetEvent\Shared\bin
+	if exist NetEvent\Shared\obj rmdir /S/Q NetEvent\Shared\obj
+
+else
+	rm -rf NetEvent/Client/bin
+	rm -rf NetEvent/Client/obj
+	rm -rf NetEvent/Server/bin
+	rm -rf NetEvent/Server/obj	
+	rm -rf NetEvent/Server.Tests/bin
+	rm -rf NetEvent/Server.Tests/obj
+	rm -rf NetEvent/Shared/bin
+	rm -rf NetEvent/Shared/obj
+endif
+
 # Make Documentation
 docs-html:
 ifeq ($(OS),Windows_NT)
