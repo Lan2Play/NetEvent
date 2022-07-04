@@ -24,11 +24,15 @@ public static class WebAssemblyHostExtension
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            var organizationCulture = await organizationDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.DataCultureInfo, c =>
-            {
-                var navigationManager = app.Services.GetRequiredService<NavigationManager>();
-                navigationManager.NavigateTo(navigationManager.Uri, true);
-            }, cancellationTokenSource.Token).ConfigureAwait(false);
+            var organizationCulture = await organizationDataService.GetSystemSettingAsync(
+                SystemSettingGroup.OrganizationData,
+                SystemSettings.DataCultureInfo,
+                _ =>
+                {
+                    var navigationManager = app.Services.GetRequiredService<NavigationManager>();
+                    navigationManager.NavigateTo(navigationManager.Uri, true);
+                },
+                cancellationTokenSource.Token).ConfigureAwait(false);
 
             if (organizationCulture == null)
             {
