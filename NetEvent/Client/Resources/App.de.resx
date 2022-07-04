@@ -349,7 +349,7 @@
     <value>E-Mail Adresse wurde erfolgreich überprüft. Bitte melden Sie sich nun an.</value>
   </data>
   <data name="Administration.Settings.LoadingData" xml:space="preserve">
-    <value>Lade Daten...</value>
+    <value>Lade Daten…</value>
   </data>
   <data name="LoginService.LoginError" xml:space="preserve">
     <value>Benutzer {0} kann nicht angemeldet werden</value>
