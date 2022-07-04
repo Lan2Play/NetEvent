@@ -7,8 +7,6 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
     {
         public GetSystemInfoRequest()
         {
-            
         }
-
     }
 }

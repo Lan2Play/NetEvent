@@ -33,10 +33,8 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
             systeminfoversions.Add(new SystemInfoVersionEntryDto("BUILDNUMBER", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILDNUMBER")) ? "dev" : Environment.GetEnvironmentVariable("BUILDNODE")));
             systeminfoversions.Add(new SystemInfoVersionEntryDto("SOURCE_COMMIT", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SOURCE_COMMIT")) ? "dev" : Environment.GetEnvironmentVariable("BUILDNODE")));
 
-
-            systeminfohealth.Add(new SystemInfoHealthEntryDto("NETEVENT Server","", true));
-            systeminfohealth.Add(new SystemInfoHealthEntryDto("Email Service","servername", false));
-
+            systeminfohealth.Add(new SystemInfoHealthEntryDto("NETEVENT Server", string.Empty, true));
+            systeminfohealth.Add(new SystemInfoHealthEntryDto("Email Service", "servername", false));
 
             var systeminfo = new SystemInfoDto(systeminfocomponents, systeminfohealth, systeminfoversions);
 

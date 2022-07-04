@@ -2,13 +2,10 @@
 
 namespace NetEvent.Shared.Dto
 {
-
-
     public class SystemInfoComponentEntryDto
     {
         public SystemInfoComponentEntryDto()
         {
-
         }
 
         public SystemInfoComponentEntryDto(string component, string version)
@@ -20,8 +17,5 @@ namespace NetEvent.Shared.Dto
         public string Component { get; set; } = default!;
 
         public string Version { get; set; } = default!;
-
     }
-
-
 }

@@ -6,7 +6,6 @@ namespace NetEvent.Shared.Dto
     {
         public SystemInfoHealthEntryDto()
         {
-
         }
 
         public SystemInfoHealthEntryDto(string component, string value, bool healthy)
@@ -21,8 +20,5 @@ namespace NetEvent.Shared.Dto
         public string Value { get; set; } = default!;
 
         public bool Healthy { get; set; } = default!;
-
     }
-
-
 }

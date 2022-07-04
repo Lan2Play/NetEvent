@@ -28,7 +28,6 @@ namespace NetEvent.Client.Pages.Administration
         private string searchStringVersions = string.Empty;
         private string searchStringHealth = string.Empty;
 
-
         protected override async Task OnInitializedAsync()
         {
             var cts = new CancellationTokenSource();
@@ -129,6 +128,5 @@ namespace NetEvent.Client.Pages.Administration
 
             return false;
         }
-
     }
 }

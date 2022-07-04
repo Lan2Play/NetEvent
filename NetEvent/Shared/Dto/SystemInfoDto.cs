@@ -6,7 +6,6 @@ namespace NetEvent.Shared.Dto
     {
         public SystemInfoDto()
         {
-
         }
 
         public SystemInfoDto(List<SystemInfoComponentEntryDto> components, List<SystemInfoHealthEntryDto> health, List<SystemInfoVersionEntryDto> versions)
@@ -21,8 +20,5 @@ namespace NetEvent.Shared.Dto
         public List<SystemInfoHealthEntryDto> Health { get; set; } = default!;
 
         public List<SystemInfoVersionEntryDto> Versions { get; set; } = default!;
-
     }
-
-
 }
