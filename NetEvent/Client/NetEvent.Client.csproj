@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <BlazorLinkOnBuild  Condition="'$(Configuration)'!='Release'">false</BlazorLinkOnBuild>
+    <BlazorLinkOnBuild Condition="'$(Configuration)'!='Release'">false</BlazorLinkOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <Folder Include="Components\Administration\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <PropertyGroup>

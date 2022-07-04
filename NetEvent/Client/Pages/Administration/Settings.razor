@@ -1,9 +1,47 @@
 ﻿@page "/administration/settings"
-@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Policy = "Admin.Settings.*")]
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
+@using Microsoft.AspNetCore.Authorization
+@using NetEvent.Shared.Config
 
-@attribute [Authorize(Roles = "Admin")]
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
 
-
-
+    <AuthorizeView Policy="Admin.Settings.Organization.*">
+        <Authorized>
+            <MudTabPanel Text="@Localize["Administration.Settings.Organization"]">
+                @if (_Loading)
+                {
+                    <div>@Localize["Administration.Settings.LoadingData"]</div>
+                }
+                else
+                {
+                    <MudGrid>
+                        @foreach (var systemSetting in _SystemSettings.OrganizationData)
+                        {
+                            <MudItem xs="12" md="6">
+                                @switch (systemSetting.ValueType)
+                                {
+                                    @case StringValueType svt:
+                                        <MudTextField T="string" Value="@GetValue(systemSetting.Key)" ValueChanged="@(v => OnSettingsValueChanged(systemSetting, v))" Label="@Localize[systemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(systemSetting.DescriptionKey) ? string.Empty : Localize[systemSetting.DescriptionKey])" Variant="Variant.Outlined" />
+                                        break;
+                                    @case EnumValueType<string> esvt:
+                                        <MudSelect T="string" Value="@GetValue(systemSetting.Key)" ValueChanged="@(v => OnSettingsValueChanged(systemSetting, v))" Label="@Localize[systemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(systemSetting.DescriptionKey) ? string.Empty : Localize[systemSetting.DescriptionKey])" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                                            @foreach (var enumItem in esvt.EnumItems)
+                                            {
+                                                <MudSelectItem Value="@enumItem" />
+                                            }
+                                        </MudSelect>
+                                        break;
+                                    @default:
+                                        <div>Missing InputType @systemSetting.ValueType.GetType().Name for Setting @systemSetting.Key with Value- @_OrganizationData.First(x=>x.Key == systemSetting.Key).Value</div>
+                                        break;
+                                }
+                            </MudItem>
+                        }
+                    </MudGrid>
+                }
+            </MudTabPanel>
+        </Authorized>
+    </AuthorizeView>
+</MudTabs>

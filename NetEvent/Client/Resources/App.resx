@@ -183,6 +183,9 @@
   <data name="Administration.AdminMenu.Users" xml:space="preserve">
     <value>Users</value>
   </data>
+  <data name="Administration.AdminMenu.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Administration.Index.Users" xml:space="preserve">
     <value>Users</value>
   </data>
@@ -338,5 +341,20 @@
   </data>
   <data name="RoleService.UpdateRoleAsync.Success" xml:space="preserve">
     <value>Role {0} successfully updated</value>
+  </data>
+  <data name="Administration.Settings.Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="Administration.Settings.LoadingData" xml:space="preserve">
+    <value>Loading Data...</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.DataCultureInfo.Label" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.OrganizationName.Label" xml:space="preserve">
+    <value>Name of organization</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.DataCultureInfo.Hint" xml:space="preserve">
+    <value>Systemwide language. Changing forces page reload.</value>
   </data>
 </root>

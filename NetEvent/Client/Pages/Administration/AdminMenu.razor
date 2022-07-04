@@ -3,10 +3,16 @@
 
 <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Dashboard"]</MudButton>
 <MudDivider />
-<AuthorizeView Policy="Admin.Users.Read">
+<AuthorizeView Policy="Admin.Users.*">
     <Authorized>
         <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/users" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudButton>
         <MudDivider />
     </Authorized>
 </AuthorizeView>
-
+<MudDivider />
+<AuthorizeView Policy="Admin.Settings.*">
+    <Authorized>
+        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/settings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Settings"]</MudButton>
+        <MudDivider />
+    </Authorized>
+</AuthorizeView>
