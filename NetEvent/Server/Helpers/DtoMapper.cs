@@ -43,6 +43,5 @@ namespace NetEvent.Shared
         public partial SystemInfo SystemInfoDtoToSystemInfo(SystemInfoDto systemInfo);
 
         public partial SystemInfoDto SystemInfoToSystemInfoDto(SystemInfo systemInfo);
-
     }
 }

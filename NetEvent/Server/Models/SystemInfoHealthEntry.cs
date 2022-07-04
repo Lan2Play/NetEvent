@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NetEvent.Server.Models
 {
-
     public class SystemInfoHealthEntry
     {
         [Key]
@@ -13,5 +12,4 @@ namespace NetEvent.Server.Models
 
         public bool? Healthy { get; set; }
     }
-
 }

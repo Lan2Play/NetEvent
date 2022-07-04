@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NetEvent.Server.Models
 {
-
     public class SystemInfoComponentEntry
     {
         [Key]
@@ -11,5 +10,4 @@ namespace NetEvent.Server.Models
 
         public string? Version { get; set; }
     }
-
 }

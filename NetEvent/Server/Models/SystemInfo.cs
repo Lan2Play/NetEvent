@@ -11,5 +11,4 @@ namespace NetEvent.Server.Models
 
         public List<SystemInfoVersionEntry>? Versions { get; set; }
     }
-
 }
