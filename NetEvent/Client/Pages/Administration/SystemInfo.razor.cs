@@ -4,12 +4,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
-using NetEvent.Client.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
-using NetEvent.Shared.Dto.Administration;
 
 namespace NetEvent.Client.Pages.Administration
 {
@@ -99,7 +95,7 @@ namespace NetEvent.Client.Pages.Administration
                 return true;
             }
 
-            if (systeminfoversionentry.Version.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(systeminfoversionentry.Version) && systeminfoversionentry.Version.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }

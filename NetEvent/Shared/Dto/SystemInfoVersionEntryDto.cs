@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace NetEvent.Shared.Dto
+﻿namespace NetEvent.Shared.Dto
 {
     public class SystemInfoVersionEntryDto
     {

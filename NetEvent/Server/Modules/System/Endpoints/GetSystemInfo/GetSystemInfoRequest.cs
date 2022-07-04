@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using NetEvent.Shared.Config;
 
 namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
 {

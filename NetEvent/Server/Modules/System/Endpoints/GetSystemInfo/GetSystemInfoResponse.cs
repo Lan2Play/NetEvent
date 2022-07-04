@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using NetEvent.Shared.Dto;
+﻿using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
 {
