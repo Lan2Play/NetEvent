@@ -28,7 +28,7 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
             }
 
             // TODO: is it possible to make that better?
-            systeminfoversions.Add(new SystemInfoVersionEntryDto("NETEVENT", Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion));
+            systeminfoversions.Add(new SystemInfoVersionEntryDto("NETEVENT", Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion));
             systeminfoversions.Add(new SystemInfoVersionEntryDto("BUILDNODE", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILDNODE")) ? "dev" : Environment.GetEnvironmentVariable("BUILDNODE")));
             systeminfoversions.Add(new SystemInfoVersionEntryDto("BUILDID", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILDID")) ? "dev" : Environment.GetEnvironmentVariable("BUILDNODE")));
             systeminfoversions.Add(new SystemInfoVersionEntryDto("BUILDNUMBER", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILDNUMBER")) ? "dev" : Environment.GetEnvironmentVariable("BUILDNODE")));

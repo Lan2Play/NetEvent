@@ -95,7 +95,7 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public async Task GetSystemInfoVersionsSetted_Success_Test()
+        public async Task GetSystemInfoVersionsSetted_Test()
         {
             // Arrange
             AppDomain currentDomain = AppDomain.CurrentDomain;
@@ -125,10 +125,9 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public async Task GetSystemInfoVersionsNotSetted_Success_Test()
+        public async Task GetSystemInfoVersionsNotSetted_Test()
         {
             // Arrange
-            AppDomain currentDomain = AppDomain.CurrentDomain;
             Environment.SetEnvironmentVariable("BUILDNODE", string.Empty);
             Environment.SetEnvironmentVariable("BUILDID", string.Empty);
             Environment.SetEnvironmentVariable("BUILDNUMBER", string.Empty);
