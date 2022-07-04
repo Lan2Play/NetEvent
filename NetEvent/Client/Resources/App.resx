@@ -352,7 +352,10 @@
     <value>Language</value>
   </data>
   <data name="SystemSetting.OrganizationData.OrganizationName.Label" xml:space="preserve">
-    <value>Name of Organization</value>
+    <value>Name of organization</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.DataCultureInfo.Hint" xml:space="preserve">
+    <value>Systemwide language. Changing forces page reload.</value>
   </data>
   <data name="Administration.AdminMenu.SystemInfo" xml:space="preserve">
     <value>System Info</value>

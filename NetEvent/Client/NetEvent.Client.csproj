@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <BlazorLinkOnBuild  Condition="'$(Configuration)'!='Release'">false</BlazorLinkOnBuild>
+    <BlazorLinkOnBuild Condition="'$(Configuration)'!='Release'">false</BlazorLinkOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +23,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.6" />
-    <PackageReference Include="MudBlazor" Version="6.0.10" />
+    <PackageReference Include="MudBlazor" Version="6.0.11" />
     <PackageReference Include="MudBlazor.ThemeManager" Version="1.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <Folder Include="Components\Administration\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <PropertyGroup>

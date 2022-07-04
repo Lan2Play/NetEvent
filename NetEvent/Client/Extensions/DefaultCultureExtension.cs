@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Config;
-using NetEvent.Shared.Constants;
 
 namespace NetEvent.Client.Extensions;
 
-public static class WebAssemblyHostExtension
+[ExcludeFromCodeCoverage(Justification = "Ignore UI Extensions")]
+public static class DefaultCultureExtension
 {
     public static async Task SetDefaultCultureAsync(this WebAssemblyHost app)
     {
@@ -23,9 +24,18 @@ public static class WebAssemblyHostExtension
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            var orgData = await organizationDataService.GetSystemSettingsAsync(SystemSettingGroup.OrganizationData, cancellationTokenSource.Token).ConfigureAwait(false);
-
-            var organizationCulture = orgData.FirstOrDefault(a => a.Key.Equals(OrganizationDataConstants.CultureKey));
+            var organizationCulture = await organizationDataService.GetSystemSettingAsync(
+                SystemSettingGroup.OrganizationData,
+                SystemSettings.DataCultureInfo,
+                newCulture =>
+                {
+                    if (CultureInfo.DefaultThreadCurrentCulture?.Name.Equals(newCulture.Value, StringComparison.OrdinalIgnoreCase) != true)
+                    {
+                        var navigationManager = app.Services.GetRequiredService<NavigationManager>();
+                        navigationManager.NavigateTo(navigationManager.Uri, true);
+                    }
+                },
+                cancellationTokenSource.Token).ConfigureAwait(false);
 
             if (organizationCulture == null)
             {

@@ -9,6 +9,8 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
+<PageTitle>@_OrganizationName</PageTitle>
+
 <MudLayout>
     <MudAppBar ClipMode="_themeManager.DrawerClipMode" Elevation="_ThemeManager.DrawerElevation">
         <AuthorizeView Roles="Admin">
@@ -40,7 +42,7 @@
         @Body
     </MudMainContent>
 
-    <MudThemeManagerButton OnClick="@((e) => ToggleThemeManager(true))" />
-    <MudThemeManager Open="_themeManagerOpen" OpenChanged="ToggleThemeManager" Theme="_ThemeManager" ThemeChanged="UpdateTheme" />
+    @*    <MudThemeManagerButton OnClick="@((e) => ToggleThemeManager(true))" />
+    <MudThemeManager Open="_themeManagerOpen" OpenChanged="ToggleThemeManager" Theme="_ThemeManager" ThemeChanged="UpdateTheme" />*@
 </MudLayout>
 
