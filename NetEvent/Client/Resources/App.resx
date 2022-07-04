@@ -348,8 +348,11 @@
   <data name="Administration.Settings.LoadingData" xml:space="preserve">
     <value>Loading Data...</value>
   </data>
-  <data name="Administration.Settings.MissingType" xml:space="preserve">
-    <value>Missing InputType {0} for Setting {1} with Value- {2}</value>
+  <data name="SystemSetting.OrganizationData.DataCultureInfo.Label" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.OrganizationName.Label" xml:space="preserve">
+    <value>Name of Organization</value>
   </data>
   <data name="Administration.AdminMenu.SystemInfo" xml:space="preserve">
     <value>System Info</value>

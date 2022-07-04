@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -10,6 +12,7 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Client.Services
 {
+    [ExcludeFromCodeCoverage(Justification = "Ignore UI Services")]
     public class SystemSettingsService : ISystemSettingsDataService
     {
         private readonly IHttpClientFactory _HttpClientFactory;
@@ -19,6 +22,12 @@ namespace NetEvent.Client.Services
         {
             _HttpClientFactory = httpClientFactory;
             _Logger = logger;
+        }
+
+        public async Task<SystemSettingValueDto?> GetSystemSettingAsync(SystemSettingGroup systemSettingGroup, string key, CancellationToken cancellationToken)
+        {
+            var systemSettings = await GetSystemSettingsAsync(systemSettingGroup, cancellationToken);
+            return systemSettings.FirstOrDefault(x => x.Key.Equals(SystemSettings.OrganizationName, StringComparison.Ordinal));
         }
 
         public async Task<List<SystemSettingValueDto>> GetSystemSettingsAsync(SystemSettingGroup systemSettingGroup, CancellationToken cancellationToken)

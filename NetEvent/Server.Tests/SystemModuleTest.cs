@@ -49,7 +49,7 @@ namespace NetEvent.Server.Tests
             // Insert
             var organizationDataCreate = new SystemSettingValueDto("key", "value");
 
-            var responseCreate = await Client.PostAsync($"/api/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataCreate));
+            var responseCreate = await Client.PostAsync($"/api/system/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataCreate));
 
             responseCreate.EnsureSuccessStatusCode();
 

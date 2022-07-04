@@ -19,7 +19,7 @@ namespace NetEvent.Client.Pages.Administration
 
         #endregion
 
-        private readonly SystemSettings _SystemSettings = new();
+        private readonly SystemSettings _SystemSettings = SystemSettings.Instance;
         private bool _Loading = true;
         private IList<SystemSettingValueDto> _OrganizationData = new List<SystemSettingValueDto>();
 
@@ -28,6 +28,11 @@ namespace NetEvent.Client.Pages.Administration
             var cts = new CancellationTokenSource();
             _OrganizationData = await _SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.OrganizationData, cts.Token);
             _Loading = false;
+        }
+
+        private string? GetValue(string key)
+        {
+            return _OrganizationData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal))?.Value;
         }
 
         private async Task OnSettingsValueChanged(SystemSetting setting, object? value)
