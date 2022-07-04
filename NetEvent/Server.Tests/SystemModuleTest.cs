@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Data;
@@ -90,6 +92,60 @@ namespace NetEvent.Server.Tests
             Assert.False(responseUpdate.IsSuccessStatusCode);
 
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+        }
+
+        [Fact]
+        public async Task GetSystemInfoVersionsSetted_Success_Test()
+        {
+            // Arrange
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            Environment.SetEnvironmentVariable("BUILDNODE", "TEST");
+            Environment.SetEnvironmentVariable("BUILDID", "TEST");
+            Environment.SetEnvironmentVariable("BUILDNUMBER", "TEST");
+            Environment.SetEnvironmentVariable("SOURCE_COMMIT", "TEST");
+
+            // Act
+            var response = await Client.GetFromJsonAsync<SystemInfoDto>($"/api/system/info/all");
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.NotNull(response?.Components);
+            Assert.Equal(currentDomain.GetAssemblies().Length, response?.Components.Count);
+            Assert.NotNull(response?.Health);
+            Assert.NotNull(response?.Versions);
+            Assert.NotEmpty(response?.Health);
+            Assert.NotEmpty(response?.Versions);
+            Assert.NotEqual(0, response?.Health.Count);
+            Assert.NotEqual(0, response?.Versions.Count);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT"))?.Version);
+            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response?.Versions?.Find(x => x.Component.Equals("NETEVENT"))?.Version);
+        }
+
+        [Fact]
+        public async Task GetSystemInfoVersionsNotSetted_Success_Test()
+        {
+            // Arrange
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            Environment.SetEnvironmentVariable("BUILDNODE", string.Empty);
+            Environment.SetEnvironmentVariable("BUILDID", string.Empty);
+            Environment.SetEnvironmentVariable("BUILDNUMBER", string.Empty);
+            Environment.SetEnvironmentVariable("SOURCE_COMMIT", string.Empty);
+
+            // Act
+            var response = await Client.GetFromJsonAsync<SystemInfoDto>($"/api/system/info/all");
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.NotNull(response?.Versions);
+            Assert.NotEmpty(response?.Versions);
+            Assert.NotEqual(0, response?.Versions.Count);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT"))?.Version);
         }
     }
 }
