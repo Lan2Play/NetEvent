@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Data;
@@ -32,7 +34,7 @@ namespace NetEvent.Server.Tests
             }
 
             // Act
-            var response = await Client.GetFromJsonAsync<List<SystemSettingValueDto>>($"/api/system/{SystemSettingGroup.OrganizationData}/all");
+            var response = await Client.GetFromJsonAsync<List<SystemSettingValueDto>>($"/api/system/settings/{SystemSettingGroup.OrganizationData}/all");
 
             // Assert
             Assert.NotNull(response);
@@ -49,7 +51,7 @@ namespace NetEvent.Server.Tests
             // Insert
             var organizationDataCreate = new SystemSettingValueDto("key", "value");
 
-            var responseCreate = await Client.PostAsync($"/api/system/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataCreate));
+            var responseCreate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataCreate));
 
             responseCreate.EnsureSuccessStatusCode();
 
@@ -65,7 +67,7 @@ namespace NetEvent.Server.Tests
             // Update value
             var organizationDataUpdate = new SystemSettingValueDto("key", "value2");
 
-            var responseUpdate = await Client.PostAsync($"/api/system/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataUpdate));
+            var responseUpdate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(organizationDataUpdate));
 
             responseUpdate.EnsureSuccessStatusCode();
 
@@ -84,12 +86,63 @@ namespace NetEvent.Server.Tests
         {
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 
-            var responseCreate = await Client.PostAsync($"/api/system/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto(null, "value")));
+            var responseCreate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto(null, "value")));
             Assert.False(responseCreate.IsSuccessStatusCode);
-            var responseUpdate = await Client.PostAsync($"/api/system/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto("key", null)));
+            var responseUpdate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto("key", null)));
             Assert.False(responseUpdate.IsSuccessStatusCode);
 
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+        }
+
+        [Fact]
+        public async Task GetSystemInfoVersionsSetted_Test()
+        {
+            // Arrange
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            Environment.SetEnvironmentVariable("BUILDNODE", "TEST");
+            Environment.SetEnvironmentVariable("BUILDID", "TEST");
+            Environment.SetEnvironmentVariable("BUILDNUMBER", "TEST");
+            Environment.SetEnvironmentVariable("SOURCE_COMMIT", "TEST");
+
+            // Act
+            var response = await Client.GetFromJsonAsync<SystemInfoDto>($"/api/system/info/all");
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.NotNull(response?.Components);
+            Assert.Equal(currentDomain.GetAssemblies().Length, response?.Components.Count);
+            Assert.NotNull(response?.Health);
+            Assert.NotNull(response?.Versions);
+            Assert.NotEmpty(response?.Health);
+            Assert.NotEmpty(response?.Versions);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT"))?.Version);
+            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response?.Versions?.Find(x => x.Component.Equals("NETEVENT"))?.Version);
+        }
+
+        [Fact]
+        public async Task GetSystemInfoVersionsNotSetted_Test()
+        {
+            // Arrange
+            Environment.SetEnvironmentVariable("BUILDNODE", string.Empty);
+            Environment.SetEnvironmentVariable("BUILDID", string.Empty);
+            Environment.SetEnvironmentVariable("BUILDNUMBER", string.Empty);
+            Environment.SetEnvironmentVariable("SOURCE_COMMIT", string.Empty);
+
+            // Act
+            var response = await Client.GetFromJsonAsync<SystemInfoDto>($"/api/system/info/all");
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.NotNull(response?.Versions);
+            Assert.NotEmpty(response?.Versions);
+            Assert.NotEqual(0, response?.Versions.Count);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT"))?.Version);
         }
     }
 }

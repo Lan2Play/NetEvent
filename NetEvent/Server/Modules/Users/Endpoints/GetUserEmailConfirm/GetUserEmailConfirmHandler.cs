@@ -6,9 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using NetEvent.Server.Data;
 using NetEvent.Server.Models;
-using NetEvent.Shared;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
 {

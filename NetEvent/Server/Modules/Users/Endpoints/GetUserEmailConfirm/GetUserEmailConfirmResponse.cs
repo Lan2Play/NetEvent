@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Users.Endpoints.GetUser
 {
