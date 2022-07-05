@@ -27,12 +27,11 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
                 systeminfocomponents.Add(new SystemInfoComponentEntryDto(assem.ManifestModule.Name.ToString(), assem.ToString()));
             }
 
-            // TODO: is it possible to make that better?
             systeminfoversions.Add(new SystemInfoVersionEntryDto("NETEVENT", Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion));
-            systeminfoversions.Add(new SystemInfoVersionEntryDto("BUILDNODE", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILDNODE")) ? "dev" : Environment.GetEnvironmentVariable("BUILDNODE")));
-            systeminfoversions.Add(new SystemInfoVersionEntryDto("BUILDID", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILDID")) ? "dev" : Environment.GetEnvironmentVariable("BUILDNODE")));
-            systeminfoversions.Add(new SystemInfoVersionEntryDto("BUILDNUMBER", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILDNUMBER")) ? "dev" : Environment.GetEnvironmentVariable("BUILDNODE")));
-            systeminfoversions.Add(new SystemInfoVersionEntryDto("SOURCE_COMMIT", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SOURCE_COMMIT")) ? "dev" : Environment.GetEnvironmentVariable("BUILDNODE")));
+            systeminfoversions.Add(CreateSystemInfoVersionEntryFromEnv("BUILDNODE"));
+            systeminfoversions.Add(CreateSystemInfoVersionEntryFromEnv("BUILDID"));
+            systeminfoversions.Add(CreateSystemInfoVersionEntryFromEnv("BUILDNUMBER"));
+            systeminfoversions.Add(CreateSystemInfoVersionEntryFromEnv("SOURCE_COMMIT"));
 
             // TODO: think about healthchecks and healthcheck modularity (to perform checks on various services like game servers, the mail server, payment apis ...) and remove dummy services
             systeminfohealth.Add(new SystemInfoHealthEntryDto("NETEVENT Server", string.Empty, true));
@@ -41,6 +40,11 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
             var systeminfo = new SystemInfoDto(systeminfocomponents, systeminfohealth, systeminfoversions);
 
             return Task.FromResult(new GetSystemInfoResponse(systeminfo));
+        }
+
+        private static SystemInfoVersionEntryDto CreateSystemInfoVersionEntryFromEnv(string envName)
+        {
+            return new SystemInfoVersionEntryDto(envName, string.IsNullOrEmpty(Environment.GetEnvironmentVariable(envName)) ? "dev" : Environment.GetEnvironmentVariable(envName));
         }
     }
 }

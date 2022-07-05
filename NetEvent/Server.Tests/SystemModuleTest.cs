@@ -115,8 +115,6 @@ namespace NetEvent.Server.Tests
             Assert.NotNull(response?.Versions);
             Assert.NotEmpty(response?.Health);
             Assert.NotEmpty(response?.Versions);
-            Assert.NotEqual(0, response?.Health.Count);
-            Assert.NotEqual(0, response?.Versions.Count);
             Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
             Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
             Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);

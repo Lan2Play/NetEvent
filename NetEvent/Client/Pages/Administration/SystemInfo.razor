@@ -71,7 +71,7 @@
         </MudTable> 
     </MudTabPanel>
     <MudTabPanel Text="@Localize["Administration.Systeminfo.ClientComponents"]">
-        <MudTable Items="@_ClientComponents" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<SystemInfoComponentEntryDto,bool>(FilterFuncClientComponents1)"> 
+        <MudTable Items="@_ClientComponents" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<SystemInfoComponentEntryDto,bool>(FilterFuncComponents1)"> 
         <ToolBarContent>
             <MudSpacer />
              <MudTextField @bind-Value="searchStringClientComponents" Placeholder="@Localize["Administration.Systeminfo.ClientComponents.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> 
