@@ -11,6 +11,8 @@ namespace NetEvent.Shared.Config
             {
                 SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(OrganizationName, new StringValueType("NetEvent")),
                 SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(DataCultureInfo, new EnumValueType<string>("en-US", new List<string> { "en-US", "de-DE", "fr-FR" })),
+                SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Favicon, new ImageValueType()),
+                SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Logo, new ImageValueType()),
             };
         }
 
@@ -20,5 +22,7 @@ namespace NetEvent.Shared.Config
 
         public const string OrganizationName = "OrganizationName";
         public const string DataCultureInfo = "DataCultureInfo";
+        public const string Favicon = "Favicon";
+        public const string Logo = "Logo";
     }
 }

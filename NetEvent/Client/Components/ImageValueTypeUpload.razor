@@ -1,0 +1,12 @@
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+<MudPaper @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass" Height="300px" Outlined="true" Class="@DragClass">
+    @if (!Clearing)
+    {
+        <InputFile OnChange="OnInputFileChanged" class="absolute mud-width-full mud-height-full overflow-hidden z-2" style="opacity:0;" accept=".jpg, .jpeg, .png" />
+    }
+    <MudText Typo="Typo.h6">Drag and drop image here or click</MudText>
+
+    <MudChip Color="Color.Dark" Text="@fileName?.Name" />
+
+</MudPaper>

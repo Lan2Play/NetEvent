@@ -33,6 +33,9 @@
                                             }
                                         </MudSelect>
                                         break;
+                                    @case ImageValueType ivt:
+                                        <NetEvent.Client.Components.ImageValueTypeUpload ImageValueType="@ivt" SystemSetting="@systemSetting" />
+                                        break;
                                     @default:
                                         <div>Missing InputType @systemSetting.ValueType.GetType().Name for Setting @systemSetting.Key with Value- @_OrganizationData.First(x=>x.Key == systemSetting.Key).Value</div>
                                         break;
