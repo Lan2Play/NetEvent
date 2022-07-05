@@ -11,6 +11,7 @@ namespace NetEvent.Shared.Policy
             "Admin.Users.Edit",
             "Admin.Settings.Organization.Read",
             "Admin.Settings.Organization.Edit",
+            "Admin.SystemInfo.Read",
         };
 
         public static AuthorizationOptions AddPolicies(this AuthorizationOptions options)
