@@ -25,7 +25,16 @@
         <RowTemplate>
             <MudTd DataLabel="Component">@context.Component</MudTd>
             <MudTd DataLabel="Value">@context.Value</MudTd>
-            <MudTd DataLabel="Healthy">@context.Healthy</MudTd>
+            <MudTd DataLabel="Healthy">
+                @if (context.Healthy)
+                {
+                        <MudIcon Icon="@Icons.Filled.CheckCircle" Color="Color.Success" />
+                }
+                else
+                {
+                        <MudIcon Icon="@Icons.Filled.Error" Color="Color.Error" />
+                }         
+            </MudTd>
         </RowTemplate>
         </MudTable> 
     </MudTabPanel>
