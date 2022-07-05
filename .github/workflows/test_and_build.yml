@@ -108,6 +108,12 @@ jobs:
         uses: docker/setup-qemu-action@v2.0.0
       - name: Pull Latest Linux Base Image
         run: docker pull lan2play/netevent
+      - name: set Version
+        if: ${{ (startsWith(github.ref, 'refs/tags/v')) }}
+        run:  echo "NETEVENTNETVER=$(echo ${GITHUB_REF} | sed 's|refs/heads/||g' | sed 's|refs/tags/v||g' | sed 's|-beta||g' )" >> $GITHUB_ENV  
+      - name: set Version
+        if: ${{ !(startsWith(github.ref, 'refs/tags/v')) }}
+        run:  echo "NETEVENTNETVER=0.0.1" >> $GITHUB_ENV  
       - name: Build Linux Image
         uses: docker/build-push-action@v3.0.0
         with:
@@ -120,6 +126,7 @@ jobs:
             BUILDID=${{ github.run_id }}
             BUILDNUMBER=${{ github.run_number }}
             SOURCE_COMMIT=${{ github.sha }}
+            NETEVENTNETVER=$NETEVENTNETVER
           no-cache: true
       # - name: Test Linux Image
       #   run: docker run --rm lan2play/netevent:latest /docker/test.sh
