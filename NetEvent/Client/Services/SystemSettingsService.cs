@@ -2,11 +2,13 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Logging;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
@@ -85,6 +87,31 @@ namespace NetEvent.Client.Services
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to update role in backend.");
+            }
+
+            return ServiceResult.Error("RoleService.UpdateRoleAsync.Error");
+        }
+
+        public async Task<ServiceResult> UploadSystemImage(IBrowserFile file, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                using var formData = new MultipartFormDataContent();
+                var streamContent = new StreamContent(file.OpenReadStream(cancellationToken: cancellationToken));
+                var imageName = Path.GetFileNameWithoutExtension(file.Name);
+                formData.Add(streamContent, imageName, Path.GetFileName(file.Name));
+
+                var response = await client.PostAsync($"api/system/image/{imageName}", formData, cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+
+                return ServiceResult.Success("RoleService.UpdateRoleAsync.Success");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to upload image in backend.");
             }
 
             return ServiceResult.Error("RoleService.UpdateRoleAsync.Error");

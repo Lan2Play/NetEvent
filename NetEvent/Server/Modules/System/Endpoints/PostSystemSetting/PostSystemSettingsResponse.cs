@@ -1,4 +1,4 @@
-﻿namespace NetEvent.Server.Modules.System.Endpoints.PostOrganization
+﻿namespace NetEvent.Server.Modules.System.Endpoints.PostSystemSetting
 {
     public class PostSystemSettingsResponse : ResponseBase
     {

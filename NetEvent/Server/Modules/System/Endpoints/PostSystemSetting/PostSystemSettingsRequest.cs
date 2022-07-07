@@ -2,7 +2,7 @@
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
 
-namespace NetEvent.Server.Modules.System.Endpoints.PostOrganization
+namespace NetEvent.Server.Modules.System.Endpoints.PostSystemSetting
 {
     public class PostSystemSettingsRequest : IRequest<PostSystemSettingsResponse>
     {

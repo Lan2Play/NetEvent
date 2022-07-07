@@ -35,6 +35,9 @@ namespace NetEvent.Client.Components
             ClearDragClass();
             fileName = e.File;
 
+            using var cancellationTokenSource = new CancellationTokenSource();
+            await _SystemSettingsDataService.UploadSystemImage(e.File, cancellationTokenSource.Token);
+
             //TODO upload Image
         }
 

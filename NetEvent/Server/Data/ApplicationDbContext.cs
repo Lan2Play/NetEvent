@@ -24,6 +24,8 @@ namespace NetEvent.Server.Data
         public virtual DbSet<ThemeDto> Themes => Set<ThemeDto>();
 
         public virtual DbSet<SystemSettingValue> SystemSettingValues => Set<SystemSettingValue>();
+        
+        public virtual DbSet<SystemImage> SystemImages => Set<SystemImage>();
 
         public virtual DbSet<EmailTemplate> EmailTemplates => Set<EmailTemplate>();
 
