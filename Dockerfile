@@ -6,6 +6,10 @@ FROM debian:11 AS build
 LABEL stage=builder
 LABEL org.opencontainers.image.authors="Alexander@volzit.de"
 
+#args
+ARG NETEVENTNETVER
+ENV NETEVENTNETVER=$NETEVENTNETVER
+
 #install prereqs
 WORKDIR /
 RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -24,7 +28,7 @@ RUN wget -q $(lastversion https://github.com/eficode/wait-for --format assets)
 COPY NetEvent /NetEvent
 COPY .sonarlint /.sonarlint
 WORKDIR /NetEvent
-RUN dotnet publish ./Server/NetEvent.Server.csproj -c Release -p:PublishProfile=DefaultPublish
+RUN dotnet publish ./Server/NetEvent.Server.csproj -c Release -p:PublishProfile=DefaultPublish -p:Version=$NETEVENTNETVER
 
 # -----------
 # Final stage

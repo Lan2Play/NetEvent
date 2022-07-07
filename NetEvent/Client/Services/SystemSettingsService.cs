@@ -45,7 +45,7 @@ namespace NetEvent.Client.Services
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var result = await client.GetFromJsonAsync<List<SystemSettingValueDto>>($"api/system/{systemSettingGroup}/all", cancellationToken);
+                var result = await client.GetFromJsonAsync<List<SystemSettingValueDto>>($"api/system/settings/{systemSettingGroup}/all", cancellationToken);
 
                 if (result == null)
                 {
@@ -68,7 +68,7 @@ namespace NetEvent.Client.Services
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var response = await client.PostAsJsonAsync($"api/system/{systemSettingGroup}", systemSetting, cancellationToken);
+                var response = await client.PostAsJsonAsync($"api/system/settings/{systemSettingGroup}", systemSetting, cancellationToken);
 
                 response.EnsureSuccessStatusCode();
 

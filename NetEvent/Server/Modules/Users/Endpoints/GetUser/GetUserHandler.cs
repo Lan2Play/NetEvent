@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared;

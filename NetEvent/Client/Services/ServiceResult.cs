@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using NetEvent.Shared.Dto;
-using NetEvent.Shared.Dto.Administration;
-
-namespace NetEvent.Client.Services
+﻿namespace NetEvent.Client.Services
 {
     public class ServiceResult
     {
