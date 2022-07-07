@@ -387,4 +387,58 @@
   <data name="SystemSetting.OrganizationData.DataCultureInfo.Hint" xml:space="preserve">
     <value>Systemweite Sprache. Ändern führt zu einem erneuten Laden der Seite.</value>
   </data>
+  <data name="Administration.AdminMenu.SystemInfo" xml:space="preserve">
+    <value>Systeminfo</value>
+  </data>
+  <data name="Administration.Systeminfo.Components" xml:space="preserve">
+    <value>Komponenten</value>
+  </data>
+  <data name="Administration.Systeminfo.Components.Component" xml:space="preserve">
+    <value>Komponente</value>
+  </data>
+  <data name="Administration.Systeminfo.Components.SearchPlaceholder" xml:space="preserve">
+    <value>Komponente suchen</value>
+  </data>
+  <data name="Administration.Systeminfo.Components.Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Administration.Systeminfo.Health" xml:space="preserve">
+    <value>Gesundheit</value>
+  </data>
+  <data name="Administration.Systeminfo.Versions" xml:space="preserve">
+    <value>Versionen</value>
+  </data>
+  <data name="Administration.Systeminfo.Versions.Component" xml:space="preserve">
+    <value>Komponente</value>
+  </data>
+  <data name="Administration.Systeminfo.Versions.Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Administration.Systeminfo.ClientComponents" xml:space="preserve">
+    <value>Client Komponenten</value>
+  </data>
+  <data name="Administration.Systeminfo.ClientComponents.Component" xml:space="preserve">
+    <value>Komponente</value>
+  </data>
+  <data name="Administration.Systeminfo.ClientComponents.SearchPlaceholder" xml:space="preserve">
+    <value>Client Komponente suchen</value>
+  </data>
+  <data name="Administration.Systeminfo.ClientComponents.Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Administration.Systeminfo.Versions.SearchPlaceholder" xml:space="preserve">
+    <value>Version suchen</value>
+  </data>
+  <data name="Administration.Systeminfo.Health.Component" xml:space="preserve">
+    <value>Komponente</value>
+  </data>
+  <data name="Administration.Systeminfo.Health.Healthy" xml:space="preserve">
+    <value>Gesund</value>
+  </data>
+  <data name="Administration.Systeminfo.Health.SearchPlaceholder" xml:space="preserve">
+    <value>Gesundheit suchen</value>
+  </data>
+  <data name="Administration.Systeminfo.Health.Value" xml:space="preserve">
+    <value>Wert</value>
+  </data>
 </root>
