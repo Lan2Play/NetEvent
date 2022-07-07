@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using NetEvent.Server.Configuration;
 using NetEvent.Server.Data;
+using NetEvent.Server.Extensions;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
@@ -38,6 +39,8 @@ switch (builder.Configuration["DBProvider"].ToLower())
             throw new NotSupportedException($"DbProvider not recognized: {builder.Configuration["DBProvider"]}");
         }
 }
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     {
@@ -138,5 +141,7 @@ app.UseEndpoints(endpoints =>
 });
 
 app.MapEndpoints();
+
+await app.SetDefaultCulture();
 
 await app.RunAsync();

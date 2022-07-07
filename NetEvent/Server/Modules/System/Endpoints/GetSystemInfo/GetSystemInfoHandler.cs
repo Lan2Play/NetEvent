@@ -4,14 +4,22 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using NetEvent.Server;
 using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
 {
     public class GetSystemInfoHandler : IRequestHandler<GetSystemInfoRequest, GetSystemInfoResponse>
     {
-        public GetSystemInfoHandler()
+        // TODO: remove localizer as soon as it is implemented somewhere where it makes sense
+        private IStringLocalizer<Localize> _Localizer { get; set; } = default!;
+
+        // TODO: remove localizer as soon as it is implemented somewhere where it makes sense
+        public GetSystemInfoHandler(IStringLocalizer<Localize> localizer)
         {
+            _Localizer = localizer;
         }
 
         public Task<GetSystemInfoResponse> Handle(GetSystemInfoRequest request, CancellationToken cancellationToken)
@@ -38,6 +46,9 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
             systeminfohealth.Add(new SystemInfoHealthEntryDto("Email Service", "servername", false));
 
             var systeminfo = new SystemInfoDto(systeminfocomponents, systeminfohealth, systeminfoversions);
+
+            // TODO: remove localizer as soon as it is implemented somewhere where it makes sense
+            Console.WriteLine(_Localizer["test.test"]);
 
             return Task.FromResult(new GetSystemInfoResponse(systeminfo));
         }
