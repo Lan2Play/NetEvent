@@ -14,7 +14,7 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemInfo
     public class GetSystemInfoHandler : IRequestHandler<GetSystemInfoRequest, GetSystemInfoResponse>
     {
         // TODO: remove localizer as soon as it is implemented somewhere where it makes sense
-        private IStringLocalizer<Localize> _Localizer { get; set; } = default!;
+        private IStringLocalizer<Localize> _Localizer { get; set; }
 
         // TODO: remove localizer as soon as it is implemented somewhere where it makes sense
         public GetSystemInfoHandler(IStringLocalizer<Localize> localizer)
