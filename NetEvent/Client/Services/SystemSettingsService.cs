@@ -92,7 +92,7 @@ namespace NetEvent.Client.Services
             return ServiceResult.Error("RoleService.UpdateRoleAsync.Error");
         }
 
-        public async Task<ServiceResult> UploadSystemImage(IBrowserFile file, CancellationToken cancellationToken)
+        public async Task<ServiceResult<string>> UploadSystemImage(IBrowserFile file, CancellationToken cancellationToken)
         {
             try
             {
@@ -102,19 +102,23 @@ namespace NetEvent.Client.Services
                 var streamContent = new StreamContent(file.OpenReadStream(cancellationToken: cancellationToken));
                 var imageName = Path.GetFileNameWithoutExtension(file.Name);
                 formData.Add(streamContent, imageName, Path.GetFileName(file.Name));
-
+                
                 var response = await client.PostAsync($"api/system/image/{imageName}", formData, cancellationToken);
 
                 response.EnsureSuccessStatusCode();
+                var uploadedImageId = await response.Content.ReadFromJsonAsync<string>();
+                if (!string.IsNullOrEmpty(uploadedImageId))
+                {
+                    return ServiceResult<string>.Success(uploadedImageId, "RoleService.UpdateRoleAsync.Success");
+                }
 
-                return ServiceResult.Success("RoleService.UpdateRoleAsync.Success");
             }
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to upload image in backend.");
             }
 
-            return ServiceResult.Error("RoleService.UpdateRoleAsync.Error");
+            return ServiceResult<string>.Error("RoleService.UpdateRoleAsync.Error");
         }
 
         private static string GetCallbackKey(SystemSettingGroup systemSettingGroup, string key)

@@ -20,27 +20,20 @@ namespace NetEvent.Server.Modules.System.Endpoints.PostSystemImage
 
         public async Task<PostSystemImageResponse> Handle(PostSystemImageRequest request, CancellationToken cancellationToken)
         {
-            if (request.ImageName == null || request.Files.Length <= 0)
+            if (request.ImageName == null || request.File == null)
             {
                 return new PostSystemImageResponse(ReturnType.Error, "Empty data is not allowed");
             }
 
-            var imageIds = new List<string>();
+            using var ms = new MemoryStream();
+            request.File.OpenReadStream().CopyTo(ms);
+            var imageData = ms.ToArray();
 
-            foreach (var file in request.Files)
-            {
-                using var ms = new MemoryStream();
-                file.OpenReadStream().CopyTo(ms);
-                var imageData = ms.ToArray();
-
-                var image = new SystemImage { Name = file.FileName, Extension = Path.GetExtension(file.FileName), Data = imageData, UploadTime = DateTime.UtcNow };
-                _ApplicationDbContext.SystemImages.Add(image);
-                imageIds.Add(image.Id);
-            }
-
+            var image = new SystemImage { Id = Guid.NewGuid().ToString(), Name = request.File.FileName, Extension = Path.GetExtension(request.File.FileName), Data = imageData, UploadTime = DateTime.UtcNow };
+            _ApplicationDbContext.SystemImages.Add(image);
             _ApplicationDbContext.SaveChanges();
 
-            return new PostSystemImageResponse(imageIds);
+            return new PostSystemImageResponse(image.Id);
         }
     }
 }

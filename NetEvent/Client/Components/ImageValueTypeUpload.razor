@@ -7,6 +7,15 @@
     }
     <MudText Typo="Typo.h6">Drag and drop image here or click</MudText>
 
-    <MudChip Color="Color.Dark" Text="@fileName?.Name" />
+    @if (uploading)
+    {
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+        <MudChip Color="Color.Dark" Text="@fileName?.Name" />
+    }
+   
+    @if (!string.IsNullOrEmpty(imageFileName))
+    {
+        <MudImage Src="@imageSrc"></MudImage>
+    }
 
 </MudPaper>

@@ -18,27 +18,44 @@ namespace NetEvent.Client.Components
         [Inject]
         private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
 
+        private const string ImageUrl = "/api/system/image/";
         private bool Clearing = false;
         private static string DefaultDragClass = "relative rounded-lg border-2 border-dashed pa-4 mt-4 mud-width-full mud-height-full";
         private string DragClass = DefaultDragClass;
         private IBrowserFile? fileName;
         private string? imageFileName;
+        private string? imageSrc;
+        private bool uploading;
 
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
             imageFileName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSetting.Key, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            if (!string.IsNullOrEmpty(imageFileName))
+            {
+                imageSrc = $"{ImageUrl}{imageFileName}";
+            }
         }
 
         private async Task OnInputFileChanged(InputFileChangeEventArgs e)
         {
+            uploading = true;
             ClearDragClass();
             fileName = e.File;
 
             using var cancellationTokenSource = new CancellationTokenSource();
-            await _SystemSettingsDataService.UploadSystemImage(e.File, cancellationTokenSource.Token);
+            var uploadResult = await _SystemSettingsDataService.UploadSystemImage(e.File, cancellationTokenSource.Token);
+            if (uploadResult.Successful)
+            {
+                imageFileName = uploadResult.ResultData;
+                if (!string.IsNullOrEmpty(imageFileName))
+                {
+                    await _SystemSettingsDataService.UpdateSystemSetting(SystemSettingGroup.OrganizationData, new NetEvent.Shared.Dto.SystemSettingValueDto { Key = SystemSetting.Key, Value = imageFileName }, cancellationTokenSource.Token).ConfigureAwait(false);
+                    imageSrc = $"{ImageUrl}{imageFileName}";
+                }
+            }
 
-            //TODO upload Image
+            uploading = false;
         }
 
         private async Task Clear()

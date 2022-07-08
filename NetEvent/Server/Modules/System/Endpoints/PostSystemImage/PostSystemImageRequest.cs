@@ -5,14 +5,14 @@ namespace NetEvent.Server.Modules.System.Endpoints.PostSystemImage
 {
     public class PostSystemImageRequest : IRequest<PostSystemImageResponse>
     {
-        public PostSystemImageRequest(string imageName, IFormFile[] files)
+        public PostSystemImageRequest(string imageName, IFormFile file)
         {
             ImageName = imageName;
-            Files = files;
+            File = file;
         }
 
         public string ImageName { get; }
 
-        public IFormFile[] Files { get; }
+        public IFormFile File { get; }
     }
 }

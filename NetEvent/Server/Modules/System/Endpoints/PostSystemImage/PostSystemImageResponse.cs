@@ -2,9 +2,9 @@
 
 namespace NetEvent.Server.Modules.System.Endpoints.PostSystemImage
 {
-    public class PostSystemImageResponse : ResponseBase<IReadOnlyList<string>>
+    public class PostSystemImageResponse : ResponseBase<string>
     {
-        public PostSystemImageResponse(IReadOnlyList<string> imageIds) : base(imageIds)
+        public PostSystemImageResponse(string imageId) : base(imageId)
         {
         }
 
