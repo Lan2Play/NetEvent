@@ -1,0 +1,8 @@
+﻿.border-dashed .mud-input.mud-input-outlined .mud-input-outlined-border {
+    border-style: dashed;
+}
+
+.img-logo {
+    max-height: 80%;
+    margin-right: 1em;
+}

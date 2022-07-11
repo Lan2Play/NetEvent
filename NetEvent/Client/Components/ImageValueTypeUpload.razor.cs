@@ -20,8 +20,7 @@ namespace NetEvent.Client.Components
 
         private const string ImageUrl = "/api/system/image/";
         private bool Clearing = false;
-        private static string DefaultDragClass = "relative rounded-lg border-2 border-dashed pa-4 mt-4 mud-width-full mud-height-full";
-        private string DragClass = DefaultDragClass;
+        private string DragClass = string.Empty;
         private IBrowserFile? fileName;
         private string? imageFileName;
         private string? imageSrc;
@@ -40,7 +39,6 @@ namespace NetEvent.Client.Components
         private async Task OnInputFileChanged(InputFileChangeEventArgs e)
         {
             uploading = true;
-            ClearDragClass();
             fileName = e.File;
 
             using var cancellationTokenSource = new CancellationTokenSource();
@@ -55,6 +53,7 @@ namespace NetEvent.Client.Components
                 }
             }
 
+            ClearDragClass();
             uploading = false;
         }
 
@@ -69,12 +68,12 @@ namespace NetEvent.Client.Components
 
         private void SetDragClass()
         {
-            DragClass = $"{DefaultDragClass} mud-border-primary";
+            DragClass = $"border-dashed";
         }
 
         private void ClearDragClass()
         {
-            DragClass = DefaultDragClass;
+            DragClass = string.Empty;
         }
     }
 }

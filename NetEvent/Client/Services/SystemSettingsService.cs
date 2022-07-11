@@ -102,7 +102,7 @@ namespace NetEvent.Client.Services
                 var streamContent = new StreamContent(file.OpenReadStream(cancellationToken: cancellationToken));
                 var imageName = Path.GetFileNameWithoutExtension(file.Name);
                 formData.Add(streamContent, imageName, Path.GetFileName(file.Name));
-                
+
                 var response = await client.PostAsync($"api/system/image/{imageName}", formData, cancellationToken);
 
                 response.EnsureSuccessStatusCode();

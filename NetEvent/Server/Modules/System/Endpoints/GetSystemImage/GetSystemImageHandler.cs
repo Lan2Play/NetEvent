@@ -25,7 +25,11 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemImage
             var image = await _ApplicationDbContext.SystemImages.FindAsync(new object[] { request.ImageName }, cancellationToken);
             if (image == null)
             {
-                image = _ApplicationDbContext.SystemImages.FirstOrDefault(i => (i.Id != null && i.Id.Equals(request.ImageName, StringComparison.OrdinalIgnoreCase)) || i.Name.Equals(request.ImageName, StringComparison.OrdinalIgnoreCase));
+                var systemSettingForImage = await _ApplicationDbContext.SystemSettingValues.FindAsync(new object[] { request.ImageName }, cancellationToken);
+                if (!string.IsNullOrEmpty(systemSettingForImage?.SerializedValue))
+                {
+                    image = await _ApplicationDbContext.SystemImages.FindAsync(new object[] { systemSettingForImage.SerializedValue }, cancellationToken);
+                }
 
                 if (image == null)
                 {
@@ -33,7 +37,7 @@ namespace NetEvent.Server.Modules.System.Endpoints.GetSystemImage
                 }
             }
 
-            return new GetSystemImageResponse(Results.File(image.Data, fileDownloadName: image.Name, lastModified: image.UploadTime));
+            return new GetSystemImageResponse(Results.File(image.Data, $"image/{image.Extension}", lastModified: image.UploadTime));
         }
     }
 }

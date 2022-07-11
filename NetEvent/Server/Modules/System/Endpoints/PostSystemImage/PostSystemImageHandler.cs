@@ -29,7 +29,7 @@ namespace NetEvent.Server.Modules.System.Endpoints.PostSystemImage
             request.File.OpenReadStream().CopyTo(ms);
             var imageData = ms.ToArray();
 
-            var image = new SystemImage { Id = Guid.NewGuid().ToString(), Name = request.File.FileName, Extension = Path.GetExtension(request.File.FileName), Data = imageData, UploadTime = DateTime.UtcNow };
+            var image = new SystemImage { Id = Guid.NewGuid().ToString(), Name = request.File.FileName, Extension = Path.GetExtension(request.File.FileName).Trim('.'), Data = imageData, UploadTime = DateTime.UtcNow };
             _ApplicationDbContext.SystemImages.Add(image);
             _ApplicationDbContext.SaveChanges();
 
