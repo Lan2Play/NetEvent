@@ -1,9 +1,11 @@
-﻿using System.Threading;
+﻿using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared;
+using NetEvent.Shared.Config;
 
 namespace NetEvent.Server.Modules.System.Endpoints.PostOrganization
 {
@@ -35,6 +37,14 @@ namespace NetEvent.Server.Modules.System.Endpoints.PostOrganization
             }
 
             await _ApplicationDbContext.SaveChangesAsync(cancellationToken);
+
+            // TODO: move special serverside handling to service
+            if (request.OrganizationData?.Key == SystemSettings.DataCultureInfo)
+            {
+                var cultureInfo = new CultureInfo(request.OrganizationData.Value);
+                CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+                CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+            }
 
             return new PostSystemSettingsResponse();
         }
