@@ -420,4 +420,7 @@
   <data name="ImageValueTypeUpload.Clear" xml:space="preserve">
     <value>Remove Image</value>
   </data>
+  <data name="ImageValueTypeUpload.DragAndDropHint" xml:space="preserve">
+    <value>Drag and drop image here or click</value>
+  </data>
 </root>
