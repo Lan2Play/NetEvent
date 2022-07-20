@@ -5,7 +5,7 @@ using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared;
 
-namespace NetEvent.Server.Modules.System.Endpoints.PostOrganization
+namespace NetEvent.Server.Modules.System.Endpoints.PostSystemSetting
 {
     public class PostSystemSettingsHandler : IRequestHandler<PostSystemSettingsRequest, PostSystemSettingsResponse>
     {

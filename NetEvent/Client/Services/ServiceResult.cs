@@ -1,8 +1,11 @@
-﻿namespace NetEvent.Client.Services
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace NetEvent.Client.Services
 {
+    [ExcludeFromCodeCoverage(Justification = "Ignore UI Services")]
     public class ServiceResult
     {
-        private ServiceResult(bool successful, string? messageKey)
+        protected ServiceResult(bool successful, string? messageKey)
         {
             Successful = successful;
             MessageKey = messageKey;

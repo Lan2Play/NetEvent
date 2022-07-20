@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
+using SendGrid;
 using Xunit;
 
 namespace NetEvent.Server.Tests
@@ -143,6 +149,34 @@ namespace NetEvent.Server.Tests
             Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
             Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
             Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT"))?.Version);
+        }
+
+        [Fact]
+        public async Task PostSystemImageHandler_Error_Test()
+        {
+            var jsonResult = await Client.PostAsync("/api/system/image/testImage", JsonContent.Create("egal"));
+            Assert.Equal(HttpStatusCode.BadRequest, jsonResult.StatusCode);
+
+            using var multipartFormContent = new MultipartFormDataContent();
+            var responseCreate = await Client.PostAsync("/api/system/image/testImage", multipartFormContent);
+            Assert.False(responseCreate.IsSuccessStatusCode);
+        }
+
+        [Fact]
+        public async Task PostAndGetSystemImageHandler_Success_Test()
+        {
+            using var multipartFormContent = new MultipartFormDataContent();
+
+            var fileStreamContent = new StreamContent(File.OpenRead("Data/Test.png"));
+            fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            multipartFormContent.Add(fileStreamContent, name: "image", fileName: "Test.png");
+
+            var responseCreate = await Client.PostAsync("/api/system/image/testImage", multipartFormContent);
+            Assert.True(responseCreate.IsSuccessStatusCode);
+            var uploadedImageId = await responseCreate.Content.ReadFromJsonAsync<string>();
+
+            var imageFromId = await Client.GetAsync($"/api/system/image/{uploadedImageId}");
+            Assert.True(imageFromId.IsSuccessStatusCode);
         }
     }
 }

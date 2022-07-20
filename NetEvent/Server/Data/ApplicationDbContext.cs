@@ -25,6 +25,8 @@ namespace NetEvent.Server.Data
 
         public virtual DbSet<SystemSettingValue> SystemSettingValues => Set<SystemSettingValue>();
 
+        public virtual DbSet<SystemImage> SystemImages => Set<SystemImage>();
+
         public virtual DbSet<EmailTemplate> EmailTemplates => Set<EmailTemplate>();
 
         public override EntityEntry<TEntity> Add<TEntity>(TEntity entity)

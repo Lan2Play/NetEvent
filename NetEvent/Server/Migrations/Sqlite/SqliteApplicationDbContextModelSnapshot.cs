@@ -199,7 +199,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "1c7d32df-60d9-485d-9d29-d24ce7f8c040",
+                            ConcurrencyStamp = "42d798bc-4a85-4f16-b182-c254c1ec6d1f",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -207,7 +207,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "a5576709-828a-401c-88d0-85d545b8b38e",
+                            ConcurrencyStamp = "14ae0b7e-ed09-47a3-9a20-24a1ebd7462f",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -215,7 +215,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "d6efbeec-5336-4aee-b02b-7e53ea454bc6",
+                            ConcurrencyStamp = "56d455ac-ef2b-486f-8438-e8b6bead1d17",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -299,7 +299,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d9829519-3d12-4a70-ac25-32042ade7c95",
+                            ConcurrencyStamp = "a38ceb02-9ef5-4527-9c6f-da3a96dd9a59",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -307,9 +307,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGEwGk9EswHxSkkwUrH3wtKnN1cw8greMfakJt+nZD/WpxkIrcQzOxvPe7C4Tfp2Xw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB7IibsK/k0Kk6gGQvpbWqz2VRHKWBU9X8rn2m/MalM5TUjtIoH3KZ4eq8mRrkzFhg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c269da63-3528-474c-b852-2c5fcada2a1e",
+                            SecurityStamp = "42767a0b-0d98-46ad-905a-7dee13f1aaee",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -341,6 +341,31 @@ namespace NetEvent.Server.Migrations.Sqlite
                         });
                 });
 
+            modelBuilder.Entity("NetEvent.Server.Models.SystemImage", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UploadTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemImages", (string)null);
+                });
+
             modelBuilder.Entity("NetEvent.Server.Models.SystemSettingValue", b =>
                 {
                     b.Property<string>("Key")
@@ -351,7 +376,7 @@ namespace NetEvent.Server.Migrations.Sqlite
 
                     b.HasKey("Key");
 
-                    b.ToTable("OrganizationData", (string)null);
+                    b.ToTable("SystemSettings", (string)null);
 
                     b.HasData(
                         new
@@ -363,6 +388,16 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Key = "DataCultureInfo",
                             SerializedValue = "en-US"
+                        },
+                        new
+                        {
+                            Key = "Favicon",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "Logo",
+                            SerializedValue = ""
                         });
                 });
 

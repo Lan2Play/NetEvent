@@ -1,4 +1,6 @@
-﻿namespace NetEvent.Shared.Config
+﻿using System.Text.RegularExpressions;
+
+namespace NetEvent.Shared.Config
 {
     public class StringValueType : RegexStringValueType
     {

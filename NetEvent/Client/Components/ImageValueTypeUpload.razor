@@ -1,0 +1,28 @@
+﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+<MudField Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" Class="@DragClass" @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass">
+    @if (!Clearing)
+    {
+        <InputFile OnChange="OnInputFileChanged" class="absolute mud-width-full mud-height-full overflow-hidden z-2" style="opacity:0;" accept=".jpg, .jpeg, .png" />
+    }
+
+    @if (string.IsNullOrEmpty(imageFileName))
+    {
+        <MudText Typo="Typo.h6">@Localize["ImageValueTypeUpload.DragAndDropHint"]</MudText>
+    }
+
+    @if (uploading)
+    {
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+        <MudChip Color="Color.Dark" Text="@fileName?.Name" />
+    }
+
+    @if (!string.IsNullOrEmpty(imageFileName))
+    {
+        <div class="container">
+            <MudImage Src="@imageSrc"></MudImage>
+            <MudButton OnClick="Clear" Class="show-on-hover center-in-container" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" Variant="Variant.Text">@Localize["ImageValueTypeUpload.Clear"]"</MudButton>
+        </div>
+    }
+
+</MudField>

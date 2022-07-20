@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -410,5 +410,17 @@
   </data>
   <data name="Administration.Systeminfo.Health.Value" xml:space="preserve">
     <value>Value</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.Favicon.Label" xml:space="preserve">
+    <value>Favicon</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.Logo.Label" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="ImageValueTypeUpload.Clear" xml:space="preserve">
+    <value>Remove Image</value>
+  </data>
+  <data name="ImageValueTypeUpload.DragAndDropHint" xml:space="preserve">
+    <value>Drag and drop image here or click</value>
   </data>
 </root>
