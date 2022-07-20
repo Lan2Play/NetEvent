@@ -62,7 +62,10 @@ namespace NetEvent.Client.Components
             Clearing = true;
             fileName = null;
             ClearDragClass();
-            await Task.Delay(100);
+            imageFileName = string.Empty;
+            using var cancellationTokenSource = new CancellationTokenSource();
+            await _SystemSettingsDataService.UpdateSystemSetting(SystemSettingGroup.OrganizationData, new NetEvent.Shared.Dto.SystemSettingValueDto { Key = SystemSetting.Key, Value = imageFileName }, cancellationTokenSource.Token).ConfigureAwait(false);
+            imageSrc = string.Empty;
             Clearing = false;
         }
 

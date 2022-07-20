@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,12 +25,12 @@ namespace NetEvent.Server.Modules.System.Endpoints.PostSystemImage
             }
 
             using var ms = new MemoryStream();
-            request.File.OpenReadStream().CopyTo(ms);
+            await request.File.OpenReadStream().CopyToAsync(ms, cancellationToken);
             var imageData = ms.ToArray();
 
             var image = new SystemImage { Id = Guid.NewGuid().ToString(), Name = request.File.FileName, Extension = Path.GetExtension(request.File.FileName).Trim('.'), Data = imageData, UploadTime = DateTime.UtcNow };
-            _ApplicationDbContext.SystemImages.Add(image);
-            _ApplicationDbContext.SaveChanges();
+            await _ApplicationDbContext.SystemImages.AddAsync(image, cancellationToken);
+            await _ApplicationDbContext.SaveChangesAsync(cancellationToken);
 
             return new PostSystemImageResponse(image.Id);
         }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-using NetEvent.Shared.Dto;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace NetEvent.Server.Modules.System.Endpoints.GetSystemImage
 {

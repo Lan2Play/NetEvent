@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using AngleSharp.Io;
-using System.IO;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +13,6 @@ using NetEvent.Server.Modules.System.Endpoints.GetSystemSettings;
 using NetEvent.Server.Modules.System.Endpoints.PostSystemImage;
 using NetEvent.Server.Modules.System.Endpoints.PostSystemSetting;
 using NetEvent.Shared.Config;
-using System.Threading.Tasks;
 
 namespace NetEvent.Server.Modules.System
 {

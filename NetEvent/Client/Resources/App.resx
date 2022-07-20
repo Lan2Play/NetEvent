@@ -417,4 +417,7 @@
   <data name="SystemSetting.OrganizationData.Logo.Label" xml:space="preserve">
     <value>Logo</value>
   </data>
+  <data name="ImageValueTypeUpload.Clear" xml:space="preserve">
+    <value>Remove Image</value>
+  </data>
 </root>

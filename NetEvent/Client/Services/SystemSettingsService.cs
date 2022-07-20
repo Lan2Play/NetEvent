@@ -106,12 +106,11 @@ namespace NetEvent.Client.Services
                 var response = await client.PostAsync($"api/system/image/{imageName}", formData, cancellationToken);
 
                 response.EnsureSuccessStatusCode();
-                var uploadedImageId = await response.Content.ReadFromJsonAsync<string>();
+                var uploadedImageId = await response.Content.ReadFromJsonAsync<string>(cancellationToken: cancellationToken);
                 if (!string.IsNullOrEmpty(uploadedImageId))
                 {
                     return ServiceResult<string>.Success(uploadedImageId, "RoleService.UpdateRoleAsync.Success");
                 }
-
             }
             catch (Exception ex)
             {

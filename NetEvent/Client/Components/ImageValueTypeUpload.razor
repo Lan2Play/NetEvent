@@ -1,8 +1,5 @@
 ﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-
-
-@*<MudField @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass" Height="300px" Outlined="true" Class="@DragClass">*@
 <MudField Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" Class="@DragClass" @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass">
     @if (!Clearing)
     {
@@ -22,7 +19,10 @@
 
     @if (!string.IsNullOrEmpty(imageFileName))
     {
-        <MudImage Src="@imageSrc"></MudImage>
+        <div class="container">
+            <MudImage Src="@imageSrc"></MudImage>
+            <MudButton OnClick="Clear" Class="show-on-hover center-in-container" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" Variant="Variant.Text">@Localize["ImageValueTypeUpload.Clear"]"</MudButton>
+        </div>
     }
 
 </MudField>

@@ -19,12 +19,9 @@ namespace NetEvent.Client.Shared
         private readonly ThemeManagerTheme _ThemeManager = new();
 
         private string? _OrganizationName;
-        private bool _themeManagerOpen;
         private bool _drawerOpen = true;
-        private bool collapseNavMenu = true;
-        private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
         private string? _Logo;
-    
+
         private void DrawerToggle()
         {
             _drawerOpen = !_drawerOpen;
@@ -70,11 +67,6 @@ namespace NetEvent.Client.Shared
             {
                 _ThemeManager.Theme.Palette.AppbarBackground = theme.Theme.Palette.AppbarBackground;
             }
-        }
-
-        private void ToggleThemeManager(bool value)
-        {
-            _themeManagerOpen = value;
         }
 
         private async Task UpdateTheme(ThemeManagerTheme updatedTheme)
