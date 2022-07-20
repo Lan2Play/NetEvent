@@ -115,7 +115,7 @@ jobs:
         if: ${{ !(startsWith(github.ref, 'refs/tags/v')) }}
         run:  echo "NETEVENTNETVER=0.0.1" >> $GITHUB_ENV  
       - name: Build Linux Image
-        uses: docker/build-push-action@v3.0.0
+        uses: docker/build-push-action@v3.1.0
         with:
           context: .
           file: ./Dockerfile
