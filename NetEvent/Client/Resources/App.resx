@@ -423,4 +423,10 @@
   <data name="ImageValueTypeUpload.DragAndDropHint" xml:space="preserve">
     <value>Drag and drop image here or click</value>
   </data>
+  <data name="Administration.AdminMenu.Images" xml:space="preserve">
+    <value>Image management</value>
+  </data>
+  <data name="Administration.Images.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>

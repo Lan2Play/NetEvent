@@ -1,0 +1,22 @@
+﻿@page "/administration/images"
+@attribute [Authorize(Policy = "Admin.Images.*")]
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+@using Microsoft.AspNetCore.Authorization
+
+<MudPaper Class="d-flex flex-wrap gap-4 ma-4" Elevation="0">
+    @foreach (var image in Images)
+    {
+        <MudCard>
+            <MudCardMedia Image="@GetImageUrl(image.Id)" Height="200" Width="200" ></MudCardMedia>
+            <MudCardContent>
+                <MudText Typo="Typo.h5">@image.Name</MudText>
+                <MudText Typo="Typo.body2">@image.UploadTime.</MudText>
+                <MudText Typo="Typo.body2">TODO: This image is used here...</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Material.Filled.Delete">@Localize["Administration.Images.Delete"]</MudButton>
+            </MudCardActions>
+        </MudCard>
+    }
+</MudPaper>

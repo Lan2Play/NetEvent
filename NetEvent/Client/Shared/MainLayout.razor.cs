@@ -39,7 +39,7 @@ namespace NetEvent.Client.Shared
                 _Logo = $"/api/system/image/{logoId}";
             }
 
-            await SetThemeAsync().ConfigureAwait(false);
+            //await SetThemeAsync().ConfigureAwait(false);
         }
 
         private void OrganizationNameChanged(SystemSettingValueDto settingValue)
