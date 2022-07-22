@@ -46,6 +46,12 @@
         @Body
     </MudMainContent>
 
+    <MudAppBar Bottom="true" Fixed="false" Color="Color.Primary" Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" />
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.FavoriteBorder" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+    </MudAppBar>
     @*    <MudThemeManagerButton OnClick="@((e) => ToggleThemeManager(true))" />
     <MudThemeManager Open="_themeManagerOpen" OpenChanged="ToggleThemeManager" Theme="_ThemeManager" ThemeChanged="UpdateTheme" />*@
 </MudLayout>

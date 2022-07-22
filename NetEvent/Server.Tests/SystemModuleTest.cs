@@ -7,14 +7,12 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
-using SendGrid;
 using Xunit;
 
 namespace NetEvent.Server.Tests
