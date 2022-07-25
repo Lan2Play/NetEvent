@@ -19,6 +19,6 @@ namespace NetEvent.Client.Services
         Task<ServiceResult> UpdateSystemSetting(SystemSettingGroup systemSettingGroup, SystemSettingValueDto systemSetting, CancellationToken cancellationToken);
 
         Task<ServiceResult<string>> UploadSystemImage(IBrowserFile file, CancellationToken cancellationToken);
-        Task<List<SystemImageDto>> GetSystemImagesAsync(CancellationToken cancellationToken);
+        Task<List<SystemImageWithUsagesDto>> GetSystemImagesAsync(CancellationToken cancellationToken);
     }
 }

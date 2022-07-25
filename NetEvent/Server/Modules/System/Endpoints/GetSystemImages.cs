@@ -23,7 +23,15 @@ namespace NetEvent.Server.Modules.System.Endpoints
             public Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var allImages = _ApplicationDbContext.SystemImages.AsQueryable().Select(x => DtoMapper.Mapper.SystemImageToSystemImageDto(x)).ToList();
-                return Task.FromResult(new Response(allImages));
+
+                var result = new List<SystemImageWithUsagesDto>();
+                foreach (var image in allImages)
+                {
+                    var usage = _ApplicationDbContext.SystemSettingValues.AsQueryable().Where(x => x.Key != null && x.SerializedValue == image.Id).Select(x => x.Key!).ToList();
+                    result.Add(new SystemImageWithUsagesDto(image, usage));
+                }
+
+                return Task.FromResult(new Response(result));
             }
         }
 
@@ -34,9 +42,9 @@ namespace NetEvent.Server.Modules.System.Endpoints
             }
         }
 
-        public sealed class Response : ResponseBase<IEnumerable<SystemImageDto>>
+        public sealed class Response : ResponseBase<IEnumerable<SystemImageWithUsagesDto>>
         {
-            public Response(IEnumerable<SystemImageDto> result) : base(result)
+            public Response(IEnumerable<SystemImageWithUsagesDto> result) : base(result)
             {
             }
 

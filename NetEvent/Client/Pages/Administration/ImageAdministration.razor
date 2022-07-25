@@ -3,20 +3,26 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 @using Microsoft.AspNetCore.Authorization
+@using NetEvent.Shared.Config
 
-<MudPaper Class="d-flex flex-wrap gap-4 ma-4" Elevation="0">
+<MudPaper Class="d-flex align-stretch flex-wrap gap-4 ma-4" Elevation="0">
     @foreach (var image in Images)
     {
-        <MudCard>
-            <MudCardMedia Image="@GetImageUrl(image.Id)" Height="200" Width="200" ></MudCardMedia>
-            <MudCardContent>
-                <MudText Typo="Typo.h5">@image.Name</MudText>
-                <MudText Typo="Typo.body2">@image.UploadTime.</MudText>
-                <MudText Typo="Typo.body2">TODO: This image is used here...</MudText>
+        <MudCard Class="d-flex flex-grow-1 flex-column" Style="width: 256px;">
+            <MudCardMedia Class="flex-shrink-0" Image="@GetImageUrl(image.Image.Id!)" Height="200"></MudCardMedia>
+            <MudCardContent Class="flex-grow-1">
+                <MudText Typo="Typo.h5">@image.Image.Name</MudText>
+                <MudText Typo="Typo.body2">@image.Image.UploadTime</MudText>
+                @if (image.IsUsed)
+                {
+                    <MudAlert Severity="Severity.Warning" Dense="true" Class="my-2">@Localize["Administration.Images.SettingsUsages", string.Join(", ", SystemSettings.GetSettingLabelKeys(@image.SettingUsages).Select(lk => Localize[lk]))]</MudAlert>
+                }
             </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Material.Filled.Delete">@Localize["Administration.Images.Delete"]</MudButton>
+
+            <MudCardActions Class="align-self-end">
+                <MudButton Disabled="@image.IsUsed" Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Material.Filled.Delete">@Localize["Administration.Images.Delete"]</MudButton>
             </MudCardActions>
         </MudCard>
     }
+
 </MudPaper>

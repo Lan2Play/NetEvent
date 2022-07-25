@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace NetEvent.Shared.Config
 {
@@ -24,5 +26,21 @@ namespace NetEvent.Shared.Config
         public const string DataCultureInfo = "DataCultureInfo";
         public const string Favicon = "Favicon";
         public const string Logo = "Logo";
+
+        #region HelperMethods
+
+        public static IEnumerable<string> GetSettingLabelKeys(IEnumerable<string> keys)
+        {
+            foreach (var key in keys)
+            {
+                var systemSetting = Instance.OrganizationData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.OrdinalIgnoreCase));
+                if (!string.IsNullOrEmpty(systemSetting?.LabelKey))
+                {
+                    yield return systemSetting.LabelKey;
+                }
+            }
+        }
+
+        #endregion
     }
 }

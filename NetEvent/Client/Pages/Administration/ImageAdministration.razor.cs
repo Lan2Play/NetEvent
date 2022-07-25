@@ -31,7 +31,7 @@ namespace NetEvent.Client.Pages.Administration
         #endregion
 
         private const string ImageUrl = "/api/system/image/";
-        private List<SystemImageDto> Images;
+        private List<SystemImageWithUsagesDto> Images;
 
         protected async override Task OnInitializedAsync()
         {

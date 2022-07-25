@@ -92,18 +92,18 @@ namespace NetEvent.Client.Services
             return ServiceResult.Error("RoleService.UpdateRoleAsync.Error");
         }
 
-        public async Task<List<SystemImageDto>> GetSystemImagesAsync(CancellationToken cancellationToken)
+        public async Task<List<SystemImageWithUsagesDto>> GetSystemImagesAsync(CancellationToken cancellationToken)
         {
             try
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var result = await client.GetFromJsonAsync<List<SystemImageDto>>("/api/system/image/all", cancellationToken);
+                var result = await client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all", cancellationToken);
 
                 if (result == null)
                 {
                     _Logger.LogError("Unable to get images data from backend");
-                    return new List<SystemImageDto>();
+                    return new List<SystemImageWithUsagesDto>();
                 }
 
                 return result;
@@ -111,7 +111,7 @@ namespace NetEvent.Client.Services
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to get images data from backend");
-                return new List<SystemImageDto>();
+                return new List<SystemImageWithUsagesDto>();
             }
         }
 

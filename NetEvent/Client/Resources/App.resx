@@ -429,4 +429,7 @@
   <data name="Administration.Images.Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Administration.Images.SettingsUsages" xml:space="preserve">
+    <value>The image is used in the following Settings: {0}</value>
+  </data>
 </root>
