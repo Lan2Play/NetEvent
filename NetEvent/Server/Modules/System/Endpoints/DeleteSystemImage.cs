@@ -35,6 +35,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 try
                 {
                     _ApplicationDbContext.SystemImages.Remove(image);
+                    await _ApplicationDbContext.SaveChangesAsync(cancellationToken);
                 }
                 catch (Exception e)
                 {

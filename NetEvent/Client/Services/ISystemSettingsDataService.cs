@@ -20,5 +20,6 @@ namespace NetEvent.Client.Services
 
         Task<ServiceResult<string>> UploadSystemImage(IBrowserFile file, CancellationToken cancellationToken);
         Task<List<SystemImageWithUsagesDto>> GetSystemImagesAsync(CancellationToken cancellationToken);
+        Task<ServiceResult> DeleteSystemImage(string imageId, CancellationToken cancellationToken);
     }
 }

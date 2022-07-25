@@ -20,7 +20,7 @@
             </MudCardContent>
 
             <MudCardActions Class="align-self-end">
-                <MudButton Disabled="@image.IsUsed" Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Material.Filled.Delete">@Localize["Administration.Images.Delete"]</MudButton>
+                <MudButton Disabled="@image.IsUsed" @onclick="() => DeleteImage(image)" Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Material.Filled.Delete">@Localize["Administration.Images.Delete"]</MudButton>
             </MudCardActions>
         </MudCard>
     }

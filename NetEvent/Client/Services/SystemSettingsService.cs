@@ -132,7 +132,7 @@ namespace NetEvent.Client.Services
                 var uploadedImageId = await response.Content.ReadFromJsonAsync<string>(cancellationToken: cancellationToken);
                 if (!string.IsNullOrEmpty(uploadedImageId))
                 {
-                    return ServiceResult<string>.Success(uploadedImageId, "RoleService.UpdateRoleAsync.Success");
+                    return ServiceResult<string>.Success(uploadedImageId, "SystemSettingService.UploadSystemImage.Success");
                 }
             }
             catch (Exception ex)
@@ -140,7 +140,26 @@ namespace NetEvent.Client.Services
                 _Logger.LogError(ex, "Unable to upload image in backend.");
             }
 
-            return ServiceResult<string>.Error("RoleService.UpdateRoleAsync.Error");
+            return ServiceResult<string>.Error("SystemSettingService.UploadSystemImage.Error");
+        }
+
+        public async Task<ServiceResult> DeleteSystemImage(string imageId, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.DeleteAsync($"api/system/image/{imageId}", cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+                return ServiceResult.Success("SystemSettingService.DeleteImageAsync.Success");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to delete image {imageId}.", imageId);
+            }
+
+            return ServiceResult<string>.Error("SystemSettingService.DeleteImageAsync.Error");
         }
 
         private static string GetCallbackKey(SystemSettingGroup systemSettingGroup, string key)

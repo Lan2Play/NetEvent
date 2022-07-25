@@ -40,5 +40,15 @@ namespace NetEvent.Client.Pages.Administration
         }
 
         private string GetImageUrl(string imageId) => $"{ImageUrl}{imageId}";
+
+        private async void DeleteImage(SystemImageWithUsagesDto image)
+        {
+            using var cancellationTokenSource = new CancellationTokenSource();
+            var result = await _SystemSettingsDataService.DeleteSystemImage(image.Image.Id!, cancellationTokenSource.Token);
+            if (result.Successful)
+            {
+                Images.Remove(image);
+            }
+        }
     }
 }
