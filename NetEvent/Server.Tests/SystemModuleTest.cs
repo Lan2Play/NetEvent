@@ -190,7 +190,6 @@ namespace NetEvent.Server.Tests
 
             var responseCreate = await Client.PostAsync("/api/system/image/testImage", multipartFormContent);
             Assert.True(responseCreate.IsSuccessStatusCode);
-            var uploadedImageId = await responseCreate.Content.ReadFromJsonAsync<string>();
 
             var images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
             Assert.NotEmpty(images);
