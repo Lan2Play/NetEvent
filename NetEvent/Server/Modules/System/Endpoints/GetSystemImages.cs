@@ -53,5 +53,4 @@ namespace NetEvent.Server.Modules.System.Endpoints
             }
         }
     }
-
 }

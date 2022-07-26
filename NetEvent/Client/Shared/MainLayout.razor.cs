@@ -38,8 +38,6 @@ namespace NetEvent.Client.Shared
             {
                 _Logo = $"/api/system/image/{logoId}";
             }
-
-            //await SetThemeAsync().ConfigureAwait(false);
         }
 
         private void OrganizationNameChanged(SystemSettingValueDto settingValue)
@@ -55,25 +53,6 @@ namespace NetEvent.Client.Shared
                 _Logo = $"/api/system/image/{newLogoValue.Value}";
                 StateHasChanged();
             }
-        }
-
-        private async Task SetThemeAsync()
-        {
-            using var cancellationTokenSource = new CancellationTokenSource();
-
-            var theme = await ThemeService.GetThemeAsync(cancellationTokenSource.Token).ConfigureAwait(false);
-
-            if (theme != null)
-            {
-                _ThemeManager.Theme.Palette.AppbarBackground = theme.Theme.Palette.AppbarBackground;
-            }
-        }
-
-        private async Task UpdateTheme(ThemeManagerTheme updatedTheme)
-        {
-            using var cancellationTokenSource = new CancellationTokenSource();
-
-            await ThemeService.UpdateThemeAsync(updatedTheme, cancellationTokenSource.Token).ConfigureAwait(false);
         }
     }
 }
