@@ -8,14 +8,6 @@ namespace NetEvent.Shared.Dto
         {
         }
 
-        public SystemImageDto(string? id, string? name, string? extension, DateTime? uploadTime)
-        {
-            Id = id;
-            Name = name;
-            Extension = extension;
-            UploadTime = uploadTime;
-        }
-
         public string? Id { get; set; }
 
         public string? Name { get; set; }
