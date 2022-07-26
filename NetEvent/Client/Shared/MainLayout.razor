@@ -24,7 +24,6 @@
         }
         <h1>@_OrganizationName</h1>
         <MudSpacer />
-        @*<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />*@
         <NavigationBar />
     </MudAppBar>
     <AuthorizeView Policy="Admin.*">
@@ -34,25 +33,19 @@
                     <MudText Typo="Typo.h5" Class="mt-1">@Localize["Shared.MainLayout.Administration"]</MudText>
                 </MudDrawerHeader>
                 <AdminMenu></AdminMenu>
-
-                @*NavMenu*@
             </MudDrawer>
 
         </Authorized>
     </AuthorizeView>
-
 
     <MudMainContent>
         @Body
     </MudMainContent>
 
     <MudAppBar Bottom="true" Fixed="false" Color="Color.Primary" Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" />
+        <MudText Typo="Typo.subtitle2">© @_OrganizationName @DateTime.Now.Year @Localize["Shared.MainLayout.AllRightsReserved"] </MudText>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.FavoriteBorder" Color="Color.Inherit" Edge="Edge.End" />
-        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+        <MudText Typo="Typo.subtitle2">@Localize["Shared.MainLayout.PoweredBy"] <MudLink Color="@Color.Secondary" Target="_blank" Href="https://github.com/Lan2Play/NetEvent">NetEvent</MudLink></MudText>
     </MudAppBar>
-    @*    <MudThemeManagerButton OnClick="@((e) => ToggleThemeManager(true))" />
-    <MudThemeManager Open="_themeManagerOpen" OpenChanged="ToggleThemeManager" Theme="_ThemeManager" ThemeChanged="UpdateTheme" />*@
 </MudLayout>
 

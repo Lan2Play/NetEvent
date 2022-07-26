@@ -20,7 +20,7 @@ namespace NetEvent.Client.Services
     {
         private readonly ILogger<SystemSettingsService> _Logger;
         private readonly IHttpClientFactory _HttpClientFactory;
-        private readonly ConcurrentDictionary<string, ConcurrentBag<Action<SystemSettingValueDto>>> _Callbacks = new ConcurrentDictionary<string, ConcurrentBag<Action<SystemSettingValueDto>>>();
+        private readonly ConcurrentDictionary<string, ConcurrentBag<Action<SystemSettingValueDto>>> _Callbacks = new();
 
         public SystemSettingsService(IHttpClientFactory httpClientFactory, ILogger<SystemSettingsService> logger)
         {

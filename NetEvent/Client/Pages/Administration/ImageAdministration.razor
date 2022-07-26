@@ -8,7 +8,7 @@
 <MudPaper Class="d-flex align-stretch flex-wrap gap-4 ma-4" Elevation="0">
     @foreach (var image in Images)
     {
-        <MudCard Class="d-flex flex-grow-1 flex-column" Style="width: 256px;">
+        <MudCard Class="d-flex flex-grow-1 flex-column" Style="width: 200px; max-width: 300px;">
             <MudCardMedia Class="flex-shrink-0" Image="@GetImageUrl(image.Image.Id!)" Height="200"></MudCardMedia>
             <MudCardContent Class="flex-grow-1">
                 <MudText Typo="Typo.h5">@image.Image.Name</MudText>
