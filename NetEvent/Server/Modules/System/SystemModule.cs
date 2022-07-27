@@ -7,11 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Models;
-using NetEvent.Server.Modules.System.Endpoints.GetSystemImage;
-using NetEvent.Server.Modules.System.Endpoints.GetSystemInfo;
-using NetEvent.Server.Modules.System.Endpoints.GetSystemSettings;
-using NetEvent.Server.Modules.System.Endpoints.PostSystemImage;
-using NetEvent.Server.Modules.System.Endpoints.PostSystemSetting;
+using NetEvent.Server.Modules.System.Endpoints;
 using NetEvent.Shared.Config;
 
 namespace NetEvent.Server.Modules.System
@@ -21,12 +17,12 @@ namespace NetEvent.Server.Modules.System
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapGet("/api/system/info/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemInfoRequest())));
-            endpoints.MapGet("/api/system/settings/{systemSettingGroup}/all", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemSettingsRequest(systemSettingGroup))));
-            endpoints.MapPost("/api/system/settings/{systemSettingGroup}", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromBody] Shared.Dto.SystemSettingValueDto systemSettingsValue, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostSystemSettingsRequest(systemSettingGroup, systemSettingsValue))));
+            endpoints.MapGet("/api/system/info/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemInfo.Request())));
+            endpoints.MapGet("/api/system/settings/{systemSettingGroup}/all", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemSettings.Request(systemSettingGroup))));
+            endpoints.MapPost("/api/system/settings/{systemSettingGroup}", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromBody] Shared.Dto.SystemSettingValueDto systemSettingsValue, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostSystemSetting.Request(systemSettingGroup, systemSettingsValue))));
             endpoints.MapPost("/api/system/image/{imageName}", HandleImageUpload);
-            endpoints.MapGet("/favicon.png", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImageRequest(SystemSettings.Favicon))));
-            endpoints.MapGet("/api/system/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImageRequest(imageName))));
+            endpoints.MapGet("/favicon.png", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.Favicon))));
+            endpoints.MapGet("/api/system/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(imageName))));
 
             return endpoints;
         }
@@ -48,7 +44,7 @@ namespace NetEvent.Server.Modules.System
 
             await using var stream = formFile.OpenReadStream();
 
-            return ToApiResult(await mediator.Send(new PostSystemImageRequest(imageName, formFile)));
+            return ToApiResult(await mediator.Send(new PostSystemImage.Request(imageName, formFile)));
         }
 
         public override void OnModelCreating(ModelBuilder builder)
