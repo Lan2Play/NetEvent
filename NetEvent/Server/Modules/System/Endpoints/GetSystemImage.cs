@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -34,7 +35,17 @@ namespace NetEvent.Server.Modules.System.Endpoints
                     }
                 }
 
-                return new Response(Results.File(image.Data, $"image/{image.Extension}", lastModified: image.UploadTime));
+                var imageContentType = image.Extension;
+                if (imageContentType != null && imageContentType.Equals("ico", StringComparison.OrdinalIgnoreCase))
+                {
+                    imageContentType = "x-icon";
+                }
+                else if (imageContentType != null && imageContentType.Equals("svg", StringComparison.OrdinalIgnoreCase))
+                {
+                    imageContentType = "svg+xml";
+                }
+
+                return new Response(Results.File(image.Data, $"image/{imageContentType}", lastModified: image.UploadTime));
             }
         }
 

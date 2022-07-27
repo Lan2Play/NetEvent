@@ -12,14 +12,14 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetEvent.Server.Migrations.Psql
 {
     [DbContext(typeof(PsqlApplicationDbContext))]
-    [Migration("20220707182212_Initial")]
+    [Migration("20220727184127_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -81,6 +81,20 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = 5,
                             ClaimType = "Admin.SystemInfo.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClaimType = "Admin.Images.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ClaimType = "Admin.Images.Edit",
                             ClaimValue = "",
                             RoleId = "admin"
                         });
@@ -210,7 +224,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "19bce29f-013f-4c9e-bbd3-3d9b3651ff74",
+                            ConcurrencyStamp = "1c4c6091-59b2-4c74-8d20-3a8c6f479212",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -218,7 +232,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "838a5c9c-29a5-4570-bc53-32d75145ceee",
+                            ConcurrencyStamp = "585b30a9-e975-47c1-931c-8431f6f96645",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -226,7 +240,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "ce4e4dc1-5c33-4618-80b5-265e40820d1a",
+                            ConcurrencyStamp = "7bec66ea-2dfa-4bc0-b637-a9c939d1700c",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -310,7 +324,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6d292d0c-9491-4da9-ad55-6aedac436c5c",
+                            ConcurrencyStamp = "929420cf-2000-4aec-94d7-2200d337d2c7",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -318,9 +332,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC5g/r8M10rafpE/eDTGtAutgjoTLoqV8QotP10d60rhiODifMmloTKEj58YNGF9+w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEByVAcdo7sAHV5tTmLxvcDSGtFfJ2PuRgnpxp6h6wxopmJAkK+016SHKJ8dkc9K2YA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "34df289e-84d3-47d4-8ce2-6e71b9cd7ef7",
+                            SecurityStamp = "ef908883-cd9e-411a-b660-e2f1851d9a60",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -358,18 +372,15 @@ namespace NetEvent.Server.Migrations.Psql
                         .HasColumnType("text");
 
                     b.Property<byte[]>("Data")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<string>("Extension")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UploadTime")
+                    b.Property<DateTime?>("UploadTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");

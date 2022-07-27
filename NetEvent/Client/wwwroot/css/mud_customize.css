@@ -1,5 +1,5 @@
-﻿body{
-    word-wrap: break-word;
+﻿.mud-main-content {
+    min-height: calc(100vh - var(--mud-appbar-height));
 }
 
 .border-dashed .mud-input.mud-input-outlined .mud-input-outlined-border {

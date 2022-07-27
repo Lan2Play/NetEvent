@@ -23,3 +23,9 @@
         <MudDivider />
     </Authorized>
 </AuthorizeView>
+<AuthorizeView Policy="Admin.Images.*">
+    <Authorized>
+        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/images" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Images"]</MudButton>
+        <MudDivider />
+    </Authorized>
+</AuthorizeView>
