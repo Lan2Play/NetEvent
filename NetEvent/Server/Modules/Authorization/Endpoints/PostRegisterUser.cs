@@ -55,7 +55,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 
                 if (result.Succeeded)
                 {
-                    var defaultRole = await _RoleManager.Roles.FirstAsync(cancellationToken);
+                    var defaultRole = await _RoleManager.Roles.FirstAsync(r => r.IsDefault, cancellationToken);
                     result = await _UserManager.AddToRoleAsync(user, defaultRole.Name);
 
                     if (result.Succeeded)

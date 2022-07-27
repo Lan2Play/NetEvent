@@ -1,4 +1,8 @@
-﻿.border-dashed .mud-input.mud-input-outlined .mud-input-outlined-border {
+﻿body{
+    word-wrap: break-word;
+}
+
+.border-dashed .mud-input.mud-input-outlined .mud-input-outlined-border {
     border-style: dashed;
 }
 
