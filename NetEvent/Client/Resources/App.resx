@@ -423,4 +423,19 @@
   <data name="ImageValueTypeUpload.DragAndDropHint" xml:space="preserve">
     <value>Drag and drop image here or click</value>
   </data>
+  <data name="Administration.AdminMenu.Images" xml:space="preserve">
+    <value>Image management</value>
+  </data>
+  <data name="Administration.Images.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Administration.Images.SettingsUsages" xml:space="preserve">
+    <value>The image is used in the following Settings: {0}</value>
+  </data>
+  <data name="Shared.MainLayout.AllRightsReserved" xml:space="preserve">
+    <value>All rights reserved.</value>
+  </data>
+  <data name="Shared.MainLayout.PoweredBy" xml:space="preserve">
+    <value>Powered By</value>
+  </data>
 </root>

@@ -42,10 +42,10 @@ namespace NetEvent.Server.Migrations.Sqlite
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Extension = table.Column<string>(type: "TEXT", nullable: false),
-                    Data = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    UploadTime = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Extension = table.Column<string>(type: "TEXT", nullable: true),
+                    Data = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    UploadTime = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -218,17 +218,17 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "admin", "56d455ac-ef2b-486f-8438-e8b6bead1d17", false, "Admin", "ADMIN" });
+                values: new object[] { "admin", "e00c7015-04f8-4632-95ef-eef7356c4274", false, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "orga", "14ae0b7e-ed09-47a3-9a20-24a1ebd7462f", false, "Orga", "ORGA" });
+                values: new object[] { "orga", "d3a0ee8b-acc2-4bfb-844b-83877c85ca10", false, "Orga", "ORGA" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "user", "42d798bc-4a85-4f16-b182-c254c1ec6d1f", true, "User", "USER" });
+                values: new object[] { "user", "3d737c3e-2434-4997-9b31-96c795677812", true, "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "SystemSettings",
@@ -253,7 +253,7 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "a38ceb02-9ef5-4527-9c6f-da3a96dd9a59", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEB7IibsK/k0Kk6gGQvpbWqz2VRHKWBU9X8rn2m/MalM5TUjtIoH3KZ4eq8mRrkzFhg==", null, false, null, "42767a0b-0d98-46ad-905a-7dee13f1aaee", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "1bb47478-e4c7-43de-8143-4a37b40f567a", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAECm2YRKHX3KPufPyB/LSytRkwZpb5GItQw6ijuZIMgQuzj/8rIs6UzrwxazpNVgvGw==", null, false, null, "82863be8-94e2-4ca4-8d60-49a484579aeb", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
@@ -279,6 +279,16 @@ namespace NetEvent.Server.Migrations.Sqlite
                 table: "RoleClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
                 values: new object[] { 5, "Admin.SystemInfo.Read", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 6, "Admin.Images.Read", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 7, "Admin.Images.Edit", "", "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",

@@ -20,7 +20,7 @@ namespace NetEvent.Client.Services
     {
         private readonly ILogger<SystemSettingsService> _Logger;
         private readonly IHttpClientFactory _HttpClientFactory;
-        private readonly ConcurrentDictionary<string, ConcurrentBag<Action<SystemSettingValueDto>>> _Callbacks = new ConcurrentDictionary<string, ConcurrentBag<Action<SystemSettingValueDto>>>();
+        private readonly ConcurrentDictionary<string, ConcurrentBag<Action<SystemSettingValueDto>>> _Callbacks = new();
 
         public SystemSettingsService(IHttpClientFactory httpClientFactory, ILogger<SystemSettingsService> logger)
         {
@@ -92,6 +92,29 @@ namespace NetEvent.Client.Services
             return ServiceResult.Error("RoleService.UpdateRoleAsync.Error");
         }
 
+        public async Task<List<SystemImageWithUsagesDto>> GetSystemImagesAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var result = await client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all", cancellationToken);
+
+                if (result == null)
+                {
+                    _Logger.LogError("Unable to get images data from backend");
+                    return new List<SystemImageWithUsagesDto>();
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to get images data from backend");
+                return new List<SystemImageWithUsagesDto>();
+            }
+        }
+
         public async Task<ServiceResult<string>> UploadSystemImage(IBrowserFile file, CancellationToken cancellationToken)
         {
             try
@@ -109,7 +132,7 @@ namespace NetEvent.Client.Services
                 var uploadedImageId = await response.Content.ReadFromJsonAsync<string>(cancellationToken: cancellationToken);
                 if (!string.IsNullOrEmpty(uploadedImageId))
                 {
-                    return ServiceResult<string>.Success(uploadedImageId, "RoleService.UpdateRoleAsync.Success");
+                    return ServiceResult<string>.Success(uploadedImageId, "SystemSettingService.UploadSystemImage.Success");
                 }
             }
             catch (Exception ex)
@@ -117,7 +140,26 @@ namespace NetEvent.Client.Services
                 _Logger.LogError(ex, "Unable to upload image in backend.");
             }
 
-            return ServiceResult<string>.Error("RoleService.UpdateRoleAsync.Error");
+            return ServiceResult<string>.Error("SystemSettingService.UploadSystemImage.Error");
+        }
+
+        public async Task<ServiceResult> DeleteSystemImage(string imageId, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.DeleteAsync($"api/system/image/{imageId}", cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+                return ServiceResult.Success("SystemSettingService.DeleteImageAsync.Success");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to delete image {imageId}.", imageId);
+            }
+
+            return ServiceResult<string>.Error("SystemSettingService.DeleteImageAsync.Error");
         }
 
         private static string GetCallbackKey(SystemSettingGroup systemSettingGroup, string key)

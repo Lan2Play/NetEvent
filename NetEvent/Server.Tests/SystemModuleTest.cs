@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,7 +15,6 @@ using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
-using SendGrid;
 using Xunit;
 
 namespace NetEvent.Server.Tests
@@ -177,6 +177,28 @@ namespace NetEvent.Server.Tests
 
             var imageFromId = await Client.GetAsync($"/api/system/image/{uploadedImageId}");
             Assert.True(imageFromId.IsSuccessStatusCode);
+        }
+
+        [Fact]
+        public async Task PostGetDeleteSystemImagesHandler_Success_Test()
+        {
+            using var multipartFormContent = new MultipartFormDataContent();
+
+            var fileStreamContent = new StreamContent(File.OpenRead("Data/Test.png"));
+            fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            multipartFormContent.Add(fileStreamContent, name: "image", fileName: "Test.png");
+
+            var responseCreate = await Client.PostAsync("/api/system/image/testImage", multipartFormContent);
+            Assert.True(responseCreate.IsSuccessStatusCode);
+
+            var images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
+            Assert.NotEmpty(images);
+
+            var response = await Client.DeleteAsync($"api/system/image/{images!.First().Image.Id}");
+            response.EnsureSuccessStatusCode();
+
+            images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
+            Assert.Empty(images);
         }
     }
 }
