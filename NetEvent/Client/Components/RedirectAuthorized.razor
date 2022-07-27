@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager Navigation
+@attribute [Authorize]
+<AuthorizeView>
+    <Authorized>
+        @{
+            Navigation.NavigateTo("/");
+        }
+    </Authorized>
+</AuthorizeView>

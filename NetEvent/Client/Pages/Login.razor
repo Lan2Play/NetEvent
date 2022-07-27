@@ -1,4 +1,5 @@
 ﻿@page "/login"
+<RedirectAuthorized/>
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
@@ -6,15 +7,15 @@
 
 <EditForm Model="LoginRequest" OnValidSubmit="ExecuteLogin">
     <DataAnnotationsValidator />
-    <MudCard >
-        <MudCardContent>         
+    <MudCard>
+        <MudCardContent>
             <MudTextField id="Input.Email" Label="@Localize["Login.Title"]" @bind-Value="LoginRequest.UserName" For="@(() => LoginRequest.UserName)" />
             <MudTextField id="Input.Password" Label="@Localize["Login.Password"]" @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" InputType="InputType.Password" />
         </MudCardContent>
         <MudCardActions>
             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ma-2 py-2">@Localize["Login.LoginButton"]</MudButton>
         </MudCardActions>
-    </MudCard>    
+    </MudCard>
 </EditForm>
 <MudButton OnClick="LoginWithSteam"
            Target="_blank"
