@@ -43,10 +43,10 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Extension = table.Column<string>(type: "text", nullable: false),
-                    Data = table.Column<byte[]>(type: "bytea", nullable: false),
-                    UploadTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Extension = table.Column<string>(type: "text", nullable: true),
+                    Data = table.Column<byte[]>(type: "bytea", nullable: true),
+                    UploadTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -221,9 +221,9 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "admin", "ce4e4dc1-5c33-4618-80b5-265e40820d1a", false, "Admin", "ADMIN" },
-                    { "orga", "838a5c9c-29a5-4570-bc53-32d75145ceee", false, "Orga", "ORGA" },
-                    { "user", "19bce29f-013f-4c9e-bbd3-3d9b3651ff74", true, "User", "USER" }
+                    { "admin", "7bec66ea-2dfa-4bc0-b637-a9c939d1700c", false, "Admin", "ADMIN" },
+                    { "orga", "585b30a9-e975-47c1-931c-8431f6f96645", false, "Orga", "ORGA" },
+                    { "user", "1c4c6091-59b2-4c74-8d20-3a8c6f479212", true, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -240,7 +240,7 @@ namespace NetEvent.Server.Migrations.Psql
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "6d292d0c-9491-4da9-ad55-6aedac436c5c", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEC5g/r8M10rafpE/eDTGtAutgjoTLoqV8QotP10d60rhiODifMmloTKEj58YNGF9+w==", null, false, null, "34df289e-84d3-47d4-8ce2-6e71b9cd7ef7", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "929420cf-2000-4aec-94d7-2200d337d2c7", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEByVAcdo7sAHV5tTmLxvcDSGtFfJ2PuRgnpxp6h6wxopmJAkK+016SHKJ8dkc9K2YA==", null, false, null, "ef908883-cd9e-411a-b660-e2f1851d9a60", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
@@ -251,7 +251,9 @@ namespace NetEvent.Server.Migrations.Psql
                     { 2, "Admin.Users.Edit", "", "admin" },
                     { 3, "Admin.Settings.Organization.Read", "", "admin" },
                     { 4, "Admin.Settings.Organization.Edit", "", "admin" },
-                    { 5, "Admin.SystemInfo.Read", "", "admin" }
+                    { 5, "Admin.SystemInfo.Read", "", "admin" },
+                    { 6, "Admin.Images.Read", "", "admin" },
+                    { 7, "Admin.Images.Edit", "", "admin" }
                 });
 
             migrationBuilder.InsertData(
