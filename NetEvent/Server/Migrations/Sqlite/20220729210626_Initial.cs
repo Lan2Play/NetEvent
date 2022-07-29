@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace NetEvent.Server.Migrations.Psql
+namespace NetEvent.Server.Migrations.Sqlite
 {
     public partial class Initial : Migration
     {
@@ -14,9 +13,9 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "EmailTemplates",
                 columns: table => new
                 {
-                    TemplateId = table.Column<string>(type: "text", nullable: false),
-                    SubjectTemplate = table.Column<string>(type: "text", nullable: false),
-                    ContentTemplate = table.Column<string>(type: "text", nullable: false)
+                    TemplateId = table.Column<string>(type: "TEXT", nullable: false),
+                    SubjectTemplate = table.Column<string>(type: "TEXT", nullable: false),
+                    ContentTemplate = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,11 +26,11 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "Role",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    IsDefault = table.Column<bool>(type: "boolean", nullable: false),
-                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    IsDefault = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,11 +41,11 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "SystemImages",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Extension = table.Column<string>(type: "text", nullable: true),
-                    Data = table.Column<byte[]>(type: "bytea", nullable: true),
-                    UploadTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Extension = table.Column<string>(type: "TEXT", nullable: true),
+                    Data = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    UploadTime = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,8 +56,8 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "SystemSettings",
                 columns: table => new
                 {
-                    Key = table.Column<string>(type: "text", nullable: false),
-                    SerializedValue = table.Column<string>(type: "text", nullable: true)
+                    Key = table.Column<string>(type: "TEXT", nullable: false),
+                    SerializedValue = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -69,8 +68,8 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "Themes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ThemeData = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ThemeData = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,24 +80,24 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: true),
-                    LastName = table.Column<string>(type: "text", nullable: true),
-                    ProfilePicture = table.Column<byte[]>(type: "bytea", nullable: true),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    ProfilePicture = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,11 +108,11 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "RoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RoleId = table.Column<string>(type: "text", nullable: false),
-                    ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -130,11 +129,11 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "UserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -151,10 +150,10 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "UserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: false)
+                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -171,8 +170,8 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "UserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    RoleId = table.Column<string>(type: "text", nullable: false)
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    RoleId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,10 +194,10 @@ namespace NetEvent.Server.Migrations.Psql
                 name: "UserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    LoginProvider = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    Value = table.Column<string>(type: "text", nullable: true)
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    Value = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -219,42 +218,87 @@ namespace NetEvent.Server.Migrations.Psql
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "admin", "7bec66ea-2dfa-4bc0-b637-a9c939d1700c", false, "Admin", "ADMIN" },
-                    { "orga", "585b30a9-e975-47c1-931c-8431f6f96645", false, "Orga", "ORGA" },
-                    { "user", "1c4c6091-59b2-4c74-8d20-3a8c6f479212", true, "User", "USER" }
-                });
+                values: new object[] { "admin", "58717e1f-53d6-441d-abc0-5b84dcf2edc4", false, "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "Role",
+                columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
+                values: new object[] { "orga", "f28440b0-82da-46a2-a418-d43e742cf092", false, "Orga", "ORGA" });
+
+            migrationBuilder.InsertData(
+                table: "Role",
+                columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
+                values: new object[] { "user", "fbe27a91-febf-46b2-a4a1-b3c449cd54ad", true, "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "SystemSettings",
                 columns: new[] { "Key", "SerializedValue" },
-                values: new object[,]
-                {
-                    { "DataCultureInfo", "en-US" },
-                    { "Favicon", "" },
-                    { "Logo", "" },
-                    { "OrganizationName", "NetEvent" }
-                });
+                values: new object[] { "DataCultureInfo", "en-US" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "Favicon", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "Logo", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "OrganizationName", "NetEvent" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "Standard", "True" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "Steam", "False" });
 
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "929420cf-2000-4aec-94d7-2200d337d2c7", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEByVAcdo7sAHV5tTmLxvcDSGtFfJ2PuRgnpxp6h6wxopmJAkK+016SHKJ8dkc9K2YA==", null, false, null, "ef908883-cd9e-411a-b660-e2f1851d9a60", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "80c5ad79-5b67-4d71-a0e7-f562e1727cc6", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEJuD0kMPT9lUt7zsqNBsUs6h4ottomacgKuqhrkpAVlPLoe4wqAh+Lv6K77lnVZXUg==", null, false, null, "78db4331-c0ff-40f9-97de-0d36fb9d2750", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[,]
-                {
-                    { 1, "Admin.Users.Read", "", "admin" },
-                    { 2, "Admin.Users.Edit", "", "admin" },
-                    { 3, "Admin.Settings.Organization.Read", "", "admin" },
-                    { 4, "Admin.Settings.Organization.Edit", "", "admin" },
-                    { 5, "Admin.SystemInfo.Read", "", "admin" },
-                    { 6, "Admin.Images.Read", "", "admin" },
-                    { 7, "Admin.Images.Edit", "", "admin" }
-                });
+                values: new object[] { 1, "Admin.Users.Read", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 2, "Admin.Users.Edit", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 3, "Admin.Settings.Organization.Read", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 4, "Admin.Settings.Organization.Edit", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 5, "Admin.SystemInfo.Read", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 6, "Admin.Images.Read", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 7, "Admin.Images.Edit", "", "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",

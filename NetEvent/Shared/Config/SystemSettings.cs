@@ -16,9 +16,17 @@ namespace NetEvent.Shared.Config
                 SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Favicon, new ImageValueType()),
                 SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Logo, new ImageValueType()),
             };
+
+            AuthenticationData = new Collection<SystemSetting>
+            {
+                SystemSettingBuilder.AuthenticationBuilder.CreateSystemSettingWithHint(Standard, new BooleanValueType(true)),
+                SystemSettingBuilder.AuthenticationBuilder.CreateSystemSettingWithHint(Steam, new BooleanValueType(false)),
+            };
         }
 
         public static SystemSettings Instance { get; } = new SystemSettings();
+
+        #region OrganizationData
 
         public IReadOnlyCollection<SystemSetting> OrganizationData { get; }
 
@@ -26,6 +34,17 @@ namespace NetEvent.Shared.Config
         public const string DataCultureInfo = "DataCultureInfo";
         public const string Favicon = "Favicon";
         public const string Logo = "Logo";
+
+        #endregion
+
+        #region Authentication
+
+        public IReadOnlyCollection<SystemSetting> AuthenticationData { get; }
+
+        public const string Standard = "Standard";
+        public const string Steam = "Steam";
+
+        #endregion
 
         #region HelperMethods
 
