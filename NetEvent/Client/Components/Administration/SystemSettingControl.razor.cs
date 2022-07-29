@@ -29,7 +29,6 @@ namespace NetEvent.Client.Components.Administration
             if (result.Successful && Value != null)
             {
                 Value.Value = value.ToString() ?? string.Empty;
-
             }
         }
     }

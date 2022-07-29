@@ -33,7 +33,7 @@ namespace NetEvent.Client.Pages
 
         public bool IsSteamEnabled { get; set; }
 
-        public bool IsStandardEnabled{ get; set; }
+        public bool IsStandardEnabled { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
