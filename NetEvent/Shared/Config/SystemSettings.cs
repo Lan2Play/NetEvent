@@ -9,26 +9,36 @@ namespace NetEvent.Shared.Config
     {
         private SystemSettings()
         {
-            OrganizationData = new Collection<SystemSetting>
+            Settings = new Dictionary<SystemSettingGroup, IReadOnlyCollection<SystemSetting>>
             {
-                SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(OrganizationName, new StringValueType("NetEvent")),
-                SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(DataCultureInfo, new EnumValueType<string>("en-US", new List<string> { "en-US", "de-DE", "fr-FR" })),
-                SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Favicon, new ImageValueType()),
-                SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Logo, new ImageValueType()),
-            };
-
-            AuthenticationData = new Collection<SystemSetting>
-            {
-                SystemSettingBuilder.AuthenticationBuilder.CreateSystemSettingWithHint(Standard, new BooleanValueType(true)),
-                SystemSettingBuilder.AuthenticationBuilder.CreateSystemSettingWithHint(Steam, new BooleanValueType(false)),
+                {
+                    SystemSettingGroup.OrganizationData,
+                    new Collection<SystemSetting>
+                    {
+                        SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(OrganizationName, new StringValueType("NetEvent")),
+                        SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(DataCultureInfo, new EnumValueType<string>("en-US", new List<string> { "en-US", "de-DE", "fr-FR" })),
+                        SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Favicon, new ImageValueType()),
+                        SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Logo, new ImageValueType()),
+                    }
+                },
+                {
+                    SystemSettingGroup.AuthenticationData,
+                    new Collection<SystemSetting>
+                    {
+                        SystemSettingBuilder.AuthenticationBuilder.CreateSystemSettingWithHint(Standard, new BooleanValueType(true)),
+                        SystemSettingBuilder.AuthenticationBuilder.CreateSystemSettingWithHint(Steam, new BooleanValueType(false)),
+                    }
+                },
             };
         }
 
         public static SystemSettings Instance { get; } = new SystemSettings();
 
+        public IReadOnlyDictionary<SystemSettingGroup, IReadOnlyCollection<SystemSetting>> Settings { get; }
+
         #region OrganizationData
 
-        public IReadOnlyCollection<SystemSetting> OrganizationData { get; }
+        public IReadOnlyCollection<SystemSetting> OrganizationData => Settings[SystemSettingGroup.OrganizationData];
 
         public const string OrganizationName = "OrganizationName";
         public const string DataCultureInfo = "DataCultureInfo";
@@ -39,7 +49,7 @@ namespace NetEvent.Shared.Config
 
         #region Authentication
 
-        public IReadOnlyCollection<SystemSetting> AuthenticationData { get; }
+        public IReadOnlyCollection<SystemSetting> AuthenticationData => Settings[SystemSettingGroup.AuthenticationData];
 
         public const string Standard = "Standard";
         public const string Steam = "Steam";
