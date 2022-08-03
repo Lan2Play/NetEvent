@@ -7,5 +7,7 @@
         }
 
         public abstract string DefaultValueSerialized { get; }
+
+        public abstract bool IsValid(object value);
     }
 }

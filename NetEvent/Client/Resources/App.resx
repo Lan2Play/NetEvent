@@ -438,4 +438,13 @@
   <data name="Shared.MainLayout.PoweredBy" xml:space="preserve">
     <value>Powered By</value>
   </data>
+  <data name="Administration.Settings.Authentication" xml:space="preserve">
+    <value>Authentication</value>
+  </data>
+  <data name="SystemSetting.AuthenticationData.Standard.Label" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="SystemSetting.AuthenticationData.Steam.Label" xml:space="preserve">
+    <value>Steam</value>
+  </data>
 </root>

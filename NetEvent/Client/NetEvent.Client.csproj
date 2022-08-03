@@ -43,7 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Administration\" />
     <Folder Include="Extensions\" />
   </ItemGroup>
 
