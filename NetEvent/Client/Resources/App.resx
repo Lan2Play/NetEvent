@@ -447,4 +447,7 @@
   <data name="SystemSetting.AuthenticationData.Steam.Label" xml:space="preserve">
     <value>Steam</value>
   </data>
+  <data name="Login.WithSteam" xml:space="preserve">
+    <value>Login with Steam</value>
+  </data>
 </root>

@@ -1,5 +1,5 @@
 ﻿@page "/login"
-<RedirectAuthorized/>
+<RedirectAuthorized />
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
@@ -28,6 +28,6 @@
            Variant="Variant.Filled"
            EndIcon="@Icons.Custom.Brands.Steam"
            Color="Color.Primary">
-        Login with Steam
+        @Localize["Login.WithSteam"]
     </MudButton>
 }
