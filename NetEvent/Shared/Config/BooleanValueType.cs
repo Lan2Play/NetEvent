@@ -10,6 +10,11 @@
 
         public override bool IsValid(bool value) => true;
 
+        public override bool IsValid(object value)
+        {
+            return bool.TryParse(value?.ToString(), out var _);
+        }
+
         public static bool GetValue(string? serializedValue)
         {
             if (serializedValue != null && bool.TryParse(serializedValue, out var result))

@@ -8,7 +8,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Data;
@@ -23,13 +22,13 @@ namespace NetEvent.Server.Tests
     public class SystemModuleTest : ModuleTestBase
     {
         [Fact]
-        public async Task GetOrganizationHandler_Success_Test()
+        public async Task GetOrganizationSettingsHandler_Success_Test()
         {
             // Arrange
             var testData = new[]
             {
-                new SystemSettingValue { Key = "key",  SerializedValue = "value" },
-                new SystemSettingValue { Key = "key2", SerializedValue = "value2" }
+                new SystemSettingValue { Key = SystemSettings.OrganizationName,  SerializedValue = "value" },
+                new SystemSettingValue { Key = SystemSettings.Logo, SerializedValue = "ImageId" }
             };
 
             using (var scope = Application.Services.CreateScope())
@@ -45,6 +44,37 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.Equal(2, response?.Count);
+            Assert.All(response, x => Assert.True(SystemSettings.Instance.Settings[SystemSettingGroup.OrganizationData].First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
+            Assert.Equal(testData[0].Key, response?[0].Key);
+            Assert.Equal(testData[0].SerializedValue, response?[0].Value);
+            Assert.Equal(testData[1].Key, response?[1].Key);
+            Assert.Equal(testData[1].SerializedValue, response?[1].Value);
+        }
+
+        [Fact]
+        public async Task GetAuthenticationSettingsHandler_Success_Test()
+        {
+            // Arrange
+            var testData = new[]
+            {
+                new SystemSettingValue { Key = SystemSettings.Standard,  SerializedValue = "True" },
+                new SystemSettingValue { Key = SystemSettings.Steam, SerializedValue = "False" }
+            };
+
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.SystemSettingValues.AddRangeAsync(testData);
+                dbContext.SaveChanges();
+            }
+
+            // Act
+            var response = await Client.GetFromJsonAsync<List<SystemSettingValueDto>>($"/api/system/settings/{SystemSettingGroup.AuthenticationData}/all");
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.Equal(2, response?.Count);
+            Assert.All(response, x => Assert.True(SystemSettings.Instance.Settings[SystemSettingGroup.AuthenticationData].First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
             Assert.Equal(testData[0].Key, response?[0].Key);
             Assert.Equal(testData[0].SerializedValue, response?[0].Value);
             Assert.Equal(testData[1].Key, response?[1].Key);
