@@ -9,6 +9,8 @@
 
         public static SystemSettingBuilder OrganizationBuilder { get; } = new SystemSettingBuilder(SystemSettingGroup.OrganizationData);
 
+        public static SystemSettingBuilder AuthenticationBuilder { get; } = new SystemSettingBuilder(SystemSettingGroup.AuthenticationData);
+
         public SystemSettingGroup SettingGroup { get; }
 
         public SystemSetting CreateSystemSetting(string key, ValueType valueType) => new SystemSetting(SettingGroup, key, valueType, $"{nameof(SystemSetting)}.{SettingGroup}.{key}.Label", string.Empty);

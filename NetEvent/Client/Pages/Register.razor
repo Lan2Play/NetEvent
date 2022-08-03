@@ -5,18 +5,32 @@
 
 <h3>@Localize["Register.Title"]</h3>
 
-<EditForm Model="RegisterRequest" OnValidSubmit="ExecuteRegister">
-    <DataAnnotationsValidator />
-    <MudCard >
-        <MudCardContent>         
-            <MudTextField id="Input.Email" Label="@Localize["Register.Email"]" @bind-Value="RegisterRequest.Email" For="@(() => RegisterRequest.Email)" />
-            <MudTextField id="Input.FirstName" Label="@Localize["Register.Firstname"]" @bind-Value="RegisterRequest.FirstName" For="@(() => RegisterRequest.FirstName)" />
-            <MudTextField id="Input.LastName" Label="@Localize["Register.Lastname"]" @bind-Value="RegisterRequest.LastName" For="@(() => RegisterRequest.LastName)" />
-            <MudTextField id="Input.Password" Label="@Localize["Register.Password"]" @bind-Value="RegisterRequest.Password" For="@(() => RegisterRequest.Password)" InputType="InputType.Password" />
-            <MudTextField id="Input.ConfirmPassword" Label="@Localize["Register.ConfirmPassword"]" @bind-Value="RegisterRequest.ConfirmPassword" For="@(() => RegisterRequest.ConfirmPassword)" InputType="InputType.Password" />
-        </MudCardContent>
-        <MudCardActions>
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ma-2 py-2">@Localize["Register.RegisterButton"]</MudButton>
-        </MudCardActions>
-    </MudCard>    
-</EditForm>
+@if (IsStandardEnabled)
+{
+    <EditForm Model="RegisterRequest" OnValidSubmit="ExecuteRegister">
+        <DataAnnotationsValidator />
+        <MudCard>
+            <MudCardContent>
+                <MudTextField id="Input.Email" Label="@Localize["Register.Email"]" @bind-Value="RegisterRequest.Email" For="@(() => RegisterRequest.Email)" />
+                <MudTextField id="Input.FirstName" Label="@Localize["Register.Firstname"]" @bind-Value="RegisterRequest.FirstName" For="@(() => RegisterRequest.FirstName)" />
+                <MudTextField id="Input.LastName" Label="@Localize["Register.Lastname"]" @bind-Value="RegisterRequest.LastName" For="@(() => RegisterRequest.LastName)" />
+                <MudTextField id="Input.Password" Label="@Localize["Register.Password"]" @bind-Value="RegisterRequest.Password" For="@(() => RegisterRequest.Password)" InputType="InputType.Password" />
+                <MudTextField id="Input.ConfirmPassword" Label="@Localize["Register.ConfirmPassword"]" @bind-Value="RegisterRequest.ConfirmPassword" For="@(() => RegisterRequest.ConfirmPassword)" InputType="InputType.Password" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ma-2 py-2">@Localize["Register.RegisterButton"]</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </EditForm>
+}
+
+@if (IsSteamEnabled)
+{
+    <MudButton OnClick="LoginWithSteam"
+           Target="_blank"
+           Variant="Variant.Filled"
+           EndIcon="@Icons.Custom.Brands.Steam"
+           Color="Color.Primary">
+        Login with Steam
+    </MudButton>
+}

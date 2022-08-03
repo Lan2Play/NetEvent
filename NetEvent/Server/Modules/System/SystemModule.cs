@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -56,7 +57,8 @@ namespace NetEvent.Server.Modules.System
             builder.Entity<SystemSettingValue>(entity =>
             {
                 entity.ToTable(name: "SystemSettings");
-                foreach (var setting in SystemSettings.Instance.OrganizationData)
+                foreach (var setting in SystemSettings.Instance.OrganizationData
+                                .Concat(SystemSettings.Instance.AuthenticationData))
                 {
                     entity.HasData(new SystemSettingValue { Key = setting.Key, SerializedValue = setting.ValueType.DefaultValueSerialized });
                 }

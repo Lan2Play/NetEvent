@@ -10,5 +10,15 @@
         public T DefaultValue { get; set; }
 
         public abstract bool IsValid(T value);
+
+        public override bool IsValid(object value)
+        {
+            if (value is T t)
+            {
+                return IsValid(t);
+            }
+
+            return false;
+        }
     }
 }
