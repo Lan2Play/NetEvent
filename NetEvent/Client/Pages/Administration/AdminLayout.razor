@@ -3,9 +3,6 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 <div class="page d-flex flex-column vh-100">
-	<div class="sidebar">
-		<NavMenu />
-	</div>
 
 	<header>
 		<NavigationBar />
@@ -34,4 +31,4 @@
 			await JSRuntime.InvokeAsync<IJSObjectReference>("import", new[] { "/js/bootstrap.js" });
 		}
 	}
-}
+}move unused code
