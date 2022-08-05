@@ -18,11 +18,14 @@
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
             </Authorized>
         </AuthorizeView>
-        @if (!string.IsNullOrEmpty(_Logo))
-        {
-            <MudImage Src="@_Logo" Class="img-logo"></MudImage>
-        }
-        <h1>@_OrganizationName</h1>
+
+        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Inherit" Href="/" Class="mud-appbar-content">
+            @if (!string.IsNullOrEmpty(_Logo))
+            {
+                <MudImage Src="@_Logo" Class="img-logo"></MudImage>
+            }
+            <h1>@_OrganizationName</h1>
+        </MudButton>
         <MudSpacer />
         <NavigationBar />
     </MudAppBar>
