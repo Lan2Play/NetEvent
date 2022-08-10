@@ -2,6 +2,7 @@
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Administration;
+using NetEvent.Shared.Dto.Event;
 using Riok.Mapperly.Abstractions;
 
 namespace NetEvent.Shared
@@ -45,5 +46,13 @@ namespace NetEvent.Shared
         public partial SystemInfoDto SystemInfoToSystemInfoDto(SystemInfo systemInfo);
 
         public partial SystemImageDto SystemImageToSystemImageDto(SystemImage systemImage);
+
+        public partial EventDto EventToEventDto(Event eventToConvert);
+
+        public partial Event EventDtoToEvent(EventDto eventToConvert);
+
+        public partial LocationDto LocationToLocationDto(Location location);
+
+        public partial Location LocationDtoToLocation(LocationDto location);
     }
 }

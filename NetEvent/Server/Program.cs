@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using NetEvent.Server.Configuration;
 using NetEvent.Server.Data;
+using NetEvent.Server.Data.Events;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
@@ -73,6 +74,7 @@ builder.Services.AddRouting(options => options.ConstraintMap["slugify"] = typeof
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IEventManager, EventManager>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddSingleton<IEmailRenderer, RazorEmailRenderer>();
