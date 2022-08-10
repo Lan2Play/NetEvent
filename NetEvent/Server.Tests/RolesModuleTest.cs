@@ -150,7 +150,7 @@ namespace NetEvent.Server.Tests
                     await roleManager.CreateAsync(role);
                     foreach (var claim in fakeClaims)
                     {
-                        await roleManager.AddClaimAsync(role, DtoMapper.Mapper.ClaimDtoToClaim(claim));
+                        await roleManager.AddClaimAsync(role, claim.ToClaim());
                     }
                 }
             }

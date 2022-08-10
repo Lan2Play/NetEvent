@@ -8,51 +8,51 @@ using Riok.Mapperly.Abstractions;
 namespace NetEvent.Shared
 {
     [Mapper]
-    public partial class DtoMapper
+    public static partial class DtoMapper
     {
-        public static DtoMapper Mapper { get; } = new DtoMapper();
-
-        public partial UserDto ApplicaitonUserToUserDto(ApplicationUser applicationUser);
+        public static partial UserDto ToUserDto(this ApplicationUser applicationUser);
 
         [MapperIgnore(nameof(CurrentUserDto.ProfileImage))]
         [MapperIgnore(nameof(AdminUserDto.Role))]
-        public partial AdminUserDto ApplicaitonUserToAdminUserDto(ApplicationUser applicationUser);
+        public static partial AdminUserDto ToAdminUserDto(this ApplicationUser applicationUser);
 
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
         [MapperIgnore(nameof(CurrentUserDto.Claims))]
-        public partial CurrentUserDto ClaimsPrincipalToCurrentUserDto(ClaimsPrincipal claimsPrincipal);
+        public static partial CurrentUserDto ToCurrentUserDto(this ClaimsPrincipal claimsPrincipal);
 
         [MapperIgnore(nameof(RoleDto.Claims))]
-        public partial RoleDto ApplicationRoleToRoleDto(ApplicationRole applicationRole);
+        public static partial RoleDto ToRoleDto(this ApplicationRole applicationRole);
 
         [MapperIgnore(nameof(ApplicationRole.NormalizedName))]
         [MapperIgnore(nameof(ApplicationRole.ConcurrencyStamp))]
-        public partial ApplicationRole RoleDtoToApplicationRole(RoleDto roleDto);
+        public static partial ApplicationRole ToApplicationRole(this RoleDto roleDto);
 
-        public partial ClaimDto ClaimToClaimDto(Claim claim);
+        public static partial ClaimDto ToClaimDto(this Claim claim);
 
         [MapperIgnore(nameof(Claim.Issuer))]
-        public partial Claim ClaimDtoToClaim(ClaimDto claimDto);
+        public static partial Claim ToClaim(this ClaimDto claimDto);
 
         [MapProperty(nameof(SystemSettingValueDto.Value), nameof(SystemSettingValue.SerializedValue))]
-        public partial SystemSettingValue SystemSettingValueDtoToSystemSettingValue(SystemSettingValueDto organizationData);
+        public static partial SystemSettingValue ToSystemSettingValue(this SystemSettingValueDto organizationData);
 
         [MapProperty(nameof(SystemSettingValue.SerializedValue), nameof(SystemSettingValueDto.Value))]
-        public partial SystemSettingValueDto SystemSettingValueToSystemSettingValueDto(SystemSettingValue organizationData);
+        public static partial SystemSettingValueDto ToSystemSettingValueDto(this SystemSettingValue organizationData);
 
-        public partial SystemInfo SystemInfoDtoToSystemInfo(SystemInfoDto systemInfo);
+        public static partial SystemInfo ToSystemInfo(this SystemInfoDto systemInfo);
 
-        public partial SystemInfoDto SystemInfoToSystemInfoDto(SystemInfo systemInfo);
+        public static partial SystemInfoDto ToSystemInfoDto(this SystemInfo systemInfo);
 
-        public partial SystemImageDto SystemImageToSystemImageDto(SystemImage systemImage);
+        public static partial SystemImageDto ToSystemImageDto(this SystemImage systemImage);
 
-        public partial EventDto EventToEventDto(Event eventToConvert);
+        public static partial SystemImageDto SystemImageToSystemImageDto(this SystemImage systemImage);
 
-        public partial Event EventDtoToEvent(EventDto eventToConvert);
+        public static partial EventDto ToEventDto(this Event eventToConvert);
 
-        public partial LocationDto LocationToLocationDto(Location location);
+        public static partial Event ToEvent(this EventDto eventToConvert);
 
-        public partial Location LocationDtoToLocation(LocationDto location);
+        public static partial LocationDto ToLocationDto(this Location location);
+
+        public static partial Location ToLocation(this LocationDto location);
     }
 }

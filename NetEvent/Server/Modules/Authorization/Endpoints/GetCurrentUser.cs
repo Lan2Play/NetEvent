@@ -42,7 +42,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 
                 var refreshedUser = await _SignInManager.CreateUserPrincipalAsync(user);
 
-                var currentUser = DtoMapper.Mapper.ClaimsPrincipalToCurrentUserDto(refreshedUser);
+                var currentUser = refreshedUser.ToCurrentUserDto();
                 currentUser.Claims = refreshedUser.Claims.ToDictionary(c => c.Type, c => c.Value);
                 return new Response(currentUser);
             }

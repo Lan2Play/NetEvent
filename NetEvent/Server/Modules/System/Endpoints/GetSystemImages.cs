@@ -22,7 +22,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 
             public Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var allImages = _ApplicationDbContext.SystemImages.AsQueryable().Select(x => DtoMapper.Mapper.SystemImageToSystemImageDto(x)).ToList();
+                var allImages = _ApplicationDbContext.SystemImages.AsQueryable().Select(DtoMapper.ToSystemImageDto).ToList();
 
                 var result = new List<SystemImageWithUsagesDto>();
                 foreach (var image in allImages)
