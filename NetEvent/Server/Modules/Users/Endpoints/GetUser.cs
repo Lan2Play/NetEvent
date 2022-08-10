@@ -28,7 +28,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
                     return new Response(ReturnType.NotFound, string.Empty);
                 }
 
-                var currentUser = DtoMapper.Mapper.ApplicaitonUserToUserDto(user);
+                var currentUser = user.ToUserDto();
 
                 return new Response(currentUser);
             }

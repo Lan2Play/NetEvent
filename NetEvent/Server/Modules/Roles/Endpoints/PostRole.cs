@@ -33,7 +33,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
                     return new Response(ReturnType.Error, $"Role {request.Role.Name} already exists.");
                 }
 
-                var applicationRole = DtoMapper.Mapper.RoleDtoToApplicationRole(request.Role);
+                var applicationRole = request.Role.ToApplicationRole();
                 applicationRole.Id = applicationRole.Name.ToLowerInvariant();
                 applicationRole.NormalizedName = applicationRole.Name.ToUpperInvariant();
 
