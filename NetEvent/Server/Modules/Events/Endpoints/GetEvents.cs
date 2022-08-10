@@ -30,8 +30,8 @@ namespace NetEvent.Server.Modules.Events.Endpoints
                 var eventLocations = await _DbContext.EventLocations.ToListAsync(cancellationToken);
                 var allLocations = await _DbContext.Locations.ToListAsync(cancellationToken);
 
-                var convertedEvents = allEvents.Select(DtoMapper.Mapper.EventToEventDto).ToList();
-                var convertedLocations = allLocations.Select(DtoMapper.Mapper.LocationToLocationDto).ToList();
+                var convertedEvents = allEvents.Select(DtoMapper.ToEventDto).ToList();
+                var convertedLocations = allLocations.Select(DtoMapper.ToLocationDto).ToList();
 
                 foreach (var eventLocation in eventLocations)
                 {

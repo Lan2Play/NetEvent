@@ -22,14 +22,14 @@ namespace NetEvent.Server.Modules.Events.Endpoints
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var newEvent = DtoMapper.Mapper.EventDtoToEvent(request.Event);
+                var newEvent = request.Event.ToEvent();
                 var result = await _EventManager.CreateAsync(newEvent).ConfigureAwait(false);
                 if (!result.Succeeded)
                 {
                     return new Response(ReturnType.Error, string.Join(Environment.NewLine, result.Errors));
                 }
 
-                return new Response(DtoMapper.Mapper.EventToEventDto(newEvent));
+                return new Response(newEvent.ToEventDto());
             }
         }
 

@@ -1,5 +1,11 @@
-﻿using NetEvent.Server.Models;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
+using NetEvent.Server.Models;
 using NetEvent.Server.Modules.Events.Endpoints;
+using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Server.Modules.Events
 {
