@@ -34,7 +34,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 }
                 else
                 {
-                    var serverData = DtoMapper.Mapper.SystemSettingValueDtoToSystemSettingValue(request.OrganizationData);
+                    var serverData = request.OrganizationData.ToSystemSettingValue();
                     await _ApplicationDbContext.AddAsync(serverData, cancellationToken);
                 }
 
