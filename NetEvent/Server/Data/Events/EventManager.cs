@@ -47,6 +47,14 @@ namespace NetEvent.Server.Data.Events
 
         public async Task<EventResult> UpdateAsync(Event eventToUpdate)
         {
+            var result = _DbContext.Events.Update(eventToUpdate);
+
+            if (result.State == Microsoft.EntityFrameworkCore.EntityState.Modified)
+            {
+                _Logger.LogInformation("Successfully updated Event {name}", eventToUpdate.Name);
+                return EventResult.Success;
+            }
+
             _Logger.LogError("Error updating Event {name}", eventToUpdate.Name);
             return EventResult.Failed(new EventError());
         }
@@ -64,6 +72,14 @@ namespace NetEvent.Server.Data.Events
 
         public async Task<EventResult> DeleteAsync(Event eventToDelete)
         {
+            var result = _DbContext.Events.Remove(eventToDelete);
+
+            if (result.State == Microsoft.EntityFrameworkCore.EntityState.Deleted)
+            {
+                _Logger.LogInformation("Successfully deleted Event {name}", eventToDelete.Name);
+                return EventResult.Success;
+            }
+
             _Logger.LogError("Error deleting Event {name}", eventToDelete.Name);
             return EventResult.Failed(new EventError());
         }
