@@ -1,0 +1,63 @@
+﻿@page "/administration/event/{id}"
+@attribute [Authorize(Policy = "Admin.Events.*")]
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+@using Microsoft.AspNetCore.Authorization
+@using NetEvent.Client.Components
+@using NetEvent.Client.Components.Administration
+@using NetEvent.Shared.Config
+
+@if (_Loading)
+{
+    <NetEventLoading />
+}
+
+@if (_Event != null)
+{
+    <MudCard>
+        <MudForm Model="@_Event" @ref="@_Form" Validation="@(_EventValidator.ValidateValue)" ValidationDelay="0">
+            <MudCardContent>
+                <MudTextField @bind-Value="_Event.Id"
+                          For="@(() => _Event.Id)"
+                          ReadOnly="true"
+                          Immediate="true"
+                          Variant="Variant.Outlined"
+                          Label="@Localize["Administration.Events.Event.Id"]" />
+
+                <MudTextField @bind-Value="_Event.Name"
+                          For="@(() => _Event.Name)"
+                          Immediate="true"
+                          Variant="Variant.Outlined"
+                          Label="@Localize["Administration.Events.Event.Name"]" />
+
+                <MudTextField T="DateTime?"
+                          @bind-Value="_Event.StartDate"
+                          For="@(() => _Event.StartDate)"
+                          Format="s"
+                          Label="DateTimeLocal"
+                          Variant="Variant.Outlined"
+                          InputType="InputType.DateTimeLocal" />
+
+                <MudTextField T="DateTime?"
+                          @bind-Value="_Event.EndDate"
+                          For="@(() => _Event.EndDate)"
+                          Format="s"
+                          Label="DateTimeLocal"
+                          Variant="Variant.Outlined"
+                          InputType="InputType.DateTimeLocal" />
+
+                <MudTextField @bind-Value="_Event.Description"
+                          For="@(() => _Event.Description)"
+                          Immediate="true"
+                          Lines="10"
+                          Variant="Variant.Outlined"
+                          Label="@Localize["Administration.Events.Event.Description"]" />
+            </MudCardContent>
+        </MudForm>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await SaveEvent())">
+                @(_Event.Id >= 0 ? Localize["Administration.Events.Event.Edit"] : Localize["Administration.Events.Event.Create"])
+            </MudButton>
+        </MudCardActions>
+    </MudCard>
+}

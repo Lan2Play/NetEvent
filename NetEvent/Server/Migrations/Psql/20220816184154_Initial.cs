@@ -24,6 +24,40 @@ namespace NetEvent.Server.Migrations.Psql
                 });
 
             migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LocationId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Street = table.Column<string>(type: "text", nullable: true),
+                    Number = table.Column<string>(type: "text", nullable: true),
+                    ZipCode = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Role",
                 columns: table => new
                 {
@@ -221,9 +255,9 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "admin", "3ebb2eeb-d18d-482a-aa75-1dad2e49278e", false, "Admin", "ADMIN" },
-                    { "orga", "4f1f266e-56fa-42ef-b520-2de4d4128b60", false, "Orga", "ORGA" },
-                    { "user", "f2dd0fa0-bbfb-4bc0-8082-45f98e59bb4c", true, "User", "USER" }
+                    { "admin", "16036e07-6d58-4665-804a-77a451dfdebd", false, "Admin", "ADMIN" },
+                    { "orga", "77f03f8c-be0b-47ff-a7fb-d6bece3403c2", false, "Orga", "ORGA" },
+                    { "user", "42c0850d-8b20-4e32-b090-1221d257d384", true, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -242,7 +276,7 @@ namespace NetEvent.Server.Migrations.Psql
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "d892b47a-f65d-4c89-b02d-eae19ce167d0", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAELWQnCCGBmtBL9naruT+KkR4syKl2L58QwlBG761CoI5TZ+CADNRIuNFiLQRXT1Pog==", null, false, null, "9265af40-840a-4076-93db-be86f392e2a4", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "2e516558-62d8-48cc-8f98-61b805bfac22", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAENLb2G765A8GDlaZRktTENgW6Nf/96MIdKy7gajKepU4MP2hFOn4AmlAS6qimxdeMQ==", null, false, null, "d036eb59-3af2-4e71-8270-5be1233c24cf", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
@@ -255,7 +289,9 @@ namespace NetEvent.Server.Migrations.Psql
                     { 4, "Admin.Settings.Organization.Edit", "", "admin" },
                     { 5, "Admin.SystemInfo.Read", "", "admin" },
                     { 6, "Admin.Images.Read", "", "admin" },
-                    { 7, "Admin.Images.Edit", "", "admin" }
+                    { 7, "Admin.Images.Edit", "", "admin" },
+                    { 8, "Admin.Events.Read", "", "admin" },
+                    { 9, "Admin.Events.Edit", "", "admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -305,6 +341,12 @@ namespace NetEvent.Server.Migrations.Psql
         {
             migrationBuilder.DropTable(
                 name: "EmailTemplates");
+
+            migrationBuilder.DropTable(
+                name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");

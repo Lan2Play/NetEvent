@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace NetEvent.Server.Models
 {
@@ -10,5 +11,11 @@ namespace NetEvent.Server.Models
         public string? Name { get; set; }
 
         public string? Description { get; set; }
+
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
+        public long? LocationId { get; set; }
     }
 }

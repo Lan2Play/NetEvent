@@ -14,9 +14,9 @@ namespace NetEvent.Client.Services
     public class RoleService : IRoleService
     {
         private readonly IHttpClientFactory _HttpClientFactory;
-        private readonly ILogger<ThemeService> _Logger;
+        private readonly ILogger<RoleService> _Logger;
 
-        public RoleService(IHttpClientFactory httpClientFactory, ILogger<ThemeService> logger)
+        public RoleService(IHttpClientFactory httpClientFactory, ILogger<RoleService> logger)
         {
             _HttpClientFactory = httpClientFactory;
             _Logger = logger;

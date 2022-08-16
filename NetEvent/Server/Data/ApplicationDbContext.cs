@@ -31,8 +31,6 @@ namespace NetEvent.Server.Data
 
         public virtual DbSet<Event> Events => Set<Event>();
 
-        public virtual DbSet<EventLocation> EventLocations => Set<EventLocation>();
-
         public virtual DbSet<Location> Locations => Set<Location>();
 
         public override EntityEntry<TEntity> Add<TEntity>(TEntity entity)

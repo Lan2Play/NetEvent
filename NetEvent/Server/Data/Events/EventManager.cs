@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NetEvent.Server.Models;
 
@@ -34,9 +35,13 @@ namespace NetEvent.Server.Data.Events
 
         public async Task<EventResult> CreateAsync(Event eventToCreate)
         {
+            var maxId = await _DbContext.Events.MaxAsync(x => x.Id);
+            eventToCreate.Id = maxId.HasValue ? maxId.Value + 1 : 1;
+
             var addResult = await _DbContext.Events.AddAsync(eventToCreate, CancellationToken);
-            if (addResult.State == Microsoft.EntityFrameworkCore.EntityState.Added)
+            if (addResult.State == EntityState.Added)
             {
+                await _DbContext.SaveChangesAsync();
                 _Logger.LogInformation("Successfully created Event {name}", eventToCreate.Name);
                 return EventResult.Success;
             }
@@ -49,8 +54,9 @@ namespace NetEvent.Server.Data.Events
         {
             var result = _DbContext.Events.Update(eventToUpdate);
 
-            if (result.State == Microsoft.EntityFrameworkCore.EntityState.Modified)
+            if (result.State == EntityState.Modified)
             {
+                await _DbContext.SaveChangesAsync();
                 _Logger.LogInformation("Successfully updated Event {name}", eventToUpdate.Name);
                 return EventResult.Success;
             }
@@ -67,6 +73,7 @@ namespace NetEvent.Server.Data.Events
                 return EventResult.Failed(new EventError { Description = $"Event with Id '{eventId}' was not found" });
             }
 
+            await _DbContext.SaveChangesAsync();
             return await DeleteAsync(eventToDelete);
         }
 
@@ -74,8 +81,9 @@ namespace NetEvent.Server.Data.Events
         {
             var result = _DbContext.Events.Remove(eventToDelete);
 
-            if (result.State == Microsoft.EntityFrameworkCore.EntityState.Deleted)
+            if (result.State == EntityState.Deleted)
             {
+                await _DbContext.SaveChangesAsync();
                 _Logger.LogInformation("Successfully deleted Event {name}", eventToDelete.Name);
                 return EventResult.Success;
             }

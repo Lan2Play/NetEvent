@@ -1,12 +1,18 @@
-﻿namespace NetEvent.Shared.Dto.Event
+﻿using System;
+
+namespace NetEvent.Shared.Dto.Event
 {
     public class EventDto
     {
-        public long? Id { get; set; }
+        public long? Id { get; set; } = -1;
 
         public string? Name { get; set; }
 
         public LocationDto? Location { get; set; }
+
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
 
         public string? Description { get; set; }
     }

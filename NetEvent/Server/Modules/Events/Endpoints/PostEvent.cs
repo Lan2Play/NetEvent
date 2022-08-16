@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Toolkit.Diagnostics;
 using NetEvent.Server.Data.Events;
 using NetEvent.Shared;
 using NetEvent.Shared.Dto.Event;
@@ -24,12 +23,12 @@ namespace NetEvent.Server.Modules.Events.Endpoints
             {
                 var newEvent = request.Event.ToEvent();
                 var result = await _EventManager.CreateAsync(newEvent).ConfigureAwait(false);
-                if (!result.Succeeded)
+                if (!result.Succeeded || newEvent.Id == null)
                 {
                     return new Response(ReturnType.Error, string.Join(Environment.NewLine, result.Errors));
                 }
 
-                return new Response(newEvent.ToEventDto());
+                return new Response(newEvent.Id!.Value);
             }
         }
 
@@ -37,17 +36,15 @@ namespace NetEvent.Server.Modules.Events.Endpoints
         {
             public Request(EventDto eventDto)
             {
-                Guard.IsNotNull(eventDto, nameof(eventDto));
-                Guard.IsNull(eventDto.Id, nameof(eventDto));
                 Event = eventDto;
             }
 
             public EventDto Event { get; }
         }
 
-        public class Response : ResponseBase<EventDto>
+        public class Response : ResponseBase<long>
         {
-            public Response(EventDto createdEvent) : base(createdEvent)
+            public Response(long createdEventId) : base(createdEventId)
             {
             }
 

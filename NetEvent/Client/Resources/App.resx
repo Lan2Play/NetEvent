@@ -174,9 +174,6 @@
   <data name="Index.Welcome" xml:space="preserve">
     <value>Welcome to your new app.</value>
   </data>
-  <data name="Administration.AdminLayout.FooterPlaceholder" xml:space="preserve">
-    <value>Place sticky footer content here.</value>
-  </data>
   <data name="Administration.AdminMenu.Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
@@ -446,5 +443,23 @@
   </data>
   <data name="SystemSetting.AuthenticationData.Steam.Label" xml:space="preserve">
     <value>Steam</value>
+  </data>
+  <data name="Administration.Events.Event.Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Administration.AdminMenu.Events" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="Administration.Events.Event.Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Administration.Events.Event.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Administration.Events.Event.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Administration.Events.Event.Name" xml:space="preserve">
+    <value>Name</value>
   </data>
 </root>
