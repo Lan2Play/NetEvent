@@ -36,7 +36,7 @@ namespace NetEvent.Client.Services
             }
             catch (Exception ex)
             {
-                _Logger.LogError(ex, "Unable to update role in backend.");
+                _Logger.LogError(ex, "Unable to create event in backend.");
             }
 
             return ServiceResult.Error("EventService.AddEventAsync.Error");
@@ -103,10 +103,30 @@ namespace NetEvent.Client.Services
             }
             catch (Exception ex)
             {
-                _Logger.LogError(ex, "Unable to update role in backend.");
+                _Logger.LogError(ex, "Unable to update event in backend.");
             }
 
             return ServiceResult.Error("EventService.UpdateEventAsync.Error");
+        }
+
+        public async Task<ServiceResult> DeleteEventAsync(long id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.DeleteAsync($"api/events/{id}", cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+
+                return ServiceResult.Success("EventService.DeleteEventAsync.Success");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to delete event in backend.");
+            }
+
+            return ServiceResult.Error("EventService.DeleteEventAsync.Error");
         }
     }
 }

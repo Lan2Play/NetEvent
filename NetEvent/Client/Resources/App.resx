@@ -444,8 +444,8 @@
   <data name="SystemSetting.AuthenticationData.Steam.Label" xml:space="preserve">
     <value>Steam</value>
   </data>
-  <data name="Administration.Events.Event.Edit" xml:space="preserve">
-    <value>Edit</value>
+  <data name="Administration.Events.Event.Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Administration.AdminMenu.Events" xml:space="preserve">
     <value>Events</value>
@@ -461,5 +461,26 @@
   </data>
   <data name="Administration.Events.Event.Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="Administration.Events.Event.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Administration.Events.Event.EndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="Administration.Events.Event.StartDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="EventService.DeleteEventAsync.Error" xml:space="preserve">
+    <value>Error deleting event</value>
+  </data>
+  <data name="EventService.DeleteEventAsync.Success" xml:space="preserve">
+    <value>Event deleted successfully</value>
+  </data>
+  <data name="Administration.Events.Event.Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Administration.Events.Event.Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

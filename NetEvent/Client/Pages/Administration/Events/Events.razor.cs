@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using MudBlazor;
 using NetEvent.Client.Services;
@@ -19,6 +20,12 @@ namespace NetEvent.Client.Pages.Administration.Events
 
         [Inject]
         private IEventService _EventService { get; set; } = default!;
+
+        [Inject]
+        private ISnackbar _Snackbar { get; set; } = default!;
+
+        [Inject]
+        private IStringLocalizer<App> _Localizer { get; set; } = default!;
 
         #endregion
 
@@ -37,6 +44,27 @@ namespace NetEvent.Client.Pages.Administration.Events
         private string GetEventLink(object id)
         {
             return $"/administration/event/{id}";
+        }
+
+        private async Task DeleteEvent(EventDto eventToDelete)
+        {
+            if (!eventToDelete.Id.HasValue)
+            {
+                return;
+            }
+
+            var cts = new CancellationTokenSource();
+            var result = await _EventService.DeleteEventAsync(eventToDelete.Id.Value, cts.Token);
+
+            if (!string.IsNullOrEmpty(result.MessageKey))
+            {
+                _Snackbar.Add(_Localizer.GetString(result.MessageKey), result.Successful ? Severity.Success : Severity.Error);
+            }
+
+            if (result.Successful)
+            {
+                _Events.Remove(eventToDelete);
+            }
         }
     }
 }

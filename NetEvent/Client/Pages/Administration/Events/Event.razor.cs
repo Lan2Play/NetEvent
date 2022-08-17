@@ -33,7 +33,7 @@ namespace NetEvent.Client.Pages.Administration.Events
 
         private readonly EventModelFluentValidator _EventValidator = new();
         private bool _Loading = true;
-        private MudForm _Form = default!;
+        private MudForm? _Form = default!;
         private EventDto _Event = default!;
 
         protected override async Task OnInitializedAsync()
@@ -54,6 +54,11 @@ namespace NetEvent.Client.Pages.Administration.Events
 
         private async Task SaveEvent()
         {
+            if(_Form == null)
+            {
+                return;
+            }
+
             await _Form.Validate();
 
             if (_Form.IsValid)

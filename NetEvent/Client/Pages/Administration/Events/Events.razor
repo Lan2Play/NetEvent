@@ -2,6 +2,7 @@
 @attribute [Authorize(Policy = "Admin.Events.*")]
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
+@using System.Globalization
 @using Microsoft.AspNetCore.Authorization
 @using NetEvent.Client.Components
 @using NetEvent.Client.Components.Administration
@@ -24,17 +25,20 @@
             <MudCardHeader>
                 <CardHeaderContent>
                     <MudText Typo="Typo.h6">@eventDto.Name</MudText>
+                    <MudText Typo="Typo.body2">@eventDto.StartDate?.ToString("d", CultureInfo.CurrentUICulture) - @eventDto.EndDate?.ToString("d", CultureInfo.CurrentUICulture)</MudText>
+
                 </CardHeaderContent>
                 <CardHeaderActions>
-                    <MudText>@eventDto.Id</MudText>
+                    @*<MudText>@eventDto.Id</MudText>*@
                     @*<MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />*@
                 </CardHeaderActions>
             </MudCardHeader>
-            <MudCardContent>
-                <MudText>@eventDto.Description</MudText>
+            <MudCardContent Class="flex-grow-1">
+                <MudText Typo="Typo.body2">@eventDto.Description</MudText>
             </MudCardContent>
             <MudCardActions>
                 <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@GetEventLink(eventDto.Id!)" StartIcon="@Icons.Material.Outlined.Edit">@Localize["Administration.Events.Event.Edit"]</MudButton>
+                <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@(async () => await DeleteEvent(eventDto))" StartIcon="@Icons.Material.Outlined.Delete">@Localize["Administration.Events.Event.Delete"]</MudButton>
             </MudCardActions>
         </MudCard>
     }
