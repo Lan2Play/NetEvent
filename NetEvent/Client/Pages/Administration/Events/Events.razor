@@ -34,7 +34,10 @@
                 </CardHeaderActions>
             </MudCardHeader>
             <MudCardContent Class="flex-grow-1">
-                <MudText Typo="Typo.body2">@eventDto.Description</MudText>
+                @if (eventDto.Description != null)
+                {
+                    <MudText Typo="Typo.body2">@((MarkupString)eventDto.Description)</MudText>
+                }
             </MudCardContent>
             <MudCardActions>
                 <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@GetEventLink(eventDto.Id!)" StartIcon="@Icons.Material.Outlined.Edit">@Localize["Administration.Events.Event.Edit"]</MudButton>

@@ -22,6 +22,7 @@ namespace NetEvent.Server.Modules.System
             endpoints.MapGet("/api/system/settings/{systemSettingGroup}/all", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemSettings.Request(systemSettingGroup))));
             endpoints.MapPost("/api/system/settings/{systemSettingGroup}", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromBody] Shared.Dto.SystemSettingValueDto systemSettingsValue, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostSystemSetting.Request(systemSettingGroup, systemSettingsValue))));
             endpoints.MapPost("/api/system/image/{imageName}", HandleImageUpload);
+            endpoints.MapPost("/api/system/editorimage", HandleEditorImageUpload);
             endpoints.MapGet("/api/system/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(imageName))));
             endpoints.MapDelete("/api/system/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new DeleteSystemImage.Request(imageName))));
             endpoints.MapGet("/api/system/image/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImages.Request())));
@@ -49,6 +50,33 @@ namespace NetEvent.Server.Modules.System
             await using var stream = formFile.OpenReadStream();
 
             return ToApiResult(await mediator.Send(new PostSystemImage.Request(imageName, formFile)));
+        }
+
+        private async Task<IResult> HandleEditorImageUpload(HttpRequest request, [FromServices] IMediator mediator)
+        {
+            if (!request.HasFormContentType)
+            {
+                return Results.BadRequest();
+            }
+
+            var form = await request.ReadFormAsync();
+            var formFile = form.Files[0];
+
+            if (formFile is null || formFile.Length == 0)
+            {
+                return Results.BadRequest();
+            }
+
+            await using var stream = formFile.OpenReadStream();
+            var result = await mediator.Send(new PostSystemImage.Request(formFile.FileName, formFile));
+
+            if (result.ReturnType != ReturnType.Ok)
+            {
+                return ToApiResult(result);
+            }
+
+            return Results.Json(new { location = $"/api/system/image/{result.ReturnValue}" });
+            //return ToApiResult(await mediator.Send(new PostSystemImage.Request(imageName, formFile)));
         }
 
         public override void OnModelCreating(ModelBuilder builder)

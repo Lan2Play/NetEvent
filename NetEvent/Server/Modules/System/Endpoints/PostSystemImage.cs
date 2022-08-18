@@ -27,11 +27,24 @@ namespace NetEvent.Server.Modules.System.Endpoints
                     return new Response(ReturnType.Error, "Empty data is not allowed");
                 }
 
+                if (Guid.TryParse(request.ImageName, out var id))
+                {
+                    var existingImage = await _ApplicationDbContext.SystemImages.FindAsync(new object[] { id.ToString() }, cancellationToken);
+                    if (existingImage?.Id != null)
+                    {
+                        return new Response(existingImage.Id);
+                    }
+                }
+                else
+                {
+                    id = Guid.NewGuid();
+                }
+
                 using var ms = new MemoryStream();
                 await request.File.OpenReadStream().CopyToAsync(ms, cancellationToken);
                 var imageData = ms.ToArray();
 
-                var image = new SystemImage { Id = Guid.NewGuid().ToString(), Name = request.File.FileName, Extension = Path.GetExtension(request.File.FileName).Trim('.'), Data = imageData, UploadTime = DateTime.UtcNow };
+                var image = new SystemImage { Id = id.ToString(), Name = request.File.FileName, Extension = Path.GetExtension(request.File.FileName).Trim('.'), Data = imageData, UploadTime = DateTime.UtcNow };
                 await _ApplicationDbContext.SystemImages.AddAsync(image, cancellationToken);
                 await _ApplicationDbContext.SaveChangesAsync(cancellationToken);
 
