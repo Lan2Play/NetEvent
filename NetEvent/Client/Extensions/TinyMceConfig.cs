@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 
 namespace NetEvent.Client.Extensions
 {
@@ -20,9 +21,11 @@ namespace NetEvent.Client.Extensions
             { "link_context_toolbar", true },
             { "fullscreen_native", true },
             { "file_picker_types", "image" },
+            { "language", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName },
             { "toolbar_mode", "sliding" },
-            { "toolbar_sticky", "true" },
-            { "toolbar", "undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | numlist bullist | link image code table emoticons | visualchars preview fullscreen" }
+            { "toolbar_sticky", true },
+            { "toolbar_sticky_offset", 64 },
+            { "toolbar", "undo redo removeformat | styles | fontfamily fontsize forecolor | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | indent outdent | numlist bullist | link image table emoticons | code preview fullscreen" }
         };
     }
 }
