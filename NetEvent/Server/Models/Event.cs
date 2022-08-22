@@ -10,6 +10,10 @@ namespace NetEvent.Server.Models
 
         public string? Name { get; set; }
 
+        public PublishState State { get; set; }
+
+        public VisibilityState Visibility { get; set; }
+
         public string? Description { get; set; }
 
         public DateTime? StartDate { get; set; }

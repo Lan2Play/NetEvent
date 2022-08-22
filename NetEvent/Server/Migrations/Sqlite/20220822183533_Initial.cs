@@ -29,6 +29,8 @@ namespace NetEvent.Server.Migrations.Sqlite
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
+                    State = table.Column<int>(type: "INTEGER", nullable: false),
+                    Visibility = table.Column<int>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     EndDate = table.Column<DateTime>(type: "TEXT", nullable: true),
@@ -252,17 +254,17 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "admin", "d006da9d-325f-4e42-8ac2-56d732a7f1b7", false, "Admin", "ADMIN" });
+                values: new object[] { "admin", "8494ef79-2c4f-41b8-b389-d4ff05ad4aa0", false, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "orga", "239994f5-0d66-483d-99fc-db0d65b25d72", false, "Orga", "ORGA" });
+                values: new object[] { "orga", "1748e890-47b9-4204-b9dc-d7935239239e", false, "Orga", "ORGA" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "user", "6c9234b9-51b6-4fe7-b88e-1026e57ca8ce", true, "User", "USER" });
+                values: new object[] { "user", "b3144181-abfc-4444-bb63-e4d87b3f909c", true, "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "SystemSettings",
@@ -297,7 +299,7 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "c6898c01-12ff-44b3-aad9-01874b4cf6d3", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEAA5Tb+/8Nb8RQDzb45fp6AEEpe7i9wU3Zo4UUZ0Dz4O5rlfJLmqYBa/wuzCU9BEig==", null, false, null, "2b674a01-6f04-4eb4-a857-66d8e851adfc", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "a2729e06-27b4-4d93-98bc-3bcc26f40118", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEFnvPKKVBBILgR+O4w+tifTBQvjeKyN+r6MlImfNj4mkOELk/2Lr5yk98EYiuM5A+A==", null, false, null, "ef3ea90b-0c0e-4a6b-9c4c-68120d1ec2e5", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",

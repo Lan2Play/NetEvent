@@ -483,4 +483,28 @@
   <data name="Administration.Events.Event.Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="Administration.Events.Event.PublishState" xml:space="preserve">
+    <value>Publish state</value>
+  </data>
+  <data name="Administration.Events.Event.PublishState.Draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="Administration.Events.Event.PublishState.Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Administration.Events.Event.PublishState.Published" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="Administration.Events.Event.VisibilityState" xml:space="preserve">
+    <value>Visibility</value>
+  </data>
+  <data name="Administration.Events.Event.VisibilityState.Everyone" xml:space="preserve">
+    <value>Everyone</value>
+  </data>
+  <data name="Administration.Events.Event.VisibilityState.Invited" xml:space="preserve">
+    <value>Invited users only</value>
+  </data>
+  <data name="Administration.Events.Event.VisibilityState.LoggedIn" xml:space="preserve">
+    <value>Logged in users only</value>
+  </data>
 </root>
