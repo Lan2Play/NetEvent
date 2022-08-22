@@ -11,6 +11,7 @@ namespace NetEvent.Client.Extensions
         /// </summary>
         public static Dictionary<string, object> EditorConf { get; } = new Dictionary<string, object>
         {
+            { "skin", "borderless" },
             { "plugins", "image code link lists advlist preview table visualchars wordcount fullscreen emoticons autoresize" },
             { "branding", false },
             { "automatic_uploads", true },

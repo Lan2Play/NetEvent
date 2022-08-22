@@ -60,15 +60,10 @@
                                   InputType="InputType.DateTimeLocal" />
                     </MudItem>
                     <MudItem xs="12">
+                        <MudField Label="@Localize["Administr ation.Events.Event.Description"]" Variant="Variant.Outlined">
+                            <Editor @bind-value="_Event.Description" ScriptSrc="/lib/tinymce/tinymce.min.js" ValidateOnInput="true" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                        </MudField>
 
-                        <Editor @bind-Value="_Event.Description" ScriptSrc="/lib/tinymce/tinymce.min.js" ValidateOnInput="true" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
-
-                        @*    <MudTextField @bind-Value="_Event.Description"
-                    For="@(() => _Event.Description)"
-                    Immediate="true"
-                    Lines="10"
-                    Variant="Variant.Outlined"
-                    Label="@Localize["Administration.Events.Event.Description"]" />*@
                     </MudItem>
                 </MudGrid>
             </MudCardContent>
