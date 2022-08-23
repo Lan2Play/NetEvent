@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -42,14 +43,14 @@ namespace NetEvent.Client.Services
             return ServiceResult.Error("EventService.AddEventAsync.Error");
         }
 
-        public async Task<EventDto?> GetEventAsync(long id, CancellationToken cancellationToken)
+        public async Task<EventDto?> GetEventAsync(string slug, CancellationToken cancellationToken)
         {
             try
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var eventDto2 = await client.GetStringAsync($"/api/events/{id}", cancellationToken).ConfigureAwait(false);
-                var eventDto = await client.GetFromJsonAsync<EventDto?>($"/api/events/{id}", cancellationToken).ConfigureAwait(false);
+                var eventDto2 = await client.GetStringAsync($"/api/events/{slug}", cancellationToken).ConfigureAwait(false);
+                var eventDto = await client.GetFromJsonAsync<EventDto?>($"/api/events/{slug}", cancellationToken).ConfigureAwait(false);
 
                 if (eventDto == null)
                 {
@@ -64,6 +65,11 @@ namespace NetEvent.Client.Services
                 _Logger.LogError(ex, "Unable to get event data from backend");
                 return null;
             }
+        }
+
+        public Task<EventDto?> GetEventAsync(long id, CancellationToken cancellationToken)
+        {
+            return GetEventAsync(id.ToString(CultureInfo.InvariantCulture), cancellationToken);
         }
 
         public async Task<List<EventDto>> GetEventsAsync(CancellationToken cancellationToken)

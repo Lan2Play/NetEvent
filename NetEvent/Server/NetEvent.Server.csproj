@@ -46,6 +46,7 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Riok.Mapperly" Version="2.3.3" />
+    <PackageReference Include="Slugify.Core" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

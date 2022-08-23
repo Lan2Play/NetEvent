@@ -15,6 +15,7 @@ using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
 using NetEvent.Server.Services;
 using NetEvent.Shared.Policy;
+using Slugify;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,6 +77,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IEventManager, EventManager>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<ISlugHelper, SlugHelper>();
 
 builder.Services.AddSingleton<IEmailRenderer, RazorEmailRenderer>();
 

@@ -11,6 +11,8 @@ namespace NetEvent.Client.Services
 
         Task<EventDto?> GetEventAsync(long id, CancellationToken cancellationToken);
 
+        Task<EventDto?> GetEventAsync(string slug, CancellationToken cancellationToken);
+
         Task<ServiceResult> DeleteEventAsync(long id, CancellationToken cancellationToken);
 
         Task<ServiceResult> UpdateEventAsync(EventDto eventDto, CancellationToken cancellationToken);

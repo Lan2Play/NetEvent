@@ -507,4 +507,7 @@
   <data name="Administration.Events.Event.VisibilityState.LoggedIn" xml:space="preserve">
     <value>Logged in users only</value>
   </data>
+  <data name="Shared.NavigationBar.Events" xml:space="preserve">
+    <value>Events</value>
+  </data>
 </root>

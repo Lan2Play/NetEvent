@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using NetEvent.Server.Data;
@@ -20,7 +21,16 @@ namespace NetEvent.Server.Modules.Events.Endpoints
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var eventModel = await _DbContext.Events.FindAsync(new object[] { request.Id }, cancellationToken);
+                Models.Event? eventModel;
+                if (request.Slug != null)
+                {
+                    eventModel = _DbContext.Events.Where(e => e.Slug != null && e.Slug.Equals(request.Slug)).FirstOrDefault();
+                }
+                else
+                {
+                    eventModel = await _DbContext.Events.FindAsync(new object[] { request.Id }, cancellationToken);
+                }
+
                 if (eventModel == null)
                 {
                     return new Response(ReturnType.NotFound, "Event for Id not found!");
@@ -45,7 +55,14 @@ namespace NetEvent.Server.Modules.Events.Endpoints
                 Id = id;
             }
 
+            public Request(string slug)
+            {
+                Slug = slug;
+            }
+
             public long Id { get; }
+
+            public string? Slug { get; }
         }
 
         public class Response : ResponseBase<EventDto>

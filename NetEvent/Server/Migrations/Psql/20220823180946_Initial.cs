@@ -30,6 +30,7 @@ namespace NetEvent.Server.Migrations.Psql
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
+                    Slug = table.Column<string>(type: "text", nullable: true),
                     State = table.Column<int>(type: "integer", nullable: false),
                     Visibility = table.Column<int>(type: "integer", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
@@ -257,9 +258,9 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "admin", "39020a76-4c55-4664-a489-3ffae5103bc6", false, "Admin", "ADMIN" },
-                    { "orga", "a4506856-d1d2-422f-b3b7-0397900e8823", false, "Orga", "ORGA" },
-                    { "user", "6138885a-1ff0-41dc-aefe-9139e3995e68", true, "User", "USER" }
+                    { "admin", "d713882e-d0d4-4608-876c-92a3465b3859", false, "Admin", "ADMIN" },
+                    { "orga", "c76263bb-3635-40b7-b784-bf9837b746b9", false, "Orga", "ORGA" },
+                    { "user", "f7ae0c4a-a391-444d-8cfc-8a0cfb3c9896", true, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -278,7 +279,7 @@ namespace NetEvent.Server.Migrations.Psql
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "15ad2686-930b-470d-9416-1bc4fe64a530", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAELwO+S2SV8DsbmbpxdLCXB2fUyqzXku4pz0e6xufQZG/UXDOIS52DsoxNxFjcvHAsQ==", null, false, null, "ca8e4d58-7343-4cff-a0da-94a5794f51bb", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "2aef8010-a649-42aa-aa2f-7f364670327e", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEFjD0JKW5uXpoUFbUJPQvdg/F39mQu+qzFNTp6fP4Ndu+sh3yXSyQhIDFiR0ytiZuQ==", null, false, null, "9beee80a-3e43-4b3e-a0bf-be55fef6789f", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
@@ -300,6 +301,12 @@ namespace NetEvent.Server.Migrations.Psql
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "admin", "BAFC89CF-4F3E-4595-8256-CCA19C260FBD" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_Slug",
+                table: "Events",
+                column: "Slug",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",

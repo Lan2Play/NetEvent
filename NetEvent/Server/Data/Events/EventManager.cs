@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NetEvent.Server.Models;
+using Slugify;
 
 namespace NetEvent.Server.Data.Events
 {
@@ -12,12 +13,14 @@ namespace NetEvent.Server.Data.Events
         private readonly ApplicationDbContext _DbContext;
         private readonly IServiceProvider _Services;
         private readonly ILogger<EventManager> _Logger;
+        private readonly ISlugHelper _SlugHelper;
 
-        public EventManager(ApplicationDbContext dbContext, IServiceProvider services, ILogger<EventManager> logger)
+        public EventManager(ApplicationDbContext dbContext, IServiceProvider services, ILogger<EventManager> logger, ISlugHelper slugHelper)
         {
             _DbContext = dbContext;
             _Services = services;
             _Logger = logger;
+            _SlugHelper = slugHelper;
         }
 
         protected CancellationToken CancellationToken => CancellationToken.None;
@@ -37,6 +40,7 @@ namespace NetEvent.Server.Data.Events
         {
             var maxId = await _DbContext.Events.MaxAsync(x => x.Id);
             eventToCreate.Id = maxId.HasValue ? maxId.Value + 1 : 1;
+            eventToCreate.Slug = _SlugHelper.GenerateSlug(eventToCreate.Name);
 
             var addResult = await _DbContext.Events.AddAsync(eventToCreate, CancellationToken);
             if (addResult.State == EntityState.Added)
@@ -52,6 +56,7 @@ namespace NetEvent.Server.Data.Events
 
         public async Task<EventResult> UpdateAsync(Event eventToUpdate)
         {
+            eventToUpdate.Slug = _SlugHelper.GenerateSlug(eventToUpdate.Name);
             var result = _DbContext.Events.Update(eventToUpdate);
 
             if (result.State == EntityState.Modified)

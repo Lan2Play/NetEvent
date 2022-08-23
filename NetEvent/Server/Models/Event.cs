@@ -1,14 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace NetEvent.Server.Models
 {
+    [Index(nameof(Slug), IsUnique = true)]
     public class Event
     {
         [Key]
         public long? Id { get; set; }
 
         public string? Name { get; set; }
+
+        public string? Slug { get; set; }
 
         public PublishState State { get; set; }
 

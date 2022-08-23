@@ -6,6 +6,16 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 @inject NetEventAuthenticationStateProvider SignOutManager
 
+@if (_Events.Any())
+{
+    <MudMenu Label="@Localize["Shared.NavigationBar.Events"]" Variant="Variant.Filled" Color="Color.Primary">
+        @foreach (var eventData in _Events)
+        {
+            <MudMenuItem Href="@GetEventUrl(eventData)">@eventData.Name</MudMenuItem>
+        }
+    </MudMenu>
+}
+
 <AuthorizeView>
     <Authorized>
         <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="profile/manage" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Hello"] @context.User.Identity?.Name!</MudButton>
@@ -16,5 +26,3 @@
         <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Secondary" Href="login" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Login"]</MudButton>
     </NotAuthorized>
 </AuthorizeView>
-
-

@@ -8,6 +8,8 @@ namespace NetEvent.Shared.Dto.Event
 
         public string? Name { get; set; }
 
+        public string? Slug { get; set; }
+
         public PublishStateDto State { get; set; }
 
         public VisibilityStateDto Visibility { get; set; }

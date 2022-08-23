@@ -1,0 +1,45 @@
+﻿@page "/event/{slug}"
+@attribute [Authorize(Policy = "Admin.Events.*")]
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+@using Microsoft.AspNetCore.Authorization
+@using NetEvent.Client.Components
+@using NetEvent.Client.Components.Administration
+@using NetEvent.Shared.Config
+@using NetEvent.Shared.Dto
+@using System.Globalization
+@using TinyMCE.Blazor
+
+<div class="ma-4">
+    @if (_Loading)
+    {
+        <NetEventLoading />
+    }
+    else if (_Event != null)
+    {
+        <MudText Typo="Typo.h3" Class="ma-4">@_Event.Name</MudText>
+
+        <MudText Typo="Typo.body2">@_Event.StartDate?.ToString("d", CultureInfo.CurrentUICulture) - @_Event.EndDate?.ToString("d", CultureInfo.CurrentUICulture)</MudText>
+
+
+        @if (_Event.State != PublishStateDto.Published)
+        {
+            <MudChip Color="GetStateColor(_Event.State)">@Localize["Administration.Events.Event.PublishState." + @_Event.State.ToString()]</MudChip>
+        }
+
+        @if (_Event.Description != null)
+        {
+            <MudText Typo="Typo.body2">@((MarkupString)_Event.Description)</MudText>
+        }
+
+        <AuthorizeView Policy="Admin.Events.Edit">
+            <Authorized>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@GetEventLink(_Event.Id!)" StartIcon="@Icons.Material.Outlined.Edit">@Localize["Administration.Events.Event.Edit"]</MudButton>
+            </Authorized>
+        </AuthorizeView>
+    }
+    else
+    {
+        <MudText Typo="Typo.h2" Class="ma-4">Event not found</MudText>
+    }
+</div>
