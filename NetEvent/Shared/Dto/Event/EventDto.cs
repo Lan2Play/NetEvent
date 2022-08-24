@@ -20,6 +20,8 @@ namespace NetEvent.Shared.Dto.Event
 
         public DateTime? EndDate { get; set; }
 
+        public string? ShortDescription { get; set; }
+
         public string? Description { get; set; }
     }
 }

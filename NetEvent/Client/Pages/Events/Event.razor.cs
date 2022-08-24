@@ -60,10 +60,5 @@ namespace NetEvent.Client.Pages.Events
                     throw new NotSupportedException($"PublishState {state} is not supported!");
             }
         }
-
-        private string GetEventLink(object id)
-        {
-            return $"/administration/event/{id}";
-        }
     }
 }

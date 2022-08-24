@@ -1,37 +1,37 @@
 ﻿@using NetEvent.Shared
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Dashboard"]</MudButton>
+<MudButton Href="administration" StartIcon="@Icons.Material.Outlined.AdminPanelSettings" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Dashboard"]</MudButton>
 <MudDivider />
 <AuthorizeView Policy="Admin.Events.*">
     <Authorized>
-        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/events" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Events"]</MudButton>
+        <MudButton Href="administration/events" StartIcon="@Icons.Material.Outlined.Event" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Events"]</MudButton>
         <MudDivider />
     </Authorized>
 </AuthorizeView>
 <AuthorizeView Policy="Admin.Users.*">
     <Authorized>
-        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/users" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudButton>
+        <MudButton Href="administration/users" StartIcon="@Icons.Material.Outlined.Group" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudButton>
         <MudDivider />
     </Authorized>
 </AuthorizeView>
 <MudDivider />
 <AuthorizeView Policy="Admin.Settings.*">
     <Authorized>
-        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/settings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Settings"]</MudButton>
+        <MudButton Href="administration/settings" StartIcon="@Icons.Material.Outlined.Settings" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Settings"]</MudButton>
         <MudDivider />
     </Authorized>
 </AuthorizeView>
 <MudDivider />
 <AuthorizeView Policy="Admin.SystemInfo.*">
     <Authorized>
-        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/systeminfo" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.SystemInfo"]</MudButton>
+        <MudButton Href="administration/systeminfo" StartIcon="@Icons.Material.Outlined.Info" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.SystemInfo"]</MudButton>
         <MudDivider />
     </Authorized>
 </AuthorizeView>
 <AuthorizeView Policy="Admin.Images.*">
     <Authorized>
-        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/images" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Images"]</MudButton>
+        <MudButton Href="administration/images" StartIcon="@Icons.Material.Outlined.Image" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Images"]</MudButton>
         <MudDivider />
     </Authorized>
 </AuthorizeView>

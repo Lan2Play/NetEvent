@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetEvent.Server.Migrations.Psql
 {
     [DbContext(typeof(PsqlApplicationDbContext))]
-    [Migration("20220823180946_Initial")]
+    [Migration("20220824183738_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -238,7 +238,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "f7ae0c4a-a391-444d-8cfc-8a0cfb3c9896",
+                            ConcurrencyStamp = "815940d0-ec8d-455a-8840-83a156f27db0",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -246,7 +246,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "c76263bb-3635-40b7-b784-bf9837b746b9",
+                            ConcurrencyStamp = "8507d033-c4af-4ab9-bd2b-8d11e0d0d2f5",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -254,7 +254,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "d713882e-d0d4-4608-876c-92a3465b3859",
+                            ConcurrencyStamp = "b4380f43-6661-41e2-9278-68024abed167",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -338,7 +338,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2aef8010-a649-42aa-aa2f-7f364670327e",
+                            ConcurrencyStamp = "c9d1af15-7832-4c55-a053-1bb213df8954",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -346,9 +346,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFjD0JKW5uXpoUFbUJPQvdg/F39mQu+qzFNTp6fP4Ndu+sh3yXSyQhIDFiR0ytiZuQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE8bZoryDVa22S4UnszaXBS/80zlIBPXcq6QvuTU+HQklc5ONtj+e7HZT6bDPrOPPQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9beee80a-3e43-4b3e-a0bf-be55fef6789f",
+                            SecurityStamp = "24a7c28f-9a90-496b-b61f-c465e8a436db",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -398,6 +398,9 @@ namespace NetEvent.Server.Migrations.Psql
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ShortDescription")
                         .HasColumnType("text");
 
                     b.Property<string>("Slug")

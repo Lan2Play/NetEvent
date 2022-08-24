@@ -41,11 +41,6 @@ namespace NetEvent.Client.Pages.Administration.Events
             _Loading = false;
         }
 
-        private string GetEventLink(object id)
-        {
-            return $"/administration/event/{id}";
-        }
-
         private async Task DeleteEvent(EventDto eventToDelete)
         {
             if (!eventToDelete.Id.HasValue)

@@ -12,7 +12,7 @@ namespace NetEvent.Client.Extensions
         public static Dictionary<string, object> EditorConf { get; } = new Dictionary<string, object>
         {
             { "skin", "borderless" },
-            { "plugins", "image code link lists advlist preview table visualchars wordcount fullscreen emoticons autoresize" },
+            { "plugins", "image code link lists advlist preview table visualchars wordcount fullscreen emoticons" },
             { "branding", false },
             { "automatic_uploads", true },
             { "images_upload_url", "/api/system/editorimage" },
@@ -26,6 +26,7 @@ namespace NetEvent.Client.Extensions
             { "toolbar_mode", "sliding" },
             { "toolbar_sticky", true },
             { "toolbar_sticky_offset", 64 },
+            { "height", 500 },
             { "toolbar", "undo redo removeformat | styles | fontfamily fontsize forecolor | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | indent outdent | numlist bullist | link image table emoticons | code preview fullscreen" }
         };
     }

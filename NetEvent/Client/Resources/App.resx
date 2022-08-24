@@ -510,4 +510,10 @@
   <data name="Shared.NavigationBar.Events" xml:space="preserve">
     <value>Events</value>
   </data>
+  <data name="Administration.Events.Event.Show" xml:space="preserve">
+    <value>Show event page</value>
+  </data>
+  <data name="Administration.Index.Events" xml:space="preserve">
+    <value>Events</value>
+  </data>
 </root>

@@ -18,6 +18,8 @@ namespace NetEvent.Server.Models
 
         public VisibilityState Visibility { get; set; }
 
+        public string? ShortDescription { get; set; }
+
         public string? Description { get; set; }
 
         public DateTime? StartDate { get; set; }

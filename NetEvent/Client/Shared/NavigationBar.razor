@@ -8,13 +8,15 @@
 
 @if (_Events.Any())
 {
-    <MudMenu Label="@Localize["Shared.NavigationBar.Events"]" Variant="Variant.Filled" Color="Color.Primary">
+    <MudMenu Label="@Localize["Shared.NavigationBar.Events"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomLeft" DisableElevation="true" Color="Color.Primary">
         @foreach (var eventData in _Events)
         {
             <MudMenuItem Href="@GetEventUrl(eventData)">@eventData.Name</MudMenuItem>
         }
     </MudMenu>
 }
+
+<MudSpacer />
 
 <AuthorizeView>
     <Authorized>

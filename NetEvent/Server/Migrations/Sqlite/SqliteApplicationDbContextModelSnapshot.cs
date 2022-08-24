@@ -227,7 +227,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "95a4cab5-df93-4711-a8c2-9e3b09ea7495",
+                            ConcurrencyStamp = "ee299dd2-7fd9-468f-a6c1-3e2bed02fd27",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -235,7 +235,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "eeb18c15-44ab-4a9f-9eaf-8ac88d63227a",
+                            ConcurrencyStamp = "7dc08ccb-000a-43bd-ad6d-d2692461695b",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -243,7 +243,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "8f47ad44-d512-4cce-9183-7d7018cfc1a1",
+                            ConcurrencyStamp = "934b10f2-f8eb-4cf0-b674-20d7ea74c027",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -327,7 +327,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8e320a40-cc70-48ac-8612-9b2d58fc24a0",
+                            ConcurrencyStamp = "22bcfc96-69c9-4539-becb-4e2a65417dca",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -335,9 +335,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK6qY5XcPGzv27S6qygoQY75YJWJIzwtgb2x6vKSozVD1FTvYhTQXlKEADEURU7xVw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEybMBCfla4pF2bIm63+4Ek+Vana5lnqykmqytiPBgV4mXNmy3Ml3vq3BFbaxCH/3Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8356153e-5232-4f87-a405-059753c5f6c9",
+                            SecurityStamp = "85760903-21b8-46eb-98fe-ed617b2abf4d",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -385,6 +385,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShortDescription")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Slug")
