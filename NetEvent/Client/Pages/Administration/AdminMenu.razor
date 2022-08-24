@@ -1,37 +1,41 @@
 ﻿@using NetEvent.Shared
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<MudButton Href="administration" StartIcon="@Icons.Material.Outlined.AdminPanelSettings" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Dashboard"]</MudButton>
-<MudDivider />
-<AuthorizeView Policy="Admin.Events.*">
-    <Authorized>
-        <MudButton Href="administration/events" StartIcon="@Icons.Material.Outlined.Event" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Events"]</MudButton>
-        <MudDivider />
-    </Authorized>
-</AuthorizeView>
-<AuthorizeView Policy="Admin.Users.*">
-    <Authorized>
-        <MudButton Href="administration/users" StartIcon="@Icons.Material.Outlined.Group" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudButton>
-        <MudDivider />
-    </Authorized>
-</AuthorizeView>
-<MudDivider />
-<AuthorizeView Policy="Admin.Settings.*">
-    <Authorized>
-        <MudButton Href="administration/settings" StartIcon="@Icons.Material.Outlined.Settings" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Settings"]</MudButton>
-        <MudDivider />
-    </Authorized>
-</AuthorizeView>
-<MudDivider />
-<AuthorizeView Policy="Admin.SystemInfo.*">
-    <Authorized>
-        <MudButton Href="administration/systeminfo" StartIcon="@Icons.Material.Outlined.Info" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.SystemInfo"]</MudButton>
-        <MudDivider />
-    </Authorized>
-</AuthorizeView>
-<AuthorizeView Policy="Admin.Images.*">
-    <Authorized>
-        <MudButton Href="administration/images" StartIcon="@Icons.Material.Outlined.Image" Variant="Variant.Text" Class="justify-start" DisableElevation="true" Color="Color.Default" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Images"]</MudButton>
-        <MudDivider />
-    </Authorized>
-</AuthorizeView>
+
+<MudNavMenu Color="Color.Info">
+    <MudNavLink Href="/administration/dashboard" Icon="@Icons.Material.Outlined.AdminPanelSettings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Dashboard"]</MudNavLink>
+    <AuthorizeView Policy="Admin.Events.*">
+        <Authorized>
+            <MudNavLink Href="/administration/events" Icon="@Icons.Material.Outlined.Event" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Events"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Policy="Admin.Users.*">
+        <Authorized>
+            <MudNavLink Href="/administration/users" Icon="@Icons.Material.Outlined.Group" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Policy="Admin.Settings.*">
+        <Authorized>
+            <MudNavLink Href="/administration/settings" Icon="@Icons.Material.Outlined.Settings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Settings"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Policy="Admin.SystemInfo.*">
+        <Authorized>
+            <MudNavLink Href="/administration/systeminfo" Icon="@Icons.Material.Outlined.Info" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.SystemInfo"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Policy="Admin.Images.*">
+        <Authorized>
+            <MudNavLink Href="/administration/images" Icon="@Icons.Material.Outlined.Image" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Images"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+
+@*
+    <MudNavLink Href="/components/navmenu" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.Storage">Servers</MudNavLink>
+    <MudNavLink Href="/billing" Disabled="true">Billing</MudNavLink>
+    <MudNavGroup Title="Settings" Expanded="true">
+        <MudNavLink Href="/users">Users</MudNavLink>
+        <MudNavLink Href="/security">Security</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/about">About</MudNavLink>*@
+</MudNavMenu>
