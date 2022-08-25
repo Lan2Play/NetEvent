@@ -121,7 +121,7 @@
     <value>Administration</value>
   </data>
   <data name="Shared.NavigationBar.Hello" xml:space="preserve">
-    <value>Hello,</value>
+    <value>Hello, {0}</value>
   </data>
   <data name="Shared.NavigationBar.Logout" xml:space="preserve">
     <value>Log out</value>
@@ -515,5 +515,11 @@
   </data>
   <data name="Administration.Index.Events" xml:space="preserve">
     <value>Events</value>
+  </data>
+  <data name="Shared.NavigationBar.Administration" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="Shared.NavigationBar.Profile" xml:space="preserve">
+    <value>Edit Profile</value>
   </data>
 </root>

@@ -13,11 +13,14 @@
 
 <MudLayout>
     <MudAppBar ClipMode="_themeManager.DrawerClipMode" Elevation="_ThemeManager.DrawerElevation">
-        <AuthorizeView Roles="Admin">
-            <Authorized>
-                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-            </Authorized>
-        </AuthorizeView>
+        @if (_DrawerVisible)
+        {
+            <AuthorizeView Policy="Admin.*">
+                <Authorized>
+                    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                </Authorized>
+            </AuthorizeView>
+        }
         <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="/" Match="NavLinkMatch.Prefix">
             @if (!string.IsNullOrEmpty(_Logo))
             {
@@ -27,20 +30,25 @@
         </MudButton>
         <NavigationBar />
     </MudAppBar>
-    <AuthorizeView Policy="Admin.*">
-        <Authorized>
-            <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
-                <MudDrawerHeader>
-                    <MudText Typo="Typo.h5" Class="mt-1">@Localize["Shared.MainLayout.Administration"]</MudText>
-                </MudDrawerHeader>
-                <AdminMenu></AdminMenu>
-            </MudDrawer>
+    @if (_DrawerVisible)
+    {
+        <AuthorizeView Policy="Admin.*">
+            <Authorized>
+                <MudDrawer @bind-Open="_DrawerOpen" Elevation="2">
+                    <MudDrawerHeader>
+                        <MudText Typo="Typo.h5" Class="mt-1">@Localize["Shared.MainLayout.Administration"]</MudText>
+                    </MudDrawerHeader>
+                    <AdminMenu></AdminMenu>
+                </MudDrawer>
 
-        </Authorized>
-    </AuthorizeView>
+            </Authorized>
+        </AuthorizeView>
+    }
 
     <MudMainContent>
-        @Body
+        <MudContainer MaxWidth="@(_DrawerVisible ? MaxWidth.False : MaxWidth.Large)">
+            @Body
+        </MudContainer>
     </MudMainContent>
 
     <MudAppBar Bottom="true" Fixed="false" Color="Color.Primary" Elevation="1">

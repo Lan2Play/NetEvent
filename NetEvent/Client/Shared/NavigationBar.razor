@@ -20,8 +20,19 @@
 
 <AuthorizeView>
     <Authorized>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="profile/manage" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Hello"] @context.User.Identity?.Name!</MudButton>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Secondary" OnClick="BeginSignOut">@Localize["Shared.NavigationBar.Logout"]</MudButton>
+        <MudMenu Label="@Localize["Shared.NavigationBar.Hello", context.User.Identity?.Name!]" ActivationEvent="@MouseEvent.MouseOver" Variant="Variant.Filled" AnchorOrigin="Origin.BottomLeft" DisableElevation="true" Color="Color.Primary" EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary">
+            <MudMenuItem Href="profile/manage"><MudIcon Icon="@Icons.Material.Outlined.Person" /> @Localize["Shared.NavigationBar.Profile"]</MudMenuItem>
+
+            <AuthorizeView Context="admin" Policy="Admin.*">
+                <Authorized Context="admin">
+                    <MudMenuItem Href="administration/dashboard"><MudIcon Icon="@Icons.Material.Outlined.AdminPanelSettings" /> @Localize["Shared.NavigationBar.Administration"]</MudMenuItem>
+                </Authorized>
+            </AuthorizeView>
+
+            <MudDivider />
+
+            <MudMenuItem OnClick="BeginSignOut"><MudIcon Icon="@Icons.Material.Outlined.Logout" /> @Localize["Shared.NavigationBar.Logout"]</MudMenuItem>
+        </MudMenu>
     </Authorized>
     <NotAuthorized>
         <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="register" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Register"]</MudButton>

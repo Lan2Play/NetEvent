@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using MudBlazor.ThemeManager;
@@ -16,21 +17,27 @@ namespace NetEvent.Client.Shared
         [Inject]
         private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; } = default!;
+
         private readonly ThemeManagerTheme _ThemeManager = new();
 
         private string? _OrganizationName;
-        private bool _drawerOpen = true;
+        private bool _DrawerVisible = false;
+        private bool _DrawerOpen = true;
         private string? _Logo;
 
         private void DrawerToggle()
         {
-            _drawerOpen = !_drawerOpen;
+            _DrawerOpen = !_DrawerOpen;
         }
 
         protected override async Task OnInitializedAsync()
         {
-            using var cancellationTokenSource = new CancellationTokenSource();
+            NavigationManager.LocationChanged += NavigationManager_LocationChanged;
+            UpdateDraweVisibility();
 
+            using var cancellationTokenSource = new CancellationTokenSource();
             _OrganizationName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationName, OrganizationNameChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
 
             var logoId = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.Logo, LogoIdChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
@@ -38,6 +45,18 @@ namespace NetEvent.Client.Shared
             {
                 _Logo = $"/api/system/image/{logoId}";
             }
+        }
+
+        private void NavigationManager_LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+        {
+            UpdateDraweVisibility();
+        }
+
+        private void UpdateDraweVisibility()
+        {
+            var relativeUri = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+            _DrawerVisible = relativeUri.StartsWith("Administration", StringComparison.OrdinalIgnoreCase);
+            StateHasChanged();
         }
 
         private void OrganizationNameChanged(SystemSettingValueDto settingValue)
