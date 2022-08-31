@@ -516,6 +516,9 @@
   <data name="Administration.Index.Events" xml:space="preserve">
     <value>Events</value>
   </data>
+  <data name="Administration.Images.EventUsages" xml:space="preserve">
+    <value>The image is used in the following Events: {0}</value>
+  </data>
   <data name="Shared.NavigationBar.Administration" xml:space="preserve">
     <value>Administration</value>
   </data>

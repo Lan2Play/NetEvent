@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "wwwroot/lib/tinymce/skins/ui/borderless/skin.min.css",
+    "inputFiles": [
+      "wwwroot/lib/tinymce/skins/ui/borderless/skin.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/tinymce/skins/ui/borderless/content.min.css",
+    "inputFiles": [
+      "wwwroot/lib/tinymce/skins/ui/borderless/content.css"
+    ]
+  }
+]

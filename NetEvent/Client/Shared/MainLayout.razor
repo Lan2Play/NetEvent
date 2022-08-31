@@ -5,7 +5,7 @@
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<MudThemeProvider Theme="_ThemeManager.Theme" />
+<MudThemeProvider Theme="_ThemeManager.Theme" IsDarkMode="true" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -21,7 +21,7 @@
                 </Authorized>
             </AuthorizeView>
         }
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="/" Match="NavLinkMatch.Prefix">
+        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Primary" Href="/" Match="NavLinkMatch.Prefix">
             @if (!string.IsNullOrEmpty(_Logo))
             {
                 <MudImage Src="@_Logo" Class="img-logo"></MudImage>

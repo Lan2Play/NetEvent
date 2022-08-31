@@ -8,7 +8,7 @@
 
 @if (_Events.Any())
 {
-    <MudMenu Label="@Localize["Shared.NavigationBar.Events"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomLeft" DisableElevation="true" Color="Color.Primary">
+    <MudMenu Label="@Localize["Shared.NavigationBar.Events"]" Variant="Variant.Text" AnchorOrigin="Origin.BottomLeft" DisableElevation="true" Color="Color.Primary">
         @foreach (var eventData in _Events)
         {
             <MudMenuItem Href="@GetEventUrl(eventData)">@eventData.Name</MudMenuItem>
@@ -20,7 +20,7 @@
 
 <AuthorizeView>
     <Authorized>
-        <MudMenu Label="@Localize["Shared.NavigationBar.Hello", context.User.Identity?.Name!]" ActivationEvent="@MouseEvent.MouseOver" Variant="Variant.Filled" AnchorOrigin="Origin.BottomLeft" DisableElevation="true" Color="Color.Primary" EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary">
+        <MudMenu Label="@Localize["Shared.NavigationBar.Hello", context.User.Identity?.Name!]" ActivationEvent="@MouseEvent.MouseOver" Variant="Variant.Text" AnchorOrigin="Origin.BottomRight" DisableElevation="true" Color="Color.Primary" EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary">
             <MudMenuItem Href="profile/manage"><MudIcon Icon="@Icons.Material.Outlined.Person" /> @Localize["Shared.NavigationBar.Profile"]</MudMenuItem>
 
             <AuthorizeView Context="admin" Policy="Admin.*">
@@ -35,7 +35,7 @@
         </MudMenu>
     </Authorized>
     <NotAuthorized>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="register" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Register"]</MudButton>
+        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Primary" Href="register" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Register"]</MudButton>
         <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Secondary" Href="login" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Login"]</MudButton>
     </NotAuthorized>
 </AuthorizeView>

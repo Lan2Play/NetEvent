@@ -5,16 +5,19 @@ namespace NetEvent.Shared.Dto
 {
     public class SystemImageWithUsagesDto
     {
-        public SystemImageWithUsagesDto(SystemImageDto image, IReadOnlyCollection<string> settingUsages)
+        public SystemImageWithUsagesDto(SystemImageDto image, IReadOnlyCollection<string> settingUsages, IReadOnlyCollection<string> eventUsages)
         {
             Image = image;
             SettingUsages = settingUsages;
+            EventUsages = eventUsages;
         }
 
         public SystemImageDto Image { get; }
 
         public IReadOnlyCollection<string> SettingUsages { get; }
 
-        public bool IsUsed => SettingUsages.Any();
+        public IReadOnlyCollection<string> EventUsages { get; }
+
+        public bool IsUsed => SettingUsages.Any() || EventUsages.Any();
     }
 }

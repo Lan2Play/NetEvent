@@ -17,13 +17,13 @@
 
 @if (_Event != null)
 {
-    <MudPaper Class="d-flex flex-row" Elevation="0">
+    <div Class="d-flex flex-row" Elevation="0">
         <MudText Typo="Typo.h6" Class="ma-4">@_Event.Name</MudText>
         <MudSpacer />
         <MudTooltip Text="@Localize["Administration.Events.Event.Show"]">
             <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(_Event.Id!, false)" StartIcon="@Icons.Material.Outlined.TapAndPlay"></MudButton>
         </MudTooltip>
-    </MudPaper>
+    </div>
 
     <MudGrid>
         <MudItem xs="12" lg="8">
