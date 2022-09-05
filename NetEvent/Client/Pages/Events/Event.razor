@@ -21,19 +21,28 @@
         <div class="d-flex flex-row align-start">
             <MudText Typo="Typo.h3" Class="ma-4 d-inline">@_Event.Name</MudText>
 
+
+            @if (_Event.State != PublishStateDto.Published)
+            {
+                <MudChip Color="GetStateColor(_Event.State)" Class="ma-4 d-inline">@Localize["Administration.Events.Event.PublishState." + @_Event.State.ToString()]</MudChip>
+            }
+
             <AuthorizeView Policy="Admin.Events.Edit">
                 <Authorized>
                     <MudButton Class="ma-4" Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(_Event.Id!)" StartIcon="@Icons.Material.Outlined.Edit" />
                 </Authorized>
             </AuthorizeView>
+
+
         </div>
         <MudText Typo="Typo.body2">@_Event.StartDate?.ToString("d", CultureInfo.CurrentUICulture) - @_Event.EndDate?.ToString("d", CultureInfo.CurrentUICulture)</MudText>
 
-
-        @if (_Event.State != PublishStateDto.Published)
+        @if (_Event.ShortDescription != null)
         {
-            <MudChip Color="GetStateColor(_Event.State)">@Localize["Administration.Events.Event.PublishState." + @_Event.State.ToString()]</MudChip>
+            <MudText Typo="Typo.h6">@((MarkupString)_Event.ShortDescription)</MudText>
+        <MudDivider Class="mt-4 mb-4"></MudDivider>
         }
+
 
         @if (_Event.Description != null)
         {
