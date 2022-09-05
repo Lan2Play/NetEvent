@@ -1,7 +1,7 @@
 .tox {
     box-shadow: none;
     box-sizing: content-box;
-    color: var(--mud-palette-primary-text);
+    color: var(--mud-palette-text-primary);
     cursor: auto;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     font-size: 16px;
@@ -420,7 +420,7 @@ button::-moz-focus-inner {
     .tox .tox-button.tox-button--icon .tox-icon svg,
     .tox .tox-button.tox-button--secondary.tox-button--icon .tox-icon svg {
         display: block;
-        fill: currentColor;
+        fill: var(--mud-palette-text-primary);
     }
 
 .tox .tox-button-link {
@@ -2213,7 +2213,7 @@ body.tox-dialog__disable-scroll {
 }
 
     .tox .tox-listbox__select-chevron svg {
-        fill: #222f3e;
+        fill: var(--mud-palette-text-primary);
     }
 
 .tox .tox-listboxfield .tox-listbox--select {
@@ -2552,7 +2552,7 @@ body.tox-dialog__disable-scroll {
     border: 0;
     border-radius: var(--mud-default-borderradius);
     box-shadow: none;
-    color: var(--mud-palette-primary-text);
+    color: var(--mud-palette-text-primary);
     display: flex;
     flex: 0 0 auto;
     font-size: 14px;
@@ -3197,7 +3197,7 @@ body.tox-dialog__disable-scroll {
     border-style: solid;
     border-radius: var(--mud-default-borderradius);
     box-shadow: none;
-    color: var(--mud-palette-primary-text);
+    color: var(--mud-palette-text-primary);
     border-color: var(--mud-palette-lines-inputs);
     display: flex;
     flex: 0 0 auto;
@@ -3206,7 +3206,7 @@ body.tox-dialog__disable-scroll {
     font-weight: normal;
     height: 28px;
     justify-content: center;
-    margin: 6px 1px 5px 0;
+    margin: 6px 0px 5px 0px;
     outline: none;
     overflow: hidden;
     padding: 0;
@@ -3214,15 +3214,22 @@ body.tox-dialog__disable-scroll {
     width: 34px;
 }
 
-    .tox .tox-tbtn svg {
-        display: block;
-        fill: var(--mud-palette-primary-text);
+    .tox .tox-tbtn:not(:last-child) {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
     }
+
+
 
     .tox .tox-tbtn.tox-tbtn-more {
         padding-left: 5px;
         padding-right: 5px;
         width: inherit;
+    }
+
+    .tox .tox-tbtn svg {
+        fill: var(--mud-palette-text-primary);
+        vertical-align: middle;
     }
 
     .tox .tox-tbtn:focus {
@@ -3239,7 +3246,7 @@ body.tox-dialog__disable-scroll {
     }
 
         .tox .tox-tbtn:hover svg {
-            fill: #222f3e;
+            /*fill: #222f3e;*/
         }
 
     .tox .tox-tbtn:active {
@@ -3250,7 +3257,7 @@ body.tox-dialog__disable-scroll {
     }
 
         .tox .tox-tbtn:active svg {
-            fill: #222f3e;
+            /*fill: #222f3e;*/
         }
 
     .tox .tox-tbtn--disabled,
@@ -3277,7 +3284,7 @@ body.tox-dialog__disable-scroll {
     background: var(--mud-palette-primary);
     border: 0;
     box-shadow: none;
-    color: var(--mud-palette-primary-text);
+    color: var(--mud-palette-text-primary);
 }
 
     .tox .tox-tbtn--enabled > *,
@@ -3288,7 +3295,7 @@ body.tox-dialog__disable-scroll {
     .tox .tox-tbtn--enabled svg,
     .tox .tox-tbtn--enabled:hover svg {
         /* stylelint-disable-line no-descending-specificity */
-        fill: #222f3e;
+        /*fill: #222f3e;*/
     }
 
 .tox .tox-tbtn:focus:not(.tox-tbtn--disabled) {
@@ -3296,7 +3303,7 @@ body.tox-dialog__disable-scroll {
 }
 
     .tox .tox-tbtn:focus:not(.tox-tbtn--disabled) svg {
-        fill: #222f3e;
+        /*fill: #222f3e;*/
     }
 
 .tox .tox-tbtn:active > * {
@@ -3354,7 +3361,7 @@ body.tox-dialog__disable-scroll {
 }
 
     .tox .tox-tbtn__select-chevron svg {
-        fill: rgba(34, 47, 62, 0.5);
+        fill: var(--mud-palette-text-primary);
     }
 
 .tox .tox-tbtn--bespoke {
@@ -3362,7 +3369,7 @@ body.tox-dialog__disable-scroll {
 }
 
     .tox .tox-tbtn--bespoke + .tox-tbtn--bespoke {
-        margin-inline-start: 4px;
+        margin-inline-start: -2px;
     }
 
     .tox .tox-tbtn--bespoke .tox-tbtn__select-label {
@@ -3373,8 +3380,6 @@ body.tox-dialog__disable-scroll {
     }
 
 .tox .tox-split-button {
-    border: 0;
-    border-radius: var(--mud-default-borderradius);
     box-sizing: border-box;
     display: flex;
     margin: 6px 1px 5px 0;
@@ -3391,20 +3396,27 @@ body.tox-dialog__disable-scroll {
         color: #222f3e;
     }
 
-    .tox .tox-split-button > * {
+/*  .tox .tox-split-button > * {
         border-radius: 0;
-    }
+    }*/
 
 .tox .tox-split-button__chevron {
     width: 16px;
 }
 
     .tox .tox-split-button__chevron svg {
-        fill: rgba(34, 47, 62, 0.5);
+        fill: var(--mud-palette-text-primary);
     }
 
 .tox .tox-split-button .tox-tbtn {
     margin: 0;
+}
+
+.tox .tox-tbtn:not(:first-of-type),
+.tox .tox-split-button:not(:first-child) .tox-tbtn {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    margin-left: -1px;
 }
 
 .tox .tox-split-button.tox-tbtn--disabled:hover,

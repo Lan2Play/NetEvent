@@ -2,7 +2,7 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 
-<MudNavMenu Color="Color.Info">
+<MudNavMenu Color="Color.Primary">
     <MudNavLink Href="/administration/dashboard" Icon="@Icons.Material.Outlined.AdminPanelSettings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Dashboard"]</MudNavLink>
     <AuthorizeView Policy="Admin.Events.*">
         <Authorized>
