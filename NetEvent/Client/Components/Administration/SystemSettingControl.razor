@@ -1,30 +1,42 @@
 ﻿@using NetEvent.Shared.Config
+@using TinyMCE.Blazor
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 <MudItem xs="12" md="6">
-    @switch (SystemSetting.ValueType)
+    @if (Value != null)
     {
-        @case BooleanValueType bvt:
-            <MudCheckBox T="bool" Checked="@BooleanValueType.GetValue(Value?.Value)" CheckedChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" />
-            break;
-        @case StringValueType svt:
-            <MudTextField T="string" Value="@Value?.Value" ValueChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" />
-            break;
-        @case EnumValueType<string> esvt:
-            <MudSelect T="string" Value="@Value?.Value" ValueChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
-                @foreach (var enumItem in esvt.EnumItems)
+        @switch (SystemSetting.ValueType)
+        {
+            @case BooleanValueType bvt:
+                <MudCheckBox T="bool" Checked="@BooleanValueType.GetValue(Value.Value)" CheckedChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
+                break;
+            @case RegexStringValueType svt:
+                @if (svt.IsRichTextValue)
                 {
-                    <MudSelectItem Value="@enumItem" />
+                    <MudField Label="@Localize[SystemSetting.LabelKey]" Margin="Margin.Dense" Variant="Variant.Outlined" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])">
+                        <Editor Value="@Value.Value" ValueChanged="@((string v) => OnSettingsValueChanged(SystemSetting, v))" ScriptSrc="/lib/tinymce/tinymce.min.js" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                    </MudField>
                 }
-            </MudSelect>
-            break;
-        @case ImageValueType ivt:
-            <NetEvent.Client.Components.ImageValueTypeUpload ImageValueType="@ivt" SystemSetting="@SystemSetting" />
-            break;
-        @default:
-            <div>Missing InputType @SystemSetting.ValueType.GetType().Name for Setting @SystemSetting.Key</div>
-            break;
+                else
+                {
+                    <MudTextField T="string" Value="@Value.Value" ValueChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
+                }
+                break;
+            @case EnumValueType<string> esvt:
+                <MudSelect T="string" Value="@Value.Value" ValueChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                    @foreach (var enumItem in esvt.EnumItems)
+                    {
+                        <MudSelectItem Value="@enumItem" />
+                    }
+                </MudSelect>
+                break;
+            @case ImageValueType ivt:
+                <NetEvent.Client.Components.ImageValueTypeUpload ImageValueType="@ivt" SystemSetting="@SystemSetting" />
+                break;
+            @default:
+                <div>Missing InputType @SystemSetting.ValueType.GetType().Name for Setting @SystemSetting.Key</div>
+                break;
+        }
     }
 </MudItem>
-
 

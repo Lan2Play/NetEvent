@@ -55,9 +55,11 @@
         <MudContainer MaxWidth="@(_DrawerVisible ? MaxWidth.False : MaxWidth.Large)">
             <MudGrid>
                 <MudItem md="4">
-                    <MudText Typo="Typo.subtitle2">© @_OrganizationName @DateTime.Now.Year @Localize["Shared.MainLayout.AllRightsReserved"] </MudText>
+                    <MudText Typo="Typo.subtitle2">© @_OrganizationName @DateTime.Now.Year @Localize["Shared.MainLayout.AllRightsReserved"]</MudText>
                 </MudItem>
-                <MudItem md="4"></MudItem>
+                <MudItem md="4">
+                    <MudLink Color="@Color.Secondary" Href="legalnotice">@Localize["Shared.MainLayout.LegalNotice"]</MudLink>
+                </MudItem>
                 <MudItem md="4">
                     <MudText Typo="Typo.subtitle2">@Localize["Shared.MainLayout.PoweredBy"] <MudLink Color="@Color.Secondary" Target="_blank" Href="https://github.com/Lan2Play/NetEvent">NetEvent</MudLink></MudText>
                 </MudItem>

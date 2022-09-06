@@ -528,4 +528,16 @@
   <data name="Administration.Events.Event.ShortDescription" xml:space="preserve">
     <value>Short description</value>
   </data>
+  <data name="Shared.MainLayout.LegalNotice" xml:space="preserve">
+    <value>Legal notice</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.AboutUs.Label" xml:space="preserve">
+    <value>About us</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.LegalNotice.Label" xml:space="preserve">
+    <value>Legal notice</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.PrivacyPolicy.Label" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
 </root>

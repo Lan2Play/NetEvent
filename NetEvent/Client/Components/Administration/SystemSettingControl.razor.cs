@@ -26,10 +26,10 @@ namespace NetEvent.Client.Components.Administration
             }
 
             var result = await _SystemSettingsDataService.UpdateSystemSetting(setting.SettingType, new SystemSettingValueDto(setting.Key, value.ToString() ?? string.Empty), CancellationToken.None);
-            if (result.Successful && Value != null)
-            {
-                Value.Value = value.ToString() ?? string.Empty;
-            }
+            //if (result.Successful && Value != null)
+            //{
+            //    Value.Value = value.ToString() ?? string.Empty;
+            //}
         }
     }
 }

@@ -1,0 +1,18 @@
+﻿@page "/legalnotice"
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+@using Microsoft.AspNetCore.Authorization
+@using NetEvent.Client.Components
+@using NetEvent.Client.Components.Administration
+@using NetEvent.Shared.Config
+
+
+@if (_Loading)
+{
+    <NetEventLoading />
+}
+else
+{
+    <MudText Typo="Typo.h6">@((MarkupString)_LegalNotice)</MudText>
+    <MudText Typo="Typo.h6">@((MarkupString)_PrivacyPolicy)</MudText>
+}

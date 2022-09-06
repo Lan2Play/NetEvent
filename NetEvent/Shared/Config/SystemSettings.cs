@@ -19,6 +19,9 @@ namespace NetEvent.Shared.Config
                         SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(DataCultureInfo, new EnumValueType<string>("en-US", new List<string> { "en-US", "de-DE", "fr-FR" })),
                         SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Favicon, new ImageValueType()),
                         SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Logo, new ImageValueType()),
+                        SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(AboutUs, new StringValueType(string.Empty, true)),
+                        SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(LegalNotice, new StringValueType(string.Empty, true)),
+                        SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(PrivacyPolicy, new StringValueType(string.Empty, true)),
                     }
                 },
                 {
@@ -44,6 +47,9 @@ namespace NetEvent.Shared.Config
         public const string DataCultureInfo = "DataCultureInfo";
         public const string Favicon = "Favicon";
         public const string Logo = "Logo";
+        public const string AboutUs = "AboutUs";
+        public const string LegalNotice = "LegalNotice";
+        public const string PrivacyPolicy = "PrivacyPolicy";
 
         #endregion
 
