@@ -8,22 +8,24 @@
         @switch (SystemSetting.ValueType)
         {
             @case BooleanValueType bvt:
-                <MudCheckBox T="bool" Checked="@BooleanValueType.GetValue(Value.Value)" CheckedChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
+                <MudCheckBox T="bool" Checked="BooleanValueType.GetValue(SettingValue)" CheckedChanged="@OnSettingsValueChanged" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
                 break;
             @case RegexStringValueType svt:
                 @if (svt.IsRichTextValue)
                 {
                     <MudField Label="@Localize[SystemSetting.LabelKey]" Margin="Margin.Dense" Variant="Variant.Outlined" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])">
-                        <Editor Value="@Value.Value" ValueChanged="@((string v) => OnSettingsValueChanged(SystemSetting, v))" ScriptSrc="/lib/tinymce/tinymce.min.js" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                        <MudText>
+                            <Editor @bind-Value="SettingValue" Inline="true" ScriptSrc="/lib/tinymce/tinymce.min.js" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                        </MudText>
                     </MudField>
                 }
                 else
                 {
-                    <MudTextField T="string" Value="@Value.Value" ValueChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
+                    <MudTextField T="string" @bind-Value="SettingValue" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
                 }
                 break;
             @case EnumValueType<string> esvt:
-                <MudSelect T="string" Value="@Value.Value" ValueChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                <MudSelect T="string" @bind-Value="SettingValue" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
                     @foreach (var enumItem in esvt.EnumItems)
                     {
                         <MudSelectItem Value="@enumItem" />

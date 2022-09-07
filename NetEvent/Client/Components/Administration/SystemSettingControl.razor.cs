@@ -18,18 +18,25 @@ namespace NetEvent.Client.Components.Administration
         [Parameter]
         public SystemSettingValueDto? Value { get; set; } = default!;
 
-        private async Task OnSettingsValueChanged(SystemSetting setting, object? value)
+        public string? SettingValue
         {
+            get => Value!.Value;
+            set
+            {
+                Value!.Value = value;
+                _ = OnSettingsValueChanged(value);
+            }
+        }
+
+        private async Task OnSettingsValueChanged<T>(T? value)
+        {
+
             if (value is null)
             {
                 return;
             }
 
-            var result = await _SystemSettingsDataService.UpdateSystemSetting(setting.SettingType, new SystemSettingValueDto(setting.Key, value.ToString() ?? string.Empty), CancellationToken.None);
-            //if (result.Successful && Value != null)
-            //{
-            //    Value.Value = value.ToString() ?? string.Empty;
-            //}
+            _ = await _SystemSettingsDataService.UpdateSystemSetting(SystemSetting.SettingType, new SystemSettingValueDto(SystemSetting.Key, value.ToString() ?? string.Empty), CancellationToken.None);
         }
     }
 }

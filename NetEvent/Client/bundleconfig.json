@@ -10,5 +10,11 @@
     "inputFiles": [
       "wwwroot/lib/tinymce/skins/ui/borderless/content.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/tinymce/skins/ui/borderless/content.inline.min.css",
+    "inputFiles": [
+      "wwwroot/lib/tinymce/skins/ui/borderless/content.inline.css"
+    ]
   }
 ]

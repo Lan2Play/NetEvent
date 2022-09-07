@@ -11,8 +11,12 @@ namespace NetEvent.Client.Extensions
         /// </summary>
         public static Dictionary<string, object> EditorConf { get; } = new Dictionary<string, object>
         {
+            { "inline", true },
+            { "menubar", false },
+            { "event_root", "#root" },
+            { "toolbar", false },
             { "skin", "borderless" },
-            { "plugins", "image code link lists advlist preview table visualchars wordcount fullscreen emoticons" },
+            { "plugins", "image code link lists advlist preview table visualchars wordcount fullscreen emoticons quickbars" },
             { "branding", false },
             { "automatic_uploads", true },
             { "images_upload_url", "/api/system/editorimage" },
@@ -27,7 +31,10 @@ namespace NetEvent.Client.Extensions
             { "toolbar_sticky", true },
             { "toolbar_sticky_offset", 64 },
             { "height", 500 },
-            { "toolbar", "undo redo removeformat | styles | fontfamily fontsize forecolor | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | indent outdent | numlist bullist | link image table emoticons | code preview fullscreen" }
+            { "quickbars_insert_toolbar", "quicktable image emoticons codesample quicklink | hr pagebreak" },
+            { "quickbars_selection_toolbar", "bold italic underline | blocks | bullist numlist | indent outdent | blockquote quicklink" },
+            //{ "contextmenu", "undo redo removeformat | inserttable | cell row column deletetable | code preview fullscreen | help" },
+            //{ "toolbar", "undo redo removeformat | styles | fontfamily fontsize forecolor | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | indent outdent | numlist bullist | link image table emoticons | code preview fullscreen" }
         };
     }
 }

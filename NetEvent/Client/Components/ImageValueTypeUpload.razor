@@ -1,6 +1,6 @@
 ﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<MudField Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" Class="@DragClass" @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass">
+<MudField Label="@Localize[SystemSetting.LabelKey]" Margin="Margin.Dense" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" Class="@DragClass" @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass">
     @if (!Clearing)
     {
         <InputFile OnChange="OnInputFileChanged" class="absolute mud-width-full mud-height-full overflow-hidden z-2" style="opacity:0;" accept=".jpg, .jpeg, .png" />
