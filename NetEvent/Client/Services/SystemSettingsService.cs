@@ -30,8 +30,27 @@ namespace NetEvent.Client.Services
 
         public async Task<SystemSettingValueDto?> GetSystemSettingAsync(SystemSettingGroup systemSettingGroup, string key, CancellationToken cancellationToken)
         {
-            var systemSettings = await GetSystemSettingsAsync(systemSettingGroup, cancellationToken);
-            return systemSettings.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal));
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var result = await client.GetFromJsonAsync<SystemSettingValueDto>($"api/system/settings/{systemSettingGroup}/{key}", cancellationToken);
+
+                if (result == null)
+                {
+                    _Logger.LogError("Unable to get organization data from backend");
+                    return null;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to get organization data from backend");
+                return null;
+            }
+            //var systemSettings = await GetSystemSettingsAsync(systemSettingGroup, cancellationToken);
+            //return systemSettings.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal));
         }
 
         public Task<SystemSettingValueDto?> GetSystemSettingAsync(SystemSettingGroup systemSettingGroup, string key, Action<SystemSettingValueDto> valueChanged, CancellationToken cancellationToken)
