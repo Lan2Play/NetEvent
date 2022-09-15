@@ -3,6 +3,9 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 
-<h1>@Localize["Index.Hello"]</h1>
+<h1>@Localize["Index.About", _OrganizationName ?? string.Empty]</h1>
 
-@Localize["Index.Welcome"]
+@if (_OrganizationAboutUs != null)
+{
+    <MudText Typo="Typo.body1">@((MarkupString)_OrganizationAboutUs)</MudText>
+}

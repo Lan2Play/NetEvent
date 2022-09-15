@@ -540,4 +540,7 @@
   <data name="SystemSetting.OrganizationData.PrivacyPolicy.Label" xml:space="preserve">
     <value>Privacy policy</value>
   </data>
+  <data name="Index.About" xml:space="preserve">
+    <value>About {0}</value>
+  </data>
 </root>
