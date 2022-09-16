@@ -10,36 +10,25 @@
 
     <AuthorizeView Policy="Admin.Settings.Organization.*">
         <Authorized>
-            <MudTabPanel Text="@Localize["Administration.Settings.Organization"]">
-                @if (_Loading)
-                {
-                    <div>@Localize["Administration.Settings.LoadingData"]</div>
-                }
-                else
-                {
-                    <MudGrid>
-                        @foreach (var systemSetting in _SystemSettings.OrganizationData)
-                        {
-                            <SystemSettingControl SystemSetting="systemSetting" Value="@GetValue(systemSetting.Key)" />
-                        }
-                    </MudGrid>
-                }
-            </MudTabPanel>
-            <MudTabPanel Text="@Localize["Administration.Settings.Authentication"]">
-                @if (_Loading)
-                {
-                    <div>@Localize["Administration.Settings.LoadingData"]</div>
-                }
-                else
-                {
-                    <MudGrid>
-                        @foreach (var systemSetting in _SystemSettings.AuthenticationData)
-                        {
-                            <SystemSettingControl SystemSetting="systemSetting" Value="@GetValue(systemSetting.Key)" />
-                        }
-                    </MudGrid>
-                }
-            </MudTabPanel>
+
+            @foreach (var settingsGroup in _SystemSettings.SettingsGroups)
+            {
+                <MudTabPanel Text="@Localize[$"Administration.Settings.{settingsGroup.SettingGroup}"]">
+                    @if (_Loading)
+                    {
+                        <div>@Localize["Administration.Settings.LoadingData"]</div>
+                    }
+                    else
+                    {
+                        <MudGrid>
+                            @foreach (var systemSetting in settingsGroup.Settings)
+                            {
+                                <SystemSettingControl SystemSetting="systemSetting" Value="@GetValue(systemSetting.Key)" />
+                            }
+                        </MudGrid>
+                    }
+                </MudTabPanel>
+            }
         </Authorized>
     </AuthorizeView>
 </MudTabs>

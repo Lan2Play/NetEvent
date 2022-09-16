@@ -38,9 +38,9 @@ namespace NetEvent.Client.Shared
             UpdateDraweVisibility();
 
             using var cancellationTokenSource = new CancellationTokenSource();
-            _OrganizationName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationName, OrganizationNameChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            _OrganizationName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.OrganizationName, OrganizationNameChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
 
-            var logoId = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.Logo, LogoIdChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            var logoId = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.Logo, LogoIdChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
             if (!string.IsNullOrEmpty(logoId))
             {
                 _Logo = $"/api/system/image/{logoId}";

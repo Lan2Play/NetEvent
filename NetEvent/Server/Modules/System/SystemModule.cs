@@ -27,8 +27,8 @@ namespace NetEvent.Server.Modules.System
             endpoints.MapGet("/api/system/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(imageName))));
             endpoints.MapDelete("/api/system/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new DeleteSystemImage.Request(imageName))));
             endpoints.MapGet("/api/system/image/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImages.Request())));
-            endpoints.MapGet("/favicon.ico", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.Favicon))));
-            endpoints.MapGet("/favicon.png", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.Favicon))));
+            endpoints.MapGet("/favicon.ico", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.OrganizationData.Favicon))));
+            endpoints.MapGet("/favicon.png", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.OrganizationData.Favicon))));
 
             return endpoints;
         }
@@ -85,8 +85,7 @@ namespace NetEvent.Server.Modules.System
             builder.Entity<SystemSettingValue>(entity =>
             {
                 entity.ToTable(name: "SystemSettings");
-                foreach (var setting in SystemSettings.Instance.OrganizationData
-                                .Concat(SystemSettings.Instance.AuthenticationData))
+                foreach (var setting in SystemSettings.Instance.SettingsGroups.SelectMany(x => x.Settings))
                 {
                     entity.HasData(new SystemSettingValue { Key = setting.Key, SerializedValue = setting.ValueType.DefaultValueSerialized });
                 }

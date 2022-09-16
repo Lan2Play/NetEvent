@@ -339,7 +339,7 @@
   <data name="RoleService.UpdateRoleAsync.Success" xml:space="preserve">
     <value>Role {0} successfully updated</value>
   </data>
-  <data name="Administration.Settings.Organization" xml:space="preserve">
+  <data name="Administration.Settings.OrganizationData" xml:space="preserve">
     <value>Organization</value>
   </data>
   <data name="Administration.Settings.LoadingData" xml:space="preserve">
@@ -435,7 +435,7 @@
   <data name="Shared.MainLayout.PoweredBy" xml:space="preserve">
     <value>Powered By</value>
   </data>
-  <data name="Administration.Settings.Authentication" xml:space="preserve">
+  <data name="Administration.Settings.AuthenticationData" xml:space="preserve">
     <value>Authentication</value>
   </data>
   <data name="SystemSetting.AuthenticationData.Standard.Label" xml:space="preserve">

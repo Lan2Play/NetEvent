@@ -29,8 +29,8 @@ namespace NetEvent.Client.Pages
         {
             var cts = new CancellationTokenSource();
 
-            _LegalNotice = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.LegalNotice, cts.Token))?.Value ?? string.Empty;
-            _PrivacyPolicy = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.PrivacyPolicy, cts.Token))?.Value ?? string.Empty;
+            _LegalNotice = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.LegalNotice, cts.Token))?.Value ?? string.Empty;
+            _PrivacyPolicy = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.PrivacyPolicy, cts.Token))?.Value ?? string.Empty;
 
             _Loading = false;
         }

@@ -38,8 +38,8 @@ namespace NetEvent.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
-            IsSteamEnabled = BooleanValueType.GetValue((await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.AuthenticationData, SystemSettings.Steam, cancellationTokenSource.Token).ConfigureAwait(false))?.Value);
-            IsStandardEnabled = BooleanValueType.GetValue((await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.AuthenticationData, SystemSettings.Standard, cancellationTokenSource.Token).ConfigureAwait(false))?.Value);
+            IsSteamEnabled = BooleanValueType.GetValue((await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.AuthenticationData, SystemSettings.AuthenticationData.Steam, cancellationTokenSource.Token).ConfigureAwait(false))?.Value);
+            IsStandardEnabled = BooleanValueType.GetValue((await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.AuthenticationData, SystemSettings.AuthenticationData.Standard, cancellationTokenSource.Token).ConfigureAwait(false))?.Value);
         }
 
         public async Task ExecuteLogin()

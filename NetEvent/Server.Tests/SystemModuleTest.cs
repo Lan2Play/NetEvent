@@ -15,6 +15,7 @@ using NetEvent.Server.Models;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
 using Xunit;
+using static NetEvent.Shared.Config.SystemSettings;
 
 namespace NetEvent.Server.Tests
 {
@@ -27,8 +28,8 @@ namespace NetEvent.Server.Tests
             // Arrange
             var testData = new[]
             {
-                new SystemSettingValue { Key = SystemSettings.OrganizationName,  SerializedValue = "value" },
-                new SystemSettingValue { Key = SystemSettings.Logo, SerializedValue = "ImageId" }
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.OrganizationName,  SerializedValue = "value" },
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.Logo, SerializedValue = "ImageId" }
             };
 
             using (var scope = Application.Services.CreateScope())
@@ -44,7 +45,7 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.Equal(2, response?.Count);
-            Assert.All(response, x => Assert.True(SystemSettings.Instance.Settings[SystemSettingGroup.OrganizationData].First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
+            Assert.All(response, x => Assert.True(new SystemSettings.OrganizationData().Settings.First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
             Assert.Equal(testData[0].Key, response?[0].Key);
             Assert.Equal(testData[0].SerializedValue, response?[0].Value);
             Assert.Equal(testData[1].Key, response?[1].Key);
@@ -57,8 +58,8 @@ namespace NetEvent.Server.Tests
             // Arrange
             var testData = new[]
             {
-                new SystemSettingValue { Key = SystemSettings.Standard,  SerializedValue = "True" },
-                new SystemSettingValue { Key = SystemSettings.Steam, SerializedValue = "False" }
+                new SystemSettingValue { Key = SystemSettings.AuthenticationData.Standard,  SerializedValue = "True" },
+                new SystemSettingValue { Key = SystemSettings.AuthenticationData.Steam, SerializedValue = "False" }
             };
 
             using (var scope = Application.Services.CreateScope())
@@ -74,7 +75,7 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.Equal(2, response?.Count);
-            Assert.All(response, x => Assert.True(SystemSettings.Instance.Settings[SystemSettingGroup.AuthenticationData].First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
+            Assert.All(response, x => Assert.True(new SystemSettings.AuthenticationData().Settings.First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
             Assert.Equal(testData[0].Key, response?[0].Key);
             Assert.Equal(testData[0].SerializedValue, response?[0].Value);
             Assert.Equal(testData[1].Key, response?[1].Key);

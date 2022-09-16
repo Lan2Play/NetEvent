@@ -32,8 +32,8 @@ namespace NetEvent.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
-            _OrganizationName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationName, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
-            _OrganizationAboutUs = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.AboutUs, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            _OrganizationName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.OrganizationName, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            _OrganizationAboutUs = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.AboutUs, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
         }
     }
 }

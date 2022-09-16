@@ -26,7 +26,7 @@ public static class DefaultCultureExtension
 
             var organizationCulture = await organizationDataService.GetSystemSettingAsync(
                 SystemSettingGroup.OrganizationData,
-                SystemSettings.DataCultureInfo,
+                SystemSettings.OrganizationData.DataCultureInfo,
                 newCulture =>
                 {
                     if (CultureInfo.DefaultThreadCurrentCulture?.Name.Equals(newCulture.Value, StringComparison.OrdinalIgnoreCase) != true)

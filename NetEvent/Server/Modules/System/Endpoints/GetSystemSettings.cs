@@ -24,7 +24,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 
             public Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var requestedSettings = SystemSettings.Instance.Settings[request.SystemSettingGroup].Select(x => x.Key).ToList();
+                var requestedSettings = SystemSettings.Instance.SettingsGroups.First(x => x.SettingGroup == request.SystemSettingGroup).Settings.Select(x => x.Key).ToList();
                 var organizationData = _ApplicationDbContext.Set<SystemSettingValue>().Where(x => x.Key != null && requestedSettings.Contains(x.Key)).Select(x => x.ToSystemSettingValueDto()).ToList();
                 return Task.FromResult(new Response(organizationData));
             }
