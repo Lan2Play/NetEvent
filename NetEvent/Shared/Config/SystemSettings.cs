@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection.Emit;
 using NetEvent.Shared.Config;
 
 namespace NetEvent.Shared.Config
@@ -39,6 +40,7 @@ namespace NetEvent.Shared.Config
             SettingsGroups = new List<ISettingsGroup>
             {
                 new OrganizationData(),
+                new StyleData(),
                 new AuthenticationData()
             };
         }
@@ -79,6 +81,30 @@ namespace NetEvent.Shared.Config
                 CreateSystemSettingWithHint(Standard, new BooleanValueType(true));
                 CreateSystemSettingWithHint(Steam, new BooleanValueType(false));
             }
+        }
+
+        public class StyleData : SettingGroupBase
+        {
+            public const string PrimaryColor = "PrimaryColor";
+            public const string PrimaryTextColor = "PrimaryTextColor";
+
+            public StyleData() : base(SystemSettingGroup.StyleData)
+            {
+                CreateSystemSettingWithHint(PrimaryColor, new ColorValueType(string.Empty));
+                CreateSystemSettingWithHint(PrimaryTextColor, new ColorValueType(string.Empty));
+            }
+
+            // All possible css variables are here https://mudblazor.com/customization/default-theme
+            public static string GetCssVariable(string key)
+            {
+                return key switch
+                {
+                    PrimaryColor => "--mud-palette-primary",
+                    PrimaryTextColor => "--mud-palette-primary-text",
+                    _ => string.Empty,// do nothing
+                };
+            }
+
         }
 
         public static IEnumerable<string> GetSettingLabelKeys(IEnumerable<string> keys)

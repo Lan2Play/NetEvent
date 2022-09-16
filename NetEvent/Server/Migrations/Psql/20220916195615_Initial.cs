@@ -259,9 +259,9 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "admin", "98655de5-8f40-46b3-848a-ec54d11e7c67", false, "Admin", "ADMIN" },
-                    { "orga", "c2f02530-13a4-4ba6-89e8-ba82a6851b57", false, "Orga", "ORGA" },
-                    { "user", "8b1a358a-2770-49f3-9c12-2d9836bf230a", true, "User", "USER" }
+                    { "admin", "a5aa6422-0b5e-4619-84a7-eee0a35a6be4", false, "Admin", "ADMIN" },
+                    { "orga", "00af88fb-0419-4980-8c60-def6545cf12e", false, "Orga", "ORGA" },
+                    { "user", "3a86681d-6f14-4d8f-ba4c-ee7abd45c2e5", true, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -275,6 +275,8 @@ namespace NetEvent.Server.Migrations.Psql
                     { "LegalNotice", "" },
                     { "Logo", "" },
                     { "OrganizationName", "NetEvent" },
+                    { "PrimaryColor", "" },
+                    { "PrimaryTextColor", "" },
                     { "PrivacyPolicy", "" },
                     { "Standard", "True" },
                     { "Steam", "False" }
@@ -283,7 +285,7 @@ namespace NetEvent.Server.Migrations.Psql
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "c529a697-84a8-4952-98c8-37fbd1dc7f83", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEEmAn7sYLOxRoz+HNabee/NAi3h0SHbk1poPiaiWlukpbo0s+hli4Aaq/ubt4HuncA==", null, false, null, "eaf8e56d-3cbd-49e3-94a0-ee2ddd31b126", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "4ef22797-71bc-47d4-afd7-b100f2b32e85", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEHLwO0+SEpw8rG4AlouxmuFKLw1J7rNUPw8ceibX+gZrhM1GKQKa0eI6H6INc1wXqQ==", null, false, null, "07e30266-bb36-4995-a4fd-04fd2f68d9c7", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",

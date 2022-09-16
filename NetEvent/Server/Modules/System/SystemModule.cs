@@ -29,6 +29,7 @@ namespace NetEvent.Server.Modules.System
             endpoints.MapGet("/api/system/image/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImages.Request())));
             endpoints.MapGet("/favicon.ico", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.OrganizationData.Favicon))));
             endpoints.MapGet("/favicon.png", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.OrganizationData.Favicon))));
+            endpoints.MapGet("/netevent.css", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetNetEventStyle.Request())));
 
             return endpoints;
         }

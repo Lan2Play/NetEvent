@@ -256,17 +256,17 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "admin", "51f717ff-3699-477e-8aa3-a5f4231a6193", false, "Admin", "ADMIN" });
+                values: new object[] { "admin", "c63dfecb-452c-48ed-aa91-e40a6211d102", false, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "orga", "b36f5285-0c31-4b1d-babc-ce0b61af4173", false, "Orga", "ORGA" });
+                values: new object[] { "orga", "c80e085c-d46f-4071-8b6f-65999d6527f3", false, "Orga", "ORGA" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "user", "7cd1f4ce-0d13-402d-bf11-e98a32df74c8", true, "User", "USER" });
+                values: new object[] { "user", "22737a68-cf4a-4604-8233-5b27324a1cf4", true, "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "SystemSettings",
@@ -301,6 +301,16 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "SystemSettings",
                 columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "PrimaryColor", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "PrimaryTextColor", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
                 values: new object[] { "PrivacyPolicy", "" });
 
             migrationBuilder.InsertData(
@@ -316,7 +326,7 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "1a1afd6d-be38-44d2-9e54-fc3bcecebc76", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEDjH7jzRPGyHOpi8NJNlbjqdA+wX8fdFSMumey/kal501awl7khpAP+t9SzG+lvbkw==", null, false, null, "8fcf0ae7-7c21-470f-9986-55a8d472aeba", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "0bb8e6d6-55c6-4398-a114-b1c924553ea9", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAECqDjxBiXjX9iP9FO10BhsJp+jEGlys2c3K7riMZxVssYZxpGFqbROLHm2kzYLD/Ag==", null, false, null, "33f9bf66-dcd2-4c1e-bff2-1219ce2398b4", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",

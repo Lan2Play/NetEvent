@@ -23,6 +23,7 @@ namespace NetEvent.Client.Pages.Administration
         private readonly SystemSettings _SystemSettings = SystemSettings.Instance;
         private bool _Loading = true;
         private IList<SystemSettingValueDto> _OrganizationData = new List<SystemSettingValueDto>();
+        private IList<SystemSettingValueDto> _StyleData = new List<SystemSettingValueDto>();
         private IList<SystemSettingValueDto> _AuthenticationData = new List<SystemSettingValueDto>();
 
         protected override async Task OnInitializedAsync()
@@ -30,6 +31,7 @@ namespace NetEvent.Client.Pages.Administration
             var cts = new CancellationTokenSource();
 
             _OrganizationData = await _SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.OrganizationData, cts.Token);
+            _StyleData = await _SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.StyleData, cts.Token);
             _AuthenticationData = await _SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.AuthenticationData, cts.Token);
 
             _Loading = false;
@@ -38,7 +40,8 @@ namespace NetEvent.Client.Pages.Administration
         private SystemSettingValueDto? GetValue(string key)
         {
             return _OrganizationData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal))
-            ?? _AuthenticationData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal));
+                ?? _StyleData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal))
+                ?? _AuthenticationData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal));
         }
     }
 }

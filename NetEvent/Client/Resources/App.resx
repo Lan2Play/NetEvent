@@ -543,4 +543,7 @@
   <data name="Index.About" xml:space="preserve">
     <value>About {0}</value>
   </data>
+  <data name="Administration.Settings.StyleData" xml:space="preserve">
+    <value>Style</value>
+  </data>
 </root>
