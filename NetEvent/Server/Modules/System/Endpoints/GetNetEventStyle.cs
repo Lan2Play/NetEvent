@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using System.Text.Unicode;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
-using NetEvent.Shared;
 using NetEvent.Shared.Config;
 
 namespace NetEvent.Server.Modules.System.Endpoints
 {
-
     public static class GetNetEventStyle
     {
         public class Handler : IRequestHandler<Request, Response>
@@ -40,6 +37,13 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 }
 
                 styleBuilder.Append('}');
+                styleBuilder.AppendLine();
+
+                var customCss = await _ApplicationDbContext.SystemSettingValues.FindAsync(new object[] { SystemSettings.StyleData.CustomCss }, cancellationToken);
+                if (!string.IsNullOrEmpty(customCss?.SerializedValue))
+                {
+                    styleBuilder.Append(customCss.SerializedValue);
+                }
 
                 return new Response(Results.File(Encoding.UTF8.GetBytes(styleBuilder.ToString()), "text/css", lastModified: DateTime.Now));
             }

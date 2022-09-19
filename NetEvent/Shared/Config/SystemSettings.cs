@@ -87,11 +87,19 @@ namespace NetEvent.Shared.Config
         {
             public const string PrimaryColor = "PrimaryColor";
             public const string PrimaryTextColor = "PrimaryTextColor";
+            public const string Background = "Background";
+            public const string AppbarBackground = "AppbarBackground";
+            public const string AppbarText = "AppbarText";
+            public const string CustomCss = "CustomCss";
 
             public StyleData() : base(SystemSettingGroup.StyleData)
             {
                 CreateSystemSettingWithHint(PrimaryColor, new ColorValueType(string.Empty));
                 CreateSystemSettingWithHint(PrimaryTextColor, new ColorValueType(string.Empty));
+                CreateSystemSettingWithHint(Background, new ColorValueType(string.Empty));
+                CreateSystemSettingWithHint(AppbarBackground, new ColorValueType(string.Empty));
+                CreateSystemSettingWithHint(AppbarText, new ColorValueType(string.Empty));
+                CreateSystemSettingWithHint(CustomCss, new StringValueType(string.Empty));
             }
 
             // All possible css variables are here https://mudblazor.com/customization/default-theme
@@ -101,7 +109,10 @@ namespace NetEvent.Shared.Config
                 {
                     PrimaryColor => "--mud-palette-primary",
                     PrimaryTextColor => "--mud-palette-primary-text",
-                    _ => string.Empty,// do nothing
+                    Background => "--mud-palette-background",
+                    AppbarBackground => "--mud-palette-appbar-background",
+                    AppbarText => "--mud-palette-appbar-text",
+                    _ => string.Empty,
                 };
             }
 

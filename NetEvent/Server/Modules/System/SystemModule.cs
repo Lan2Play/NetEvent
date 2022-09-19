@@ -29,7 +29,7 @@ namespace NetEvent.Server.Modules.System
             endpoints.MapGet("/api/system/image/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImages.Request())));
             endpoints.MapGet("/favicon.ico", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.OrganizationData.Favicon))));
             endpoints.MapGet("/favicon.png", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.OrganizationData.Favicon))));
-            endpoints.MapGet("/netevent.css", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetNetEventStyle.Request())));
+            endpoints.MapGet("/css/netevent.css", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetNetEventStyle.Request())));
 
             return endpoints;
         }
@@ -78,7 +78,6 @@ namespace NetEvent.Server.Modules.System
             }
 
             return Results.Json(new { location = $"/api/system/image/{result.ReturnValue}" });
-            //return ToApiResult(await mediator.Send(new PostSystemImage.Request(imageName, formFile)));
         }
 
         public override void OnModelCreating(ModelBuilder builder)

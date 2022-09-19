@@ -41,7 +41,8 @@ namespace NetEvent.Client.Pages.Administration
         {
             return _OrganizationData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal))
                 ?? _StyleData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal))
-                ?? _AuthenticationData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal));
+                ?? _AuthenticationData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal))
+                ?? new SystemSettingValueDto(key, string.Empty);
         }
     }
 }

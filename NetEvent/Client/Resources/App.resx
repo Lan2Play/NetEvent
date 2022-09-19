@@ -546,4 +546,22 @@
   <data name="Administration.Settings.StyleData" xml:space="preserve">
     <value>Style</value>
   </data>
+  <data name="SystemSetting.StyleData.AppbarBackground.Label" xml:space="preserve">
+    <value>Appbar background color</value>
+  </data>
+  <data name="SystemSetting.StyleData.AppbarText.Label" xml:space="preserve">
+    <value>Appbar text color</value>
+  </data>
+  <data name="SystemSetting.StyleData.Background.Label" xml:space="preserve">
+    <value>Background color</value>
+  </data>
+  <data name="SystemSetting.StyleData.CustomCss.Label" xml:space="preserve">
+    <value>Custom CSS</value>
+  </data>
+  <data name="SystemSetting.StyleData.PrimaryColor.Label" xml:space="preserve">
+    <value>Primary color</value>
+  </data>
+  <data name="SystemSetting.StyleData.PrimaryTextColor.Label" xml:space="preserve">
+    <value>Primary text color</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Services;
@@ -9,6 +10,8 @@ namespace NetEvent.Client.Components.Administration
 {
     public partial class SystemSettingControl
     {
+        private string? _Style = null;
+
         [Inject]
         private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
 
@@ -30,13 +33,14 @@ namespace NetEvent.Client.Components.Administration
 
         private async Task OnSettingsValueChanged<T>(T? value)
         {
-
             if (value is null)
             {
                 return;
             }
 
             _ = await _SystemSettingsDataService.UpdateSystemSetting(SystemSetting.SettingType, new SystemSettingValueDto(SystemSetting.Key, value.ToString() ?? string.Empty), CancellationToken.None);
+
+            _Style = $"css/netevent.css?{DateTime.UtcNow.Ticks}";
         }
     }
 }

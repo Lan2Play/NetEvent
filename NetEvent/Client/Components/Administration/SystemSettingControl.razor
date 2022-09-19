@@ -1,6 +1,13 @@
 ﻿@using NetEvent.Shared.Config
 @using TinyMCE.Blazor
+@using Microsoft.AspNetCore.Components.Web.Extensions.Head
+
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+@if (_Style != null)
+{
+    <Link rel="stylesheet" href="@_Style" />
+}
 
 <MudItem xs="12" md="6">
     @if (Value != null)
