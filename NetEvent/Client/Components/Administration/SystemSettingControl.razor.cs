@@ -33,14 +33,11 @@ namespace NetEvent.Client.Components.Administration
 
         private async Task OnSettingsValueChanged<T>(T? value)
         {
-            if (value is null)
-            {
-                return;
-            }
-
             _ = await _SystemSettingsDataService.UpdateSystemSetting(SystemSetting.SettingType, new SystemSettingValueDto(SystemSetting.Key, value.ToString() ?? string.Empty), CancellationToken.None);
-
-            _Style = $"css/netevent.css?{DateTime.UtcNow.Ticks}";
+            if (SystemSetting.SettingType == SystemSettingGroup.StyleData)
+            {
+                _Style = $"css/netevent.css?{DateTime.UtcNow.Ticks}";
+            }
         }
     }
 }

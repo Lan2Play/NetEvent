@@ -22,19 +22,19 @@ namespace NetEvent.Server.Modules.System.Endpoints
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                if (request.OrganizationData?.Key == null || request.OrganizationData?.Value == null)
+                if (request.SystemSettingValue?.Key == null)
                 {
-                    return new Response(ReturnType.Error, "Empty data is not allowed");
+                    return new Response(ReturnType.Error, "Empty key is not allowed");
                 }
 
-                var data = await _ApplicationDbContext.FindAsync<SystemSettingValue>(new object[] { request.OrganizationData.Key }, cancellationToken);
+                var data = await _ApplicationDbContext.FindAsync<SystemSettingValue>(new object[] { request.SystemSettingValue.Key }, cancellationToken);
                 if (data != null)
                 {
-                    data.SerializedValue = request.OrganizationData.Value;
+                    data.SerializedValue = request.SystemSettingValue.Value;
                 }
                 else
                 {
-                    var serverData = request.OrganizationData.ToSystemSettingValue();
+                    var serverData = request.SystemSettingValue.ToSystemSettingValue();
                     await _ApplicationDbContext.AddAsync(serverData, cancellationToken);
                 }
 
@@ -46,15 +46,15 @@ namespace NetEvent.Server.Modules.System.Endpoints
 
         public class Request : IRequest<Response>
         {
-            public Request(SystemSettingGroup systemSettingGroup, SystemSettingValueDto organizationData)
+            public Request(SystemSettingGroup systemSettingGroup, SystemSettingValueDto systemSettingValue)
             {
                 SystemSettingGroup = systemSettingGroup;
-                OrganizationData = organizationData;
+                SystemSettingValue = systemSettingValue;
             }
 
             public SystemSettingGroup SystemSettingGroup { get; }
 
-            public SystemSettingValueDto OrganizationData { get; }
+            public SystemSettingValueDto SystemSettingValue { get; }
         }
 
         public class Response : ResponseBase
