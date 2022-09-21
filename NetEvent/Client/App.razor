@@ -1,27 +1,31 @@
+@using Microsoft.AspNetCore.Components.Web.Extensions.Head
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
+<Link rel="stylesheet" href="@_Style" />
+
 <CascadingAuthenticationState>
-	<Router AppAssembly="@typeof(Program).Assembly">
-		<Found Context="routeData">
-			<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-				<NotAuthorized>
-					@if (context.User.Identity?.IsAuthenticated != true)
-					{
-						<RedirectToLogin />
-					}
-					else
-					{
-						<p role="alert">@Localize["App.NotAuthorized"]</p>
-					}
-				</NotAuthorized>
-			</AuthorizeRouteView>
-			<FocusOnNavigate RouteData="@routeData" Selector="h1" />
-		</Found>
-		<NotFound>
+    <Router AppAssembly="@typeof(Program).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    @if (context.User.Identity?.IsAuthenticated != true)
+                    {
+                        <RedirectToLogin />
+                    }
+                    else
+                    {
+                        <p role="alert">@Localize["App.NotAuthorized"]</p>
+                    }
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
             <PageTitle>@Localize["App.NotFound"]</PageTitle>
-			<LayoutView Layout="@typeof(MainLayout)">
-				<p role="alert">@Localize["App.NothingHere"]</p>
-			</LayoutView>
-		</NotFound>
-	</Router>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">@Localize["App.NothingHere"]</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
 </CascadingAuthenticationState>
+              

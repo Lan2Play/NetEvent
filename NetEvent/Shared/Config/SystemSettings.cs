@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection.Emit;
-using NetEvent.Shared.Config;
 
 namespace NetEvent.Shared.Config
 {
@@ -34,7 +32,6 @@ namespace NetEvent.Shared.Config
 
     public class SystemSettings
     {
-
         private SystemSettings()
         {
             SettingsGroups = new List<ISettingsGroup>
@@ -87,6 +84,8 @@ namespace NetEvent.Shared.Config
         {
             public const string PrimaryColor = "PrimaryColor";
             public const string PrimaryTextColor = "PrimaryTextColor";
+            public const string SecondaryColor = "SecondaryColor";
+            public const string SecondaryTextColor = "SecondaryTextColor";
             public const string Background = "Background";
             public const string AppbarBackground = "AppbarBackground";
             public const string AppbarText = "AppbarText";
@@ -96,6 +95,8 @@ namespace NetEvent.Shared.Config
             {
                 CreateSystemSettingWithHint(PrimaryColor, new ColorValueType(string.Empty));
                 CreateSystemSettingWithHint(PrimaryTextColor, new ColorValueType(string.Empty));
+                CreateSystemSettingWithHint(SecondaryColor, new ColorValueType(string.Empty));
+                CreateSystemSettingWithHint(SecondaryTextColor, new ColorValueType(string.Empty));
                 CreateSystemSettingWithHint(Background, new ColorValueType(string.Empty));
                 CreateSystemSettingWithHint(AppbarBackground, new ColorValueType(string.Empty));
                 CreateSystemSettingWithHint(AppbarText, new ColorValueType(string.Empty));
@@ -103,19 +104,20 @@ namespace NetEvent.Shared.Config
             }
 
             // All possible css variables are here https://mudblazor.com/customization/default-theme
-            public static string GetCssVariable(string key)
+            public static string[] GetCssVariables(string key)
             {
                 return key switch
                 {
-                    PrimaryColor => "--mud-palette-primary",
-                    PrimaryTextColor => "--mud-palette-primary-text",
-                    Background => "--mud-palette-background",
-                    AppbarBackground => "--mud-palette-appbar-background",
-                    AppbarText => "--mud-palette-appbar-text",
-                    _ => string.Empty,
+                    PrimaryColor => new[] { "--mud-palette-primary" },
+                    PrimaryTextColor => new[] { "--mud-palette-primary-text" },
+                    SecondaryColor => new[] { "--mud-palette-secondary" },
+                    SecondaryTextColor => new[] { "--mud-palette-secondary-text" },
+                    Background => new[] { "--mud-palette-background", "--mud-palette-surface" },
+                    AppbarBackground => new[] { "--mud-palette-appbar-background" },
+                    AppbarText => new[] { "--mud-palette-appbar-text" },
+                    _ => new[] { string.Empty },
                 };
             }
-
         }
 
         public static IEnumerable<string> GetSettingLabelKeys(IEnumerable<string> keys)
@@ -130,78 +132,4 @@ namespace NetEvent.Shared.Config
             }
         }
     }
-
-    //public class SystemSettings
-    //{
-    //    private SystemSettings()
-    //    {
-    //        Settings = new Dictionary<SystemSettingGroup, IReadOnlyCollection<SystemSetting>>
-    //        {
-    //            {
-    //                SystemSettingGroup.OrganizationData,
-    //                new Collection<SystemSetting>
-    //                {
-    //                    SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(OrganizationName, new StringValueType("NetEvent")),
-    //                    SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(DataCultureInfo, new EnumValueType<string>("en-US", new List<string> { "en-US", "de-DE", "fr-FR" })),
-    //                    SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Favicon, new ImageValueType()),
-    //                    SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(Logo, new ImageValueType()),
-    //                    SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(AboutUs, new StringValueType(string.Empty, true)),
-    //                    SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(LegalNotice, new StringValueType(string.Empty, true)),
-    //                    SystemSettingBuilder.OrganizationBuilder.CreateSystemSettingWithHint(PrivacyPolicy, new StringValueType(string.Empty, true)),
-    //                }
-    //            },
-    //            {
-    //                SystemSettingGroup.AuthenticationData,
-    //                new Collection<SystemSetting>
-    //                {
-    //                    SystemSettingBuilder.AuthenticationBuilder.CreateSystemSettingWithHint(Standard, new BooleanValueType(true)),
-    //                    SystemSettingBuilder.AuthenticationBuilder.CreateSystemSettingWithHint(Steam, new BooleanValueType(false)),
-    //                }
-    //            },
-    //        };
-    //    }
-
-    //    public static SystemSettings Instance { get; } = new SystemSettings();
-
-    //    public IReadOnlyDictionary<SystemSettingGroup, IReadOnlyCollection<SystemSetting>> Settings { get; }
-
-    //    #region OrganizationData
-
-    //    public IReadOnlyCollection<SystemSetting> OrganizationData => Settings[SystemSettingGroup.OrganizationData];
-
-    //    public const string OrganizationName = "OrganizationName";
-    //    public const string DataCultureInfo = "DataCultureInfo";
-    //    public const string Favicon = "Favicon";
-    //    public const string Logo = "Logo";
-    //    public const string AboutUs = "AboutUs";
-    //    public const string LegalNotice = "LegalNotice";
-    //    public const string PrivacyPolicy = "PrivacyPolicy";
-
-    //    #endregion
-
-    //    #region Authentication
-
-    //    public IReadOnlyCollection<SystemSetting> AuthenticationData => Settings[SystemSettingGroup.AuthenticationData];
-
-    //    public const string Standard = "Standard";
-    //    public const string Steam = "Steam";
-
-    //    #endregion
-
-    //    #region HelperMethods
-
-    //    public static IEnumerable<string> GetSettingLabelKeys(IEnumerable<string> keys)
-    //    {
-    //        foreach (var key in keys)
-    //        {
-    //            var systemSetting = Instance.OrganizationData.FirstOrDefault(x => x.Key.Equals(key, StringComparison.OrdinalIgnoreCase));
-    //            if (!string.IsNullOrEmpty(systemSetting?.LabelKey))
-    //            {
-    //                yield return systemSetting.LabelKey;
-    //            }
-    //        }
-    //    }
-
-    //    #endregion
-    //}
 }

@@ -55,8 +55,8 @@ namespace NetEvent.Server.Modules.System.Endpoints
                     return;
                 }
 
-                var cssVariable = SystemSettings.StyleData.GetCssVariable(key);
-                if (!string.IsNullOrEmpty(cssVariable))
+                var cssVariables = SystemSettings.StyleData.GetCssVariables(key);
+                foreach (var cssVariable in cssVariables)
                 {
                     styleBuilder.Append(cssVariable).Append(": ").Append(serializedValue).Append("!important; ");
                 }

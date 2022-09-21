@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -20,7 +19,8 @@ namespace NetEvent.Client.Services
     {
         private readonly ILogger<SystemSettingsService> _Logger;
         private readonly IHttpClientFactory _HttpClientFactory;
-        private readonly ConcurrentDictionary<string, ConcurrentBag<Action<SystemSettingValueDto>>> _Callbacks = new();
+        private readonly ConcurrentDictionary<string, ConcurrentBag<Action<SystemSettingValueDto>>> _SettingCallbacks = new();
+        private readonly ConcurrentDictionary<SystemSettingGroup, ConcurrentBag<Action<SystemSettingValueDto>>> _SettingGroupCallbacks = new();
 
         public SystemSettingsService(IHttpClientFactory httpClientFactory, ILogger<SystemSettingsService> logger)
         {
@@ -49,13 +49,11 @@ namespace NetEvent.Client.Services
                 _Logger.LogError(ex, "Unable to get organization data from backend");
                 return null;
             }
-            //var systemSettings = await GetSystemSettingsAsync(systemSettingGroup, cancellationToken);
-            //return systemSettings.FirstOrDefault(x => x.Key.Equals(key, StringComparison.Ordinal));
         }
 
         public Task<SystemSettingValueDto?> GetSystemSettingAsync(SystemSettingGroup systemSettingGroup, string key, Action<SystemSettingValueDto> valueChanged, CancellationToken cancellationToken)
         {
-            var bag = _Callbacks.GetOrAdd(GetCallbackKey(systemSettingGroup, key), s => new ConcurrentBag<Action<SystemSettingValueDto>>());
+            var bag = _SettingCallbacks.GetOrAdd(GetCallbackKey(systemSettingGroup, key), s => new ConcurrentBag<Action<SystemSettingValueDto>>());
             bag.Add(valueChanged);
             return GetSystemSettingAsync(systemSettingGroup, key, cancellationToken);
         }
@@ -93,9 +91,17 @@ namespace NetEvent.Client.Services
 
                 response.EnsureSuccessStatusCode();
 
-                if (_Callbacks.TryGetValue(GetCallbackKey(systemSettingGroup, systemSetting.Key), out var callbacks))
+                if (_SettingCallbacks.TryGetValue(GetCallbackKey(systemSettingGroup, systemSetting.Key), out var callbacks))
                 {
                     foreach (var callback in callbacks)
+                    {
+                        callback(systemSetting);
+                    }
+                }
+
+                if (_SettingGroupCallbacks.TryGetValue(systemSettingGroup, out var groupCallbacks))
+                {
+                    foreach (var callback in groupCallbacks)
                     {
                         callback(systemSetting);
                     }
@@ -184,6 +190,12 @@ namespace NetEvent.Client.Services
         private static string GetCallbackKey(SystemSettingGroup systemSettingGroup, string key)
         {
             return $"{systemSettingGroup}.{key}";
+        }
+
+        public void SubscribeSystemSettingGroupChange(SystemSettingGroup systemSettingGroup, Action<SystemSettingValueDto> valueChanged)
+        {
+            var bag = _SettingGroupCallbacks.GetOrAdd(systemSettingGroup, s => new ConcurrentBag<Action<SystemSettingValueDto>>());
+            bag.Add(valueChanged);
         }
     }
 }

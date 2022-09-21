@@ -1,13 +1,7 @@
 ﻿@using NetEvent.Shared.Config
 @using TinyMCE.Blazor
-@using Microsoft.AspNetCore.Components.Web.Extensions.Head
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
-
-@if (_Style != null)
-{
-    <Link rel="stylesheet" href="@_Style" />
-}
 
 <MudItem xs="12" md="6">
     @if (Value != null)
@@ -18,7 +12,7 @@
                 <MudCheckBox T="bool" Checked="BooleanValueType.GetValue(SettingValue)" CheckedChanged="@OnSettingsValueChanged" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
                 break;
             @case ColorValueType cvt:
-                <MudColorPicker Label="@Localize[SystemSetting.LabelKey]" @bind-Text="SettingValue" Style="@($"--icon-color: {SettingValue};")" Clearable="true" Placeholder="Select Color" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
+                <MudColorPicker Label="@Localize[SystemSetting.LabelKey]" Text="@SettingValue" TextChanged="@OnSettingsValueChanged" Style="@($"--icon-color: {SettingValue};")" Clearable="true" Placeholder="Select Color" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
                 break;
             @case RegexStringValueType svt:
                 @if (svt.IsRichTextValue)

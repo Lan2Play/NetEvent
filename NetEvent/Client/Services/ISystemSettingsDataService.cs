@@ -23,5 +23,7 @@ namespace NetEvent.Client.Services
         Task<List<SystemImageWithUsagesDto>> GetSystemImagesAsync(CancellationToken cancellationToken);
 
         Task<ServiceResult> DeleteSystemImage(string imageId, CancellationToken cancellationToken);
+
+        void SubscribeSystemSettingGroupChange(SystemSettingGroup systemSettingGroup, Action<SystemSettingValueDto> valueChanged);
     }
 }
