@@ -13,6 +13,7 @@ namespace NetEvent.Server.Modules.Events
     {
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
+            endpoints.MapGet("/api/events/upcoming", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetUpcomingEvent.Request())));
             endpoints.MapGet("/api/events/{eventId:long}", async ([FromRoute] long eventId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetEvent.Request(eventId))));
             endpoints.MapGet("/api/events/{slug}", async ([FromRoute] string slug, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetEvent.Request(slug))));
             endpoints.MapGet("/api/events", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetEvents.Request())));

@@ -564,4 +564,19 @@
   <data name="SystemSetting.StyleData.PrimaryTextColor.Label" xml:space="preserve">
     <value>Primary text color</value>
   </data>
+  <data name="Index.Days" xml:space="preserve">
+    <value>{0} days</value>
+  </data>
+  <data name="Index.Hours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="Index.Minutes" xml:space="preserve">
+    <value>{0} minutes</value>
+  </data>
+  <data name="Index.Next" xml:space="preserve">
+    <value>Next event comming soon</value>
+  </data>
+  <data name="Index.Seconds" xml:space="preserve">
+    <value>{0} seconds</value>
+  </data>
 </root>

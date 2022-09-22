@@ -113,8 +113,8 @@ namespace NetEvent.Shared.Config
                     SecondaryColor => new[] { "--mud-palette-secondary" },
                     SecondaryTextColor => new[] { "--mud-palette-secondary-text" },
                     Background => new[] { "--mud-palette-background", "--mud-palette-surface" },
-                    AppbarBackground => new[] { "--mud-palette-appbar-background" },
-                    AppbarText => new[] { "--mud-palette-appbar-text" },
+                    AppbarBackground => new[] { "--mud-palette-appbar-background", "--mud-palette-drawer-background" },
+                    AppbarText => new[] { "--mud-palette-appbar-text", "--mud-palette-drawer-background" },
                     _ => new[] { string.Empty },
                 };
             }
