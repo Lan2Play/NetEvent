@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -10,16 +7,15 @@ using NetEvent.Client.Extensions;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto.Event;
 using NetEvent.Shared.Validators;
-using static MudBlazor.CategoryTypes;
 
-namespace NetEvent.Client.Pages.Administration.Events
+namespace NetEvent.Client.Pages.Administration.Venues
 {
-    public partial class Event
+    public partial class Venue
     {
         #region Injects
 
         [Inject]
-        private IEventService _EventService { get; set; } = default!;
+        private IVenueService _VenueService { get; set; } = default!;
 
         [Inject]
         private ISnackbar _Snackbar { get; set; } = default!;
@@ -35,10 +31,10 @@ namespace NetEvent.Client.Pages.Administration.Events
         [Parameter]
         public string? Id { get; set; }
 
-        private readonly EventModelFluentValidator _EventValidator = new();
+        private readonly VenueModelFluentValidator _VenueValidator = new();
         private bool _Loading = true;
         private MudForm? _Form = default!;
-        private EventDto _Event = default!;
+        private VenueDto _Venue = default!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -46,17 +42,17 @@ namespace NetEvent.Client.Pages.Administration.Events
 
             if (long.TryParse(Id, out var id))
             {
-                _Event = await _EventService.GetEventAsync(id, cts.Token) ?? new EventDto();
+                _Venue = await _VenueService.GetVenueAsync(id, cts.Token) ?? new VenueDto();
             }
             else
             {
-                _Event = new EventDto();
+                _Venue = new VenueDto();
             }
 
             _Loading = false;
         }
 
-        private async Task SaveEvent()
+        private async Task SaveVenue()
         {
             if (_Form == null)
             {
@@ -69,17 +65,16 @@ namespace NetEvent.Client.Pages.Administration.Events
             {
                 var cts = new CancellationTokenSource();
                 ServiceResult result;
-                if (_Event.Id >= 0)
+                if (_Venue.Id >= 0)
                 {
-                    result = await _EventService.UpdateEventAsync(_Event, cts.Token);
+                    result = await _VenueService.UpdateVenueAsync(_Venue, cts.Token);
                 }
                 else
                 {
-                    result = await _EventService.CreateEventAsync(_Event, cts.Token);
-
-                    if (result.Successful && _Event?.Id != null)
+                    result = await _VenueService.CreateVenueAsync(_Venue, cts.Token);
+                    if (result.Successful && _Venue?.Id != null)
                     {
-                        NavigationManager.NavigateTo(UrlHelper.GetEventLink(_Event.Id, true));
+                        NavigationManager.NavigateTo(UrlHelper.GetVenueLink(_Venue.Id, true));
                     }
                 }
 

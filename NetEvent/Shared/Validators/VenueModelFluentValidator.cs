@@ -7,28 +7,32 @@ using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Shared.Validators
 {
-    public class EventModelFluentValidator : AbstractValidator<EventDto>
+
+
+    public class VenueModelFluentValidator : AbstractValidator<VenueDto>
     {
-        public EventModelFluentValidator()
+        public VenueModelFluentValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .Length(1, 100);
 
-            RuleFor(x => x.Description)
+            RuleFor(x => x.ZipCode)
                 .NotEmpty();
 
-            RuleFor(x => x.StartDate)
-                .NotNull();
+            RuleFor(x => x.Number)
+                .NotEmpty();
 
-            RuleFor(x => x.EndDate)
-                .NotNull()
-                .GreaterThan(x => x.StartDate);
+            RuleFor(x => x.City)
+                .NotEmpty();
+
+            RuleFor(x => x.Street)
+                .NotEmpty();
         }
 
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
         {
-            var result = await ValidateAsync(ValidationContext<EventDto>.CreateWithOptions((EventDto)model, x => x.IncludeProperties(propertyName)));
+            var result = await ValidateAsync(ValidationContext<VenueDto>.CreateWithOptions((VenueDto)model, x => x.IncludeProperties(propertyName)));
             if (result.IsValid)
             {
                 return Array.Empty<string>();

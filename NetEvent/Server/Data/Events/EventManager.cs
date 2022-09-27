@@ -78,7 +78,6 @@ namespace NetEvent.Server.Data.Events
                 return EventResult.Failed(new EventError { Description = $"Event with Id '{eventId}' was not found" });
             }
 
-            await _DbContext.SaveChangesAsync();
             return await DeleteAsync(eventToDelete);
         }
 
@@ -95,6 +94,43 @@ namespace NetEvent.Server.Data.Events
 
             _Logger.LogError("Error deleting Event {name}", eventToDelete.Name);
             return EventResult.Failed(new EventError());
+        }
+
+        public async Task<EventResult> DeleteVenueAsync(long venueId)
+        {
+            var eventToDelete = await _DbContext.Venues.FindAsync(venueId);
+            if (eventToDelete == null)
+            {
+                return EventResult.Failed(new EventError { Description = $"Venue with Id '{venueId}' was not found" });
+            }
+
+            _DbContext.Venues.Remove(eventToDelete);
+            await _DbContext.SaveChangesAsync();
+
+            return EventResult.Failed(new EventError());
+        }
+
+        public async Task<EventResult> CreateVenueAsync(Venue venueToCreate)
+        {
+            var maxId = await _DbContext.Venues.MaxAsync(x => x.Id);
+            venueToCreate.Id = maxId.HasValue ? maxId.Value + 1 : 1;
+            venueToCreate.Slug = _SlugHelper.GenerateSlug(venueToCreate.Name);
+
+            var addResult = await _DbContext.Venues.AddAsync(venueToCreate, CancellationToken);
+            if (addResult.State == EntityState.Added)
+            {
+                await _DbContext.SaveChangesAsync();
+                _Logger.LogInformation("Successfully created Venue {name}", venueToCreate.Name);
+                return EventResult.Success;
+            }
+
+            _Logger.LogError("Error creating Venue {name}", venueToCreate.Name);
+            return EventResult.Failed(new EventError());
+        }
+
+        public Task<EventResult> UpdateVenueAsync(Venue venueToUpdate)
+        {
+            throw new NotImplementedException();
         }
     }
 }

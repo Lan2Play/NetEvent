@@ -51,8 +51,8 @@ namespace NetEvent.Shared
 
         public static partial Event ToEvent(this EventDto eventToConvert);
 
-        public static partial LocationDto ToLocationDto(this Location location);
+        public static partial VenueDto ToVenueDto(this Venue Venue);
 
-        public static partial Location ToLocation(this LocationDto location);
+        public static partial Venue ToVenue(this VenueDto Venue);
     }
 }

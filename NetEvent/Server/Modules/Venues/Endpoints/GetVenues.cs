@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,9 +8,9 @@ using NetEvent.Server.Data;
 using NetEvent.Shared;
 using NetEvent.Shared.Dto.Event;
 
-namespace NetEvent.Server.Modules.Events.Endpoints
+namespace NetEvent.Server.Modules.Venues.Endpoints
 {
-    public static class GetEvents
+    public static class GetVenues
     {
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -24,25 +23,9 @@ namespace NetEvent.Server.Modules.Events.Endpoints
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var allEvents = await _DbContext.Events.ToListAsync(cancellationToken);
                 var allVenues = await _DbContext.Venues.ToListAsync(cancellationToken);
-
                 var convertedVenues = allVenues.Select(DtoMapper.ToVenueDto).ToList();
-
-                var result = new List<EventDto>();
-                foreach (var eventModel in allEvents)
-                {
-                    var convertedEvent = eventModel.ToEventDto();
-                    if (eventModel.VenueId.HasValue)
-                    {
-                        var convertedVenue = convertedVenues.First(x => x.Id.Equals(eventModel.VenueId));
-                        convertedEvent.Venue = convertedVenue;
-                    }
-
-                    result.Add(convertedEvent);
-                }
-
-                return new Response(result);
+                return new Response(convertedVenues);
             }
         }
 
@@ -50,9 +33,9 @@ namespace NetEvent.Server.Modules.Events.Endpoints
         {
         }
 
-        public class Response : ResponseBase<IEnumerable<EventDto>>
+        public class Response : ResponseBase<IEnumerable<VenueDto>>
         {
-            public Response(IEnumerable<EventDto>? value) : base(value)
+            public Response(IEnumerable<VenueDto>? value) : base(value)
             {
             }
 

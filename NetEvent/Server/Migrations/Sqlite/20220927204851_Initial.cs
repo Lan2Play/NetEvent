@@ -36,28 +36,11 @@ namespace NetEvent.Server.Migrations.Sqlite
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     EndDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    LocationId = table.Column<long>(type: "INTEGER", nullable: true)
+                    VenueId = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Locations",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Street = table.Column<string>(type: "TEXT", nullable: true),
-                    Number = table.Column<string>(type: "TEXT", nullable: true),
-                    ZipCode = table.Column<string>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -140,6 +123,24 @@ namespace NetEvent.Server.Migrations.Sqlite
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Venues",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Slug = table.Column<string>(type: "TEXT", nullable: true),
+                    Street = table.Column<string>(type: "TEXT", nullable: true),
+                    Number = table.Column<string>(type: "TEXT", nullable: true),
+                    ZipCode = table.Column<string>(type: "TEXT", nullable: true),
+                    City = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Venues", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -256,22 +257,42 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "admin", "c63dfecb-452c-48ed-aa91-e40a6211d102", false, "Admin", "ADMIN" });
+                values: new object[] { "admin", "86eb8a0c-f53d-48f6-94cd-1197d863d5de", false, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "orga", "c80e085c-d46f-4071-8b6f-65999d6527f3", false, "Orga", "ORGA" });
+                values: new object[] { "orga", "64f5f0d0-2daf-4156-ae4f-aa53d62ecfe0", false, "Orga", "ORGA" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "user", "22737a68-cf4a-4604-8233-5b27324a1cf4", true, "User", "USER" });
+                values: new object[] { "user", "6d1801e4-1e96-49cf-b992-5ecf887b6fb5", true, "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "SystemSettings",
                 columns: new[] { "Key", "SerializedValue" },
                 values: new object[] { "AboutUs", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "AppbarBackground", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "AppbarText", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "Background", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "CustomCss", "" });
 
             migrationBuilder.InsertData(
                 table: "SystemSettings",
@@ -316,6 +337,16 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "SystemSettings",
                 columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "SecondaryColor", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
+                values: new object[] { "SecondaryTextColor", "" });
+
+            migrationBuilder.InsertData(
+                table: "SystemSettings",
+                columns: new[] { "Key", "SerializedValue" },
                 values: new object[] { "Standard", "True" });
 
             migrationBuilder.InsertData(
@@ -326,7 +357,7 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "0bb8e6d6-55c6-4398-a114-b1c924553ea9", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAECqDjxBiXjX9iP9FO10BhsJp+jEGlys2c3K7riMZxVssYZxpGFqbROLHm2kzYLD/Ag==", null, false, null, "33f9bf66-dcd2-4c1e-bff2-1219ce2398b4", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "6328f9ae-653b-49f8-a2f2-6aeface713dd", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEOz/xfGKn1MZsQECc8Vq1UY3lTWKpkE2TDhDvskpO8TFP9zdbr2DR1dIl1aq4LzgvQ==", null, false, null, "2861fa27-7022-41b8-8ba8-8af2b38d9d96", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
@@ -372,6 +403,16 @@ namespace NetEvent.Server.Migrations.Sqlite
                 table: "RoleClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
                 values: new object[] { 9, "Admin.Events.Edit", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 10, "Admin.Venues.Read", "", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "RoleClaims",
+                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
+                values: new object[] { 11, "Admin.Venues.Edit", "", "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
@@ -431,9 +472,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                 name: "Events");
 
             migrationBuilder.DropTable(
-                name: "Locations");
-
-            migrationBuilder.DropTable(
                 name: "RoleClaims");
 
             migrationBuilder.DropTable(
@@ -456,6 +494,9 @@ namespace NetEvent.Server.Migrations.Sqlite
 
             migrationBuilder.DropTable(
                 name: "UserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Venues");
 
             migrationBuilder.DropTable(
                 name: "Role");

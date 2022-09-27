@@ -11,5 +11,15 @@
 
             return $"/event/{id}";
         }
+
+        public static string GetVenueLink(object id, bool edit = true)
+        {
+            if (edit)
+            {
+                return $"/administration/venue/{id}";
+            }
+
+            return $"/venue/{id}";
+        }
     }
 }

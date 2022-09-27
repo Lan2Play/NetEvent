@@ -1,6 +1,6 @@
 ﻿namespace NetEvent.Shared.Dto.Event
 {
-    public class LocationDto
+    public class VenueDto
     {
         public long? Id { get; set; }
 

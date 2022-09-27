@@ -11,7 +11,7 @@ using NetEvent.Server.Data;
 namespace NetEvent.Server.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteApplicationDbContext))]
-    [Migration("20220916195604_Initial")]
+    [Migration("20220927204851_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,6 +102,20 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = 9,
                             ClaimType = "Admin.Events.Edit",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ClaimType = "Admin.Venues.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ClaimType = "Admin.Venues.Edit",
                             ClaimValue = "",
                             RoleId = "admin"
                         });
@@ -229,7 +243,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "22737a68-cf4a-4604-8233-5b27324a1cf4",
+                            ConcurrencyStamp = "6d1801e4-1e96-49cf-b992-5ecf887b6fb5",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -237,7 +251,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "c80e085c-d46f-4071-8b6f-65999d6527f3",
+                            ConcurrencyStamp = "64f5f0d0-2daf-4156-ae4f-aa53d62ecfe0",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -245,7 +259,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "c63dfecb-452c-48ed-aa91-e40a6211d102",
+                            ConcurrencyStamp = "86eb8a0c-f53d-48f6-94cd-1197d863d5de",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -329,7 +343,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0bb8e6d6-55c6-4398-a114-b1c924553ea9",
+                            ConcurrencyStamp = "6328f9ae-653b-49f8-a2f2-6aeface713dd",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -337,9 +351,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECqDjxBiXjX9iP9FO10BhsJp+jEGlys2c3K7riMZxVssYZxpGFqbROLHm2kzYLD/Ag==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOz/xfGKn1MZsQECc8Vq1UY3lTWKpkE2TDhDvskpO8TFP9zdbr2DR1dIl1aq4LzgvQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "33f9bf66-dcd2-4c1e-bff2-1219ce2398b4",
+                            SecurityStamp = "2861fa27-7022-41b8-8ba8-8af2b38d9d96",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -383,9 +397,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("LocationId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -401,6 +412,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.Property<int>("State")
                         .HasColumnType("INTEGER");
 
+                    b.Property<long?>("VenueId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Visibility")
                         .HasColumnType("INTEGER");
 
@@ -410,32 +424,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .IsUnique();
 
                     b.ToTable("Events", (string)null);
-                });
-
-            modelBuilder.Entity("NetEvent.Server.Models.Location", b =>
-                {
-                    b.Property<long?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("City")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Number")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ZipCode")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Locations", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Server.Models.SystemImage", b =>
@@ -520,6 +508,36 @@ namespace NetEvent.Server.Migrations.Sqlite
                         },
                         new
                         {
+                            Key = "SecondaryColor",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "SecondaryTextColor",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "Background",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AppbarBackground",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AppbarText",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "CustomCss",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
                             Key = "Standard",
                             SerializedValue = "True"
                         },
@@ -528,6 +546,35 @@ namespace NetEvent.Server.Migrations.Sqlite
                             Key = "Steam",
                             SerializedValue = "False"
                         });
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Venue", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Venues", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Shared.Dto.ThemeDto", b =>

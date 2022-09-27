@@ -579,4 +579,61 @@
   <data name="Index.Seconds" xml:space="preserve">
     <value>{0} seconds</value>
   </data>
+  <data name="Administration.AdminMenu.Venues" xml:space="preserve">
+    <value>Venues</value>
+  </data>
+  <data name="Administration.Venues.Venue.City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Administration.Venues.Venue.Create" xml:space="preserve">
+    <value>Create venue</value>
+  </data>
+  <data name="Administration.Venues.Venue.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Administration.Venues.Venue.Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Administration.Venues.Venue.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Administration.Venues.Venue.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Administration.Venues.Venue.Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Administration.Venues.Venue.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Administration.Venues.Venue.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Administration.Venues.Venue.Street" xml:space="preserve">
+    <value>Street</value>
+  </data>
+  <data name="Administration.Venues.Venue.ZipCode" xml:space="preserve">
+    <value>Zip code</value>
+  </data>
+  <data name="Index.NoUpcomingEvent" xml:space="preserve">
+    <value>No upcoming event</value>
+  </data>
+  <data name="VenueService.AddVenueAsync.Error" xml:space="preserve">
+    <value>Error adding venue {0}</value>
+  </data>
+  <data name="VenueService.AddVenueAsync.Success" xml:space="preserve">
+    <value>Venue {0} successfully added</value>
+  </data>
+  <data name="VenueService.DeleteVenueAsync.Error" xml:space="preserve">
+    <value>Error deleting venue {0}</value>
+  </data>
+  <data name="VenueService.DeleteVenueAsync.Success" xml:space="preserve">
+    <value>Venue {0} successfully deleted</value>
+  </data>
+  <data name="VenueService.UpdateVenueAsync.Error" xml:space="preserve">
+    <value>Error updating venue {0}</value>
+  </data>
+  <data name="VenueService.UpdateVenueAsync.Success" xml:space="preserve">
+    <value>Venue {0} successfully added</value>
+  </data>
 </root>

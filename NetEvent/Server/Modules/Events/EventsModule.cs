@@ -30,11 +30,6 @@ namespace NetEvent.Server.Modules.Events
             {
                 entity.ToTable(name: "Events");
             });
-
-            builder.Entity<Location>(entity =>
-            {
-                entity.ToTable(name: "Locations");
-            });
         }
     }
 }

@@ -30,10 +30,10 @@ namespace NetEvent.Server.Modules.Events.Endpoints
 
                 var convertedEvent = eventModel.ToEventDto();
 
-                if (eventModel.LocationId.HasValue)
+                if (eventModel.VenueId.HasValue)
                 {
-                    var location = await _DbContext.Locations.FindAsync(new object[] { eventModel.LocationId }, cancellationToken);
-                    convertedEvent.Location = location?.ToLocationDto();
+                    var venue = await _DbContext.Venues.FindAsync(new object[] { eventModel.VenueId }, cancellationToken);
+                    convertedEvent.Venue = venue?.ToVenueDto();
                 }
 
                 return new Response(convertedEvent);

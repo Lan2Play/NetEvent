@@ -6,9 +6,9 @@ using NetEvent.Server.Data;
 using NetEvent.Shared;
 using NetEvent.Shared.Dto.Event;
 
-namespace NetEvent.Server.Modules.Events.Endpoints
+namespace NetEvent.Server.Modules.Venues.Endpoints
 {
-    public static class GetEvent
+    public static class GetVenue
     {
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -21,30 +21,24 @@ namespace NetEvent.Server.Modules.Events.Endpoints
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                Models.Event? eventModel;
+                Models.Venue? venueModel;
                 if (request.Slug != null)
                 {
-                    eventModel = _DbContext.Events.Where(e => e.Slug != null && e.Slug.Equals(request.Slug)).FirstOrDefault();
+                    venueModel = _DbContext.Venues.Where(e => e.Slug != null && e.Slug.Equals(request.Slug)).FirstOrDefault();
                 }
                 else
                 {
-                    eventModel = await _DbContext.Events.FindAsync(new object[] { request.Id }, cancellationToken);
+                    venueModel = await _DbContext.Venues.FindAsync(new object[] { request.Id }, cancellationToken);
                 }
 
-                if (eventModel == null)
+                if (venueModel == null)
                 {
-                    return new Response(ReturnType.NotFound, "Event for Id not found!");
+                    return new Response(ReturnType.NotFound, "Venue for Id not found!");
                 }
 
-                var convertedEvent = eventModel.ToEventDto();
+                var convertedVenue = venueModel.ToVenueDto();
 
-                if (eventModel.VenueId.HasValue)
-                {
-                    var venue = await _DbContext.Venues.FindAsync(new object[] { eventModel.VenueId }, cancellationToken);
-                    convertedEvent.Venue = venue?.ToVenueDto();
-                }
-
-                return new Response(convertedEvent);
+                return new Response(convertedVenue);
             }
         }
 
@@ -65,9 +59,9 @@ namespace NetEvent.Server.Modules.Events.Endpoints
             public string? Slug { get; }
         }
 
-        public class Response : ResponseBase<EventDto>
+        public class Response : ResponseBase<VenueDto>
         {
-            public Response(EventDto? value) : base(value)
+            public Response(VenueDto? value) : base(value)
             {
             }
 

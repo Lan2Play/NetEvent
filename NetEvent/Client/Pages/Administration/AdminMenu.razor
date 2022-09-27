@@ -14,6 +14,11 @@
             <MudNavLink Href="/administration/users" Icon="@Icons.Material.Outlined.Group" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudNavLink>
         </Authorized>
     </AuthorizeView>
+    <AuthorizeView Policy="Admin.Venues.*">
+        <Authorized>
+            <MudNavLink Href="/administration/venues" Icon="@Icons.Material.Outlined.Event" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Venues"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
     <AuthorizeView Policy="Admin.Settings.*">
         <Authorized>
             <MudNavLink Href="/administration/settings" Icon="@Icons.Material.Outlined.Settings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Settings"]</MudNavLink>

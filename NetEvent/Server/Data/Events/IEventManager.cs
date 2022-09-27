@@ -15,5 +15,11 @@ namespace NetEvent.Server.Data.Events
         Task<EventResult> UpdateAsync(Event eventToUpdate);
 
         Task<EventResult> ValidateEventAsync(Event eventToValidate);
+
+        Task<EventResult> CreateVenueAsync(Venue venue);
+
+        Task<EventResult> DeleteVenueAsync(long venueId);
+
+        Task<EventResult> UpdateVenueAsync(Venue venueToUpdate);
     }
 }

@@ -7,14 +7,14 @@ using MudBlazor;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto.Event;
 
-namespace NetEvent.Client.Pages.Administration.Events
+namespace NetEvent.Client.Pages.Administration.Venues
 {
-    public partial class Events
+    public partial class Venues
     {
         #region Injects
 
         [Inject]
-        private IEventService _EventService { get; set; } = default!;
+        private IVenueService _VenueService { get; set; } = default!;
 
         [Inject]
         private ISnackbar _Snackbar { get; set; } = default!;
@@ -24,27 +24,27 @@ namespace NetEvent.Client.Pages.Administration.Events
 
         #endregion
 
-        private List<EventDto> _Events = new();
+        private List<VenueDto> _Venues = new();
         private bool _Loading = true;
 
         protected override async Task OnInitializedAsync()
         {
             var cts = new CancellationTokenSource();
 
-            _Events = await _EventService.GetEventsAsync(cts.Token);
+            _Venues = await _VenueService.GetVenuesAsync(cts.Token);
 
             _Loading = false;
         }
 
-        private async Task DeleteEvent(EventDto eventToDelete)
+        private async Task DeleteVenue(VenueDto venueToDelete)
         {
-            if (!eventToDelete.Id.HasValue)
+            if (!venueToDelete.Id.HasValue)
             {
                 return;
             }
 
             var cts = new CancellationTokenSource();
-            var result = await _EventService.DeleteEventAsync(eventToDelete.Id.Value, cts.Token);
+            var result = await _VenueService.DeleteVenueAsync(venueToDelete.Id.Value, cts.Token);
 
             if (!string.IsNullOrEmpty(result.MessageKey))
             {
@@ -53,7 +53,7 @@ namespace NetEvent.Client.Pages.Administration.Events
 
             if (result.Successful)
             {
-                _Events.Remove(eventToDelete);
+                _Venues.Remove(venueToDelete);
             }
         }
     }

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetEvent.Server.Migrations.Psql
 {
     [DbContext(typeof(PsqlApplicationDbContext))]
-    [Migration("20220916195615_Initial")]
+    [Migration("20220927204901_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,6 +109,20 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = 9,
                             ClaimType = "Admin.Events.Edit",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ClaimType = "Admin.Venues.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ClaimType = "Admin.Venues.Edit",
                             ClaimValue = "",
                             RoleId = "admin"
                         });
@@ -238,7 +252,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "3a86681d-6f14-4d8f-ba4c-ee7abd45c2e5",
+                            ConcurrencyStamp = "a06e1ade-1c9d-4c77-a0f3-99d467e55f66",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -246,7 +260,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "00af88fb-0419-4980-8c60-def6545cf12e",
+                            ConcurrencyStamp = "c27e158f-c65e-4384-bfc5-9d246cd5626c",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -254,7 +268,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "a5aa6422-0b5e-4619-84a7-eee0a35a6be4",
+                            ConcurrencyStamp = "f38604b0-94a6-4184-b85e-7ce7f4e1901c",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -338,7 +352,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4ef22797-71bc-47d4-afd7-b100f2b32e85",
+                            ConcurrencyStamp = "6ca71389-40c6-45fb-a1cb-ff08464bc6c9",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -346,9 +360,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHLwO0+SEpw8rG4AlouxmuFKLw1J7rNUPw8ceibX+gZrhM1GKQKa0eI6H6INc1wXqQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKNC7AJHGefZvJ80TkKOst4yJ0CAwMy66NYY2Gq7gyjQ9mj04ZcnjCjvtVtm1pPfUw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "07e30266-bb36-4995-a4fd-04fd2f68d9c7",
+                            SecurityStamp = "fd5adae8-9444-47a1-b62b-3664d17996fb",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -394,9 +408,6 @@ namespace NetEvent.Server.Migrations.Psql
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long?>("LocationId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -412,6 +423,9 @@ namespace NetEvent.Server.Migrations.Psql
                     b.Property<int>("State")
                         .HasColumnType("integer");
 
+                    b.Property<long?>("VenueId")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("Visibility")
                         .HasColumnType("integer");
 
@@ -421,34 +435,6 @@ namespace NetEvent.Server.Migrations.Psql
                         .IsUnique();
 
                     b.ToTable("Events", (string)null);
-                });
-
-            modelBuilder.Entity("NetEvent.Server.Models.Location", b =>
-                {
-                    b.Property<long?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
-
-                    b.Property<string>("City")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Number")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ZipCode")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Locations", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Server.Models.SystemImage", b =>
@@ -533,6 +519,36 @@ namespace NetEvent.Server.Migrations.Psql
                         },
                         new
                         {
+                            Key = "SecondaryColor",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "SecondaryTextColor",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "Background",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AppbarBackground",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AppbarText",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "CustomCss",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
                             Key = "Standard",
                             SerializedValue = "True"
                         },
@@ -541,6 +557,37 @@ namespace NetEvent.Server.Migrations.Psql
                             Key = "Steam",
                             SerializedValue = "False"
                         });
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Venue", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+
+                    b.Property<string>("City")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Venues", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Shared.Dto.ThemeDto", b =>

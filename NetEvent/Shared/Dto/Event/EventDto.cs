@@ -14,7 +14,7 @@ namespace NetEvent.Shared.Dto.Event
 
         public VisibilityStateDto Visibility { get; set; }
 
-        public LocationDto? Location { get; set; }
+        public VenueDto? Venue { get; set; }
 
         public DateTime? StartDate { get; set; }
 

@@ -20,6 +20,5 @@ namespace NetEvent.Client.Services
         Task<ServiceResult> UpdateEventAsync(EventDto eventDto, CancellationToken cancellationToken);
 
         Task<ServiceResult> CreateEventAsync(EventDto eventDto, CancellationToken cancellationToken);
-
     }
 }
