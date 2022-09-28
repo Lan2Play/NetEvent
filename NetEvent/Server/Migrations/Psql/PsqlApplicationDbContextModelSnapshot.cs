@@ -250,7 +250,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "a06e1ade-1c9d-4c77-a0f3-99d467e55f66",
+                            ConcurrencyStamp = "98bde7c3-3f9c-4c07-b22f-85e68917a379",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -258,7 +258,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "c27e158f-c65e-4384-bfc5-9d246cd5626c",
+                            ConcurrencyStamp = "fddc2206-8ba3-4ff7-afde-d135b003ef0f",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -266,7 +266,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "f38604b0-94a6-4184-b85e-7ce7f4e1901c",
+                            ConcurrencyStamp = "59960abe-2f95-41b5-a646-63435e0ed33a",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -350,7 +350,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ca71389-40c6-45fb-a1cb-ff08464bc6c9",
+                            ConcurrencyStamp = "b90d26fd-e978-4cdc-9028-3638ad35cb04",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -358,9 +358,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKNC7AJHGefZvJ80TkKOst4yJ0CAwMy66NYY2Gq7gyjQ9mj04ZcnjCjvtVtm1pPfUw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK0K924rdBP9Xk2/BG3scTH+lYQdP8AdtnYGs2NuOo08VBa65RF6hTdn6DU5CGC6PA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fd5adae8-9444-47a1-b62b-3664d17996fb",
+                            SecurityStamp = "f87626bd-e0ea-4a04-a014-46dddd78b43a",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -431,6 +431,8 @@ namespace NetEvent.Server.Migrations.Psql
 
                     b.HasIndex("Slug")
                         .IsUnique();
+
+                    b.HasIndex("VenueId");
 
                     b.ToTable("Events", (string)null);
                 });
@@ -651,6 +653,15 @@ namespace NetEvent.Server.Migrations.Psql
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Event", b =>
+                {
+                    b.HasOne("NetEvent.Server.Models.Venue", "Venue")
+                        .WithMany()
+                        .HasForeignKey("VenueId");
+
+                    b.Navigation("Venue");
                 });
 #pragma warning restore 612, 618
         }

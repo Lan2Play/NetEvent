@@ -636,4 +636,10 @@
   <data name="VenueService.UpdateVenueAsync.Success" xml:space="preserve">
     <value>Venue {0} successfully added</value>
   </data>
+  <data name="Administration.Events.Event.NoVenue" xml:space="preserve">
+    <value>No venue</value>
+  </data>
+  <data name="Administration.Events.Event.Venue" xml:space="preserve">
+    <value>Venue</value>
+  </data>
 </root>

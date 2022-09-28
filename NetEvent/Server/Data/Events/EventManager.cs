@@ -41,6 +41,7 @@ namespace NetEvent.Server.Data.Events
             var maxId = await _DbContext.Events.MaxAsync(x => x.Id);
             eventToCreate.Id = maxId.HasValue ? maxId.Value + 1 : 1;
             eventToCreate.Slug = _SlugHelper.GenerateSlug(eventToCreate.Name);
+            eventToCreate.Venue = null;
 
             var addResult = await _DbContext.Events.AddAsync(eventToCreate, CancellationToken);
             if (addResult.State == EntityState.Added)

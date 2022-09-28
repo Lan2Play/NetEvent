@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace NetEvent.Server.Models
@@ -27,5 +28,8 @@ namespace NetEvent.Server.Models
         public DateTime? EndDate { get; set; }
 
         public long? VenueId { get; set; }
+
+        [ForeignKey(nameof(VenueId))]
+        public Venue? Venue { get; set; }
     }
 }

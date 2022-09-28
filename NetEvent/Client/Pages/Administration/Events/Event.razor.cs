@@ -10,7 +10,6 @@ using NetEvent.Client.Extensions;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto.Event;
 using NetEvent.Shared.Validators;
-using static MudBlazor.CategoryTypes;
 
 namespace NetEvent.Client.Pages.Administration.Events
 {
@@ -20,6 +19,9 @@ namespace NetEvent.Client.Pages.Administration.Events
 
         [Inject]
         private IEventService _EventService { get; set; } = default!;
+
+        [Inject]
+        private IVenueService _VenueService { get; set; } = default!;
 
         [Inject]
         private ISnackbar _Snackbar { get; set; } = default!;
@@ -39,10 +41,12 @@ namespace NetEvent.Client.Pages.Administration.Events
         private bool _Loading = true;
         private MudForm? _Form = default!;
         private EventDto _Event = default!;
+        private List<VenueDto> _Venues = new();
 
         protected override async Task OnInitializedAsync()
         {
             var cts = new CancellationTokenSource();
+            _Venues = await _VenueService.GetVenuesAsync(cts.Token);
 
             if (long.TryParse(Id, out var id))
             {
@@ -50,7 +54,11 @@ namespace NetEvent.Client.Pages.Administration.Events
             }
             else
             {
-                _Event = new EventDto();
+                _Event = new EventDto
+                {
+                    StartDate = DateTime.Today.AddDays(1).AddHours(12),
+                    EndDate = DateTime.Today.AddDays(2).AddHours(12),
+                };
             }
 
             _Loading = false;
