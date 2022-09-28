@@ -13,7 +13,7 @@
 
 <div class="d-flex align-stretch flex-wrap gap-4 ma-4">
 
-    <MudButton Class="d-flex flex-grow-1 flex-column" Style="width: 200px; max-width: 300px;" Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.Add" Href="@UrlHelper.GetVenueLink("new")">@Localize["Administration.Venues.Venue.Create"]</MudButton>
+    <MudButton Class="d-flex flex-grow-1 flex-column" Style="width: 200px; max-width: 300px;" Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.Add" Href="@UrlHelper.GetVenueLink("new", true)">@Localize["Administration.Venues.Venue.Create"]</MudButton>
 
     @if (_Loading)
     {
@@ -44,7 +44,7 @@
                 }*@
             </MudCardContent>
             <MudCardActions>
-                <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetVenueLink(venueDto.Id!)" StartIcon="@Icons.Material.Outlined.Edit">@Localize["Administration.Venues.Venue.Edit"]</MudButton>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetVenueLink(venueDto.Id!, true)" StartIcon="@Icons.Material.Outlined.Edit">@Localize["Administration.Venues.Venue.Edit"]</MudButton>
                 <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@(async () => await DeleteVenue(venueDto))" StartIcon="@Icons.Material.Outlined.Delete">@Localize["Administration.Venues.Venue.Delete"]</MudButton>
             </MudCardActions>
         </MudCard>

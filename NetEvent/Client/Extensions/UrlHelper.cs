@@ -2,7 +2,7 @@
 {
     public static class UrlHelper
     {
-        public static string GetEventLink(object id, bool edit = true)
+        public static string GetEventLink(object id, bool edit)
         {
             if (edit)
             {
@@ -12,7 +12,7 @@
             return $"/event/{id}";
         }
 
-        public static string GetVenueLink(object id, bool edit = true)
+        public static string GetVenueLink(object id, bool edit)
         {
             if (edit)
             {

@@ -29,7 +29,7 @@
 
             <AuthorizeView Policy="Admin.Events.Edit">
                 <Authorized>
-                    <MudButton Class="ma-4" Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(_Event.Id!)" StartIcon="@Icons.Material.Outlined.Edit" />
+                    <MudButton Class="ma-4" Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(_Event.Id!, true)" StartIcon="@Icons.Material.Outlined.Edit" />
                 </Authorized>
             </AuthorizeView>
 
@@ -39,10 +39,17 @@
 
         @if (_Event.ShortDescription != null)
         {
-            <MudText Typo="Typo.h6">@((MarkupString)_Event.ShortDescription)</MudText>
-        <MudDivider Class="mt-4 mb-4"></MudDivider>
+            <MudText Typo="Typo.body1">@((MarkupString)_Event.ShortDescription)</MudText>
+            <MudDivider Class="mt-4 mb-4"></MudDivider>
         }
 
+        @if (_Event.Venue != null)
+        {
+            <MudText Typo="Typo.h6"><MudIcon Icon="@Icons.Material.Outlined.LocationCity"></MudIcon> @Localize["Administration.Events.Event.Venue"]</MudText>
+            <MudText Typo="Typo.body1">@_Event.Venue.Street @_Event.Venue.Number</MudText>
+            <MudText Typo="Typo.body1">@_Event.Venue.ZipCode @_Event.Venue.City</MudText>
+            <MudDivider Class="mt-4 mb-4"></MudDivider>
+        }
 
         @if (_Event.Description != null)
         {

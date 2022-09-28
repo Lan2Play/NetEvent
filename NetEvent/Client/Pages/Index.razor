@@ -1,29 +1,37 @@
 ﻿@page "/"
 
+@using NetEvent.Client.Extensions
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 <MudPaper Class="d-fullwidth d-flex justify-center flex-grow-1 gap-4" Elevation="0">
-    <MudPaper Class="mud-theme-primary pa-4 ma-4">
-        @if (_UpcomingEvent == null)
-        {
-            <MudText Typo="Typo.h3">@Localize["Index.NoUpcomingEvent"]</MudText>
-        }
-        else
-        {
-            <MudText Typo="Typo.body1">@Localize["Index.Next"]</MudText>
-            <MudText Typo="Typo.h3">@_UpcomingEvent.Name</MudText>
-            @if (_TimeLeft != null)
-            {
-                <div style="display:inline-flex;">
-                    @Localize["Index.Days", _TimeLeft.Value.Days]
-                    @Localize["Index.Hours", _TimeLeft.Value.Hours]
-                    @Localize["Index.Minutes", _TimeLeft.Value.Minutes]
-                    @Localize["Index.Seconds", _TimeLeft.Value.Seconds]
-                </div>
-            }
-        }
 
-    </MudPaper>
+    @if (_UpcomingEvent?.Id == null)
+    {
+        <MudPaper Class="mud-theme-primary pa-4 ma-4">
+            <MudText Typo="Typo.h3">@Localize["Index.NoUpcomingEvent"]</MudText>
+        </MudPaper>
+    }
+    else
+    {
+        <MudButton Color="Color.Primary" Class="pa-4 ma-4" Href="@UrlHelper.GetEventLink(_UpcomingEvent.Id, false)">
+            <div>
+                <MudText Typo="Typo.body1">@Localize["Index.Next"]</MudText>
+                <MudText Typo="Typo.h3">@_UpcomingEvent.Name</MudText>
+                @if (_TimeLeft != null)
+                {
+                    <div style="display:inline-flex;">
+                        @if (_TimeLeft.Value.Days > 0)
+                        {
+                            @Localize["Index.Days", _TimeLeft.Value.Days]
+                        }
+                        @Localize["Index.Hours", _TimeLeft.Value.Hours]
+                        @Localize["Index.Minutes", _TimeLeft.Value.Minutes]
+                        @Localize["Index.Seconds", _TimeLeft.Value.Seconds]
+                    </div>
+                }
+            </div>
+        </MudButton>
+    }
 
 </MudPaper>
 
