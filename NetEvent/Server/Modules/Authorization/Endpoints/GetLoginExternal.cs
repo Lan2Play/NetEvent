@@ -4,8 +4,8 @@ using System.Web;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Toolkit.Diagnostics;
 using NetEvent.Server.Models;
+using NetEvent.Shared;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints
 {

@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Toolkit.Diagnostics;
 using NetEvent.Server.Data.Events;
 using NetEvent.Shared;
 using NetEvent.Shared.Dto.Event;

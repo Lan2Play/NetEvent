@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Microsoft.Toolkit.Diagnostics;
 using NetEvent.Server.Data;
 using NetEvent.Shared;
 using NetEvent.Shared.Dto;
