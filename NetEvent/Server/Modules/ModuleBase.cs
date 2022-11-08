@@ -9,7 +9,9 @@ namespace NetEvent.Server.Modules
 {
     public abstract class ModuleBase : IModule
     {
-        public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
+        public abstract IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints);
+
+        public virtual IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) => endpoints;
 
         public virtual IServiceCollection RegisterModule(IServiceCollection builder)
         {

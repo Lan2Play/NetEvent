@@ -31,7 +31,8 @@ namespace NetEvent.Server.Modules
 
             foreach (var module in registeredModules)
             {
-                module.MapEndpoints(app);
+                var moduleGroup = app.MapGroup($"/api/{module.GetType().Name.Replace("Module", string.Empty, StringComparison.OrdinalIgnoreCase).ToLowerInvariant()}");
+                module.MapModuleEndpoints(moduleGroup);
             }
 
             return app;

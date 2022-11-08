@@ -8,7 +8,7 @@ namespace NetEvent.Server.Modules
     {
         IServiceCollection RegisterModule(IServiceCollection builder);
 
-        IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
+        IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints);
 
         void OnModelCreating(ModelBuilder builder);
     }

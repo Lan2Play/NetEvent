@@ -16,22 +16,29 @@ namespace NetEvent.Server.Modules.System
     [ExcludeFromCodeCoverage]
     public class SystemModule : ModuleBase
     {
+        public override IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints)
+        {
+            // BaseRoute: /api/system
+            endpoints.MapGet("/info/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemInfo.Request())));
+            endpoints.MapGet("/settings/{systemSettingGroup}/all", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemSettings.Request(systemSettingGroup))));
+            endpoints.MapGet("/settings/{systemSettingGroup}/{settingKey}", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromRoute] string settingKey, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemSetting.Request(systemSettingGroup, settingKey))));
+            endpoints.MapPost("/settings/{systemSettingGroup}", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromBody] Shared.Dto.SystemSettingValueDto systemSettingsValue, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostSystemSetting.Request(systemSettingGroup, systemSettingsValue))));
+            endpoints.MapPost("/image/{imageName}", HandleImageUpload);
+            endpoints.MapPost("/editorimage", HandleEditorImageUpload);
+            endpoints.MapGet("/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(imageName))));
+            endpoints.MapDelete("/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new DeleteSystemImage.Request(imageName))));
+            endpoints.MapGet("/image/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImages.Request())));
+
+            return endpoints;
+        }
+
         public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapGet("/api/system/info/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemInfo.Request())));
-            endpoints.MapGet("/api/system/settings/{systemSettingGroup}/all", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemSettings.Request(systemSettingGroup))));
-            endpoints.MapGet("/api/system/settings/{systemSettingGroup}/{settingKey}", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromRoute] string settingKey, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemSetting.Request(systemSettingGroup, settingKey))));
-            endpoints.MapPost("/api/system/settings/{systemSettingGroup}", async ([FromRoute] SystemSettingGroup systemSettingGroup, [FromBody] Shared.Dto.SystemSettingValueDto systemSettingsValue, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostSystemSetting.Request(systemSettingGroup, systemSettingsValue))));
-            endpoints.MapPost("/api/system/image/{imageName}", HandleImageUpload);
-            endpoints.MapPost("/api/system/editorimage", HandleEditorImageUpload);
-            endpoints.MapGet("/api/system/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(imageName))));
-            endpoints.MapDelete("/api/system/image/{imageName}", async ([FromRoute] string imageName, [FromServices] IMediator m) => ToApiResult(await m.Send(new DeleteSystemImage.Request(imageName))));
-            endpoints.MapGet("/api/system/image/all", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImages.Request())));
             endpoints.MapGet("/favicon.ico", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.OrganizationData.Favicon))));
             endpoints.MapGet("/favicon.png", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetSystemImage.Request(SystemSettings.OrganizationData.Favicon))));
             endpoints.MapGet("/css/netevent.css", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetNetEventStyle.Request())));
 
-            return endpoints;
+            return base.MapEndpoints(endpoints);
         }
 
         private async Task<IResult> HandleImageUpload(HttpRequest request, [FromRoute] string imageName, [FromServices] IMediator mediator)

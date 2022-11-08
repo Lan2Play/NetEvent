@@ -12,14 +12,15 @@ namespace NetVenue.Server.Modules.Venues
 {
     public class VenuesModule : ModuleBase
     {
-        public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
+        public override IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapGet("/api/venues/{venueId:long}", async ([FromRoute] long venueId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenue.Request(venueId))));
-            endpoints.MapGet("/api/venues/{slug}", async ([FromRoute] string slug, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenue.Request(slug))));
-            endpoints.MapGet("/api/venues", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenues.Request())));
-            endpoints.MapPost("/api/venue", async ([FromBody] VenueDto venueDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostVenue.Request(venueDto))));
-            endpoints.MapPut("/api/venue/{venueId}", async ([FromRoute] long venueId, [FromBody] VenueDto venueDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutVenue.Request(venueId, venueDto))));
-            endpoints.MapDelete("/api/venue/{venueId}", async ([FromRoute] long venueId, [FromServices] IMediator m) => ToApiResult(await m.Send(new DeleteVenue.Request(venueId))));
+            // BaseRoute: /api/venues
+            endpoints.MapGet("/{venueId:long}", async ([FromRoute] long venueId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenue.Request(venueId))));
+            endpoints.MapGet("/{slug}", async ([FromRoute] string slug, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenue.Request(slug))));
+            endpoints.MapGet("/", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenues.Request())));
+            endpoints.MapPost("/", async ([FromBody] VenueDto venueDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostVenue.Request(venueDto))));
+            endpoints.MapPut("/{venueId}", async ([FromRoute] long venueId, [FromBody] VenueDto venueDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutVenue.Request(venueId, venueDto))));
+            endpoints.MapDelete("/{venueId}", async ([FromRoute] long venueId, [FromServices] IMediator m) => ToApiResult(await m.Send(new DeleteVenue.Request(venueId))));
 
             return endpoints;
         }

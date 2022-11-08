@@ -27,7 +27,7 @@ namespace NetEvent.Client.Services
             {
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var response = await client.PostAsJsonAsync($"api/venue", venueDto, cancellationToken);
+                var response = await client.PostAsJsonAsync($"api/venues", venueDto, cancellationToken);
 
                 response.EnsureSuccessStatusCode();
 
