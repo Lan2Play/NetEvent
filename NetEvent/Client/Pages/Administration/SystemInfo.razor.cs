@@ -37,9 +37,11 @@ namespace NetEvent.Client.Pages.Administration
             }
         }
 
-        private bool FilterFuncComponents1(SystemInfoComponentEntryDto systeminfocomponententry) => FilterFuncComponents(systeminfocomponententry, searchStringComponents);
+        private bool FilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry) => InternalFilterFuncComponents(systeminfocomponententry, searchStringComponents);
 
-        private static bool FilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry, string searchString)
+        private bool FilterFuncComponentsClient(SystemInfoComponentEntryDto systeminfocomponententry) => InternalFilterFuncComponents(systeminfocomponententry, searchStringClientComponents);
+
+        private static bool InternalFilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry, string searchString)
         {
             if (string.IsNullOrWhiteSpace(searchString))
             {
