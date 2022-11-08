@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -32,10 +33,18 @@ builder.Services.AddScoped<IThemeService, ThemeService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 
 builder.Services.AddHttpClient(Constants.BackendApiHttpClientName)
-    .ConfigureHttpClient(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+    .ConfigureHttpClient(client =>
+    {
+        client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+        client.DefaultRequestVersion = HttpVersion.Version30;
+    });
 
 builder.Services.AddHttpClient(Constants.BackendApiSecuredHttpClientName)
-    .ConfigureHttpClient(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+    .ConfigureHttpClient(client =>
+    {
+        client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+        client.DefaultRequestVersion = HttpVersion.Version30;
+    })
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.AddMudServices(config =>
