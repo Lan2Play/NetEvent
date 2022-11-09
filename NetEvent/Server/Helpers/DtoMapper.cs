@@ -12,25 +12,25 @@ namespace NetEvent.Shared
     {
         public static partial UserDto ToUserDto(this ApplicationUser applicationUser);
 
-        [MapperIgnore(nameof(CurrentUserDto.ProfileImage))]
-        [MapperIgnore(nameof(AdminUserDto.Role))]
+        [MapperIgnoreTarget(nameof(CurrentUserDto.ProfileImage))]
+        [MapperIgnoreTarget(nameof(AdminUserDto.Role))]
         public static partial AdminUserDto ToAdminUserDto(this ApplicationUser applicationUser);
 
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
-        [MapperIgnore(nameof(CurrentUserDto.Claims))]
+        [MapperIgnoreTarget(nameof(CurrentUserDto.Claims))]
         public static partial CurrentUserDto ToCurrentUserDto(this ClaimsPrincipal claimsPrincipal);
 
-        [MapperIgnore(nameof(RoleDto.Claims))]
+        [MapperIgnoreTarget(nameof(RoleDto.Claims))]
         public static partial RoleDto ToRoleDto(this ApplicationRole applicationRole);
 
-        [MapperIgnore(nameof(ApplicationRole.NormalizedName))]
-        [MapperIgnore(nameof(ApplicationRole.ConcurrencyStamp))]
+        [MapperIgnoreTarget(nameof(ApplicationRole.NormalizedName))]
+        [MapperIgnoreTarget(nameof(ApplicationRole.ConcurrencyStamp))]
         public static partial ApplicationRole ToApplicationRole(this RoleDto roleDto);
 
         public static partial ClaimDto ToClaimDto(this Claim claim);
 
-        [MapperIgnore(nameof(Claim.Issuer))]
+        [MapperIgnoreTarget(nameof(Claim.Issuer))]
         public static partial Claim ToClaim(this ClaimDto claimDto);
 
         [MapProperty(nameof(SystemSettingValueDto.Value), nameof(SystemSettingValue.SerializedValue))]

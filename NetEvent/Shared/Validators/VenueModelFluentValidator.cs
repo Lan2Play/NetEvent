@@ -7,8 +7,6 @@ using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Shared.Validators
 {
-
-
     public class VenueModelFluentValidator : AbstractValidator<VenueDto>
     {
         public VenueModelFluentValidator()

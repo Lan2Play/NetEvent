@@ -15,7 +15,6 @@ using NetEvent.Server.Models;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
 using Xunit;
-using static NetEvent.Shared.Config.SystemSettings;
 
 namespace NetEvent.Server.Tests
 {
@@ -121,14 +120,10 @@ namespace NetEvent.Server.Tests
         [Fact]
         public async Task PostOrganizationHandler_Error_Test()
         {
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-
             var responseCreate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto(null, "value")));
             Assert.False(responseCreate.IsSuccessStatusCode);
             var responseUpdate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto("key", null)));
             Assert.False(responseUpdate.IsSuccessStatusCode);
-
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
 
         [Fact]

@@ -8,7 +8,7 @@ namespace NetEvent.Shared
     {
         public static void IsNotNull(object o, string name)
         {
-            if(o == null)
+            if (o == null)
             {
                 throw new ArgumentNullException(name);
             }

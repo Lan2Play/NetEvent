@@ -12,7 +12,5 @@
         public static SystemSettingBuilder AuthenticationBuilder { get; } = new SystemSettingBuilder(SystemSettingGroup.AuthenticationData);
 
         public SystemSettingGroup SettingGroup { get; }
-
-      
     }
 }

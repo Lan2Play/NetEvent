@@ -10,7 +10,7 @@ namespace NetEvent.Client.Services
         Task<List<VenueDto>> GetVenuesAsync(CancellationToken cancellationToken);
 
         Task<VenueDto?> GetVenueAsync(long id, CancellationToken cancellationToken);
-        
+
         Task<VenueDto?> GetVenueAsync(string slug, CancellationToken cancellationToken);
 
         Task<ServiceResult> DeleteVenueAsync(long id, CancellationToken cancellationToken);

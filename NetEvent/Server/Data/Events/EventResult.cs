@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace NetEvent.Server.Data.Events
 {
-
     /// <summary>
     /// Represents the result of an Event operation.
     /// </summary>
