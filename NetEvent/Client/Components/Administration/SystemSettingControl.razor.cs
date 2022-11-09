@@ -23,11 +23,11 @@ namespace NetEvent.Client.Components.Administration
             get => Value!.Value;
             set
             {
-                _ = OnSettingsValueChanged(value);
+                OnSettingsValueChanged(value);
             }
         }
 
-        private async Task OnSettingsValueChanged<T>(T? value)
+        private void OnSettingsValueChanged<T>(T? value)
         {
             var stringValue = value?.ToString() ?? string.Empty;
             if (stringValue.Equals(SettingValue))
@@ -35,8 +35,8 @@ namespace NetEvent.Client.Components.Administration
                 return;
             }
 
-            _ = await _SystemSettingsDataService.UpdateSystemSetting(SystemSetting.SettingType, new SystemSettingValueDto(SystemSetting.Key, stringValue), CancellationToken.None);
             Value!.Value = stringValue;
+            _SystemSettingsDataService.UpdateSystemSetting(SystemSetting.SettingType, new SystemSettingValueDto(SystemSetting.Key, stringValue), CancellationToken.None);
         }
     }
 }

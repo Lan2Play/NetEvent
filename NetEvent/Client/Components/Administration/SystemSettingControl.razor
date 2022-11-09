@@ -19,7 +19,7 @@
                 {
                     <MudField Label="@Localize[SystemSetting.LabelKey]" Margin="Margin.Dense" Variant="Variant.Outlined" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])">
                         <MudText Style="height: 500px; overflow-y: scroll;">
-                            <Editor @bind-Value="SettingValue" Inline="true" ScriptSrc="/lib/tinymce/tinymce.min.js" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                            <Editor Value="@SettingValue" ValueChanged="@OnSettingsValueChanged" Inline="true" ScriptSrc="/lib/tinymce/tinymce.min.js" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
                         </MudText>
                     </MudField>
                 }
