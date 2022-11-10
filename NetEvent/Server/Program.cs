@@ -113,12 +113,10 @@ var app = builder.Build();
 
 using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
-    using (var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
+    using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    if (context.Database.IsRelational())
     {
-        if (context.Database.IsRelational())
-        {
-            context.Database.Migrate();
-        }
+        context.Database.Migrate();
     }
 }
 
@@ -146,11 +144,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseExceptionHandler(new ExceptionHandlerOptions() { AllowStatusCode404Response = true, ExceptionHandlingPath = "/error" });
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapFallbackToFile("index.html");
-});
+app.MapFallbackToFile("index.html");
 
 app.MapEndpoints();
 

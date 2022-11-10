@@ -16,6 +16,8 @@ namespace NetEvent.Shared
         [MapperIgnoreTarget(nameof(AdminUserDto.Role))]
         public static partial AdminUserDto ToAdminUserDto(this ApplicationUser applicationUser);
 
+        public static partial CurrentUserDto ToCurrentUserDto(this ApplicationUser applicationUser);
+
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
         [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
         [MapperIgnoreTarget(nameof(CurrentUserDto.Claims))]
