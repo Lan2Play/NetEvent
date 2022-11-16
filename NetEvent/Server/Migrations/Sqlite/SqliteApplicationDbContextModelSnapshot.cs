@@ -15,7 +15,7 @@ namespace NetEvent.Server.Migrations.Sqlite
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.8");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -50,70 +50,77 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = 2,
-                            ClaimType = "Admin.Users.Edit",
+                            ClaimType = "Admin.Users.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 3,
-                            ClaimType = "Admin.Settings.Organization.Read",
+                            ClaimType = "Admin.Roles.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 4,
-                            ClaimType = "Admin.Settings.Organization.Edit",
+                            ClaimType = "Admin.Roles.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 5,
-                            ClaimType = "Admin.SystemInfo.Read",
+                            ClaimType = "Admin.System.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 6,
-                            ClaimType = "Admin.Images.Read",
+                            ClaimType = "Admin.System.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 7,
-                            ClaimType = "Admin.Images.Edit",
+                            ClaimType = "Admin.Images.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 8,
-                            ClaimType = "Admin.Events.Read",
+                            ClaimType = "Admin.Images.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 9,
-                            ClaimType = "Admin.Events.Edit",
+                            ClaimType = "Admin.Events.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 10,
-                            ClaimType = "Admin.Venues.Read",
+                            ClaimType = "Admin.Events.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 11,
-                            ClaimType = "Admin.Venues.Edit",
+                            ClaimType = "Admin.Venues.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ClaimType = "Admin.Venues.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         });
@@ -241,7 +248,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "4e1b5e21-808f-407a-adca-5af6d516b0d2",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -249,7 +255,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "86460d50-c478-4050-87ab-76163a498355",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -257,7 +262,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "81aad7a4-0b6f-46a7-a47d-e9ac44c80162",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -341,7 +345,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f37e765-7dd5-4c58-9a38-b0d6929bd957",
+                            ConcurrencyStamp = "fe16679b-162c-4973-b99a-634f4feabafc",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -349,9 +353,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP1xr01HcOeBhC7EoPc59E05HcGyBG6ITrG4DHvire4+aZn0Q1hvVmvtugIbsuo99g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJMi2TvsXaZwHwgFKGpBzeTohTCN22sOJddbbMK1lw0g7gCZ/zgec7/K7fgqVAkvqw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "157be899-ad3d-4c37-b28c-1609db357262",
+                            SecurityStamp = "2a48231d-394a-482b-a260-840ba336e17e",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

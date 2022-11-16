@@ -4,10 +4,14 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace NetEvent.Server.Migrations.Psql
 {
+    /// <inheritdoc />
     public partial class Initial : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -265,9 +269,9 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "admin", "59960abe-2f95-41b5-a646-63435e0ed33a", false, "Admin", "ADMIN" },
-                    { "orga", "fddc2206-8ba3-4ff7-afde-d135b003ef0f", false, "Orga", "ORGA" },
-                    { "user", "98bde7c3-3f9c-4c07-b22f-85e68917a379", true, "User", "USER" }
+                    { "admin", null, false, "Admin", "ADMIN" },
+                    { "orga", null, false, "Orga", "ORGA" },
+                    { "user", null, true, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -297,7 +301,7 @@ namespace NetEvent.Server.Migrations.Psql
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "b90d26fd-e978-4cdc-9028-3638ad35cb04", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEK0K924rdBP9Xk2/BG3scTH+lYQdP8AdtnYGs2NuOo08VBa65RF6hTdn6DU5CGC6PA==", null, false, null, "f87626bd-e0ea-4a04-a014-46dddd78b43a", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "001e4c57-92ae-4187-b188-8c347a1f7387", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAIAAYagAAAAEONyZiIGnQEFUTHsFSca81grWKPEZOGcrczXdpU3wjEApnmTXPYrKk4YjmAPQoqOmQ==", null, false, null, "d0804971-15ca-4a8d-88a2-f447f6b6382f", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
@@ -305,16 +309,17 @@ namespace NetEvent.Server.Migrations.Psql
                 values: new object[,]
                 {
                     { 1, "Admin.Users.Read", "", "admin" },
-                    { 2, "Admin.Users.Edit", "", "admin" },
-                    { 3, "Admin.Settings.Organization.Read", "", "admin" },
-                    { 4, "Admin.Settings.Organization.Edit", "", "admin" },
-                    { 5, "Admin.SystemInfo.Read", "", "admin" },
-                    { 6, "Admin.Images.Read", "", "admin" },
-                    { 7, "Admin.Images.Edit", "", "admin" },
-                    { 8, "Admin.Events.Read", "", "admin" },
-                    { 9, "Admin.Events.Edit", "", "admin" },
-                    { 10, "Admin.Venues.Read", "", "admin" },
-                    { 11, "Admin.Venues.Edit", "", "admin" }
+                    { 2, "Admin.Users.Write", "", "admin" },
+                    { 3, "Admin.Roles.Read", "", "admin" },
+                    { 4, "Admin.Roles.Write", "", "admin" },
+                    { 5, "Admin.System.Read", "", "admin" },
+                    { 6, "Admin.System.Write", "", "admin" },
+                    { 7, "Admin.Images.Read", "", "admin" },
+                    { 8, "Admin.Images.Write", "", "admin" },
+                    { 9, "Admin.Events.Read", "", "admin" },
+                    { 10, "Admin.Events.Write", "", "admin" },
+                    { 11, "Admin.Venues.Read", "", "admin" },
+                    { 12, "Admin.Venues.Write", "", "admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -371,6 +376,7 @@ namespace NetEvent.Server.Migrations.Psql
                 column: "RoleId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

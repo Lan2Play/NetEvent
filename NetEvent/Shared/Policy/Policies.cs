@@ -8,16 +8,17 @@ namespace NetEvent.Shared.Policy
         public static string[] AvailablePolicies { get; } = new string[]
         {
             "Admin.Users.Read",
-            "Admin.Users.Edit",
-            "Admin.Settings.Organization.Read",
-            "Admin.Settings.Organization.Edit",
-            "Admin.SystemInfo.Read",
+            "Admin.Users.Write",
+            "Admin.Roles.Read",
+            "Admin.Roles.Write",
+            "Admin.System.Read",
+            "Admin.System.Write",
             "Admin.Images.Read",
-            "Admin.Images.Edit",
+            "Admin.Images.Write",
             "Admin.Events.Read",
-            "Admin.Events.Edit",
+            "Admin.Events.Write",
             "Admin.Venues.Read",
-            "Admin.Venues.Edit",
+            "Admin.Venues.Write",
         };
 
         public static AuthorizationOptions AddPolicies(this AuthorizationOptions options)

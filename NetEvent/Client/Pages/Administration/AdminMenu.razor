@@ -19,18 +19,10 @@
             <MudNavLink Href="/administration/venues" Icon="@Icons.Material.Outlined.Event" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Venues"]</MudNavLink>
         </Authorized>
     </AuthorizeView>
-    <AuthorizeView Policy="Admin.Settings.*">
+    <AuthorizeView Policy="Admin.System.*">
         <Authorized>
             <MudNavLink Href="/administration/settings" Icon="@Icons.Material.Outlined.Settings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Settings"]</MudNavLink>
-        </Authorized>
-    </AuthorizeView>
-    <AuthorizeView Policy="Admin.SystemInfo.*">
-        <Authorized>
             <MudNavLink Href="/administration/systeminfo" Icon="@Icons.Material.Outlined.Info" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.SystemInfo"]</MudNavLink>
-        </Authorized>
-    </AuthorizeView>
-    <AuthorizeView Policy="Admin.Images.*">
-        <Authorized>
             <MudNavLink Href="/administration/images" Icon="@Icons.Material.Outlined.Image" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Images"]</MudNavLink>
         </Authorized>
     </AuthorizeView>

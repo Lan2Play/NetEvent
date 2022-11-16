@@ -27,7 +27,7 @@
                 <MudChip Color="GetStateColor(_Event.State)" Class="ma-4 d-inline">@Localize["Administration.Events.Event.PublishState." + @_Event.State.ToString()]</MudChip>
             }
 
-            <AuthorizeView Policy="Admin.Events.Edit">
+            <AuthorizeView Policy="Admin.Events.Write">
                 <Authorized>
                     <MudButton Class="ma-4" Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(_Event.Id!, true)" StartIcon="@Icons.Material.Outlined.Edit" />
                 </Authorized>

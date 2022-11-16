@@ -3,10 +3,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace NetEvent.Server.Migrations.Sqlite
 {
+    /// <inheritdoc />
     public partial class Initial : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -262,162 +266,60 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "admin", "81aad7a4-0b6f-46a7-a47d-e9ac44c80162", false, "Admin", "ADMIN" });
-
-            migrationBuilder.InsertData(
-                table: "Role",
-                columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "orga", "86460d50-c478-4050-87ab-76163a498355", false, "Orga", "ORGA" });
-
-            migrationBuilder.InsertData(
-                table: "Role",
-                columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "user", "4e1b5e21-808f-407a-adca-5af6d516b0d2", true, "User", "USER" });
+                values: new object[,]
+                {
+                    { "admin", null, false, "Admin", "ADMIN" },
+                    { "orga", null, false, "Orga", "ORGA" },
+                    { "user", null, true, "User", "USER" }
+                });
 
             migrationBuilder.InsertData(
                 table: "SystemSettings",
                 columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "AboutUs", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "AppbarBackground", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "AppbarText", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "Background", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "CustomCss", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "DataCultureInfo", "en-US" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "Favicon", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "LegalNotice", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "Logo", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "OrganizationName", "NetEvent" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "PrimaryColor", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "PrimaryTextColor", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "PrivacyPolicy", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "SecondaryColor", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "SecondaryTextColor", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "Standard", "True" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "Steam", "False" });
+                values: new object[,]
+                {
+                    { "AboutUs", "" },
+                    { "AppbarBackground", "" },
+                    { "AppbarText", "" },
+                    { "Background", "" },
+                    { "CustomCss", "" },
+                    { "DataCultureInfo", "en-US" },
+                    { "Favicon", "" },
+                    { "LegalNotice", "" },
+                    { "Logo", "" },
+                    { "OrganizationName", "NetEvent" },
+                    { "PrimaryColor", "" },
+                    { "PrimaryTextColor", "" },
+                    { "PrivacyPolicy", "" },
+                    { "SecondaryColor", "" },
+                    { "SecondaryTextColor", "" },
+                    { "Standard", "True" },
+                    { "Steam", "False" }
+                });
 
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "7f37e765-7dd5-4c58-9a38-b0d6929bd957", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEP1xr01HcOeBhC7EoPc59E05HcGyBG6ITrG4DHvire4+aZn0Q1hvVmvtugIbsuo99g==", null, false, null, "157be899-ad3d-4c37-b28c-1609db357262", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "fe16679b-162c-4973-b99a-634f4feabafc", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAIAAYagAAAAEJMi2TvsXaZwHwgFKGpBzeTohTCN22sOJddbbMK1lw0g7gCZ/zgec7/K7fgqVAkvqw==", null, false, null, "2a48231d-394a-482b-a260-840ba336e17e", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 1, "Admin.Users.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 2, "Admin.Users.Edit", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 3, "Admin.Settings.Organization.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 4, "Admin.Settings.Organization.Edit", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 5, "Admin.SystemInfo.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 6, "Admin.Images.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 7, "Admin.Images.Edit", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 8, "Admin.Events.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 9, "Admin.Events.Edit", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 10, "Admin.Venues.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 11, "Admin.Venues.Edit", "", "admin" });
+                values: new object[,]
+                {
+                    { 1, "Admin.Users.Read", "", "admin" },
+                    { 2, "Admin.Users.Write", "", "admin" },
+                    { 3, "Admin.Roles.Read", "", "admin" },
+                    { 4, "Admin.Roles.Write", "", "admin" },
+                    { 5, "Admin.System.Read", "", "admin" },
+                    { 6, "Admin.System.Write", "", "admin" },
+                    { 7, "Admin.Images.Read", "", "admin" },
+                    { 8, "Admin.Images.Write", "", "admin" },
+                    { 9, "Admin.Events.Read", "", "admin" },
+                    { 10, "Admin.Events.Write", "", "admin" },
+                    { 11, "Admin.Venues.Read", "", "admin" },
+                    { 12, "Admin.Venues.Write", "", "admin" }
+                });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
@@ -473,6 +375,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                 column: "RoleId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

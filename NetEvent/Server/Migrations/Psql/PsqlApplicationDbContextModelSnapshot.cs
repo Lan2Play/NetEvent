@@ -17,7 +17,7 @@ namespace NetEvent.Server.Migrations.Psql
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -57,70 +57,77 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = 2,
-                            ClaimType = "Admin.Users.Edit",
+                            ClaimType = "Admin.Users.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 3,
-                            ClaimType = "Admin.Settings.Organization.Read",
+                            ClaimType = "Admin.Roles.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 4,
-                            ClaimType = "Admin.Settings.Organization.Edit",
+                            ClaimType = "Admin.Roles.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 5,
-                            ClaimType = "Admin.SystemInfo.Read",
+                            ClaimType = "Admin.System.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 6,
-                            ClaimType = "Admin.Images.Read",
+                            ClaimType = "Admin.System.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 7,
-                            ClaimType = "Admin.Images.Edit",
+                            ClaimType = "Admin.Images.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 8,
-                            ClaimType = "Admin.Events.Read",
+                            ClaimType = "Admin.Images.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 9,
-                            ClaimType = "Admin.Events.Edit",
+                            ClaimType = "Admin.Events.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 10,
-                            ClaimType = "Admin.Venues.Read",
+                            ClaimType = "Admin.Events.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 11,
-                            ClaimType = "Admin.Venues.Edit",
+                            ClaimType = "Admin.Venues.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ClaimType = "Admin.Venues.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         });
@@ -250,7 +257,6 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "98bde7c3-3f9c-4c07-b22f-85e68917a379",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -258,7 +264,6 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "fddc2206-8ba3-4ff7-afde-d135b003ef0f",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -266,7 +271,6 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "59960abe-2f95-41b5-a646-63435e0ed33a",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -350,7 +354,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b90d26fd-e978-4cdc-9028-3638ad35cb04",
+                            ConcurrencyStamp = "001e4c57-92ae-4187-b188-8c347a1f7387",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -358,9 +362,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK0K924rdBP9Xk2/BG3scTH+lYQdP8AdtnYGs2NuOo08VBa65RF6hTdn6DU5CGC6PA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEONyZiIGnQEFUTHsFSca81grWKPEZOGcrczXdpU3wjEApnmTXPYrKk4YjmAPQoqOmQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f87626bd-e0ea-4a04-a014-46dddd78b43a",
+                            SecurityStamp = "d0804971-15ca-4a8d-88a2-f447f6b6382f",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

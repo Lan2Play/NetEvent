@@ -11,6 +11,10 @@ namespace NetEvent.Server.Modules
     {
         public abstract IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints);
 
+        public virtual IEndpointRouteBuilder MapModuleReadAuthEndpoints(IEndpointRouteBuilder endpoints) => endpoints;
+
+        public virtual IEndpointRouteBuilder MapModuleWriteAuthEndpoints(IEndpointRouteBuilder endpoints) => endpoints;
+
         public virtual IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) => endpoints;
 
         public virtual IServiceCollection RegisterModule(IServiceCollection builder)
