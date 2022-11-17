@@ -35,7 +35,7 @@ builder.WebHost.ConfigureKestrel((context, options) =>
     });
 });
 
-switch (builder.Configuration["DBProvider"].ToLower())
+switch (builder.Configuration["DBProvider"]?.ToLower())
 {
     case "sqlite":
         {

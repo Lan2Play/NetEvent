@@ -48,6 +48,12 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                 }
 
                 var refreshedUser = await _SignInManager.CreateUserPrincipalAsync(user);
+                if (refreshedUser?.Identity == null)
+                {
+                    const string errorMessage = "Error creating user principal.";
+                    _Logger.LogError(errorMessage);
+                    return new Response(ReturnType.Error, errorMessage);
+                }
 
                 var currentUser = user.ToCurrentUserDto();
                 currentUser.IsAuthenticated = refreshedUser.Identity.IsAuthenticated;

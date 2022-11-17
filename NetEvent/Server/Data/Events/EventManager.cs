@@ -30,7 +30,6 @@ namespace NetEvent.Server.Data.Events
                 return Task.FromResult(EventResult.Failed(new EventError { Description = "Event can not be null!" }));
             }
 
-            // TODO Add More Validation
             return Task.FromResult(EventResult.Success);
         }
 
@@ -40,6 +39,12 @@ namespace NetEvent.Server.Data.Events
             eventToCreate.Id = maxId.HasValue ? maxId.Value + 1 : 1;
             eventToCreate.Slug = _SlugHelper.GenerateSlug(eventToCreate.Name);
             eventToCreate.Venue = null;
+
+            var validationResult = await ValidateEventAsync(eventToCreate);
+            if (!validationResult.Succeeded)
+            {
+                return validationResult;
+            }
 
             var addResult = await _DbContext.Events.AddAsync(eventToCreate, CancellationToken);
             if (addResult.State == EntityState.Added)

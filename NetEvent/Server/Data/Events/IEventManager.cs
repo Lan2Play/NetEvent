@@ -16,7 +16,7 @@ namespace NetEvent.Server.Data.Events
 
         Task<EventResult> ValidateEventAsync(Event eventToValidate);
 
-        Task<EventResult> CreateVenueAsync(Venue venue);
+        Task<EventResult> CreateVenueAsync(Venue venueToCreate);
 
         Task<EventResult> DeleteVenueAsync(long venueId);
 

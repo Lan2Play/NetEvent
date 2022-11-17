@@ -2,9 +2,9 @@
 
 namespace NetEvent.Shared
 {
-    public class Guard
+    public static class Guard
     {
-        public static void IsNotNull(object o, string name)
+        public static void IsNotNull(object? o, string name)
         {
             if (o == null)
             {
