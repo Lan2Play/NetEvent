@@ -11,14 +11,12 @@ namespace NetEvent.Server.Data.Events
     public class EventManager : IEventManager
     {
         private readonly ApplicationDbContext _DbContext;
-        private readonly IServiceProvider _Services;
         private readonly ILogger<EventManager> _Logger;
         private readonly ISlugHelper _SlugHelper;
 
-        public EventManager(ApplicationDbContext dbContext, IServiceProvider services, ILogger<EventManager> logger, ISlugHelper slugHelper)
+        public EventManager(ApplicationDbContext dbContext, ILogger<EventManager> logger, ISlugHelper slugHelper)
         {
             _DbContext = dbContext;
-            _Services = services;
             _Logger = logger;
             _SlugHelper = slugHelper;
         }

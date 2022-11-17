@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace NetEvent.Client.Extensions
 {
-    public class TinyMceConfig
+    public static class TinyMceConfig
     {
         /// <summary>
         /// Provide Editor Config for TinyMce
@@ -33,8 +33,6 @@ namespace NetEvent.Client.Extensions
             { "height", 500 },
             { "quickbars_insert_toolbar", "quicktable image emoticons quicklink hr | styles | fontfamily fontsize forecolor" },
             { "quickbars_selection_toolbar", "bold italic underline | styles | fontfamily fontsize forecolor | blocks | bullist numlist | indent outdent | blockquote quicklink" },
-            //{ "contextmenu", "undo redo removeformat | inserttable | cell row column deletetable | code preview fullscreen | help" },
-            //{ "toolbar", "undo redo removeformat | styles | fontfamily fontsize forecolor | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | indent outdent | numlist bullist | link image table emoticons | code preview fullscreen" }
         };
     }
 }

@@ -24,7 +24,7 @@
         <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Primary" Href="/" Match="NavLinkMatch.Prefix">
             @if (!string.IsNullOrEmpty(_Logo))
             {
-                <MudImage Src="@_Logo" Class="img-logo"></MudImage>
+                <MudImage Src="@_Logo" Class="img-logo" Style="height: var(--mud-appbar-height);"></MudImage>
             }
             <h1>@_OrganizationName</h1>
         </MudButton>

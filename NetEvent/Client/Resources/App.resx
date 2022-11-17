@@ -657,4 +657,10 @@
   <data name="Login.WithSteam" xml:space="preserve">
     <value>Login with Steam</value>
   </data>
+  <data name="LegalNotice.LegalNotice" xml:space="preserve">
+    <value>Legal notice</value>
+  </data>
+  <data name="LegalNotice.PrivacyPolicy" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
 </root>

@@ -37,7 +37,7 @@ namespace NetEvent.Server.Modules.Events.Endpoints
             public Request(long id, EventDto eventDto)
             {
                 Guard.IsNotNull(eventDto, nameof(eventDto));
-                Guard.IsNotNull(eventDto.Id, nameof(eventDto));
+                Guard.IsNotNull(eventDto!.Id, nameof(eventDto));
 
                 Id = id;
                 Event = eventDto;

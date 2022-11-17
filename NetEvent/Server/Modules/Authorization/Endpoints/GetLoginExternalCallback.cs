@@ -42,6 +42,11 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                 if (externalLoginResult.Succeeded)
                 {
                     var existingUser = await _UserManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey).ConfigureAwait(false);
+                    if (existingUser == null)
+                    {
+                        const string errorMessage = "Existing user not found.";
+                        return new Response(ReturnType.Error, errorMessage);
+                    }
 
                     if (existingUser.EmailConfirmed)
                     {

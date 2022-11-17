@@ -34,7 +34,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
 
                 var existingRole = await _UserDbContext.FindAsync<ApplicationRole>(new[] { request.RoleId }, cancellationToken).ConfigureAwait(false);
 
-                if (existingRole == null)
+                if (string.IsNullOrEmpty(existingRole?.Name))
                 {
                     return new Response(ReturnType.NotFound, $"Role {request.RoleId} not found in database.");
                 }

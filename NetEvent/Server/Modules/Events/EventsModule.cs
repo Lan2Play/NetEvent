@@ -18,7 +18,7 @@ namespace NetEvent.Server.Modules.Events
             endpoints.MapGet("/{eventId:long}", async ([FromRoute] long eventId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetEvent.Request(eventId))));
             endpoints.MapGet("/{slug}", async ([FromRoute] string slug, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetEvent.Request(slug))));
             endpoints.MapGet("/", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetEvents.Request())));
-     
+
             return endpoints;
         }
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Xml.Linq;
-using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Shared
 {

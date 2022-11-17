@@ -3,8 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Localization;
-using MudBlazor;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto.Event;
 
@@ -19,7 +17,7 @@ namespace NetEvent.Client.Shared
 
         #endregion
 
-        private List<EventDto> _Events = new List<EventDto>();
+        private List<EventDto> _Events = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -34,7 +32,7 @@ namespace NetEvent.Client.Shared
             Navigation.NavigateTo("/");
         }
 
-        private string GetEventUrl(EventDto eventDto)
+        private static string GetEventUrl(EventDto eventDto)
         {
             return $"/event/{eventDto.Slug}";
         }

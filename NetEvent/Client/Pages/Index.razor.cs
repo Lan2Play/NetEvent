@@ -19,7 +19,8 @@ namespace NetEvent.Client.Pages
         private IEventService _EventService { get; set; } = default!;
 
         #endregion
-        private static System.Timers.Timer? _Timer;
+
+        private System.Timers.Timer? _Timer;
 
         private string? _OrganizationName;
         private string? _OrganizationAboutUs;
@@ -46,7 +47,7 @@ namespace NetEvent.Client.Pages
         {
             if (_UpcomingEvent != null)
             {
-                _TimeLeft = _UpcomingEvent.StartDate - System.DateTime.UtcNow;
+                _TimeLeft = _UpcomingEvent.StartDate - DateTime.UtcNow;
                 StateHasChanged();
             }
         }

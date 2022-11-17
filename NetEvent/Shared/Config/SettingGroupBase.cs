@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace NetEvent.Shared.Config
 {
-
     public abstract class SettingGroupBase : ISettingsGroup
     {
         private readonly Collection<SystemSetting> _Settings = new();

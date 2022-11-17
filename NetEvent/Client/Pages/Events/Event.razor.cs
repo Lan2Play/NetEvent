@@ -7,7 +7,6 @@ using MudBlazor;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Event;
-using NetEvent.Shared.Validators;
 
 namespace NetEvent.Client.Pages.Events
 {
@@ -48,7 +47,7 @@ namespace NetEvent.Client.Pages.Events
             _Loading = false;
         }
 
-        private Color GetStateColor(PublishStateDto state)
+        private static Color GetStateColor(PublishStateDto state)
         {
             switch (state)
             {
@@ -56,6 +55,8 @@ namespace NetEvent.Client.Pages.Events
                     return Color.Error;
                 case PublishStateDto.Preview:
                     return Color.Warning;
+                case PublishStateDto.Published:
+                    return Color.Transparent;
                 default:
                     throw new NotSupportedException($"PublishState {state} is not supported!");
             }

@@ -40,6 +40,13 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                 var userId = request.User.Id();
                 var user = await _UserManager.FindByIdAsync(userId);
 
+                if (user == null)
+                {
+                    const string errorMessage = "User not found.";
+                    _Logger.LogError(errorMessage);
+                    return new Response(ReturnType.Error, errorMessage);
+                }
+
                 var refreshedUser = await _SignInManager.CreateUserPrincipalAsync(user);
 
                 var currentUser = user.ToCurrentUserDto();

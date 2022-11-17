@@ -37,7 +37,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
             public Request(long id, VenueDto venueDto)
             {
                 Guard.IsNotNull(venueDto, nameof(venueDto));
-                Guard.IsNotNull(venueDto.Id, nameof(venueDto));
+                Guard.IsNotNull(venueDto!.Id, nameof(venueDto));
 
                 Id = id;
                 Venue = venueDto;

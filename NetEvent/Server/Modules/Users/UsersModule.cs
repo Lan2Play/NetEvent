@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using NetEvent.Server.Modules.Users.Endpoints;
 using NetEvent.Shared.Dto;
-using NetEvent.Shared.Policy;
 
 namespace NetEvent.Server.Modules.Users
 {

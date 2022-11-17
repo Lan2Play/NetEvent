@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules.System.Endpoints;
 using NetEvent.Shared.Config;
-using NetEvent.Shared.Policy;
 
 namespace NetEvent.Server.Modules.System
 {

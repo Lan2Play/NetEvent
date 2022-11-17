@@ -21,6 +21,11 @@ using Slugify;
 
 var builder = WebApplication.CreateBuilder(args);
 
+if (builder.Configuration == null)
+{
+    return;
+}
+
 builder.WebHost.ConfigureKestrel((context, options) =>
 {
     options.ListenAnyIP(5001, listenOptions =>

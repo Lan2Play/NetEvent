@@ -33,7 +33,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
                 }
 
                 var applicationRole = request.Role.ToApplicationRole();
-                applicationRole.Id = applicationRole.Name.ToLowerInvariant();
+                applicationRole.Id = applicationRole.Name!.ToLowerInvariant();
                 applicationRole.NormalizedName = applicationRole.Name.ToUpperInvariant();
 
                 var createResult = await _RoleManager.CreateAsync(applicationRole);
