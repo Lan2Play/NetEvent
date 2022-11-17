@@ -1,7 +1,7 @@
 name: NetEvent_test_and_build
 on:
   push:
-    branches: 
+    branches:
     - main
     - develop
     tags: [ v**]
@@ -18,7 +18,7 @@ on:
     - '!.github/dependabot.yml'
   pull_request:
     types: [opened, synchronize, reopened]
-    branches: 
+    branches:
     - main
     - develop
     - 'feature/**'
@@ -49,9 +49,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0 
+          fetch-depth: 0
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -80,7 +84,7 @@ jobs:
         run: dotnet restore
       - name: start sonarscanner
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.NETEVENT_SONAR_TOKEN }}
         run:  ./sonar/scanner/dotnet-sonarscanner begin /k:"Lan2Play_NetEvent" /o:"lan2play" /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="./**/*.opencover.xml"
       - name: dotnet build
@@ -90,9 +94,9 @@ jobs:
       - name: stop sonarscanner
         if: always()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.NETEVENT_SONAR_TOKEN }}
-        run: ./sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}"      
+        run: ./sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}"
 
   build_docker_linux_x64:
     runs-on: ubuntu-latest
@@ -110,10 +114,10 @@ jobs:
         run: docker pull lan2play/netevent
       - name: set Version
         if: ${{ (startsWith(github.ref, 'refs/tags/v')) }}
-        run:  echo "NETEVENTNETVER=$(echo ${GITHUB_REF} | sed 's|refs/heads/||g' | sed 's|refs/tags/v||g' | sed 's|-beta||g' )" >> $GITHUB_ENV  
+        run:  echo "NETEVENTNETVER=$(echo ${GITHUB_REF} | sed 's|refs/heads/||g' | sed 's|refs/tags/v||g' | sed 's|-beta||g' )" >> $GITHUB_ENV
       - name: set Version
         if: ${{ !(startsWith(github.ref, 'refs/tags/v')) }}
-        run:  echo "NETEVENTNETVER=0.0.1" >> $GITHUB_ENV  
+        run:  echo "NETEVENTNETVER=0.0.1" >> $GITHUB_ENV
       - name: Build Linux Image
         uses: docker/build-push-action@v3.1.1
         with:

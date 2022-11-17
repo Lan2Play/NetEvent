@@ -17,7 +17,7 @@ RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 RUN rm packages-microsoft-prod.deb
-RUN apt-get update -qqy && apt-get install -y dotnet-sdk-6.0 python3 python3-pip wget
+RUN apt-get update -qqy && apt-get install -y dotnet-sdk-7.0 python3 python3-pip wget
 RUN pip install lastversion
 RUN eval apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -34,8 +34,8 @@ RUN dotnet publish ./Server/NetEvent.Server.csproj -c Release -p:PublishProfile=
 # Final stage
 # -----------
 
-FROM debian:11 
-LABEL org.opencontainers.image.authors="Alexander@volzit.de" 
+FROM debian:11
+LABEL org.opencontainers.image.authors="Alexander@volzit.de"
 
 #dotnet config
 ENV ASPNETCORE_URLS="http://+:5000"
@@ -66,12 +66,12 @@ RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 RUN rm packages-microsoft-prod.deb
-RUN apt-get update -qqy && apt-get install -y aspnetcore-runtime-6.0 netcat curl
+RUN apt-get update -qqy && apt-get install -y aspnetcore-runtime-7.0 netcat curl
 RUN eval apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #copy NetEvent files
 WORKDIR /NetEvent
-COPY --from=build /NetEvent/Server/bin/Release/net6.0/publish /NetEvent
+COPY --from=build /NetEvent/Server/bin/Release/net7.0/publish /NetEvent
 RUN chmod +x NetEvent.Server
 
 #versioning
@@ -87,7 +87,7 @@ ENV BUILDNODE=$BUILDNODE
 #Expose the port used
 EXPOSE 5000/tcp
 
-#User 
+#User
 USER NetEvent
 
 # run
