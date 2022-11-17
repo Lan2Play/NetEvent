@@ -67,14 +67,14 @@ namespace NetEvent.Shared.Config
 
             public StyleData() : base(SystemSettingGroup.StyleData)
             {
-                CreateSystemSettingWithHint(PrimaryColor, new ColorValueType(string.Empty));
-                CreateSystemSettingWithHint(PrimaryTextColor, new ColorValueType(string.Empty));
-                CreateSystemSettingWithHint(SecondaryColor, new ColorValueType(string.Empty));
-                CreateSystemSettingWithHint(SecondaryTextColor, new ColorValueType(string.Empty));
-                CreateSystemSettingWithHint(Background, new ColorValueType(string.Empty));
-                CreateSystemSettingWithHint(AppbarBackground, new ColorValueType(string.Empty));
-                CreateSystemSettingWithHint(AppbarText, new ColorValueType(string.Empty));
-                CreateSystemSettingWithHint(CustomCss, new StringValueType(string.Empty));
+                CreateSystemSetting(PrimaryColor, new ColorValueType(string.Empty));
+                CreateSystemSetting(PrimaryTextColor, new ColorValueType(string.Empty));
+                CreateSystemSetting(SecondaryColor, new ColorValueType(string.Empty));
+                CreateSystemSetting(SecondaryTextColor, new ColorValueType(string.Empty));
+                CreateSystemSetting(Background, new ColorValueType(string.Empty));
+                CreateSystemSetting(AppbarBackground, new ColorValueType(string.Empty));
+                CreateSystemSetting(AppbarText, new ColorValueType(string.Empty));
+                CreateSystemSetting(CustomCss, new StringValueType(string.Empty));
             }
 
             // All possible css variables are here https://mudblazor.com/customization/default-theme

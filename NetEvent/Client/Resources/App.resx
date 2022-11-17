@@ -642,4 +642,10 @@
   <data name="Administration.Events.Event.Venue" xml:space="preserve">
     <value>Venue</value>
   </data>
+  <data name="SystemSetting.StyleData.SecondaryColor.Label" xml:space="preserve">
+    <value>Secondary color</value>
+  </data>
+  <data name="SystemSetting.StyleData.SecondaryTextColor.Label" xml:space="preserve">
+    <value>Secondary text color</value>
+  </data>
 </root>
