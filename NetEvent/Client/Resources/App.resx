@@ -642,6 +642,12 @@
   <data name="Administration.Events.Event.Venue" xml:space="preserve">
     <value>Venue</value>
   </data>
+  <data name="SystemSetting.OrganizationData.AboutUs.Hint" xml:space="preserve">
+    <value>The content is shown on the Landing Page</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.Favicon.Hint" xml:space="preserve">
+    <value>Icon used in browser tabs</value>
+  </data>
   <data name="SystemSetting.StyleData.SecondaryColor.Label" xml:space="preserve">
     <value>Secondary color</value>
   </data>

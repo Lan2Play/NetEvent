@@ -32,13 +32,13 @@ namespace NetEvent.Shared.Config
 
             public OrganizationData() : base(SystemSettingGroup.OrganizationData)
             {
-                CreateSystemSettingWithHint(OrganizationName, new StringValueType("NetEvent"));
+                CreateSystemSetting(OrganizationName, new StringValueType("NetEvent"));
                 CreateSystemSettingWithHint(DataCultureInfo, new EnumValueType<string>("en-US", new List<string> { "en-US", "de-DE", "fr-FR" }));
                 CreateSystemSettingWithHint(Favicon, new ImageValueType());
-                CreateSystemSettingWithHint(Logo, new ImageValueType());
+                CreateSystemSetting(Logo, new ImageValueType());
                 CreateSystemSettingWithHint(AboutUs, new StringValueType(string.Empty, true));
-                CreateSystemSettingWithHint(LegalNotice, new StringValueType(string.Empty, true));
-                CreateSystemSettingWithHint(PrivacyPolicy, new StringValueType(string.Empty, true));
+                CreateSystemSetting(LegalNotice, new StringValueType(string.Empty, true));
+                CreateSystemSetting(PrivacyPolicy, new StringValueType(string.Empty, true));
             }
         }
 

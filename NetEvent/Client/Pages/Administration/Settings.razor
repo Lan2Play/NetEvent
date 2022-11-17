@@ -23,7 +23,9 @@
                         <MudGrid>
                             @foreach (var systemSetting in settingsGroup.Settings)
                             {
-                                <SystemSettingControl SystemSetting="systemSetting" Value="@GetValue(systemSetting.Key)" />
+                                <MudItem xs="12" md="6">
+                                    <SystemSettingControl SystemSetting="systemSetting" Value="@GetValue(systemSetting.Key)" />
+                                </MudItem>
                             }
                         </MudGrid>
                     }
