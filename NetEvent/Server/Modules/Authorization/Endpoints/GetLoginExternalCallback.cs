@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NetEvent.Server.Models;
 using NetEvent.Shared;
 
@@ -81,6 +82,12 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                 if (result.Succeeded)
                 {
                     var defaultRole = await _RoleManager.Roles.FirstAsync(x => x.IsDefault, cancellationToken);
+
+                    if (string.IsNullOrEmpty(defaultRole.Name))
+                    {
+                        return new Response(ReturnType.Error, $"No default Role found!");
+                    }
+
 
                     result = await _UserManager.AddToRoleAsync(user, defaultRole.Name).ConfigureAwait(false);
 

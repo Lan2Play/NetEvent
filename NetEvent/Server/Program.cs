@@ -81,7 +81,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddAuthorization(config => config.AddPolicies());
 builder.Services.AddAuthentication().AddSteam(options =>
 {
-    options.ApplicationKey = builder.Configuration.GetSection("SteamConfig").Get<SteamConfig>().ApplicationKey;
+    options.ApplicationKey = builder.Configuration?.GetSection("SteamConfig").Get<SteamConfig>().ApplicationKey;
 });
 
 builder.Services.RegisterModules();
