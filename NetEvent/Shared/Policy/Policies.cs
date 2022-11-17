@@ -1,25 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 
 namespace NetEvent.Shared.Policy
 {
     public static class Policies
     {
-        public static string[] AvailablePolicies { get; } = new string[]
-        {
-            "Admin.Users.Read",
-            "Admin.Users.Write",
-            "Admin.Roles.Read",
-            "Admin.Roles.Write",
-            "Admin.System.Read",
-            "Admin.System.Write",
-            "Admin.Images.Read",
-            "Admin.Images.Write",
-            "Admin.Events.Read",
-            "Admin.Events.Write",
-            "Admin.Venues.Read",
-            "Admin.Venues.Write",
-        };
+        public static string[] AvailablePolicies { get; } = LoadAllPolicies();
 
         public static AuthorizationOptions AddPolicies(this AuthorizationOptions options)
         {
@@ -53,6 +41,19 @@ namespace NetEvent.Shared.Policy
 
             options.AddPolicy(policyName, HasClaim(policyName));
             return options;
+        }
+
+        private static string[] LoadAllPolicies()
+        {
+            return LoadAllPolicies(typeof(Policy)).ToArray();
+        }
+
+        private static IEnumerable<string> LoadAllPolicies(Type parent)
+        {
+            foreach (var member in parent.GetFields())
+            {
+                yield return member.GetValue(null)!.ToString()!;
+            }
         }
     }
 }
