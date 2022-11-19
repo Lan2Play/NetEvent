@@ -10,6 +10,9 @@ is an open source software solution for organizing events, especially focused on
 
 Its currently under heavy development, so only use it for testing or development.
 
+.. image:: https://discordapp.com/api/guilds/748086853449810013/widget.png?style=banner3
+   :target: https://discord.gg/zF5C9WPWFq
+
 
 .. toctree::
    :maxdepth: 2

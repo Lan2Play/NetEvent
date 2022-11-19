@@ -29,3 +29,6 @@ Its currently under heavy development, so only use it for testing or development
 
 [![Translation status](https://translate.lan2play.de/widgets/netevent-client/-/netevent-client/multi-auto.svg)](https://translate.lan2play.de/engage/netevent-client/)
 
+## Community
+
+[![Discord](https://discordapp.com/api/guilds/748086853449810013/widget.png?style=banner3)](https://discord.gg/zF5C9WPWFq)
