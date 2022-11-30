@@ -114,6 +114,8 @@ else
     builder.Services.TryAddScoped<IEmailSender, NullEmailSender>();
 }
 
+builder.WebHost.UseStaticWebAssets();
+
 var app = builder.Build();
 
 using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())

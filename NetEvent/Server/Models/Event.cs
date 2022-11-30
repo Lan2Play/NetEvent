@@ -27,6 +27,8 @@ namespace NetEvent.Server.Models
 
         public DateTime? EndDate { get; set; }
 
+        public EventFormat eventFormat { get; set; }
+
         public long? VenueId { get; set; }
 
         [ForeignKey(nameof(VenueId))]

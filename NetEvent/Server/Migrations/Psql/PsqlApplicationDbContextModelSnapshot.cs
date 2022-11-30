@@ -354,7 +354,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "52c12867-bd72-4aab-bea4-8c28a3eb2ab4",
+                            ConcurrencyStamp = "ad7c3278-025a-4e2d-88a9-552e00f40e13",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -362,9 +362,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBFWYpReeWM5orL5YUESF1QxaL/Jii8og1m7UPYa5RlfF9Fy8THluDm4JOSsa+99Gw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAP/L7N9GLytqJf80BBxBLQ5UWeehMBsWdxgyzw5ml6bCGaRSEnO5AOFcVd3xfZCDA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8a198d21-af03-4a7d-a921-ec5aa3da97f2",
+                            SecurityStamp = "5ea9e243-c62f-4766-a4a7-897d6fc87352",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -429,6 +429,9 @@ namespace NetEvent.Server.Migrations.Psql
                         .HasColumnType("bigint");
 
                     b.Property<int>("Visibility")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("eventFormat")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

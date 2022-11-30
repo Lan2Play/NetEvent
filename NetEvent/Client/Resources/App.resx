@@ -663,4 +663,13 @@
   <data name="LegalNotice.PrivacyPolicy" xml:space="preserve">
     <value>Privacy policy</value>
   </data>
+  <data name="Administration.Events.Event.EventFormat" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="Administration.Events.Event.EventFormat.Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="Administration.Events.Event.EventFormat.Presence" xml:space="preserve">
+    <value>Presence</value>
+  </data>
 </root>

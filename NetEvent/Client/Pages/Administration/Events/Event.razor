@@ -21,9 +21,12 @@
     <div Class="d-flex flex-row" Elevation="0">
         <MudText Typo="Typo.h6" Class="ma-4">@_Event.Name</MudText>
         <MudSpacer />
-        <MudTooltip Text="@Localize["Administration.Events.Event.Show"]">
-            <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(_Event.Id!, false)" StartIcon="@Icons.Material.Outlined.TapAndPlay"></MudButton>
-        </MudTooltip>
+        @if (_Event.Id > 0)
+        {
+            <MudTooltip Text="@Localize["Administration.Events.Event.Show"]">
+                <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(_Event.Id!, false)" StartIcon="@Icons.Material.Outlined.TapAndPlay"></MudButton>
+            </MudTooltip>
+        }
     </div>
 
     <MudCard Class="ma-4">
@@ -59,6 +62,19 @@
                                   Label="@Localize["Administration.Events.Event.Name"]" />
                     </MudItem>
                     <MudItem xs="6" sm="3">
+                        <MudSelect @bind-Value="_Event.EventFormat"
+                               For="@(() => _Event.EventFormat)"
+                               Margin="Margin.Dense"
+                               Label="@Localize["Administration.Events.Event.EventFormat"]"
+                               Variant="Variant.Outlined"
+                               AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var eventFormat in Enum.GetValues<EventFormatDto>())
+                            {
+                                <MudSelectItem Value="@eventFormat">@Localize["Administration.Events.Event.EventFormat." + @eventFormat.ToString()]</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="6" lg="3">
                         <MudSelect @bind-Value="_Event.State"
                                For="@(() => _Event.State)"
                                Margin="Margin.Dense"
@@ -71,7 +87,7 @@
                             }
                         </MudSelect>
                     </MudItem>
-                    <MudItem xs="6" sm="3">
+                    <MudItem xs="6" lg="3">
                         <MudSelect @bind-Value="_Event.Visibility"
                                For="@(() => _Event.Visibility)"
                                Margin="Margin.Dense"
@@ -85,7 +101,7 @@
                     </MudItem>
                     <MudItem xs="12" sm="6">
                         <MudSelect T="VenueDto" @bind-Value="_Event.Venue"
-                               For="@(() => _Event.Venue)" 
+                               For="@(() => _Event.Venue)"
                                Clearable="true"
                                Margin="Margin.Dense"
                                Label="@Localize["Administration.Events.Event.Venue"]"

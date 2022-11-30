@@ -23,5 +23,7 @@ namespace NetEvent.Shared.Dto.Event
         public string? ShortDescription { get; set; }
 
         public string? Description { get; set; }
+
+        public EventFormatDto EventFormat { get; set; }
     }
 }
