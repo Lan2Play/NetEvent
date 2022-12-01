@@ -198,7 +198,7 @@ namespace NetEvent.Server.Tests
             using var multipartFormContent = new MultipartFormDataContent();
 
             var fileStreamContent = new StreamContent(File.OpenRead("Data/Test.png"));
-            fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            fileStreamContent.Headers.ContentType = new("image/png");
             multipartFormContent.Add(fileStreamContent, name: "image", fileName: "Test.png");
 
             var responseCreate = await Client.PostAsync("/api/system/image/testImage", multipartFormContent);
@@ -215,7 +215,7 @@ namespace NetEvent.Server.Tests
             using var multipartFormContent = new MultipartFormDataContent();
 
             var fileStreamContent = new StreamContent(File.OpenRead("Data/Test.png"));
-            fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            fileStreamContent.Headers.ContentType = new("image/png");
             multipartFormContent.Add(fileStreamContent, name: "image", fileName: "Test.png");
 
             var responseCreate = await Client.PostAsync("/api/system/image/testImage", multipartFormContent);

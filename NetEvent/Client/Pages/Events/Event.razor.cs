@@ -49,17 +49,13 @@ namespace NetEvent.Client.Pages.Events
 
         private static Color GetStateColor(PublishStateDto state)
         {
-            switch (state)
+            return state switch
             {
-                case PublishStateDto.Draft:
-                    return Color.Error;
-                case PublishStateDto.Preview:
-                    return Color.Warning;
-                case PublishStateDto.Published:
-                    return Color.Transparent;
-                default:
-                    throw new NotSupportedException($"PublishState {state} is not supported!");
-            }
+                PublishStateDto.Draft => Color.Error,
+                PublishStateDto.Preview => Color.Warning,
+                PublishStateDto.Published => Color.Transparent,
+                _ => throw new($"PublishState {state} is not supported!"),
+            };
         }
     }
 }
