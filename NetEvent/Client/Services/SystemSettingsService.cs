@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -54,7 +53,6 @@ namespace NetEvent.Client.Services
 
         public Task<SystemSettingValueDto?> GetSystemSettingAsync(SystemSettingGroup systemSettingGroup, string key, Action<SystemSettingValueDto> valueChanged, CancellationToken cancellationToken)
         {
-
             var bag = _SettingCallbacks.GetOrAdd(GetCallbackKey(systemSettingGroup, key), s => new ConcurrentBag<Action<SystemSettingValueDto>>());
             bag.Add(valueChanged);
             return GetSystemSettingAsync(systemSettingGroup, key, cancellationToken);

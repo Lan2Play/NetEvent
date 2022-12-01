@@ -18,7 +18,7 @@ namespace NetEvent.Client.Pages.Administration
 
         #endregion
         private readonly IList<SystemInfoComponentEntryDto> _ClientComponents = new List<SystemInfoComponentEntryDto>();
-        private SystemInfoDto _SystemInfos = new SystemInfoDto();
+        private SystemInfoDto _SystemInfos = new();
         private string searchStringComponents = string.Empty;
         private string searchStringClientComponents = string.Empty;
         private string searchStringVersions = string.Empty;

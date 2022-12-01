@@ -29,7 +29,7 @@ namespace NetEvent.Server.Tests
         public static Faker<ApplicationRole> ApplicationRoleFaker() => new Faker<ApplicationRole>()
             .RuleFor(r => r.IsDefault, (f, r) => f.IndexVariable == 0)
             .RuleFor(r => r.Name, (f, r) => f.Internet.UserName(f.UniqueIndex.ToString()))
-            .RuleFor(r => r.NormalizedName, (f, r) => r.Name.ToUpperInvariant())
+            .RuleFor(r => r.NormalizedName, (f, r) => r.Name?.ToUpperInvariant())
             .RuleFor(r => r.Id, (f, u) => Guid.NewGuid().ToString());
 
         public static Faker<RoleDto> RoleFaker(int numOfClaims = -1) => new Faker<RoleDto>()

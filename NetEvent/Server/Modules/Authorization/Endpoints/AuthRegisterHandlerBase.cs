@@ -52,6 +52,11 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                 { "confirmUrl", url }
             });
 
+            if (user.Email == null)
+            {
+                return false;
+            }
+
             await _EmailService.SendMailAsync("UserEmailConfirmEmailTemplate", user.Email, subjectModel, contentModel, cancellationToken).ConfigureAwait(false);
 
             return true;

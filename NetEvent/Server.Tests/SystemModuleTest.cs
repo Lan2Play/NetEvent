@@ -44,7 +44,7 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.Equal(2, response?.Count);
-            Assert.All(response, x => Assert.True(new SystemSettings.OrganizationData().Settings.First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
+            Assert.All(response!, x => Assert.True(new SystemSettings.OrganizationData().Settings.First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
             Assert.Equal(testData[0].Key, response?[0].Key);
             Assert.Equal(testData[0].SerializedValue, response?[0].Value);
             Assert.Equal(testData[1].Key, response?[1].Key);
@@ -74,7 +74,7 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.Equal(2, response?.Count);
-            Assert.All(response, x => Assert.True(new SystemSettings.AuthenticationData().Settings.First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
+            Assert.All(response!, x => Assert.True(new SystemSettings.AuthenticationData().Settings.First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
             Assert.Equal(testData[0].Key, response?[0].Key);
             Assert.Equal(testData[0].SerializedValue, response?[0].Value);
             Assert.Equal(testData[1].Key, response?[1].Key);
@@ -149,8 +149,8 @@ namespace NetEvent.Server.Tests
             Assert.Equal(currentDomain.GetAssemblies().Length, response?.Components.Count);
             Assert.NotNull(response?.Health);
             Assert.NotNull(response?.Versions);
-            Assert.NotEmpty(response?.Health);
-            Assert.NotEmpty(response?.Versions);
+            Assert.NotEmpty(response!.Health);
+            Assert.NotEmpty(response!.Versions);
             Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
             Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
             Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
@@ -173,7 +173,7 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.NotNull(response?.Versions);
-            Assert.NotEmpty(response?.Versions);
+            Assert.NotEmpty(response!.Versions);
             Assert.NotEqual(0, response?.Versions.Count);
             Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
             Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
@@ -222,13 +222,15 @@ namespace NetEvent.Server.Tests
             Assert.True(responseCreate.IsSuccessStatusCode);
 
             var images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
-            Assert.NotEmpty(images);
+            Assert.NotNull(images);
+            Assert.NotEmpty(images!);
 
             var response = await Client.DeleteAsync($"api/system/image/{images!.First().Image.Id}");
             response.EnsureSuccessStatusCode();
 
             images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
-            Assert.Empty(images);
+            Assert.NotNull(images);
+            Assert.Empty(images!);
         }
     }
 }

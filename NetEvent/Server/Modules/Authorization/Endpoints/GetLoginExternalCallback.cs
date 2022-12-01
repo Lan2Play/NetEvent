@@ -88,7 +88,6 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                         return new Response(ReturnType.Error, $"No default Role found!");
                     }
 
-
                     result = await _UserManager.AddToRoleAsync(user, defaultRole.Name).ConfigureAwait(false);
 
                     if (result.Succeeded)

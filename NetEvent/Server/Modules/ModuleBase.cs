@@ -35,17 +35,13 @@ namespace NetEvent.Server.Modules
                 return result;
             }
 
-            switch (response.ReturnType)
+            return response.ReturnType switch
             {
-                case ReturnType.Ok:
-                    return Results.Ok(response.ReturnValue);
-                case ReturnType.NotFound:
-                    return Results.NotFound();
-                case ReturnType.Error:
-                    return Results.BadRequest(response.Error);
-                default:
-                    throw new NotSupportedException($"ReturnType {response.ReturnType} is not supported!");
-            }
+                ReturnType.Ok => Results.Ok(response.ReturnValue),
+                ReturnType.NotFound => Results.NotFound(),
+                ReturnType.Error => Results.BadRequest(response.Error),
+                _ => throw new($"ReturnType {response.ReturnType} is not supported!"),
+            };
         }
     }
 }

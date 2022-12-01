@@ -11,9 +11,9 @@ namespace NetEvent.Client.Services
             MessageKey = messageKey;
         }
 
-        public static ServiceResult Success(string? messageKey = null) => new ServiceResult(true, messageKey);
+        public static ServiceResult Success(string? messageKey = null) => new(true, messageKey);
 
-        public static ServiceResult Error(string messageKey) => new ServiceResult(false, messageKey);
+        public static ServiceResult Error(string messageKey) => new(false, messageKey);
 
         public bool Successful { get; }
 
