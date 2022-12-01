@@ -672,4 +672,7 @@
   <data name="Administration.Events.Event.EventFormat.Presence" xml:space="preserve">
     <value>Presence</value>
   </data>
+  <data name="SystemSetting.OrganizationData.HideOrganizationNameInNavBar.Label" xml:space="preserve">
+    <value>Hide name of organization in navbar</value>
+  </data>
 </root>

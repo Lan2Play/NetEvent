@@ -345,7 +345,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5065bc9a-bc05-4b7c-9af3-ae2b8c357b5e",
+                            ConcurrencyStamp = "f205a4d6-cbab-4163-9427-32802498bc59",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -353,9 +353,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIl//AZ2fNXWd9KtdIpih7g5tnmcglDs61MDvlTphozHjweLVUb5dSMPuu0O2FDjtA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF+OwzkcGgbWzhEmVd7Xy0iRHQU842tguftE2WfkQvSDLy8ZHNXzDqg57vVgrCdioA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4f945210-5300-41d7-95f5-05ec1edb4070",
+                            SecurityStamp = "a9023bf7-6259-40e8-a944-8aae466e9709",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -487,6 +487,11 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Key = "Logo",
                             SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "HideOrganizationNameInNavBar",
+                            SerializedValue = "False"
                         },
                         new
                         {

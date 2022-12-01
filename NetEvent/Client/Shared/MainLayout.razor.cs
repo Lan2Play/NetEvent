@@ -23,6 +23,7 @@ namespace NetEvent.Client.Shared
         private readonly ThemeManagerTheme _ThemeManager = new();
 
         private string? _OrganizationName;
+        private bool _HideOrganizationNameInNavBar = false;
         private bool _DrawerVisible = false;
         private bool _DrawerOpen = true;
         private string? _Logo;
@@ -39,6 +40,9 @@ namespace NetEvent.Client.Shared
 
             using var cancellationTokenSource = new CancellationTokenSource();
             _OrganizationName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.OrganizationName, OrganizationNameChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+
+            var hideOrganizationNameInNavBarDto = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.HideOrganizationNameInNavBar, HideOrganizationNameInNavBarChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            _HideOrganizationNameInNavBar = BooleanValueType.GetValue(hideOrganizationNameInNavBarDto);
 
             var logoId = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.Logo, LogoIdChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
             if (!string.IsNullOrEmpty(logoId))
@@ -62,6 +66,12 @@ namespace NetEvent.Client.Shared
         private void OrganizationNameChanged(SystemSettingValueDto settingValue)
         {
             _OrganizationName = settingValue.Value;
+            StateHasChanged();
+        }
+
+        private void HideOrganizationNameInNavBarChanged(SystemSettingValueDto settingValue)
+        {
+            _HideOrganizationNameInNavBar = BooleanValueType.GetValue(settingValue.Value);
             StateHasChanged();
         }
 

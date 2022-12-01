@@ -26,6 +26,7 @@ namespace NetEvent.Shared.Config
             public const string DataCultureInfo = "DataCultureInfo";
             public const string Favicon = "Favicon";
             public const string Logo = "Logo";
+            public const string HideOrganizationNameInNavBar = "HideOrganizationNameInNavBar";
             public const string AboutUs = "AboutUs";
             public const string LegalNotice = "LegalNotice";
             public const string PrivacyPolicy = "PrivacyPolicy";
@@ -33,6 +34,7 @@ namespace NetEvent.Shared.Config
             public OrganizationData() : base(SystemSettingGroup.OrganizationData)
             {
                 CreateSystemSetting(OrganizationName, new StringValueType("NetEvent"));
+                CreateSystemSetting(HideOrganizationNameInNavBar, new BooleanValueType(false));
                 CreateSystemSettingWithHint(DataCultureInfo, new EnumValueType<string>("en-US", new List<string> { "en-US", "de-DE", "fr-FR" }));
                 CreateSystemSettingWithHint(Favicon, new ImageValueType());
                 CreateSystemSetting(Logo, new ImageValueType());

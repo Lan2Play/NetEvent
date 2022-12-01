@@ -26,7 +26,10 @@
             {
                 <MudImage Src="@_Logo" Class="img-logo" Style="height: var(--mud-appbar-height);"></MudImage>
             }
-            <h1>@_OrganizationName</h1>
+            @if (!_HideOrganizationNameInNavBar)
+            {
+                <h1>@_OrganizationName</h1>
+            }
         </MudButton>
         <NavigationBar />
     </MudAppBar>
