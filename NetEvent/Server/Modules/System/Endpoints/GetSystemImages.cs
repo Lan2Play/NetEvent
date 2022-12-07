@@ -30,8 +30,9 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 foreach (var image in allImages)
                 {
                     var settingUsages = _ApplicationDbContext.SystemSettingValues.AsQueryable().Where(x => x.Key != null && x.SerializedValue == image.Id).Select(x => x.Key!).ToList();
-                    var eventUsage = _ApplicationDbContext.Events.ToList().Where(x => CheckIfImageIsUsedInEvent(x, image)).Select(x => x.Id!.ToString()!).ToList();
-                    result.Add(new SystemImageWithUsagesDto(image, settingUsages, eventUsage));
+                    var allEvents = _ApplicationDbContext.Events.ToList();
+                    var eventUsages = allEvents.Where(x => CheckIfImageIsUsedInEvent(x, image)).Select(x => x.Id!.ToString()!).ToList();
+                    result.Add(new SystemImageWithUsagesDto(image, settingUsages, eventUsages));
                 }
 
                 return Task.FromResult(new Response(result));
