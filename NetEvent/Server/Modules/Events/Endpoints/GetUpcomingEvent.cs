@@ -22,7 +22,7 @@ namespace NetEvent.Server.Modules.Events.Endpoints
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var eventModel = _DbContext.Events.FirstOrDefault(e => e.StartDate > DateTime.UtcNow);
+                var eventModel = _DbContext.Events.OrderBy(e => e.StartDate).FirstOrDefault(e => e.StartDate > DateTime.UtcNow);
                 if (eventModel == null)
                 {
                     return new Response(ReturnType.NotFound, "No upcoming Event!");

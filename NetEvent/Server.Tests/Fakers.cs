@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Bogus;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
+using Slugify;
 
 namespace NetEvent.Server.Tests
 {
@@ -40,5 +42,26 @@ namespace NetEvent.Server.Tests
         public static Faker<ClaimDto> ClaimFaker() => new Faker<ClaimDto>()
               .RuleFor(r => r.Type, (f, r) => f.Name.JobType())
               .RuleFor(r => r.Value, (f, u) => string.Empty);
+
+        public static Faker<Event> EventFaker(IEnumerable<Venue> venues) => new Faker<Event>()
+         .RuleFor(v => v.Id, (f, v) => f.IndexFaker)
+         .RuleFor(e => e.Name, (f, e) => f.Name.FirstName())
+         .RuleFor(e => e.Slug, (f, e) => new SlugHelper().GenerateSlug(e.Name))
+         .RuleFor(e => e.Description, (f, e) => f.Lorem.Sentences(10))
+         .RuleFor(e => e.ShortDescription, (f, e) => f.Lorem.Sentence(10))
+         .RuleFor(e => e.StartDate, (f, e) => DateTime.UtcNow.AddDays(Random.Shared.Next(1, 30)))
+         .RuleFor(e => e.EndDate, (f, e) => e.StartDate?.AddDays(Random.Shared.Next(1, 30)))
+         .RuleFor(e => e.Venue, (f, e) => venues.ElementAtOrDefault(Random.Shared.Next(venues.Count() - 1)))
+         .RuleFor(e => e.VenueId, (f, e) => e.Venue?.Id ?? 0);
+
+        public static Faker<Venue> VenueFaker() => new Faker<Venue>()
+            .RuleFor(v => v.Id, (f, v) => f.IndexFaker)
+            .RuleFor(v => v.Name, (f, v) => f.Name.FirstName())
+            .RuleFor(v => v.Slug, (f, v) => new SlugHelper().GenerateSlug(v.Name))
+            .RuleFor(v => v.Street, (f, v) => f.Address.StreetName())
+            .RuleFor(v => v.Number, (f, v) => f.Address.BuildingNumber())
+            .RuleFor(v => v.ZipCode, (f, v) => f.Address.ZipCode("#####"))
+            .RuleFor(v => v.City, (f, v) => f.Address.City());
+
     }
 }
