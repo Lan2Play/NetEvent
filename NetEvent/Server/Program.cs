@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -71,6 +74,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = false;
+    options.Events.OnRedirectToAccessDenied = ReplaceRedirector(HttpStatusCode.Forbidden, options.Events.OnRedirectToAccessDenied);
     options.Events.OnRedirectToLogin = context =>
     {
         context.Response.StatusCode = 401;
@@ -78,10 +82,13 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
-builder.Services.AddAuthorization(config => config.AddPolicies());
 builder.Services.AddAuthentication().AddSteam(options =>
 {
     options.ApplicationKey = builder.Configuration?.GetSection("SteamConfig").Get<SteamConfig>()?.ApplicationKey;
+});
+builder.Services.AddAuthorization(config =>
+{
+    config.AddPolicies();
 });
 
 builder.Services.RegisterModules();
@@ -150,9 +157,20 @@ app.UseWebSockets();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseExceptionHandler(new ExceptionHandlerOptions() { AllowStatusCode404Response = true, ExceptionHandlingPath = "/error" });
 app.MapFallbackToFile("index.html");
 
 app.MapEndpoints();
 
 await app.RunAsync();
+
+static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirector(HttpStatusCode statusCode, Func<RedirectContext<CookieAuthenticationOptions>, Task> existingRedirector) =>
+    context =>
+    {
+        if (context.Request.Path.StartsWithSegments("/api"))
+        {
+            context.Response.StatusCode = (int)statusCode;
+            return Task.CompletedTask;
+        }
+
+        return existingRedirector(context);
+    };

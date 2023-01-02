@@ -9,10 +9,10 @@
         public const string AdminSystemRead = "Admin.System.Read";
         public const string AdminSystemEdit = "Admin.System.Write";
         public const string AdminImagesRead = "Admin.Images.Read";
-        public const string AdminImagesEdit = "Admin.Images.Edit";
+        public const string AdminImagesEdit = "Admin.Images.Write";
         public const string AdminEventsRead = "Admin.Events.Read";
-        public const string AdminEventsEdit = "Admin.Events.Edit";
+        public const string AdminEventsEdit = "Admin.Events.Write";
         public const string AdminVenuesRead = "Admin.Venues.Read";
-        public const string AdminVenuesEdit = "Admin.Venues.Edit";
+        public const string AdminVenuesEdit = "Admin.Venues.Write";
     }
 }

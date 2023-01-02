@@ -32,11 +32,11 @@ namespace NetEvent.Server.Modules
 
             foreach (var module in registeredModules)
             {
-                var moduleName = module.GetType().Name.Replace("Module", string.Empty, StringComparison.OrdinalIgnoreCase).ToLowerInvariant();
+                var moduleName = module.GetType().Name.Replace("Module", string.Empty, StringComparison.OrdinalIgnoreCase);
 
                 var moduleGroup = app.MapGroup($"/api/{moduleName}");
-                var readModuleGroup = app.MapGroup($"/api/read/{moduleName}");
-                var writeModuleGroup = app.MapGroup($"/api/write/{moduleName}");
+                var readModuleGroup = app.MapGroup($"/api/{moduleName}");
+                var writeModuleGroup = app.MapGroup($"/api/{moduleName}");
 
                 module.MapEndpoints(app);
 

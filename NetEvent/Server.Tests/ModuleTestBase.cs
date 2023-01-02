@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Http;
+using Moq;
+using NetEvent.Client.Services;
 using NetEvent.Server.Data;
 
 namespace NetEvent.Server.Tests
@@ -35,6 +42,18 @@ namespace NetEvent.Server.Tests
                     services.AddDbContext<ApplicationDbContext>(options =>
                     {
                         options.UseInMemoryDatabase(dbName);
+                    });
+
+                    services.AddScoped<NetEventAuthenticationStateProvider>();
+                    services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<NetEventAuthenticationStateProvider>());
+                    services.AddScoped<IAuthService, AuthService>();
+
+                    var mockClientFactory = new Mock<IHttpClientFactory>();
+                    mockClientFactory.Setup(p => p.CreateClient(It.IsAny<string>())).Returns(() => Client!);
+                    services.TryAddSingleton(mockClientFactory.Object);
+                    services.Configure<HttpClientFactoryOptions>(Constants.BackendApiSecuredHttpClientName, o =>
+                    {
+                        o.HttpMessageHandlerBuilderActions.Add(b => b.AdditionalHandlers.Add(b.Services.GetRequiredService<BaseAddressAuthorizationMessageHandler>()));
                     });
                 });
             });

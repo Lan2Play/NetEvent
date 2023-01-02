@@ -8,7 +8,8 @@ namespace NetEvent.Shared.Policy
 {
     public class RegexClaimsAuthorizationRequirement : AuthorizationHandler<RegexClaimsAuthorizationRequirement>, IAuthorizationRequirement
     {
-        public string ClaimRegEx { get; }
+        private readonly string _Claim;
+        private readonly Regex _ClaimRegex;
 
         public RegexClaimsAuthorizationRequirement(string claimRegEx)
         {
@@ -17,18 +18,26 @@ namespace NetEvent.Shared.Policy
                 throw new ArgumentNullException(nameof(claimRegEx));
             }
 
-            ClaimRegEx = claimRegEx;
+            _Claim = claimRegEx;
+            _ClaimRegex = new Regex(claimRegEx, RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RegexClaimsAuthorizationRequirement requirement)
         {
             if (context.User != null)
             {
-                var claimRegex = new Regex(requirement.ClaimRegEx, RegexOptions.IgnoreCase);
-                if (context.User.Claims.Any((c) => claimRegex.IsMatch(c.Type)))
+                if (context.User.Claims.Any((c) => _ClaimRegex.IsMatch(c.Type)))
                 {
                     context.Succeed(requirement);
                 }
+                else
+                {
+                    context.Fail(new AuthorizationFailureReason(this, $"User needs claim \"{_Claim}\"!"));
+                }
+            }
+            else
+            {
+                context.Fail(new AuthorizationFailureReason(this, $"User is required!"));
             }
 
             return Task.CompletedTask;
@@ -36,7 +45,7 @@ namespace NetEvent.Shared.Policy
 
         public override string ToString()
         {
-            return "RegexClaimsAuthorizationRequirement:Claim.Type=" + ClaimRegEx;
+            return "RegexClaimsAuthorizationRequirement:Claim.Type=" + _Claim;
         }
     }
 }
