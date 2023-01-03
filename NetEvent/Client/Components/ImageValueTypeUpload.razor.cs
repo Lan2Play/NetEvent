@@ -19,7 +19,7 @@ namespace NetEvent.Client.Components
         private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
         private const string ImageUrl = "/api/system/image/";
-        private bool Clearing = false;
+        private bool Clearing;
         private string DragClass = string.Empty;
         private IBrowserFile? fileName;
         private string? imageFileName;

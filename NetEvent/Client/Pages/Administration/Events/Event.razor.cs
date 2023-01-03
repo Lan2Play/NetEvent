@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -50,7 +51,7 @@ namespace NetEvent.Client.Pages.Administration.Events
             var cts = new CancellationTokenSource();
             _Venues = await VenueService.GetVenuesAsync(cts.Token);
 
-            if (long.TryParse(Id, out var id))
+            if (long.TryParse(Id, CultureInfo.InvariantCulture, out var id))
             {
                 _Event = await EventService.GetEventAsync(id, cts.Token) ?? new EventDto();
             }

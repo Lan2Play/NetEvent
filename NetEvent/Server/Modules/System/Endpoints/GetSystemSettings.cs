@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,9 +41,9 @@ namespace NetEvent.Server.Modules.System.Endpoints
             public SystemSettingGroup SystemSettingGroup { get; }
         }
 
-        public sealed class Response : ResponseBase<List<SystemSettingValueDto>>
+        public sealed class Response : ResponseBase<IList<SystemSettingValueDto>>
         {
-            public Response(List<SystemSettingValueDto> value) : base(value)
+            public Response(IList<SystemSettingValueDto> value) : base(value)
             {
             }
 

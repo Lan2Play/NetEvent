@@ -26,7 +26,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 Assembly[] assems = currentDomain.GetAssemblies();
                 foreach (Assembly assem in assems)
                 {
-                    systeminfocomponents.Add(new SystemInfoComponentEntryDto(assem.ManifestModule.Name.ToString(), assem.ToString()));
+                    systeminfocomponents.Add(new SystemInfoComponentEntryDto(assem.ManifestModule.Name, assem.ToString()));
                 }
 
                 systeminfoversions.Add(new SystemInfoVersionEntryDto("NETEVENT", Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion));

@@ -44,6 +44,10 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 {
                     imageContentType = "svg+xml";
                 }
+                else
+                {
+                    // Do nothing
+                }
 
                 return new Response(Results.File(image.Data, $"image/{imageContentType}", lastModified: image.UploadTime));
             }

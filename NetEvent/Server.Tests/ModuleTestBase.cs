@@ -32,7 +32,7 @@ namespace NetEvent.Server.Tests
             {
                 builder.ConfigureServices(services =>
                 {
-                    var descriptors = services.Where(a => a.ServiceType.Name.Contains("DbContext")).ToList();
+                    var descriptors = services.Where(a => a.ServiceType.Name.Contains("DbContext", StringComparison.OrdinalIgnoreCase)).ToList();
 
                     foreach (var descriptor in descriptors)
                     {

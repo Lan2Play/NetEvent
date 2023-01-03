@@ -15,7 +15,7 @@ namespace NetEvent.Client.Pages.Administration
         #region Injects
 
         [Inject]
-        private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
+        private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
         #endregion
 
@@ -29,9 +29,9 @@ namespace NetEvent.Client.Pages.Administration
         {
             var cts = new CancellationTokenSource();
 
-            _OrganizationData = await _SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.OrganizationData, cts.Token);
-            _StyleData = await _SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.StyleData, cts.Token);
-            _AuthenticationData = await _SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.AuthenticationData, cts.Token);
+            _OrganizationData = await SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.OrganizationData, cts.Token);
+            _StyleData = await SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.StyleData, cts.Token);
+            _AuthenticationData = await SystemSettingsDataService.GetSystemSettingsAsync(SystemSettingGroup.AuthenticationData, cts.Token);
 
             _Loading = false;
         }

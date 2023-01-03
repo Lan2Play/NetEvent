@@ -20,18 +20,18 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
                 _RoleManager = roleManager;
             }
 
-            public Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var allRoles = _RoleManager.Roles.ToList();
-                var roleDtos = allRoles.Select(async role =>
+                var results = await Task.WhenAll(allRoles.Select(async role =>
                 {
                     var roleDto = role.ToRoleDto();
                     var roleClaims = await _RoleManager.GetClaimsAsync(role);
                     roleDto.Claims = roleClaims.Select(roleClaim => roleClaim.Type).ToList();
                     return roleDto;
-                }).Select(t => t.Result).ToList();
+                })).ConfigureAwait(false);
 
-                return Task.FromResult(new Response(roleDtos));
+                return new Response(results.ToList());
             }
         }
 

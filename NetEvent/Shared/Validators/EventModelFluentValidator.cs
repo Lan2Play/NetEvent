@@ -11,7 +11,7 @@ namespace NetEvent.Shared.Validators
     {
         public EventModelFluentValidator()
         {
-#pragma warning disable S107
+#pragma warning disable S109
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .Length(1, 100);
@@ -25,7 +25,7 @@ namespace NetEvent.Shared.Validators
             RuleFor(x => x.EndDate)
                 .NotNull()
                 .GreaterThan(x => x.StartDate);
-#pragma warning restore S107
+#pragma warning restore S109
         }
 
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
