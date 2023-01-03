@@ -1,0 +1,1 @@
+{"sonar.exclusions":["Server/Migrations/**/*"],"sonar.global.exclusions":["**/build-wrapper-dump.json"],"sonar.inclusions":[]}

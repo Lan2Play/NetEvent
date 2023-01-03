@@ -5,6 +5,9 @@ namespace NetEvent.Client.Extensions
 {
     public static class TinyMceConfig
     {
+        private const int _HeaderHeight = 64;
+        private const int _EditorHeight = 500;
+
         /// <summary>
         /// Provide Editor Config for TinyMce
         /// More Information: https://www.tiny.cloud/docs/tinymce/6/editor-important-options/
@@ -29,8 +32,8 @@ namespace NetEvent.Client.Extensions
             { "language", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName },
             { "toolbar_mode", "sliding" },
             { "toolbar_sticky", true },
-            { "toolbar_sticky_offset", 64 },
-            { "height", 500 },
+            { "toolbar_sticky_offset", _HeaderHeight },
+            { "height", _EditorHeight },
             { "quickbars_insert_toolbar", "quicktable image emoticons quicklink hr | styles | fontfamily fontsize forecolor" },
             { "quickbars_selection_toolbar", "bold italic underline | styles | fontfamily fontsize forecolor | blocks | bullist numlist | indent outdent | blockquote quicklink" },
         };
