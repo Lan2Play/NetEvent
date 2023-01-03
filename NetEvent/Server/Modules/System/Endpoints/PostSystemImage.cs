@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 {
     public static class PostSystemImage
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _ApplicationDbContext;
 
@@ -27,7 +28,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
                     return new Response(ReturnType.Error, "Empty data is not allowed");
                 }
 
-                if (Guid.TryParse(request.ImageName, out var id))
+                if (Guid.TryParse(request.ImageName, CultureInfo.InvariantCulture, out var id))
                 {
                     var existingImage = await _ApplicationDbContext.SystemImages.FindAsync(new object[] { id.ToString() }, cancellationToken);
                     if (existingImage?.Id != null)
@@ -52,7 +53,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(string imageName, IFormFile file)
             {
@@ -65,7 +66,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             public IFormFile File { get; }
         }
 
-        public class Response : ResponseBase<string>
+        public sealed class Response : ResponseBase<string>
         {
             public Response(string imageId) : base(imageId)
             {

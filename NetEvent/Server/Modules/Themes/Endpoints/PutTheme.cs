@@ -10,7 +10,7 @@ namespace NetEvent.Server.Modules.Themes.Endpoints
 {
     public static class PutTheme
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _ApplicationDbContext;
 
@@ -39,7 +39,7 @@ namespace NetEvent.Server.Modules.Themes.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(ThemeDto theme)
             {
@@ -49,7 +49,7 @@ namespace NetEvent.Server.Modules.Themes.Endpoints
             public ThemeDto Theme { get; }
         }
 
-        public class Response : ResponseBase
+        public sealed class Response : ResponseBase
         {
             public Response()
             {

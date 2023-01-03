@@ -10,7 +10,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
 {
     public static class PutUserRole
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _UserDbContext;
             private readonly NetEventUserManager _UserManager;
@@ -49,7 +49,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(string userId, string roleId)
             {
@@ -65,7 +65,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
             public string RoleId { get; }
         }
 
-        public class Response : ResponseBase
+        public sealed class Response : ResponseBase
         {
             public Response()
             {

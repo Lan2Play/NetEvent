@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -22,6 +23,8 @@ using NetEvent.Server.Services;
 using NetEvent.Shared.Policy;
 using Slugify;
 
+const int _DefaultPort = 5001;
+
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Configuration == null)
@@ -31,14 +34,14 @@ if (builder.Configuration == null)
 
 builder.WebHost.ConfigureKestrel((context, options) =>
 {
-    options.ListenAnyIP(5001, listenOptions =>
+    options.ListenAnyIP(_DefaultPort, listenOptions =>
     {
         listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
         listenOptions.UseHttps();
     });
 });
 
-switch (builder.Configuration["DBProvider"]?.ToLower())
+switch (builder.Configuration["DBProvider"]?.ToLower(CultureInfo.InvariantCulture))
 {
     case "sqlite":
         {
@@ -77,7 +80,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Events.OnRedirectToAccessDenied = ReplaceRedirector(HttpStatusCode.Forbidden, options.Events.OnRedirectToAccessDenied);
     options.Events.OnRedirectToLogin = context =>
     {
-        context.Response.StatusCode = 401;
+        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
         return Task.CompletedTask;
     };
 });

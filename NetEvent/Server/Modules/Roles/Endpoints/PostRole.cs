@@ -12,7 +12,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
 {
     public static class PostRole
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly NetEventRoleManager _RoleManager;
             private readonly ILogger<Handler> _Logger;
@@ -57,7 +57,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(RoleDto role)
             {
@@ -69,7 +69,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
             public RoleDto Role { get; }
         }
 
-        public class Response : ResponseBase<string>
+        public sealed class Response : ResponseBase<string>
         {
             public Response(string id) : base(id)
             {

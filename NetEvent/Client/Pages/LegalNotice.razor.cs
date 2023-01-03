@@ -11,7 +11,7 @@ namespace NetEvent.Client.Pages
         #region Injects
 
         [Inject]
-        private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
+        private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
         #endregion
 
@@ -23,8 +23,8 @@ namespace NetEvent.Client.Pages
         {
             var cts = new CancellationTokenSource();
 
-            _LegalNotice = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.LegalNotice, cts.Token))?.Value ?? string.Empty;
-            _PrivacyPolicy = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.PrivacyPolicy, cts.Token))?.Value ?? string.Empty;
+            _LegalNotice = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.LegalNotice, cts.Token))?.Value ?? string.Empty;
+            _PrivacyPolicy = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.PrivacyPolicy, cts.Token))?.Value ?? string.Empty;
 
             _Loading = false;
         }

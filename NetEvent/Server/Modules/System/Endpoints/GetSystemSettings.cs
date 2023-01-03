@@ -13,7 +13,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 {
     public static class GetSystemSettings
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _ApplicationDbContext;
 
@@ -30,7 +30,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(SystemSettingGroup systemSettingGroup)
             {
@@ -40,7 +40,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             public SystemSettingGroup SystemSettingGroup { get; }
         }
 
-        public class Response : ResponseBase<List<SystemSettingValueDto>>
+        public sealed class Response : ResponseBase<List<SystemSettingValueDto>>
         {
             public Response(List<SystemSettingValueDto> value) : base(value)
             {

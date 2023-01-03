@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -10,7 +11,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
 {
     public static class GetVenue
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _DbContext;
 
@@ -24,7 +25,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
                 Models.Venue? venueModel;
                 if (request.Slug != null)
                 {
-                    venueModel = _DbContext.Venues.Where(e => e.Slug != null && e.Slug.Equals(request.Slug)).FirstOrDefault();
+                    venueModel = _DbContext.Venues.Where(e => e.Slug != null && e.Slug.Equals(request.Slug, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
                 }
                 else
                 {
@@ -42,7 +43,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(long id)
             {
@@ -59,7 +60,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
             public string? Slug { get; }
         }
 
-        public class Response : ResponseBase<VenueDto>
+        public sealed class Response : ResponseBase<VenueDto>
         {
             public Response(VenueDto? value) : base(value)
             {

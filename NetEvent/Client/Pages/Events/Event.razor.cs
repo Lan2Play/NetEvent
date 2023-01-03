@@ -17,13 +17,13 @@ namespace NetEvent.Client.Pages.Events
         private NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        private IEventService _EventService { get; set; } = default!;
+        private IEventService EventService { get; set; } = default!;
 
         [Inject]
-        private ISnackbar _Snackbar { get; set; } = default!;
+        private ISnackbar Snackbar { get; set; } = default!;
 
         [Inject]
-        private IStringLocalizer<App> _Localizer { get; set; } = default!;
+        private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         #endregion
 
@@ -42,7 +42,7 @@ namespace NetEvent.Client.Pages.Events
                 NavigationManager.NavigateTo("/");
             }
 
-            _Event = await _EventService.GetEventAsync(Slug!, cts.Token);
+            _Event = await EventService.GetEventAsync(Slug!, cts.Token);
             _Loading = false;
         }
 

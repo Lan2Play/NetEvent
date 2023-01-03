@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NetEvent.Shared.Config
 {
-    public class SystemSettings
+    public sealed class SystemSettings
     {
         private SystemSettings()
         {

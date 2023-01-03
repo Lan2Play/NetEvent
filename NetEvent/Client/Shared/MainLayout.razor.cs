@@ -15,7 +15,7 @@ namespace NetEvent.Client.Shared
         private IThemeService ThemeService { get; set; } = default!;
 
         [Inject]
-        private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
+        private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
         [Inject]
         public NavigationManager NavigationManager { get; set; } = default!;
@@ -23,8 +23,8 @@ namespace NetEvent.Client.Shared
         private readonly ThemeManagerTheme _ThemeManager = new();
 
         private string? _OrganizationName;
-        private bool _HideOrganizationNameInNavBar = false;
-        private bool _DrawerVisible = false;
+        private bool _HideOrganizationNameInNavBar;
+        private bool _DrawerVisible;
         private bool _DrawerOpen = true;
         private string? _Logo;
 
@@ -39,12 +39,12 @@ namespace NetEvent.Client.Shared
             UpdateDraweVisibility();
 
             using var cancellationTokenSource = new CancellationTokenSource();
-            _OrganizationName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.OrganizationName, OrganizationNameChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            _OrganizationName = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.OrganizationName, OrganizationNameChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
 
-            var hideOrganizationNameInNavBarDto = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.HideOrganizationNameInNavBar, HideOrganizationNameInNavBarChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            var hideOrganizationNameInNavBarDto = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.HideOrganizationNameInNavBar, HideOrganizationNameInNavBarChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
             _HideOrganizationNameInNavBar = BooleanValueType.GetValue(hideOrganizationNameInNavBarDto);
 
-            var logoId = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.Logo, LogoIdChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            var logoId = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.Logo, LogoIdChanged, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
             if (!string.IsNullOrEmpty(logoId))
             {
                 _Logo = $"/api/system/image/{logoId}";

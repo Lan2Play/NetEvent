@@ -13,7 +13,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 {
     public static class GetLoginExternalCallback
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly SignInManager<ApplicationUser> _SignInManager;
             private readonly UserManager<ApplicationUser> _UserManager;
@@ -105,7 +105,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(string returnUrl)
             {
@@ -117,7 +117,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             public string ReturnUrl { get; }
         }
 
-        public class Response : ResponseBase<IResult>
+        public sealed class Response : ResponseBase<IResult>
         {
             public Response(IResult value) : base(value)
             {

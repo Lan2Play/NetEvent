@@ -11,7 +11,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 {
     public static class PostSystemSetting
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _ApplicationDbContext;
 
@@ -44,7 +44,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(SystemSettingGroup systemSettingGroup, SystemSettingValueDto systemSettingValue)
             {
@@ -57,7 +57,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             public SystemSettingValueDto SystemSettingValue { get; }
         }
 
-        public class Response : ResponseBase
+        public sealed class Response : ResponseBase
         {
             public Response()
             {

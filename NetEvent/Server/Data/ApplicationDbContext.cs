@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -49,9 +50,9 @@ namespace NetEvent.Server.Data
                 {
                     Id = _AdminGuid,
                     UserName = "admin",
-                    NormalizedUserName = "admin".ToUpper(),
+                    NormalizedUserName = "admin".ToUpper(CultureInfo.InvariantCulture),
                     Email = "admin@admin.de",
-                    NormalizedEmail = "admin@admin.de".ToUpper(),
+                    NormalizedEmail = "admin@admin.de".ToUpper(CultureInfo.InvariantCulture),
                     FirstName = "Admin",
                     EmailConfirmed = true,
                     LastName = "istrator"

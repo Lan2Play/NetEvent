@@ -9,7 +9,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
 {
     public static class PutUser
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly NetEventUserManager _UserManager;
 
@@ -41,7 +41,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(string id, UserDto user)
             {
@@ -57,7 +57,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
             public UserDto User { get; }
         }
 
-        public class Response : ResponseBase
+        public sealed class Response : ResponseBase
         {
             public Response()
             {

@@ -12,15 +12,15 @@ namespace NetEvent.Client.Pages.Profile
         private CurrentUserDto? _CurrentUser;
 
         [Inject]
-        private IAuthService _AuthService { get; set; } = default!;
+        private IAuthService AuthService { get; set; } = default!;
 
         [Inject]
-        private ILogger<CompleteRegistration> _Logger { get; set; } = default!;
+        private ILogger<CompleteRegistration> Logger { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
-            _CurrentUser = await _AuthService.GetCurrentUserInfoAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+            _CurrentUser = await AuthService.GetCurrentUserInfoAsync(cancellationTokenSource.Token).ConfigureAwait(false);
 
             await base.OnInitializedAsync().ConfigureAwait(false);
         }

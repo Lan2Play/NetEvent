@@ -31,7 +31,7 @@ namespace NetEvent.Client.Services
 
                 response.EnsureSuccessStatusCode();
 
-                eventDto.Id = long.Parse(await response.Content.ReadAsStringAsync(cancellationToken));
+                eventDto.Id = long.Parse(await response.Content.ReadAsStringAsync(cancellationToken), CultureInfo.InvariantCulture);
 
                 return ServiceResult.Success("EventService.AddEventAsync.Success");
             }

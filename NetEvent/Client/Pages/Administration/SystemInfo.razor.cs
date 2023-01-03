@@ -14,9 +14,10 @@ namespace NetEvent.Client.Pages.Administration
         #region Injects
 
         [Inject]
-        private ISystemInfoDataService _SystemInfoDataService { get; set; } = default!;
+        private ISystemInfoDataService SystemInfoDataService { get; set; } = default!;
 
         #endregion
+
         private readonly IList<SystemInfoComponentEntryDto> _ClientComponents = new List<SystemInfoComponentEntryDto>();
         private SystemInfoDto _SystemInfos = new();
         private string searchStringComponents = string.Empty;
@@ -27,13 +28,13 @@ namespace NetEvent.Client.Pages.Administration
         protected override async Task OnInitializedAsync()
         {
             var cts = new CancellationTokenSource();
-            _SystemInfos = await _SystemInfoDataService.GetSystemInfoDataAsync(cts.Token);
+            _SystemInfos = await SystemInfoDataService.GetSystemInfoDataAsync(cts.Token);
 
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            Assembly[] assems = currentDomain.GetAssemblies();
-            foreach (Assembly assem in assems)
+            var currentDomain = AppDomain.CurrentDomain;
+            var assems = currentDomain.GetAssemblies();
+            foreach (var assem in assems)
             {
-                _ClientComponents.Add(new SystemInfoComponentEntryDto(assem.ManifestModule.Name.ToString(), assem.ToString()));
+                _ClientComponents.Add(new SystemInfoComponentEntryDto(assem.ManifestModule.Name, assem.ToString()));
             }
         }
 

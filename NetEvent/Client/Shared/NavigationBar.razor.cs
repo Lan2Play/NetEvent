@@ -13,7 +13,7 @@ namespace NetEvent.Client.Shared
         #region Injects
 
         [Inject]
-        private IEventService _EventService { get; set; } = default!;
+        private IEventService EventService { get; set; } = default!;
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace NetEvent.Client.Shared
         {
             var cts = new CancellationTokenSource();
 
-            _Events = await _EventService.GetEventsAsync(cts.Token);
+            _Events = await EventService.GetEventsAsync(cts.Token);
         }
 
         private async Task BeginSignOut(MouseEventArgs args)

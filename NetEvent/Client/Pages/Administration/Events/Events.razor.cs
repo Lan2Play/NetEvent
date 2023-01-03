@@ -14,13 +14,13 @@ namespace NetEvent.Client.Pages.Administration.Events
         #region Injects
 
         [Inject]
-        private IEventService _EventService { get; set; } = default!;
+        private IEventService EventService { get; set; } = default!;
 
         [Inject]
-        private ISnackbar _Snackbar { get; set; } = default!;
+        private ISnackbar Snackbar { get; set; } = default!;
 
         [Inject]
-        private IStringLocalizer<App> _Localizer { get; set; } = default!;
+        private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace NetEvent.Client.Pages.Administration.Events
         {
             var cts = new CancellationTokenSource();
 
-            _Events = await _EventService.GetEventsAsync(cts.Token);
+            _Events = await EventService.GetEventsAsync(cts.Token);
 
             _Loading = false;
         }
@@ -44,11 +44,11 @@ namespace NetEvent.Client.Pages.Administration.Events
             }
 
             var cts = new CancellationTokenSource();
-            var result = await _EventService.DeleteEventAsync(eventToDelete.Id.Value, cts.Token);
+            var result = await EventService.DeleteEventAsync(eventToDelete.Id.Value, cts.Token);
 
             if (!string.IsNullOrEmpty(result.MessageKey))
             {
-                _Snackbar.Add(_Localizer.GetString(result.MessageKey), result.Successful ? Severity.Success : Severity.Error);
+                Snackbar.Add(Localizer.GetString(result.MessageKey), result.Successful ? Severity.Success : Severity.Error);
             }
 
             if (result.Successful)

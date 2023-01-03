@@ -12,7 +12,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
 {
     public static class GetVenues
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _DbContext;
 
@@ -29,11 +29,11 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
         }
 
-        public class Response : ResponseBase<IEnumerable<VenueDto>>
+        public sealed class Response : ResponseBase<IEnumerable<VenueDto>>
         {
             public Response(IEnumerable<VenueDto>? value) : base(value)
             {

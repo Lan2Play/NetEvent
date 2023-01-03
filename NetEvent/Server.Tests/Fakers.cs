@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using Bogus;
 using NetEvent.Server.Models;
@@ -9,6 +10,7 @@ using Slugify;
 
 namespace NetEvent.Server.Tests
 {
+#pragma warning disable S109
     [ExcludeFromCodeCoverage]
     internal static class Fakers
     {
@@ -30,7 +32,7 @@ namespace NetEvent.Server.Tests
 
         public static Faker<ApplicationRole> ApplicationRoleFaker() => new Faker<ApplicationRole>()
             .RuleFor(r => r.IsDefault, (f, r) => f.IndexVariable == 0)
-            .RuleFor(r => r.Name, (f, r) => f.Internet.UserName(f.UniqueIndex.ToString()))
+            .RuleFor(r => r.Name, (f, r) => f.Internet.UserName(f.UniqueIndex.ToString(CultureInfo.InvariantCulture)))
             .RuleFor(r => r.NormalizedName, (f, r) => r.Name?.ToUpperInvariant())
             .RuleFor(r => r.Id, (f, u) => Guid.NewGuid().ToString());
 
@@ -62,6 +64,6 @@ namespace NetEvent.Server.Tests
             .RuleFor(v => v.Number, (f, v) => f.Address.BuildingNumber())
             .RuleFor(v => v.ZipCode, (f, v) => f.Address.ZipCode("#####"))
             .RuleFor(v => v.City, (f, v) => f.Address.City());
-
     }
+#pragma warning restore S109
 }

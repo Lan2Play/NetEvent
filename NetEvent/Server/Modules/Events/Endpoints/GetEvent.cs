@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -10,7 +11,7 @@ namespace NetEvent.Server.Modules.Events.Endpoints
 {
     public static class GetEvent
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _DbContext;
 
@@ -24,7 +25,7 @@ namespace NetEvent.Server.Modules.Events.Endpoints
                 Models.Event? eventModel;
                 if (request.Slug != null)
                 {
-                    eventModel = _DbContext.Events.Where(e => e.Slug != null && e.Slug.Equals(request.Slug)).FirstOrDefault();
+                    eventModel = _DbContext.Events.Where(e => e.Slug != null && e.Slug.Equals(request.Slug, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
                 }
                 else
                 {
@@ -48,7 +49,7 @@ namespace NetEvent.Server.Modules.Events.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(long id)
             {
@@ -65,7 +66,7 @@ namespace NetEvent.Server.Modules.Events.Endpoints
             public string? Slug { get; }
         }
 
-        public class Response : ResponseBase<EventDto>
+        public sealed class Response : ResponseBase<EventDto>
         {
             public Response(EventDto? value) : base(value)
             {

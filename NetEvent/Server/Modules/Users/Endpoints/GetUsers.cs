@@ -13,7 +13,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
 {
     public static class GetUsers
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _UserDbContext;
 
@@ -41,11 +41,11 @@ namespace NetEvent.Server.Modules.Users.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
         }
 
-        public class Response : ResponseBase<IEnumerable<UserDto>>
+        public sealed class Response : ResponseBase<IEnumerable<UserDto>>
         {
             public Response(IEnumerable<UserDto>? value) : base(value)
             {

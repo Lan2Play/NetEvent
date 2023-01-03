@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,6 +7,7 @@
     <IsPackable>false</IsPackable>
     <SonarQubeTestProject>false</SonarQubeTestProject>
     <CodeAnalysisRuleSet>..\..\.sonarlint\lan2play_custom.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>S109</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

@@ -27,7 +27,7 @@ namespace NetEvent.Server.Models
 
         public DateTime? EndDate { get; set; }
 
-        public EventFormat eventFormat { get; set; }
+        public EventFormat EventFormat { get; set; }
 
         public long? VenueId { get; set; }
 

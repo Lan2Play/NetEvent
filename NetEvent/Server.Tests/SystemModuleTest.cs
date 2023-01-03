@@ -43,7 +43,7 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.Equal(2, response?.Count);
-            Assert.All(response!, x => Assert.True(new SystemSettings.OrganizationData().Settings.First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
+            Assert.All(response!, x => Assert.True(new SystemSettings.OrganizationData().Settings.First(s => s.Key.Equals(x.Key, StringComparison.OrdinalIgnoreCase)).ValueType.IsValid(x.Value)));
             Assert.Equal(testData[0].Key, response?[0].Key);
             Assert.Equal(testData[0].SerializedValue, response?[0].Value);
             Assert.Equal(testData[1].Key, response?[1].Key);
@@ -73,7 +73,7 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.Equal(2, response?.Count);
-            Assert.All(response!, x => Assert.True(new SystemSettings.AuthenticationData().Settings.First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
+            Assert.All(response!, x => Assert.True(new SystemSettings.AuthenticationData().Settings.First(s => s.Key.Equals(x.Key, StringComparison.OrdinalIgnoreCase)).ValueType.IsValid(x.Value)));
             Assert.Equal(testData[0].Key, response?[0].Key);
             Assert.Equal(testData[0].SerializedValue, response?[0].Value);
             Assert.Equal(testData[1].Key, response?[1].Key);
@@ -148,11 +148,11 @@ namespace NetEvent.Server.Tests
             Assert.NotNull(response?.Versions);
             Assert.NotEmpty(response!.Health);
             Assert.NotEmpty(response!.Versions);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT"))?.Version);
-            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response?.Versions?.Find(x => x.Component.Equals("NETEVENT"))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response?.Versions?.Find(x => x.Component.Equals("NETEVENT", StringComparison.OrdinalIgnoreCase))?.Version);
         }
 
         [Fact]
@@ -172,10 +172,10 @@ namespace NetEvent.Server.Tests
             Assert.NotNull(response?.Versions);
             Assert.NotEmpty(response!.Versions);
             Assert.NotEqual(0, response?.Versions.Count);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT"))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
         }
 
         [Fact]

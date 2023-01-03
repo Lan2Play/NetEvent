@@ -12,7 +12,7 @@ namespace NetEvent.Server.Modules.Events.Endpoints
 {
     public static class GetEvents
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _DbContext;
 
@@ -45,11 +45,11 @@ namespace NetEvent.Server.Modules.Events.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
         }
 
-        public class Response : ResponseBase<IEnumerable<EventDto>>
+        public sealed class Response : ResponseBase<IEnumerable<EventDto>>
         {
             public Response(IEnumerable<EventDto>? value) : base(value)
             {

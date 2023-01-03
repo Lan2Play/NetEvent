@@ -12,10 +12,10 @@ namespace NetEvent.Client.Components
     public class NetEventDataGrid<T> : MudDataGrid<T>
     {
         [Inject]
-        private IDialogService _DialogService { get; set; } = default!;
+        private IDialogService DialogService { get; set; } = default!;
 
         [Inject]
-        private IStringLocalizer<App> _Localizer { get; set; } = default!;
+        private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         [Parameter]
         public EventCallback<EventCallbackArgs<T>> DeletedItemChanges { get; set; }
@@ -74,7 +74,7 @@ namespace NetEvent.Client.Components
                 return;
             }
 
-            bool? result = await _DialogService.ShowMessageBox(_Localizer.GetString("NetEventDataGrid.DeleteDialog.Title"), _Localizer.GetString("NetEventDataGrid.DeleteDialog.Message"), yesText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Delete"), cancelText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Cancel"));
+            bool? result = await DialogService.ShowMessageBox(Localizer.GetString("NetEventDataGrid.DeleteDialog.Title"), Localizer.GetString("NetEventDataGrid.DeleteDialog.Message"), yesText: Localizer.GetString("NetEventDataGrid.DeleteDialog.Delete"), cancelText: Localizer.GetString("NetEventDataGrid.DeleteDialog.Cancel"));
             if (result == true)
             {
                 StateHasChanged();

@@ -13,10 +13,10 @@ namespace NetEvent.Client.Pages
         #region Injects
 
         [Inject]
-        private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
+        private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
         [Inject]
-        private IEventService _EventService { get; set; } = default!;
+        private IEventService EventService { get; set; } = default!;
 
         #endregion
 
@@ -32,9 +32,9 @@ namespace NetEvent.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
-            _OrganizationName = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.OrganizationName, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
-            _OrganizationAboutUs = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.AboutUs, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
-            _UpcomingEvent = await _EventService.GetUpcomingEventAsync(cancellationTokenSource.Token);
+            _OrganizationName = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.OrganizationName, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            _OrganizationAboutUs = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.AboutUs, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            _UpcomingEvent = await EventService.GetUpcomingEventAsync(cancellationTokenSource.Token);
             if (_UpcomingEvent != null)
             {
                 _Timer = new System.Timers.Timer(1000);

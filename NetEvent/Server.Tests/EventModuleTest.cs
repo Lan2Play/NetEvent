@@ -156,7 +156,6 @@ namespace NetEvent.Server.Tests
                     var authManager = scope.ServiceProvider.GetRequiredService<NetEventAuthenticationStateProvider>();
                     var loginResult = await authManager.Login(new Shared.Dto.LoginRequestDto { UserName = fakeUser.UserName!, Password = password }).ConfigureAwait(false);
                     Assert.True(loginResult?.Successful);
-
                 }
             }
 

@@ -16,9 +16,9 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         private IEventService EventService { get; set; } = default!;
 
-        public List<AdminUserDto>? Users { get; private set; }
+        public IList<AdminUserDto>? Users { get; private set; }
 
-        public List<EventDto>? Events { get; private set; }
+        public IList<EventDto>? Events { get; private set; }
 
         protected override async Task OnInitializedAsync()
         {

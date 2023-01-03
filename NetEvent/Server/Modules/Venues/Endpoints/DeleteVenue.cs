@@ -8,7 +8,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
 {
     public static class DeleteVenue
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly IEventManager _EventManager;
 
@@ -29,7 +29,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(long venueId)
             {
@@ -39,7 +39,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
             public long VenueId { get; }
         }
 
-        public class Response : ResponseBase
+        public sealed class Response : ResponseBase
         {
             public Response()
             {

@@ -11,7 +11,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
 {
     public static class GetRoles
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly NetEventRoleManager _RoleManager;
 
@@ -35,11 +35,11 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
         }
 
-        public class Response : ResponseBase<IReadOnlyCollection<RoleDto>>
+        public sealed class Response : ResponseBase<IReadOnlyCollection<RoleDto>>
         {
             public Response(IReadOnlyCollection<RoleDto> value) : base(value)
             {

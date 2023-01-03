@@ -13,7 +13,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
 {
     public static class GetUserEmailConfirm
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private const string _ErrorUrl = "/confirmation/error";
             private const string _SuccessUrl = "/confirmation/success";
@@ -60,7 +60,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(string userId, string code)
             {
@@ -76,7 +76,7 @@ namespace NetEvent.Server.Modules.Users.Endpoints
             public string Code { get; }
         }
 
-        public class Response : ResponseBase<IResult>
+        public sealed class Response : ResponseBase<IResult>
         {
             public Response(IResult result) : base(result)
             {

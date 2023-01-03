@@ -49,6 +49,7 @@ builder.Services.AddHttpClient(Constants.BackendApiSecuredHttpClientName)
 
 builder.Services.AddMudServices(config =>
 {
+#pragma warning disable S109
     config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomCenter;
 
     config.SnackbarConfiguration.PreventDuplicates = false;
@@ -59,6 +60,7 @@ builder.Services.AddMudServices(config =>
     config.SnackbarConfiguration.HideTransitionDuration = 400;
     config.SnackbarConfiguration.ShowTransitionDuration = 400;
     config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+#pragma warning restore S109
 });
 
 var app = builder.Build();

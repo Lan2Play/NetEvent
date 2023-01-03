@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -15,13 +16,13 @@ namespace NetEvent.Client.Pages.Administration.Venues
         #region Injects
 
         [Inject]
-        private IVenueService _VenueService { get; set; } = default!;
+        private IVenueService VenueService { get; set; } = default!;
 
         [Inject]
-        private ISnackbar _Snackbar { get; set; } = default!;
+        private ISnackbar Snackbar { get; set; } = default!;
 
         [Inject]
-        private IStringLocalizer<App> _Localizer { get; set; } = default!;
+        private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         [Inject]
         private NavigationManager NavigationManager { get; set; } = default!;
@@ -40,9 +41,9 @@ namespace NetEvent.Client.Pages.Administration.Venues
         {
             var cts = new CancellationTokenSource();
 
-            if (long.TryParse(Id, out var id))
+            if (long.TryParse(Id, CultureInfo.InvariantCulture, out var id))
             {
-                _Venue = await _VenueService.GetVenueAsync(id, cts.Token) ?? new VenueDto();
+                _Venue = await VenueService.GetVenueAsync(id, cts.Token) ?? new VenueDto();
             }
             else
             {
@@ -67,11 +68,11 @@ namespace NetEvent.Client.Pages.Administration.Venues
                 ServiceResult result;
                 if (_Venue.Id >= 0)
                 {
-                    result = await _VenueService.UpdateVenueAsync(_Venue, cts.Token);
+                    result = await VenueService.UpdateVenueAsync(_Venue, cts.Token);
                 }
                 else
                 {
-                    result = await _VenueService.CreateVenueAsync(_Venue, cts.Token);
+                    result = await VenueService.CreateVenueAsync(_Venue, cts.Token);
                     if (result.Successful && _Venue?.Id != null)
                     {
                         NavigationManager.NavigateTo(UrlHelper.GetVenueLink(_Venue.Id, true));
@@ -80,7 +81,7 @@ namespace NetEvent.Client.Pages.Administration.Venues
 
                 if (!string.IsNullOrEmpty(result.MessageKey))
                 {
-                    _Snackbar.Add(_Localizer.GetString(result.MessageKey), result.Successful ? Severity.Success : Severity.Error);
+                    Snackbar.Add(Localizer.GetString(result.MessageKey), result.Successful ? Severity.Success : Severity.Error);
                 }
             }
         }

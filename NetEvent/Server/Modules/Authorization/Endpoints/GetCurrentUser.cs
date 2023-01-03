@@ -15,7 +15,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 {
     public static class GetCurrentUser
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly NetEventUserManager _UserManager;
             private readonly SignInManager<ApplicationUser> _SignInManager;
@@ -62,7 +62,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(ClaimsPrincipal user)
             {
@@ -72,7 +72,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             public ClaimsPrincipal User { get; }
         }
 
-        public class Response : ResponseBase<CurrentUserDto>
+        public sealed class Response : ResponseBase<CurrentUserDto>
         {
             public Response(CurrentUserDto? value) : base(value)
             {

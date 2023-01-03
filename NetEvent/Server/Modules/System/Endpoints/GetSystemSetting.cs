@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -12,7 +13,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 {
     public static class GetSystemSetting
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _ApplicationDbContext;
 
@@ -23,7 +24,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 
             public Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var settingValue = _ApplicationDbContext.Set<SystemSettingValue>().FirstOrDefault(x => request.SettingKey.Equals(x.Key));
+                var settingValue = _ApplicationDbContext.Set<SystemSettingValue>().FirstOrDefault(x => request.SettingKey.Equals(x.Key, StringComparison.OrdinalIgnoreCase));
                 if (settingValue == null)
                 {
                     return Task.FromResult(new Response(ReturnType.NotFound, $"Setting \"{request.SettingKey}\" not found!"));
@@ -33,7 +34,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(SystemSettingGroup systemSettingGroup, string settingKey)
             {
@@ -46,7 +47,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             public string SettingKey { get; }
         }
 
-        public class Response : ResponseBase<SystemSettingValueDto>
+        public sealed class Response : ResponseBase<SystemSettingValueDto>
         {
             public Response(SystemSettingValueDto value) : base(value)
             {

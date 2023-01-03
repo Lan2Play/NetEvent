@@ -10,7 +10,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
 {
     public static class PutVenue
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly IEventManager _EventManager;
 
@@ -32,7 +32,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(long id, VenueDto venueDto)
             {
@@ -48,7 +48,7 @@ namespace NetEvent.Server.Modules.Venues.Endpoints
             public VenueDto Venue { get; }
         }
 
-        public class Response : ResponseBase<VenueDto>
+        public sealed class Response : ResponseBase<VenueDto>
         {
             public Response(VenueDto createdVenue) : base(createdVenue)
             {

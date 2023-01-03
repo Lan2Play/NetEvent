@@ -19,13 +19,13 @@ namespace NetEvent.Client.Pages
         private NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        private ISnackbar _Snackbar { get; set; } = default!;
+        private ISnackbar Snackbar { get; set; } = default!;
 
         [Inject]
-        private IStringLocalizer<App> _Localizer { get; set; } = default!;
+        private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         [Inject]
-        private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
+        private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
         public string? Error { get; set; }
 
@@ -40,10 +40,10 @@ namespace NetEvent.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
-            IsSteamEnabled = BooleanValueType.GetValue((await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.AuthenticationData, SystemSettings.AuthenticationData.Steam, cancellationTokenSource.Token).ConfigureAwait(false))?.Value);
-            IsStandardEnabled = BooleanValueType.GetValue((await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.AuthenticationData, SystemSettings.AuthenticationData.Standard, cancellationTokenSource.Token).ConfigureAwait(false))?.Value);
+            IsSteamEnabled = BooleanValueType.GetValue((await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.AuthenticationData, SystemSettings.AuthenticationData.Steam, cancellationTokenSource.Token).ConfigureAwait(false))?.Value);
+            IsStandardEnabled = BooleanValueType.GetValue((await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.AuthenticationData, SystemSettings.AuthenticationData.Standard, cancellationTokenSource.Token).ConfigureAwait(false))?.Value);
 
-            var logoId = (await _SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.Logo, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            var logoId = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSettings.OrganizationData.Logo, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
             if (!string.IsNullOrEmpty(logoId))
             {
                 _Logo = $"/api/system/image/{logoId}";
@@ -56,7 +56,7 @@ namespace NetEvent.Client.Pages
 
             if (result.MessageKey != null)
             {
-                _Snackbar.Add(_Localizer.GetString(result.MessageKey, LoginRequest.UserName), result.Successful ? Severity.Success : Severity.Error);
+                Snackbar.Add(Localizer.GetString(result.MessageKey, LoginRequest.UserName), result.Successful ? Severity.Success : Severity.Error);
             }
 
             if (result.Successful)

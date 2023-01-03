@@ -17,16 +17,16 @@ namespace NetEvent.Client.Pages.Administration.Events
         #region Injects
 
         [Inject]
-        private IEventService _EventService { get; set; } = default!;
+        private IEventService EventService { get; set; } = default!;
 
         [Inject]
-        private IVenueService _VenueService { get; set; } = default!;
+        private IVenueService VenueService { get; set; } = default!;
 
         [Inject]
-        private ISnackbar _Snackbar { get; set; } = default!;
+        private ISnackbar Snackbar { get; set; } = default!;
 
         [Inject]
-        private IStringLocalizer<App> _Localizer { get; set; } = default!;
+        private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         [Inject]
         private NavigationManager NavigationManager { get; set; } = default!;
@@ -35,6 +35,9 @@ namespace NetEvent.Client.Pages.Administration.Events
 
         [Parameter]
         public string? Id { get; set; }
+
+        private const int _HourOffset = 12;
+        private const int _DayOffset = 2;
 
         private readonly EventModelFluentValidator _EventValidator = new();
         private bool _Loading = true;
@@ -45,18 +48,18 @@ namespace NetEvent.Client.Pages.Administration.Events
         protected override async Task OnInitializedAsync()
         {
             var cts = new CancellationTokenSource();
-            _Venues = await _VenueService.GetVenuesAsync(cts.Token);
+            _Venues = await VenueService.GetVenuesAsync(cts.Token);
 
             if (long.TryParse(Id, out var id))
             {
-                _Event = await _EventService.GetEventAsync(id, cts.Token) ?? new EventDto();
+                _Event = await EventService.GetEventAsync(id, cts.Token) ?? new EventDto();
             }
             else
             {
                 _Event = new EventDto
                 {
-                    StartDate = DateTime.Today.AddDays(1).AddHours(12),
-                    EndDate = DateTime.Today.AddDays(2).AddHours(12),
+                    StartDate = DateTime.Today.AddDays(_DayOffset - 1).AddHours(_HourOffset),
+                    EndDate = DateTime.Today.AddDays(_DayOffset).AddHours(_HourOffset),
                 };
             }
 
@@ -78,11 +81,11 @@ namespace NetEvent.Client.Pages.Administration.Events
                 ServiceResult result;
                 if (_Event.Id >= 0)
                 {
-                    result = await _EventService.UpdateEventAsync(_Event, cts.Token);
+                    result = await EventService.UpdateEventAsync(_Event, cts.Token);
                 }
                 else
                 {
-                    result = await _EventService.CreateEventAsync(_Event, cts.Token);
+                    result = await EventService.CreateEventAsync(_Event, cts.Token);
 
                     if (result.Successful && _Event?.Id != null)
                     {
@@ -92,7 +95,7 @@ namespace NetEvent.Client.Pages.Administration.Events
 
                 if (!string.IsNullOrEmpty(result.MessageKey))
                 {
-                    _Snackbar.Add(_Localizer.GetString(result.MessageKey), result.Successful ? Severity.Success : Severity.Error);
+                    Snackbar.Add(Localizer.GetString(result.MessageKey), result.Successful ? Severity.Success : Severity.Error);
                 }
             }
         }
