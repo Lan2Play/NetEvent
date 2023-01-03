@@ -13,11 +13,11 @@ namespace NetEvent.Client
         private string _Style = _StyleUrl;
 
         [Inject]
-        private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
+        private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
         protected override Task OnInitializedAsync()
         {
-            _SystemSettingsDataService.SubscribeSystemSettingGroupChange(SystemSettingGroup.StyleData, StyleSettingGroupChanged);
+            SystemSettingsDataService.SubscribeSystemSettingGroupChange(SystemSettingGroup.StyleData, StyleSettingGroupChanged);
             return base.OnInitializedAsync();
         }
 

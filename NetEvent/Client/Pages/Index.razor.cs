@@ -8,7 +8,7 @@ using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Client.Pages
 {
-    public partial class Index
+    public partial class Index : IDisposable
     {
         #region Injects
 
@@ -27,6 +27,7 @@ namespace NetEvent.Client.Pages
 
         private EventDto? _UpcomingEvent;
         private TimeSpan? _TimeLeft;
+        private bool _DisposedValue;
 
         protected override async Task OnInitializedAsync()
         {
@@ -51,5 +52,29 @@ namespace NetEvent.Client.Pages
                 StateHasChanged();
             }
         }
+
+        #region IDisposable
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_DisposedValue)
+            {
+                if (disposing)
+                {
+                    _Timer?.Dispose();
+                }
+
+                _DisposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
     }
 }

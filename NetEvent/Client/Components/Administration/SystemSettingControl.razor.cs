@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Config;
@@ -9,7 +10,7 @@ namespace NetEvent.Client.Components.Administration
     public partial class SystemSettingControl
     {
         [Inject]
-        private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
+        private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
         [Parameter]
         public SystemSetting SystemSetting { get; set; } = default!;
@@ -29,13 +30,13 @@ namespace NetEvent.Client.Components.Administration
         private void OnSettingsValueChanged<T>(T? value)
         {
             var stringValue = value?.ToString() ?? string.Empty;
-            if (stringValue.Equals(SettingValue))
+            if (stringValue.Equals(SettingValue, StringComparison.Ordinal))
             {
                 return;
             }
 
             Value!.Value = stringValue;
-            _SystemSettingsDataService.UpdateSystemSetting(SystemSetting.SettingType, new SystemSettingValueDto(SystemSetting.Key, stringValue), CancellationToken.None);
+            SystemSettingsDataService.UpdateSystemSetting(SystemSetting.SettingType, new SystemSettingValueDto(SystemSetting.Key, stringValue), CancellationToken.None);
         }
     }
 }
