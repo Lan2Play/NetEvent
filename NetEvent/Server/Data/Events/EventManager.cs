@@ -86,6 +86,12 @@ namespace NetEvent.Server.Data.Events
 
         public async Task<EventResult> DeleteAsync(Event eventToDelete)
         {
+            var existingEvent = await _DbContext.Events.FindAsync(eventToDelete.Id);
+            if (existingEvent == null)
+            {
+                return EventResult.Failed(new EventError { Description = $"Event with Id '{eventToDelete.Id}' was not found" });
+            }
+
             var result = _DbContext.Events.Remove(eventToDelete);
 
             if (result.State == EntityState.Deleted)

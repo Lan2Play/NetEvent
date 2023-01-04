@@ -22,7 +22,7 @@ namespace NetEvent.Server.Tests
     public class VenueModuleTest : ModuleTestBase
     {
         [Fact]
-        public Task EventModuleTest_GetVenuesRoute_Test()
+        public Task VenueModuleTest_GetVenuesRoute_Test()
         {
             // Arrange
             return RunWithFakeVenues(async fakeVenues =>
@@ -37,7 +37,7 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public Task EventModuleTest_GetVenueByIdRoute_Test()
+        public Task VenueModuleTest_GetVenueByIdRoute_Test()
         {
             // Arrange
             return RunWithFakeVenues(async fakeVenues =>
@@ -52,7 +52,7 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public Task EventModuleTest_GetVenueBySlugRoute_Test()
+        public Task VenueModuleTest_GetVenueBySlugRoute_Test()
         {
             // Arrange
             return RunWithFakeVenues(async fakeVenues =>
@@ -67,7 +67,7 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public Task EventModuleTest_PostVenueRoute_Test()
+        public Task VenueModuleTest_PostVenueRoute_Test()
         {
             // Arrange
             return RunWithFakeVenues(async fakeVenues =>
@@ -87,7 +87,7 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public Task EventModuleTest_PutVenueRoute_Test()
+        public Task VenueModuleTest_PutVenueRoute_Test()
         {
             // Arrange
             return RunWithFakeVenues(async fakeVenues =>
@@ -109,7 +109,7 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public Task EventModuleTest_DeleteVenueRoute_Test()
+        public Task VenueModuleTest_DeleteVenueRoute_Test()
         {
             // Arrange
             return RunWithFakeVenues(async fakeVenues =>
