@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace NetEvent.Shared.Config
@@ -14,7 +15,7 @@ namespace NetEvent.Shared.Config
 
         internal RegexStringValueType(string defaultValue, [StringSyntax(StringSyntaxAttribute.Regex)] string validationRegEx, bool isRichtTextValue) : base(defaultValue)
         {
-            _ValidationRegex = new Regex(validationRegEx, RegexOptions.Compiled);
+            _ValidationRegex = new Regex(validationRegEx, RegexOptions.Compiled, TimeSpan.FromMilliseconds(500));
             IsRichTextValue = isRichtTextValue;
         }
 

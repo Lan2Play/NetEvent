@@ -19,7 +19,7 @@ namespace NetEvent.Shared.Policy
             }
 
             _Claim = claimRegEx;
-            _ClaimRegex = new Regex(claimRegEx, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            _ClaimRegex = new Regex(claimRegEx, RegexOptions.IgnoreCase | RegexOptions.Compiled, TimeSpan.FromMilliseconds(500));
         }
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RegexClaimsAuthorizationRequirement requirement)
