@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Bogus;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using NetEvent.Client.Pages.Administration.Venues;
 using NetEvent.Client.Services;
 using NetEvent.Server.Data.Events;
 using NetEvent.Server.Models;
@@ -130,9 +131,7 @@ namespace NetEvent.Server.Tests
             // Arrange
             return RunWithFakeEvents(async fakeEvents =>
             {
-                var faker = new Faker();
                 var fakeEvent = fakeEvents[0];
-                fakeEvent.Name = faker.Name.JobTitle();
 
                 // Act
                 var postResult = await Client.DeleteAsync($"/api/events/{fakeEvent.Id}").ConfigureAwait(false);
@@ -143,6 +142,7 @@ namespace NetEvent.Server.Tests
                 // Assert
                 Assert.NotNull(events);
                 Assert.Equal(events.Count(), fakeEvents.Count - 1);
+                Assert.DoesNotContain(events, v => v.Id == fakeEvent.Id);
             },
             true);
         }

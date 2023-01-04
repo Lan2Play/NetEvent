@@ -111,7 +111,7 @@ namespace NetEvent.Server.Data.Events
             _DbContext.Venues.Remove(eventToDelete);
             await _DbContext.SaveChangesAsync();
 
-            return EventResult.Failed(new EventError());
+            return EventResult.Success;
         }
 
         public async Task<EventResult> CreateVenueAsync(Venue venueToCreate)
@@ -132,9 +132,20 @@ namespace NetEvent.Server.Data.Events
             return EventResult.Failed(new EventError());
         }
 
-        public Task<EventResult> UpdateVenueAsync(Venue venueToUpdate)
+        public async Task<EventResult> UpdateVenueAsync(Venue venueToUpdate)
         {
-            throw new NotImplementedException();
+            venueToUpdate.Slug = _SlugHelper.GenerateSlug(venueToUpdate.Name);
+            var result = _DbContext.Venues.Update(venueToUpdate);
+
+            if (result.State == EntityState.Modified)
+            {
+                await _DbContext.SaveChangesAsync();
+                _Logger.LogInformation("Successfully updated Venue {name}", venueToUpdate.Name);
+                return EventResult.Success;
+            }
+
+            _Logger.LogError("Error updating Venue {name}", venueToUpdate.Name);
+            return EventResult.Failed(new EventError());
         }
     }
 }
