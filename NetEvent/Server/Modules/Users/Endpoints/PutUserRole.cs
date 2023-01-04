@@ -25,14 +25,14 @@ namespace NetEvent.Server.Modules.Users.Endpoints
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var existingUser = await _UserDbContext.FindAsync<ApplicationUser>(new[] { request.UserId }, cancellationToken).ConfigureAwait(false);
+                var existingUser = await _UserDbContext.FindAsync<ApplicationUser>(new object[] { request.UserId }, cancellationToken).ConfigureAwait(false);
 
                 if (existingUser == null)
                 {
                     return new Response(ReturnType.NotFound, $"User {request.UserId} not found in database.");
                 }
 
-                var existingRole = await _UserDbContext.FindAsync<ApplicationRole>(new[] { request.RoleId }, cancellationToken).ConfigureAwait(false);
+                var existingRole = await _UserDbContext.FindAsync<ApplicationRole>(new object[] { request.RoleId }, cancellationToken).ConfigureAwait(false);
 
                 if (string.IsNullOrEmpty(existingRole?.Name))
                 {

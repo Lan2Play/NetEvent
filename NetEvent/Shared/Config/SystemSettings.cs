@@ -18,7 +18,7 @@ namespace NetEvent.Shared.Config
 
         public static SystemSettings Instance { get; } = new SystemSettings();
 
-        public List<ISettingsGroup> SettingsGroups { get; }
+        public IReadOnlyCollection<ISettingsGroup> SettingsGroups { get; }
 
         public class OrganizationData : SettingGroupBase
         {
