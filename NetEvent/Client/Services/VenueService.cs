@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -10,6 +11,7 @@ using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Client.Services
 {
+    [ExcludeFromCodeCoverage(Justification = "Ignore UI Services")]
     public class VenueService : IVenueService
     {
         private readonly IHttpClientFactory _HttpClientFactory;

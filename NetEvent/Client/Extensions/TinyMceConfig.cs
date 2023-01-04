@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace NetEvent.Client.Extensions
 {
+    [ExcludeFromCodeCoverage(Justification = "Ignore UI Config")]
     public static class TinyMceConfig
     {
         private const int _HeaderHeight = 64;

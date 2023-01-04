@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sonarlint", ".sonarlint", 
 		.sonarlint\NetEvent.slconfig = .sonarlint\NetEvent.slconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEvent.Client.Tests", "NetEvent.Client.Tests\NetEvent.Client.Tests.csproj", "{7E33C7AD-4DCF-4C78-8712-792F0B86C327}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,10 @@ Global
 		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E33C7AD-4DCF-4C78-8712-792F0B86C327}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E33C7AD-4DCF-4C78-8712-792F0B86C327}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E33C7AD-4DCF-4C78-8712-792F0B86C327}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E33C7AD-4DCF-4C78-8712-792F0B86C327}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
