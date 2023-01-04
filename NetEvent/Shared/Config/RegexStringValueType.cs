@@ -8,7 +8,6 @@ namespace NetEvent.Shared.Config
     {
         private readonly Regex _ValidationRegex;
 
-        // TODO Add StringSyntax Attribute with .Net7
         internal RegexStringValueType(string defaultValue, [StringSyntax(StringSyntaxAttribute.Regex)] string validationRegEx) : this(defaultValue, validationRegEx, false)
         {
         }

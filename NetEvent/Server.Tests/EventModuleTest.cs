@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Bogus;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Client.Services;
@@ -100,6 +102,51 @@ namespace NetEvent.Server.Tests
             true);
         }
 
+        [Fact]
+        public Task EventModuleTest_PutEventRoute_Test()
+        {
+            // Arrange
+            return RunWithFakeEvents(async fakeEvents =>
+            {
+                var faker = new Faker();
+                var fakeEvent = fakeEvents[0];
+                fakeEvent.Name = faker.Name.JobTitle();
+
+                // Act
+                var postResult = await Client.PutAsJsonAsync($"/api/events/{fakeEvent.Id}", fakeEvent).ConfigureAwait(false);
+                postResult.EnsureSuccessStatusCode();
+                var updatedEvent = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvent.Id}").ConfigureAwait(false);
+
+                // Assert
+                Assert.NotNull(updatedEvent);
+                Assert.Equal(fakeEvent.Name, updatedEvent.Name);
+            },
+            true);
+        }
+
+        [Fact]
+        public Task EventModuleTest_DeleteEventRoute_Test()
+        {
+            // Arrange
+            return RunWithFakeEvents(async fakeEvents =>
+            {
+                var faker = new Faker();
+                var fakeEvent = fakeEvents[0];
+                fakeEvent.Name = faker.Name.JobTitle();
+
+                // Act
+                var postResult = await Client.DeleteAsync($"/api/events/{fakeEvent.Id}").ConfigureAwait(false);
+                postResult.EnsureSuccessStatusCode();
+                await Assert.ThrowsAsync<HttpRequestException>(async () => await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvent.Id}").ConfigureAwait(false)).ConfigureAwait(false);
+                var events = await Client.GetFromJsonAsync<IEnumerable<EventDto>>("/api/events").ConfigureAwait(false);
+
+                // Assert
+                Assert.NotNull(events);
+                Assert.Equal(events.Count(), fakeEvents.Count - 1);
+            },
+            true);
+        }
+
         private async Task RunWithFakeEvents(Func<List<Event>, Task> action, bool auth = false)
         {
             const int fakeCount = 5;
@@ -126,36 +173,7 @@ namespace NetEvent.Server.Tests
 
                 if (auth)
                 {
-                    // Arrange
-                    var userFaker = Fakers.ApplicationUserFaker();
-                    var roleFaker = Fakers.ApplicationRoleFaker();
-                    const string password = "Test123..";
-
-                    var fakeUser = userFaker.Generate();
-                    var fakeRole = roleFaker.Generate();
-                    fakeUser.EmailConfirmed = true;
-                    fakeRole.IsDefault = true;
-
-                    using var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                    using var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-
-                    var roleResult = await roleManager.CreateAsync(fakeRole).ConfigureAwait(false);
-                    Assert.True(roleResult?.Succeeded);
-                    foreach (var policy in Policies.AvailablePolicies)
-                    {
-                        var addClaimsResult = await roleManager.AddClaimAsync(fakeRole, new Claim(policy, string.Empty));
-                        Assert.True(addClaimsResult?.Succeeded);
-                    }
-
-                    var userResult = await userManager.CreateAsync(fakeUser, password).ConfigureAwait(false);
-                    Assert.True(userResult?.Succeeded);
-
-                    var userRoleResult = await userManager.AddToRoleAsync(fakeUser, fakeRole.NormalizedName!).ConfigureAwait(false);
-                    Assert.True(userRoleResult?.Succeeded);
-
-                    var authManager = scope.ServiceProvider.GetRequiredService<NetEventAuthenticationStateProvider>();
-                    var loginResult = await authManager.Login(new Shared.Dto.LoginRequestDto { UserName = fakeUser.UserName!, Password = password }).ConfigureAwait(false);
-                    Assert.True(loginResult?.Successful);
+                    await AuthenticatedClient(scope).ConfigureAwait(false);
                 }
             }
 
