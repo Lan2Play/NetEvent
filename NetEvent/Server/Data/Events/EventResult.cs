@@ -59,7 +59,7 @@ namespace NetEvent.Server.Data.Events
         {
             return Succeeded ?
                    "Succeeded" :
-                   string.Format(CultureInfo.InvariantCulture, "{0} : {1}", "Failed", string.Join(",", Errors.Select(x => x.Code).ToList()));
+                   string.Format(CultureInfo.InvariantCulture, "{0} : {1}", "Failed", string.Join(",", Errors.Select(x => x.Description).ToList()));
         }
     }
 }
