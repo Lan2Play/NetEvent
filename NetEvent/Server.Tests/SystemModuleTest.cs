@@ -51,6 +51,32 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
+        public async Task GetOrganizationSettingHandler_Success_Test()
+        {
+            // Arrange
+            var testData = new[]
+            {
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.OrganizationName,  SerializedValue = "value" },
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.Logo, SerializedValue = "ImageId" }
+            };
+
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.SystemSettingValues.AddRangeAsync(testData);
+                dbContext.SaveChanges();
+            }
+
+            // Act
+            var response = await Client.GetFromJsonAsync<SystemSettingValueDto>($"/api/system/settings/{SystemSettingGroup.OrganizationData}/{SystemSettings.OrganizationData.Logo}");
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.Equal(testData[1].Key, response?.Key);
+            Assert.Equal(testData[1].SerializedValue, response?.Value);
+        }
+
+        [Fact]
         public async Task GetAuthenticationSettingsHandler_Success_Test()
         {
             // Arrange
@@ -228,6 +254,16 @@ namespace NetEvent.Server.Tests
             images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
             Assert.NotNull(images);
             Assert.Empty(images!);
+        }
+
+        [Fact]
+        public async Task GetNetEventStyle_Success_Test()
+        {
+            // Act
+            var response = await Client.GetStringAsync($"/css/netevent.css");
+
+            // Assert
+            Assert.NotNull(response);
         }
     }
 }
