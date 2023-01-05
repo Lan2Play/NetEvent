@@ -1,4 +1,5 @@
 ﻿using NetEvent.Client.Extensions;
+using Xunit;
 
 namespace NetEvent.Client.Tests
 {
