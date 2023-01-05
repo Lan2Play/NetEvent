@@ -27,7 +27,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\NetEvent\Client\NetEvent.Client.csproj" />
+    <ProjectReference Include="..\Client\NetEvent.Client.csproj" />
   </ItemGroup>
 
 </Project>
