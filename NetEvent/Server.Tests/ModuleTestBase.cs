@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Http;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Http;
 using Moq;
 using NetEvent.Client.Services;
 using NetEvent.Server.Data;
+using NetEvent.Server.Data.Events;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Policy;
 using NetEvent.TestHelper;
@@ -66,6 +68,39 @@ namespace NetEvent.Server.Tests
             });
 
             Client = Application.CreateClient();
+        }
+
+        protected async Task RunWithFakeEvents(Func<List<Event>, Task> action, bool auth = false)
+        {
+            const int fakeCount = 5;
+            List<Event> fakeEvents;
+
+            using (var scope = Application.Services.CreateScope())
+            {
+                var eventManager = scope.ServiceProvider.GetRequiredService<IEventManager>();
+
+                var venueFaker = Fakers.VenueFaker();
+                var fakeVenues = venueFaker.Generate(fakeCount);
+                foreach (var fakeVenue in fakeVenues)
+                {
+                    await eventManager.CreateVenueAsync(fakeVenue).ConfigureAwait(false);
+                }
+
+                var eventFaker = Fakers.EventFaker(fakeVenues);
+                fakeEvents = eventFaker.Generate(fakeCount);
+
+                foreach (var fakeEvent in fakeEvents)
+                {
+                    await eventManager.CreateAsync(fakeEvent).ConfigureAwait(false);
+                }
+
+                if (auth)
+                {
+                    await AuthenticatedClient(scope).ConfigureAwait(false);
+                }
+            }
+
+            await action(fakeEvents).ConfigureAwait(false);
         }
 
         protected static async Task AuthenticatedClient(IServiceScope scope)
