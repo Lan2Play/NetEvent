@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
@@ -39,6 +38,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Server\NetEvent.Server.csproj" />
+    <ProjectReference Include="..\TestHelper\NetEvent.TestHelper.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Security.Claims;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using Bogus;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using NetEvent.Client.Pages.Administration.Venues;
-using NetEvent.Client.Services;
 using NetEvent.Server.Data.Events;
-using NetEvent.Server.Models;
-using NetEvent.Shared.Dto.Event;
-using NetEvent.Shared.Policy;
+using NetEvent.TestHelper;
 using Xunit;
 
 namespace NetEvent.Server.Tests

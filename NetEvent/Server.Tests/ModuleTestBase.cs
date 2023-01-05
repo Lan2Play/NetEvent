@@ -17,6 +17,7 @@ using NetEvent.Client.Services;
 using NetEvent.Server.Data;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Policy;
+using NetEvent.TestHelper;
 using Xunit;
 
 namespace NetEvent.Server.Tests

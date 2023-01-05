@@ -1,8 +1,10 @@
-﻿using NetEvent.Client.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using NetEvent.Client.Extensions;
 using Xunit;
 
 namespace NetEvent.Client.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class UrlHelperTest
     {
         [Fact]

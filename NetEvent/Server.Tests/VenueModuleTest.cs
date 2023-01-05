@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetEvent.Server.Data.Events;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto.Event;
+using NetEvent.TestHelper;
 using Xunit;
 
 namespace NetEvent.Server.Tests

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using Bogus;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 using Slugify;
 
-namespace NetEvent.Server.Tests
+namespace NetEvent.TestHelper
 {
 #pragma warning disable S109
     [ExcludeFromCodeCoverage]
-    internal static class Fakers
+    public static class Fakers
     {
         public static Faker<ApplicationUser> ApplicationUserFaker() => new Faker<ApplicationUser>()
             .RuleFor(u => u.FirstName, (f, u) => f.Name.FirstName())
