@@ -24,7 +24,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 
             public Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var settingValue = _ApplicationDbContext.Set<SystemSettingValue>().FirstOrDefault(x => request.SettingKey.Equals(x.Key, StringComparison.OrdinalIgnoreCase));
+                var settingValue = _ApplicationDbContext.Set<SystemSettingValue>().FirstOrDefault(x => request.SettingKey.Equals(x.Key));
                 if (settingValue == null)
                 {
                     return Task.FromResult(new Response(ReturnType.NotFound, $"Setting \"{request.SettingKey}\" not found!"));
