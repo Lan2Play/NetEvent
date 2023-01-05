@@ -40,12 +40,12 @@ namespace NetEvent.Client.Components
                 await oldCommittedItemChanges.InvokeAsync(d);
                 CommittedItemChanges = oldCommittedItemChanges;
             });
-            var oldCancelledEditingItem = CancelledEditingItem;
-            CancelledEditingItem = new EventCallbackFactory().Create<T>(this, async d =>
+            var oldCancelledEditingItem = CanceledEditingItem;
+            CanceledEditingItem = new EventCallbackFactory().Create<T>(this, async d =>
             {
                 list.Remove(newItem);
                 await oldCancelledEditingItem.InvokeAsync(d);
-                CancelledEditingItem = oldCancelledEditingItem;
+                CanceledEditingItem = oldCancelledEditingItem;
             });
 
             list.Add(newItem);
