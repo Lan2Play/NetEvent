@@ -235,7 +235,7 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public async Task PostGetDeleteSystemImagesHandler_Success_Test()
+        public Task PostGetDeleteSystemImagesHandler_Success_Test()
         {
             return RunWithFakeEvents(async events =>
             {
