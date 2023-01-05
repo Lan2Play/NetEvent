@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -13,7 +12,6 @@ using NetEvent.Shared.Config;
 
 namespace NetEvent.Server.Modules.System
 {
-    [ExcludeFromCodeCoverage]
     public class SystemModule : ModuleBase
     {
         public override IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints)

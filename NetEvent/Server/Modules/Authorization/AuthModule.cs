@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +9,6 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Authorization
 {
-    [ExcludeFromCodeCoverage]
     public class AuthModule : ModuleBase
     {
         public override IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints)

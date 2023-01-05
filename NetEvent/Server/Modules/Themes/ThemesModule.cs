@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -9,7 +8,6 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Themes
 {
-    [ExcludeFromCodeCoverage]
     public class ThemesModule : ModuleBase
     {
         public override IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints)

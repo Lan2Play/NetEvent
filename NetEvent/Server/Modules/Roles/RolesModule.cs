@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -8,7 +7,6 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Roles
 {
-    [ExcludeFromCodeCoverage]
     public class RolesModule : ModuleBase
     {
         public override IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints)
