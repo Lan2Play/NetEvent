@@ -216,9 +216,8 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public Task PostAndGetSystemImageHandler_Success_Test()
+        public async Task PostAndGetSystemImageHandler_Success_Test()
         {
-
             using var multipartFormContent = new MultipartFormDataContent();
 
             var fileStreamContent = new StreamContent(File.OpenRead("Data/Test.png"));
