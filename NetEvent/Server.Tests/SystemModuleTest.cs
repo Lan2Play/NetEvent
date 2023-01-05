@@ -259,6 +259,20 @@ namespace NetEvent.Server.Tests
         [Fact]
         public async Task GetNetEventStyle_Success_Test()
         {
+            // Arrange
+            var testData = new[]
+            {
+                new SystemSettingValue { Key = SystemSettings.StyleData.Background,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.CustomCss,  SerializedValue = "test {background: red;}" },
+            };
+
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.SystemSettingValues.AddRangeAsync(testData);
+                dbContext.SaveChanges();
+            }
+
             // Act
             var response = await Client.GetStringAsync($"/css/netevent.css");
 
