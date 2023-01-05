@@ -265,7 +265,13 @@ namespace NetEvent.Server.Tests
             // Arrange
             var testData = new[]
             {
+                new SystemSettingValue { Key = SystemSettings.StyleData.PrimaryColor,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.PrimaryTextColor,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.SecondaryColor,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.SecondaryTextColor,  SerializedValue = "#123456" },
                 new SystemSettingValue { Key = SystemSettings.StyleData.Background,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.AppbarBackground,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.AppbarText,  SerializedValue = "#123456" },
                 new SystemSettingValue { Key = SystemSettings.StyleData.CustomCss,  SerializedValue = "test {background: red;}" },
             };
 
