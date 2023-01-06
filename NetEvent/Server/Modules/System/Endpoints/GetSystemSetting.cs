@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -24,7 +23,9 @@ namespace NetEvent.Server.Modules.System.Endpoints
 
             public Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
+#pragma warning disable S4058 // StringComparison not working with Queryable
                 var settingValue = _ApplicationDbContext.Set<SystemSettingValue>().FirstOrDefault(x => request.SettingKey.Equals(x.Key));
+#pragma warning restore S4058
                 if (settingValue == null)
                 {
                     return Task.FromResult(new Response(ReturnType.NotFound, $"Setting \"{request.SettingKey}\" not found!"));
