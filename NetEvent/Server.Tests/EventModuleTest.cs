@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Bogus;
+using NetEvent.Shared;
 using NetEvent.Shared.Dto.Event;
 using NetEvent.TestHelper;
 using Xunit;
@@ -135,6 +138,85 @@ namespace NetEvent.Server.Tests
                 Assert.NotNull(events);
                 Assert.Equal(events.Count(), fakeEvents.Count - 1);
                 Assert.DoesNotContain(events, v => v.Id == fakeEvent.Id);
+            },
+            true);
+        }
+
+        [Fact]
+        public Task EventModuleTest_PostEventTicketTypeRoute_Test()
+        {
+            // Arrange
+            return RunWithFakeEvents(async fakeEvents =>
+            {
+                var fakeEventTicketType = Fakers.EventTicketTypeFaker(fakeEvents).Generate();
+
+                // Act
+                var postResult = await Client.PostAsJsonAsync($"/api/events/tickettype/{fakeEventTicketType.EventId}", fakeEventTicketType.ToEventTicketTypeDto()).ConfigureAwait(false);
+                postResult.EnsureSuccessStatusCode();
+                var updatedEvent = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEventTicketType.EventId}").ConfigureAwait(false);
+
+                // Assert
+                Assert.NotNull(updatedEvent?.TicketTypes);
+                Assert.Equal(1, updatedEvent.TicketTypes.Count);
+                Assert.Equal(fakeEventTicketType.Name, updatedEvent.TicketTypes.First().Name, StringComparer.Ordinal);
+            },
+            true);
+        }
+
+        [Fact]
+        public Task EventModuleTest_PutEventTicketTypeRoute_Test()
+        {
+            // Arrange
+            return RunWithFakeEvents(async fakeEvents =>
+            {
+                var faker = new Faker();
+                var fakeEventTicketType = Fakers.EventTicketTypeFaker(fakeEvents).Generate();
+
+                var postResult = await Client.PostAsJsonAsync($"/api/events/tickettype/{fakeEventTicketType.EventId}", fakeEventTicketType.ToEventTicketTypeDto()).ConfigureAwait(false);
+                postResult.EnsureSuccessStatusCode();
+                if (int.TryParse(await postResult.Content.ReadAsStringAsync().ConfigureAwait(false), CultureInfo.InvariantCulture, out var newId))
+                {
+                    fakeEventTicketType.Id = newId;
+                }
+
+                fakeEventTicketType.Name = faker.Name.FullName();
+
+                // Act
+                var putResult = await Client.PutAsJsonAsync($"/api/events/tickettype/{fakeEventTicketType.Id}", fakeEventTicketType.ToEventTicketTypeDto()).ConfigureAwait(false);
+                putResult.EnsureSuccessStatusCode();
+                var updatedEvent = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEventTicketType.EventId}").ConfigureAwait(false);
+
+                // Assert
+                Assert.NotNull(updatedEvent?.TicketTypes);
+                Assert.Equal(1, updatedEvent.TicketTypes.Count);
+                Assert.Equal(fakeEventTicketType.Name, updatedEvent.TicketTypes.First().Name, StringComparer.Ordinal);
+            },
+            true);
+        }
+
+        [Fact]
+        public Task EventModuleTest_DeleteEventTicketTypeRoute_Test()
+        {
+            // Arrange
+            return RunWithFakeEvents(async fakeEvents =>
+            {
+                var fakeEventTicketType = Fakers.EventTicketTypeFaker(fakeEvents).Generate();
+
+                var postResult = await Client.PostAsJsonAsync($"/api/events/tickettype/{fakeEventTicketType.EventId}", fakeEventTicketType.ToEventTicketTypeDto()).ConfigureAwait(false);
+                postResult.EnsureSuccessStatusCode();
+                if (int.TryParse(await postResult.Content.ReadAsStringAsync().ConfigureAwait(false), CultureInfo.InvariantCulture, out var newId))
+                {
+                    fakeEventTicketType.Id = newId;
+                }
+
+                // Act
+                var deleteResult = await Client.DeleteAsync($"/api/events/tickettype/{fakeEventTicketType.Id}").ConfigureAwait(false);
+                deleteResult.EnsureSuccessStatusCode();
+                var updatedEvent = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEventTicketType.EventId}").ConfigureAwait(false);
+
+                // Assert
+                Assert.NotNull(updatedEvent?.TicketTypes);
+                Assert.Equal(0, updatedEvent.TicketTypes.Count);
             },
             true);
         }

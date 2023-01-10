@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Data;
 using NetEvent.Shared;
 using NetEvent.Shared.Dto.Event;
@@ -25,11 +26,11 @@ namespace NetEvent.Server.Modules.Events.Endpoints
                 Models.Event? eventModel;
                 if (request.Slug != null)
                 {
-                    eventModel = _DbContext.Events.Where(e => e.Slug != null && e.Slug.Equals(request.Slug, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                    eventModel = await _DbContext.Events.Where(e => e.Slug != null && e.Slug.Equals(request.Slug, StringComparison.OrdinalIgnoreCase)).Include(e => e.TicketTypes).FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
                 }
                 else
                 {
-                    eventModel = await _DbContext.Events.FindAsync(new object[] { request.Id }, cancellationToken);
+                    eventModel = await _DbContext.Events.Where(x => x.Id == request.Id).Include(e => e.TicketTypes).FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
                 }
 
                 if (eventModel == null)

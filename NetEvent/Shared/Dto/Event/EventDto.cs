@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace NetEvent.Shared.Dto.Event
 {
@@ -25,5 +27,7 @@ namespace NetEvent.Shared.Dto.Event
         public string? Description { get; set; }
 
         public EventFormatDto EventFormat { get; set; }
+
+        public ICollection<EventTicketTypeDto> TicketTypes { get; set; } = new Collection<EventTicketTypeDto>();
     }
 }

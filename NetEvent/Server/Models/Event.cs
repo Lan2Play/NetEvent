@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace NetEvent.Server.Models
 {
@@ -33,5 +35,8 @@ namespace NetEvent.Server.Models
 
         [ForeignKey(nameof(VenueId))]
         public Venue? Venue { get; set; }
+
+        [InverseProperty(nameof(EventTicketType.Event))]
+        public List<EventTicketType>? TicketTypes { get; set; }
     }
 }

@@ -34,6 +34,8 @@ namespace NetEvent.Server.Data
 
         public virtual DbSet<Venue> Venues => Set<Venue>();
 
+        public virtual DbSet<EventTicketType> Tickets => Set<EventTicketType>();
+
         public override EntityEntry<TEntity> Add<TEntity>(TEntity entity)
         {
             return base.Add(entity);

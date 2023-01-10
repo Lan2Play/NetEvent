@@ -53,6 +53,10 @@ namespace NetEvent.Shared
 
         public static partial Event ToEvent(this EventDto eventToConvert);
 
+        public static partial EventTicketTypeDto ToEventTicketTypeDto(this EventTicketType eventTicketTypeToConvert);
+
+        public static partial EventTicketType ToEventTicketType(this EventTicketTypeDto eventTicketTypeToConvert);
+
         public static partial VenueDto ToVenueDto(this Venue venue);
 
         public static partial Venue ToVenue(this VenueDto venue);
