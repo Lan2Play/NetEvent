@@ -654,7 +654,7 @@
   <data name="SystemSetting.StyleData.SecondaryTextColor.Label" xml:space="preserve">
     <value>Secondary text color</value>
   </data>
-  <data name="SystemSetting.SelectColor" xml:space="preserve">
+  <data name="SystemSettingControl.SelectColor" xml:space="preserve">
     <value>Select color</value>
   </data>
   <data name="Login.WithSteam" xml:space="preserve">

@@ -11,7 +11,7 @@
             <MudCheckBox T="bool" Checked="BooleanValueType.GetValue(SettingValue)" CheckedChanged="@OnSettingsValueChanged" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
             break;
         @case ColorValueType cvt:
-            <MudColorPicker Label="@Localize[SystemSetting.LabelKey]" Text="@SettingValue" TextChanged="@OnSettingsValueChanged" Style="@($"--mud-palette-action-default: {SettingValue};")" Clearable="true" Placeholder="@Localize[SystemSetting.SelectColor]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
+            <MudColorPicker Label="@Localize[SystemSetting.LabelKey]" Text="@SettingValue" TextChanged="@OnSettingsValueChanged" Style="@($"--mud-palette-action-default: {SettingValue};")" Clearable="true" Placeholder="@Localize["SystemSettingControl.SelectColor"]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
             break;
         @case RegexStringValueType svt:
             @if (svt.IsRichTextValue)
