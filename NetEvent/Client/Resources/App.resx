@@ -654,6 +654,9 @@
   <data name="SystemSetting.StyleData.SecondaryTextColor.Label" xml:space="preserve">
     <value>Secondary text color</value>
   </data>
+  <data name="SystemSetting.SelectColor" xml:space="preserve">
+    <value>Select color</value>
+  </data>
   <data name="Login.WithSteam" xml:space="preserve">
     <value>Login with Steam</value>
   </data>
@@ -674,5 +677,8 @@
   </data>
   <data name="SystemSetting.OrganizationData.HideOrganizationNameInNavBar.Label" xml:space="preserve">
     <value>Hide name of organization in navbar</value>
+  </data>
+  <data name="Events.Event.NotFound" xml:space="preserve">
+    <value>Event not found</value>
   </data>
 </root>

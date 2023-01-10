@@ -55,7 +55,7 @@ namespace NetEvent.Client.Services
 
                 if (venues == null)
                 {
-                    _Logger.LogError("Unable to get roles data from backend");
+                    _Logger.LogError("Unable to get venue data from backend");
                     return new List<VenueDto>();
                 }
 
@@ -63,7 +63,7 @@ namespace NetEvent.Client.Services
             }
             catch (Exception ex)
             {
-                _Logger.LogError(ex, "Unable to get roles data from backend");
+                _Logger.LogError(ex, "Unable to get venue data from backend");
                 return new List<VenueDto>();
             }
         }

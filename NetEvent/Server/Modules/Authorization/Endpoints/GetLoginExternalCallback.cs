@@ -34,7 +34,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 
                 if (info == null)
                 {
-                    return new Response(ReturnType.Error, $"Error loading external login information.");
+                    return new Response(ReturnType.Error, "Error loading external login information.");
                 }
 
                 var externalLoginResult = await _SignInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
@@ -84,7 +84,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 
                     if (string.IsNullOrEmpty(defaultRole.Name))
                     {
-                        return new Response(ReturnType.Error, $"No default Role found!");
+                        return new Response(ReturnType.Error, "No default Role found!");
                     }
 
                     result = await _UserManager.AddToRoleAsync(user, defaultRole.Name).ConfigureAwait(false);
