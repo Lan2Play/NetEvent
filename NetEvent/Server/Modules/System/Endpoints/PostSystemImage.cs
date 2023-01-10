@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 {
     public static class PostSystemImage
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _ApplicationDbContext;
 
@@ -27,11 +28,24 @@ namespace NetEvent.Server.Modules.System.Endpoints
                     return new Response(ReturnType.Error, "Empty data is not allowed");
                 }
 
+                if (Guid.TryParse(request.ImageName, CultureInfo.InvariantCulture, out var id))
+                {
+                    var existingImage = await _ApplicationDbContext.SystemImages.FindAsync(new object[] { id.ToString() }, cancellationToken);
+                    if (existingImage?.Id != null)
+                    {
+                        return new Response(existingImage.Id);
+                    }
+                }
+                else
+                {
+                    id = Guid.NewGuid();
+                }
+
                 using var ms = new MemoryStream();
                 await request.File.OpenReadStream().CopyToAsync(ms, cancellationToken);
                 var imageData = ms.ToArray();
 
-                var image = new SystemImage { Id = Guid.NewGuid().ToString(), Name = request.File.FileName, Extension = Path.GetExtension(request.File.FileName).Trim('.'), Data = imageData, UploadTime = DateTime.UtcNow };
+                var image = new SystemImage { Id = id.ToString(), Name = request.File.FileName, Extension = Path.GetExtension(request.File.FileName).Trim('.'), Data = imageData, UploadTime = DateTime.UtcNow };
                 await _ApplicationDbContext.SystemImages.AddAsync(image, cancellationToken);
                 await _ApplicationDbContext.SaveChangesAsync(cancellationToken);
 
@@ -39,7 +53,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(string imageName, IFormFile file)
             {
@@ -52,7 +66,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             public IFormFile File { get; }
         }
 
-        public class Response : ResponseBase<string>
+        public sealed class Response : ResponseBase<string>
         {
             public Response(string imageId) : base(imageId)
             {

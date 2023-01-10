@@ -1,0 +1,64 @@
+﻿@page "/event/{slug}"
+@attribute [Authorize(Policy = "Admin.Events.*")]
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+@using Microsoft.AspNetCore.Authorization
+@using NetEvent.Client.Components
+@using NetEvent.Client.Components.Administration
+@using NetEvent.Client.Extensions
+@using NetEvent.Shared.Config
+@using NetEvent.Shared.Dto
+@using System.Globalization
+@using TinyMCE.Blazor
+
+<div class="ma-4">
+    @if (_Loading)
+    {
+        <NetEventLoading />
+    }
+    else if (_Event != null)
+    {
+        <div class="d-flex flex-row align-start">
+            <MudText Typo="Typo.h3" Class="ma-4 d-inline">@_Event.Name</MudText>
+
+
+            @if (_Event.State != PublishStateDto.Published)
+            {
+                <MudChip Color="GetStateColor(_Event.State)" Class="ma-4 d-inline">@Localize["Administration.Events.Event.PublishState." + @_Event.State.ToString()]</MudChip>
+            }
+
+            <AuthorizeView Policy="Admin.Events.Write">
+                <Authorized>
+                    <MudButton Class="ma-4" Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(_Event.Id!, true)" StartIcon="@Icons.Material.Outlined.Edit" />
+                </Authorized>
+            </AuthorizeView>
+
+
+        </div>
+        <MudText Typo="Typo.body2">@_Event.StartDate?.ToString("d", CultureInfo.CurrentUICulture) - @_Event.EndDate?.ToString("d", CultureInfo.CurrentUICulture)</MudText>
+
+        @if (_Event.ShortDescription != null)
+        {
+            <MudText Typo="Typo.body1">@((MarkupString)_Event.ShortDescription)</MudText>
+            <MudDivider Class="mt-4 mb-4"></MudDivider>
+        }
+
+        @if (_Event.Venue != null)
+        {
+            <MudText Typo="Typo.h6"><MudIcon Icon="@Icons.Material.Outlined.LocationCity"></MudIcon> @Localize["Administration.Events.Event.Venue"]</MudText>
+            <MudText Typo="Typo.body1">@_Event.Venue.Street @_Event.Venue.Number</MudText>
+            <MudText Typo="Typo.body1">@_Event.Venue.ZipCode @_Event.Venue.City</MudText>
+            <MudDivider Class="mt-4 mb-4"></MudDivider>
+        }
+
+        @if (_Event.Description != null)
+        {
+            <MudText Typo="Typo.body2">@((MarkupString)_Event.Description)</MudText>
+        }
+
+    }
+    else
+    {
+        <MudText Typo="Typo.h2" Class="ma-4">@Localize["Events.Event.NotFound"]</MudText>
+    }
+</div>

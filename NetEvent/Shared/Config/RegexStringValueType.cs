@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace NetEvent.Shared.Config
 {
@@ -6,11 +8,17 @@ namespace NetEvent.Shared.Config
     {
         private readonly Regex _ValidationRegex;
 
-        // TODO Add StringSyntax Attribute with .Net7
-        internal RegexStringValueType(string defaultValue, /*[StringSyntax(...)]*/ string validationRegEx) : base(defaultValue)
+        internal RegexStringValueType(string defaultValue, [StringSyntax(StringSyntaxAttribute.Regex)] string validationRegEx) : this(defaultValue, validationRegEx, false)
         {
-            _ValidationRegex = new Regex(validationRegEx, RegexOptions.Compiled);
         }
+
+        internal RegexStringValueType(string defaultValue, [StringSyntax(StringSyntaxAttribute.Regex)] string validationRegEx, bool isRichtTextValue) : base(defaultValue)
+        {
+            _ValidationRegex = new Regex(validationRegEx, RegexOptions.Compiled, TimeSpan.FromMilliseconds(500));
+            IsRichTextValue = isRichtTextValue;
+        }
+
+        public bool IsRichTextValue { get; }
 
         public override string DefaultValueSerialized => DefaultValue;
 

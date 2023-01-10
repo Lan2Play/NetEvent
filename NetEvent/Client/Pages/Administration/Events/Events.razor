@@ -1,0 +1,64 @@
+﻿@page "/administration/events"
+@attribute [Authorize(Policy = "Admin.Events.*")]
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+@using System.Globalization
+@using Microsoft.AspNetCore.Authorization
+@using NetEvent.Client.Components
+@using NetEvent.Client.Components.Administration
+@using NetEvent.Client.Extensions
+@using NetEvent.Shared.Config
+
+
+
+<div class="d-flex align-stretch flex-wrap gap-4 ma-4">
+
+    <MudButton Class="d-flex flex-grow-1 flex-column" Style="width: 200px; max-width: 300px;" Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.Add" Href="@UrlHelper.GetEventLink("new" , true)">@Localize["Administration.Events.Event.Create"]</MudButton>
+
+    @if (_Loading)
+    {
+        <NetEventLoading />
+    }
+
+    @foreach (var eventDto in _Events)
+    {
+        <MudCard Class="d-flex flex-grow-1 flex-column" Style="width: 200px; max-width: 300px;">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudPaper Class="d-flex flex-row" Elevation="0">
+                        <MudText Typo="Typo.h6">@eventDto.Name</MudText>
+                        <MudSpacer />
+                        <MudTooltip Text="@Localize["Administration.Events.Event.Show"]">
+                            <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(eventDto.Id!, false)" StartIcon="@Icons.Material.Outlined.TapAndPlay"></MudButton>
+                        </MudTooltip>
+                    </MudPaper>
+
+                    <MudText Typo="Typo.body2">@eventDto.StartDate?.ToString("d", CultureInfo.CurrentUICulture) - @eventDto.EndDate?.ToString("d", CultureInfo.CurrentUICulture)</MudText>
+                    <MudText Typo="Typo.body2">@eventDto.Venue?.Name</MudText>
+
+                </CardHeaderContent>
+                <CardHeaderActions>
+                    @*<MudText>@eventDto.Id</MudText>*@
+                    @*<MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />*@
+                </CardHeaderActions>
+            </MudCardHeader>
+            <MudCardContent Class="flex-grow-1">
+                @if (eventDto.ShortDescription != null)
+                {
+                    <MudText Typo="Typo.body2" Style="max-height:200px;">@((MarkupString)eventDto.ShortDescription)</MudText>
+                }
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@UrlHelper.GetEventLink(eventDto.Id!, true)" StartIcon="@Icons.Material.Outlined.Edit">@Localize["Administration.Events.Event.Edit"]</MudButton>
+                <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@(async () => await DeleteEvent(eventDto))" StartIcon="@Icons.Material.Outlined.Delete">@Localize["Administration.Events.Event.Delete"]</MudButton>
+            </MudCardActions>
+        </MudCard>
+    }
+</div>
+
+
+
+
+
+
+

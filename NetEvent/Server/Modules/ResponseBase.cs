@@ -2,11 +2,11 @@
 {
     public class ResponseBase : ResponseBase<object>
     {
-        public ResponseBase() : base(null)
+        protected ResponseBase() : base(null)
         {
         }
 
-        public ResponseBase(ReturnType returnType, string error) : base(returnType, error)
+        protected ResponseBase(ReturnType returnType, string error) : base(returnType, error)
         {
         }
     }
@@ -14,13 +14,13 @@
 #pragma warning disable SA1402 // File may only contain a single type
     public class ResponseBase<T>
     {
-        public ResponseBase(T? value)
+        protected ResponseBase(T? value)
         {
             ReturnValue = value;
             ReturnType = ReturnType.Ok;
         }
 
-        public ResponseBase(ReturnType returnType, string error)
+        protected ResponseBase(ReturnType returnType, string error)
         {
             ReturnType = returnType;
             Error = error;

@@ -9,7 +9,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 {
     public static class GetSystemImage
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _ApplicationDbContext;
 
@@ -44,12 +44,16 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 {
                     imageContentType = "svg+xml";
                 }
+                else
+                {
+                    // Do nothing
+                }
 
                 return new Response(Results.File(image.Data, $"image/{imageContentType}", lastModified: image.UploadTime));
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(string imageName)
             {
@@ -59,7 +63,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
             public string ImageName { get; }
         }
 
-        public class Response : ResponseBase<IResult>
+        public sealed class Response : ResponseBase<IResult>
         {
             public Response(IResult fileResult) : base(fileResult)
             {

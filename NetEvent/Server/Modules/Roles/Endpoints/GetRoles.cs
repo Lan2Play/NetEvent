@@ -11,7 +11,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
 {
     public static class GetRoles
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly NetEventRoleManager _RoleManager;
 
@@ -20,26 +20,26 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
                 _RoleManager = roleManager;
             }
 
-            public Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 var allRoles = _RoleManager.Roles.ToList();
-                var roleDtos = allRoles.Select(async role =>
+                var results = await Task.WhenAll(allRoles.Select(async role =>
                 {
                     var roleDto = role.ToRoleDto();
                     var roleClaims = await _RoleManager.GetClaimsAsync(role);
                     roleDto.Claims = roleClaims.Select(roleClaim => roleClaim.Type).ToList();
                     return roleDto;
-                }).Select(t => t.Result).ToList();
+                })).ConfigureAwait(false);
 
-                return Task.FromResult(new Response(roleDtos));
+                return new Response(results.ToList());
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
         }
 
-        public class Response : ResponseBase<IReadOnlyCollection<RoleDto>>
+        public sealed class Response : ResponseBase<IReadOnlyCollection<RoleDto>>
         {
             public Response(IReadOnlyCollection<RoleDto> value) : base(value)
             {

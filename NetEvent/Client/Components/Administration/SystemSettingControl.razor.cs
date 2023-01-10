@@ -1,5 +1,5 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
 using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Config;
@@ -10,7 +10,7 @@ namespace NetEvent.Client.Components.Administration
     public partial class SystemSettingControl
     {
         [Inject]
-        private ISystemSettingsDataService _SystemSettingsDataService { get; set; } = default!;
+        private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
         [Parameter]
         public SystemSetting SystemSetting { get; set; } = default!;
@@ -18,18 +18,25 @@ namespace NetEvent.Client.Components.Administration
         [Parameter]
         public SystemSettingValueDto? Value { get; set; } = default!;
 
-        private async Task OnSettingsValueChanged(SystemSetting setting, object? value)
+        public string? SettingValue
         {
-            if (value is null)
+            get => Value!.Value;
+            set
+            {
+                OnSettingsValueChanged(value);
+            }
+        }
+
+        private void OnSettingsValueChanged<T>(T? value)
+        {
+            var stringValue = value?.ToString() ?? string.Empty;
+            if (stringValue.Equals(SettingValue, StringComparison.Ordinal))
             {
                 return;
             }
 
-            var result = await _SystemSettingsDataService.UpdateSystemSetting(setting.SettingType, new SystemSettingValueDto(setting.Key, value.ToString() ?? string.Empty), CancellationToken.None);
-            if (result.Successful && Value != null)
-            {
-                Value.Value = value.ToString() ?? string.Empty;
-            }
+            Value!.Value = stringValue;
+            SystemSettingsDataService.UpdateSystemSetting(SystemSetting.SettingType, new SystemSettingValueDto(SystemSetting.Key, stringValue), CancellationToken.None);
         }
     }
 }

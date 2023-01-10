@@ -1,0 +1,98 @@
+﻿@page "/administration/venue/{id}"
+@attribute [Authorize(Policy = "Admin.Venues.*")]
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+
+@using Microsoft.AspNetCore.Authorization
+@using NetEvent.Client.Components
+@using NetEvent.Client.Components.Administration
+@using NetEvent.Client.Extensions
+@using NetEvent.Shared.Config
+@using NetEvent.Shared.Dto
+@using TinyMCE.Blazor
+
+@if (_Loading)
+{
+    <NetEventLoading />
+}
+
+@if (_Venue != null)
+{
+    <div Class="d-flex flex-row" Elevation="0">
+        <MudText Typo="Typo.h6" Class="ma-4">@_Venue.Name</MudText>
+    </div>
+
+
+    <MudCard Class="ma-4">
+        <MudForm Model="@_Venue" @ref="@_Form" Validation="@(_VenueValidator.ValidateValue)" ValidationDelay="0">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">@Localize["Administration.Venues.Venue.Settings"]</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudGrid>
+                    @if (_Venue.Id > 0)
+                    {
+                        <MudItem xs="2" md="1">
+                            <MudTextField @bind-Value="_Venue.Id"
+                                  For="@(() => _Venue.Id)"
+                                  Margin="Margin.Dense"
+                                  ReadOnly="true"
+                                  Disabled="true"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localize["Administration.Venues.Venue.Id"]" />
+                        </MudItem>
+                    }
+
+                    <MudItem xs="@(_Venue.Id > 0 ? 10 : 12)" md="@(_Venue.Id > 0 ? 11 : 12)">
+                        <MudTextField @bind-Value="_Venue.Name"
+                                  For="@(() => _Venue.Name)"
+                                  Margin="Margin.Dense"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localize["Administration.Venues.Venue.Name"]" />
+                    </MudItem>
+                    <MudItem xs="8" md="8">
+                        <MudTextField @bind-Value="_Venue.Street"
+                                  For="@(() => _Venue.Name)"
+                                  Margin="Margin.Dense"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localize["Administration.Venues.Venue.Street"]" />
+                    </MudItem>
+                    <MudItem xs="4" md="4">
+                        <MudTextField @bind-Value="_Venue.Number"
+                                  For="@(() => _Venue.Number)"
+                                  Margin="Margin.Dense"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localize["Administration.Venues.Venue.Number"]" />
+                    </MudItem>
+                    <MudItem xs="4" md="4">
+                        <MudTextField @bind-Value="_Venue.ZipCode"
+                                  For="@(() => _Venue.ZipCode)"
+                                  Margin="Margin.Dense"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localize["Administration.Venues.Venue.ZipCode"]" />
+                    </MudItem>
+                    <MudItem xs="8" md="8">
+                        <MudTextField @bind-Value="_Venue.City"
+                                  For="@(() => _Venue.City)"
+                                  Margin="Margin.Dense"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localize["Administration.Venues.Venue.City"]" />
+                    </MudItem>
+
+                </MudGrid>
+            </MudCardContent>
+        </MudForm>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await SaveVenue())">
+                @(_Venue.Id >= 0 ? Localize["Administration.Venues.Venue.Save"] : Localize["Administration.Venues.Venue.Create"])
+            </MudButton>
+        </MudCardActions>
+    </MudCard>
+}

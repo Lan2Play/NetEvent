@@ -15,7 +15,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 {
     public static class GetCurrentUser
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly NetEventUserManager _UserManager;
             private readonly SignInManager<ApplicationUser> _SignInManager;
@@ -40,15 +40,29 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                 var userId = request.User.Id();
                 var user = await _UserManager.FindByIdAsync(userId);
 
-                var refreshedUser = await _SignInManager.CreateUserPrincipalAsync(user);
+                if (user == null)
+                {
+                    const string errorMessage = "User not found.";
+                    _Logger.LogError(errorMessage);
+                    return new Response(ReturnType.Error, errorMessage);
+                }
 
-                var currentUser = refreshedUser.ToCurrentUserDto();
+                var refreshedUser = await _SignInManager.CreateUserPrincipalAsync(user);
+                if (refreshedUser?.Identity == null)
+                {
+                    const string errorMessage = "Error creating user principal.";
+                    _Logger.LogError(errorMessage);
+                    return new Response(ReturnType.Error, errorMessage);
+                }
+
+                var currentUser = user.ToCurrentUserDto();
+                currentUser.IsAuthenticated = refreshedUser.Identity.IsAuthenticated;
                 currentUser.Claims = refreshedUser.Claims.ToDictionary(c => c.Type, c => c.Value);
                 return new Response(currentUser);
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(ClaimsPrincipal user)
             {
@@ -58,7 +72,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             public ClaimsPrincipal User { get; }
         }
 
-        public class Response : ResponseBase<CurrentUserDto>
+        public sealed class Response : ResponseBase<CurrentUserDto>
         {
             public Response(CurrentUserDto? value) : base(value)
             {

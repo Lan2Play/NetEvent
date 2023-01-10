@@ -181,10 +181,6 @@
     <value>Willkommen zu deiner neuen App.</value>
     <comment />
   </data>
-  <data name="Administration.AdminLayout.FooterPlaceholder" xml:space="preserve">
-    <value>Fixen Footer Inhalt hier hinterlegen.</value>
-    <comment />
-  </data>
   <data name="Administration.AdminMenu.Dashboard" xml:space="preserve">
     <value>Übersicht</value>
     <comment />

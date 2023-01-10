@@ -1,10 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Http;
+using Moq;
+using NetEvent.Client.Services;
 using NetEvent.Server.Data;
+using NetEvent.Server.Data.Events;
+using NetEvent.Server.Models;
+using NetEvent.Shared.Policy;
+using NetEvent.TestHelper;
+using Xunit;
 
 namespace NetEvent.Server.Tests
 {
@@ -25,7 +41,7 @@ namespace NetEvent.Server.Tests
             {
                 builder.ConfigureServices(services =>
                 {
-                    var descriptors = services.Where(a => a.ServiceType.Name.Contains("DbContext")).ToList();
+                    var descriptors = services.Where(a => a.ServiceType.Name.Contains("DbContext", StringComparison.OrdinalIgnoreCase)).ToList();
 
                     foreach (var descriptor in descriptors)
                     {
@@ -36,10 +52,89 @@ namespace NetEvent.Server.Tests
                     {
                         options.UseInMemoryDatabase(dbName);
                     });
+
+                    services.AddScoped<NetEventAuthenticationStateProvider>();
+                    services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<NetEventAuthenticationStateProvider>());
+                    services.AddScoped<IAuthService, AuthService>();
+
+                    var mockClientFactory = new Mock<IHttpClientFactory>();
+                    mockClientFactory.Setup(p => p.CreateClient(It.IsAny<string>())).Returns(() => Client!);
+                    services.TryAddSingleton(mockClientFactory.Object);
+                    services.Configure<HttpClientFactoryOptions>(Constants.BackendApiSecuredHttpClientName, o =>
+                    {
+                        o.HttpMessageHandlerBuilderActions.Add(b => b.AdditionalHandlers.Add(b.Services.GetRequiredService<BaseAddressAuthorizationMessageHandler>()));
+                    });
                 });
             });
 
             Client = Application.CreateClient();
+        }
+
+        protected async Task RunWithFakeEvents(Func<List<Event>, Task> action, bool auth = false)
+        {
+            const int fakeCount = 5;
+            List<Event> fakeEvents;
+
+            using (var scope = Application.Services.CreateScope())
+            {
+                var eventManager = scope.ServiceProvider.GetRequiredService<IEventManager>();
+
+                var venueFaker = Fakers.VenueFaker();
+                var fakeVenues = venueFaker.Generate(fakeCount);
+                foreach (var fakeVenue in fakeVenues)
+                {
+                    await eventManager.CreateVenueAsync(fakeVenue).ConfigureAwait(false);
+                }
+
+                var eventFaker = Fakers.EventFaker(fakeVenues);
+                fakeEvents = eventFaker.Generate(fakeCount);
+
+                foreach (var fakeEvent in fakeEvents)
+                {
+                    await eventManager.CreateAsync(fakeEvent).ConfigureAwait(false);
+                }
+
+                if (auth)
+                {
+                    await AuthenticatedClient(scope).ConfigureAwait(false);
+                }
+            }
+
+            await action(fakeEvents).ConfigureAwait(false);
+        }
+
+        protected static async Task AuthenticatedClient(IServiceScope scope)
+        {
+            // Arrange
+            var userFaker = Fakers.ApplicationUserFaker();
+            var roleFaker = Fakers.ApplicationRoleFaker();
+            const string password = "Test123..";
+
+            var fakeUser = userFaker.Generate();
+            var fakeRole = roleFaker.Generate();
+            fakeUser.EmailConfirmed = true;
+            fakeRole.IsDefault = true;
+
+            using var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            using var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+
+            var roleResult = await roleManager.CreateAsync(fakeRole).ConfigureAwait(false);
+            Assert.True(roleResult?.Succeeded);
+            foreach (var policy in Policies.AvailablePolicies)
+            {
+                var addClaimsResult = await roleManager.AddClaimAsync(fakeRole, new Claim(policy, string.Empty));
+                Assert.True(addClaimsResult?.Succeeded);
+            }
+
+            var userResult = await userManager.CreateAsync(fakeUser, password).ConfigureAwait(false);
+            Assert.True(userResult?.Succeeded);
+
+            var userRoleResult = await userManager.AddToRoleAsync(fakeUser, fakeRole.NormalizedName!).ConfigureAwait(false);
+            Assert.True(userRoleResult?.Succeeded);
+
+            var authManager = scope.ServiceProvider.GetRequiredService<NetEventAuthenticationStateProvider>();
+            var loginResult = await authManager.Login(new Shared.Dto.LoginRequestDto { UserName = fakeUser.UserName!, Password = password }).ConfigureAwait(false);
+            Assert.True(loginResult?.Successful);
         }
 
         protected virtual void Dispose(bool disposing)

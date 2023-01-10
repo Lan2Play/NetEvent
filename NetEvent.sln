@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		CodeCoverage.runsettings = CodeCoverage.runsettings
 		Makefile = Makefile
+		NetEvent\TestHelper\NetEvent.TestHelper.csproj = NetEvent\TestHelper\NetEvent.TestHelper.csproj
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -38,6 +40,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sonarlint", ".sonarlint", 
 		.sonarlint\NetEvent.slconfig = .sonarlint\NetEvent.slconfig
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEvent.Client.Tests", "NetEvent\Client.Tests\NetEvent.Client.Tests.csproj", "{42715E12-913E-4481-9F20-76F308F02418}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEvent.Shared.Tests", "NetEvent\Shared.Tests\NetEvent.Shared.Tests.csproj", "{C6F3D6F6-6BE0-4466-889E-756CA04809A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7840BECA-77F5-4043-AC23-1D7E6C816666}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEvent.TestHelper", "NetEvent\TestHelper\NetEvent.TestHelper.csproj", "{1A9DFB5A-CCBC-41B5-918E-FDE51E4F4BB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,12 +70,28 @@ Global
 		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAE571E6-7953-4393-AE27-D2A93DD3DC81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42715E12-913E-4481-9F20-76F308F02418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42715E12-913E-4481-9F20-76F308F02418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42715E12-913E-4481-9F20-76F308F02418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42715E12-913E-4481-9F20-76F308F02418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F3D6F6-6BE0-4466-889E-756CA04809A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F3D6F6-6BE0-4466-889E-756CA04809A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F3D6F6-6BE0-4466-889E-756CA04809A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F3D6F6-6BE0-4466-889E-756CA04809A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A9DFB5A-CCBC-41B5-918E-FDE51E4F4BB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A9DFB5A-CCBC-41B5-918E-FDE51E4F4BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A9DFB5A-CCBC-41B5-918E-FDE51E4F4BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A9DFB5A-CCBC-41B5-918E-FDE51E4F4BB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{CAE571E6-7953-4393-AE27-D2A93DD3DC81} = {7840BECA-77F5-4043-AC23-1D7E6C816666}
 		{F80CCC91-FA5D-4358-97A5-94A9215B116D} = {6360A460-4B16-4D5B-9E06-FF2B60B06FF5}
+		{42715E12-913E-4481-9F20-76F308F02418} = {7840BECA-77F5-4043-AC23-1D7E6C816666}
+		{C6F3D6F6-6BE0-4466-889E-756CA04809A6} = {7840BECA-77F5-4043-AC23-1D7E6C816666}
+		{1A9DFB5A-CCBC-41B5-918E-FDE51E4F4BB6} = {7840BECA-77F5-4043-AC23-1D7E6C816666}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3B2A188-85C4-4F59-9C17-4227D122EA8F}

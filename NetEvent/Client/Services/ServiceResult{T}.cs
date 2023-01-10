@@ -10,9 +10,9 @@ namespace NetEvent.Client.Services
             ResultData = data;
         }
 
-        public static ServiceResult<T> Success(T data, string? messageKey = null) => new ServiceResult<T>(data, true, messageKey);
+        public static ServiceResult<T> Success(T data, string? messageKey = null) => new(data, true, messageKey);
 
-        public static new ServiceResult<T> Error(string messageKey) => new ServiceResult<T>(default, false, messageKey);
+        public static new ServiceResult<T> Error(string messageKey) => new(default, false, messageKey);
 
         public T? ResultData { get; }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -14,11 +13,12 @@ namespace NetEvent.Client.Pages.Administration
         #region Injects
 
         [Inject]
-        private ISystemInfoDataService _SystemInfoDataService { get; set; } = default!;
+        private ISystemInfoDataService SystemInfoDataService { get; set; } = default!;
 
         #endregion
+
         private readonly IList<SystemInfoComponentEntryDto> _ClientComponents = new List<SystemInfoComponentEntryDto>();
-        private SystemInfoDto _SystemInfos = new SystemInfoDto();
+        private SystemInfoDto _SystemInfos = new();
         private string searchStringComponents = string.Empty;
         private string searchStringClientComponents = string.Empty;
         private string searchStringVersions = string.Empty;
@@ -27,19 +27,21 @@ namespace NetEvent.Client.Pages.Administration
         protected override async Task OnInitializedAsync()
         {
             var cts = new CancellationTokenSource();
-            _SystemInfos = await _SystemInfoDataService.GetSystemInfoDataAsync(cts.Token);
+            _SystemInfos = await SystemInfoDataService.GetSystemInfoDataAsync(cts.Token);
 
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            Assembly[] assems = currentDomain.GetAssemblies();
-            foreach (Assembly assem in assems)
+            var currentDomain = AppDomain.CurrentDomain;
+            var assems = currentDomain.GetAssemblies();
+            foreach (var assem in assems)
             {
-                _ClientComponents.Add(new SystemInfoComponentEntryDto(assem.ManifestModule.Name.ToString(), assem.ToString()));
+                _ClientComponents.Add(new SystemInfoComponentEntryDto(assem.ManifestModule.Name, assem.ToString()));
             }
         }
 
-        private bool FilterFuncComponents1(SystemInfoComponentEntryDto systeminfocomponententry) => FilterFuncComponents(systeminfocomponententry, searchStringComponents);
+        private bool FilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry) => InternalFilterFuncComponents(systeminfocomponententry, searchStringComponents);
 
-        private static bool FilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry, string searchString)
+        private bool FilterFuncComponentsClient(SystemInfoComponentEntryDto systeminfocomponententry) => InternalFilterFuncComponents(systeminfocomponententry, searchStringClientComponents);
+
+        private static bool InternalFilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry, string searchString)
         {
             if (string.IsNullOrWhiteSpace(searchString))
             {

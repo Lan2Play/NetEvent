@@ -3,10 +3,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace NetEvent.Server.Migrations.Sqlite
 {
+    /// <inheritdoc />
     public partial class Initial : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -102,6 +106,24 @@ namespace NetEvent.Server.Migrations.Sqlite
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Venues",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Slug = table.Column<string>(type: "TEXT", nullable: true),
+                    Street = table.Column<string>(type: "TEXT", nullable: true),
+                    Number = table.Column<string>(type: "TEXT", nullable: true),
+                    ZipCode = table.Column<string>(type: "TEXT", nullable: true),
+                    City = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Venues", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,6 +232,32 @@ namespace NetEvent.Server.Migrations.Sqlite
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Slug = table.Column<string>(type: "TEXT", nullable: true),
+                    State = table.Column<int>(type: "INTEGER", nullable: false),
+                    Visibility = table.Column<int>(type: "INTEGER", nullable: false),
+                    ShortDescription = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    VenueId = table.Column<long>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_Venues_VenueId",
+                        column: x => x.VenueId,
+                        principalTable: "Venues",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.InsertData(
                 table: "EmailTemplates",
                 columns: new[] { "TemplateId", "ContentTemplate", "SubjectTemplate" },
@@ -218,92 +266,76 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "admin", "58717e1f-53d6-441d-abc0-5b84dcf2edc4", false, "Admin", "ADMIN" });
-
-            migrationBuilder.InsertData(
-                table: "Role",
-                columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "orga", "f28440b0-82da-46a2-a418-d43e742cf092", false, "Orga", "ORGA" });
-
-            migrationBuilder.InsertData(
-                table: "Role",
-                columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
-                values: new object[] { "user", "fbe27a91-febf-46b2-a4a1-b3c449cd54ad", true, "User", "USER" });
+                values: new object[,]
+                {
+                    { "admin", null, false, "Admin", "ADMIN" },
+                    { "orga", null, false, "Orga", "ORGA" },
+                    { "user", null, true, "User", "USER" }
+                });
 
             migrationBuilder.InsertData(
                 table: "SystemSettings",
                 columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "DataCultureInfo", "en-US" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "Favicon", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "Logo", "" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "OrganizationName", "NetEvent" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "Standard", "True" });
-
-            migrationBuilder.InsertData(
-                table: "SystemSettings",
-                columns: new[] { "Key", "SerializedValue" },
-                values: new object[] { "Steam", "False" });
+                values: new object[,]
+                {
+                    { "AboutUs", "" },
+                    { "AppbarBackground", "" },
+                    { "AppbarText", "" },
+                    { "Background", "" },
+                    { "CustomCss", "" },
+                    { "DataCultureInfo", "en-US" },
+                    { "Favicon", "" },
+                    { "LegalNotice", "" },
+                    { "Logo", "" },
+                    { "OrganizationName", "NetEvent" },
+                    { "PrimaryColor", "" },
+                    { "PrimaryTextColor", "" },
+                    { "PrivacyPolicy", "" },
+                    { "SecondaryColor", "" },
+                    { "SecondaryTextColor", "" },
+                    { "Standard", "True" },
+                    { "Steam", "False" }
+                });
 
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "80c5ad79-5b67-4d71-a0e7-f562e1727cc6", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAEJuD0kMPT9lUt7zsqNBsUs6h4ottomacgKuqhrkpAVlPLoe4wqAh+Lv6K77lnVZXUg==", null, false, null, "78db4331-c0ff-40f9-97de-0d36fb9d2750", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "0c974d53-f5ba-458b-8b29-c4b59699505a", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAIAAYagAAAAEGW9UdB9bSniD6sgL5khtBIgD6AZPN0wINdTfQpLsC/s3Nh32vI6FjuFDOHNw5qyzQ==", null, false, null, "c952ac1c-570a-48bf-b073-2d227fb38d4e", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 1, "Admin.Users.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 2, "Admin.Users.Edit", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 3, "Admin.Settings.Organization.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 4, "Admin.Settings.Organization.Edit", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 5, "Admin.SystemInfo.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 6, "Admin.Images.Read", "", "admin" });
-
-            migrationBuilder.InsertData(
-                table: "RoleClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "RoleId" },
-                values: new object[] { 7, "Admin.Images.Edit", "", "admin" });
+                values: new object[,]
+                {
+                    { 1, "Admin.Users.Read", "", "admin" },
+                    { 2, "Admin.Users.Write", "", "admin" },
+                    { 3, "Admin.Roles.Read", "", "admin" },
+                    { 4, "Admin.Roles.Write", "", "admin" },
+                    { 5, "Admin.System.Read", "", "admin" },
+                    { 6, "Admin.System.Write", "", "admin" },
+                    { 7, "Admin.Images.Read", "", "admin" },
+                    { 8, "Admin.Images.Edit", "", "admin" },
+                    { 9, "Admin.Events.Read", "", "admin" },
+                    { 10, "Admin.Events.Edit", "", "admin" },
+                    { 11, "Admin.Venues.Read", "", "admin" },
+                    { 12, "Admin.Venues.Edit", "", "admin" }
+                });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "admin", "BAFC89CF-4F3E-4595-8256-CCA19C260FBD" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_Slug",
+                table: "Events",
+                column: "Slug",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_VenueId",
+                table: "Events",
+                column: "VenueId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -343,10 +375,14 @@ namespace NetEvent.Server.Migrations.Sqlite
                 column: "RoleId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "EmailTemplates");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
@@ -371,6 +407,9 @@ namespace NetEvent.Server.Migrations.Sqlite
 
             migrationBuilder.DropTable(
                 name: "UserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Venues");
 
             migrationBuilder.DropTable(
                 name: "Role");

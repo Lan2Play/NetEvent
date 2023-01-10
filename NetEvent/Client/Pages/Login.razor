@@ -1,32 +1,47 @@
 ﻿@page "/login"
+<RedirectAuthorized />
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<h3>@Localize["Login.Title"]</h3>
+<MudGrid Class="mt-4 justify-center">
+    @if (IsStandardEnabled)
+    {
+        <MudItem md="6">
+            <EditForm Model="LoginRequest" OnValidSubmit="ExecuteLogin">
+                <DataAnnotationsValidator />
+                <MudCard>
+                    <MudCardHeader>
+                        <div>
+                            @if (!string.IsNullOrEmpty(_Logo))
+                            {
+                                <MudImage Src="@_Logo" Class="background-logo" Style="max-width:100%; max-height: 200px;"></MudImage>
+                            }else{
+                                <h3>@Localize["Login.Title"]</h3>
+                            }
+                        </div>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTextField id="Input.Email" Label="@Localize["Login.Title"]" @bind-Value="LoginRequest.UserName" For="@(() => LoginRequest.UserName)" />
+                        <MudTextField id="Input.Password" Label="@Localize["Login.Password"]" @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" InputType="InputType.Password" />
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ma-2 py-2">@Localize["Login.LoginButton"]</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </EditForm>
+        </MudItem>
+    }
 
-@if (IsStandardEnabled)
-{
-    <EditForm Model="LoginRequest" OnValidSubmit="ExecuteLogin">
-        <DataAnnotationsValidator />
-        <MudCard>
-            <MudCardContent>
-                <MudTextField id="Input.Email" Label="@Localize["Login.Title"]" @bind-Value="LoginRequest.UserName" For="@(() => LoginRequest.UserName)" />
-                <MudTextField id="Input.Password" Label="@Localize["Login.Password"]" @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" InputType="InputType.Password" />
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Class="ma-2 py-2">@Localize["Login.LoginButton"]</MudButton>
-            </MudCardActions>
-        </MudCard>
-    </EditForm>
-}
-
-@if (IsSteamEnabled)
-{
-    <MudButton OnClick="LoginWithSteam"
-           Target="_blank"
-           Variant="Variant.Filled"
-           EndIcon="@Icons.Custom.Brands.Steam"
-           Color="Color.Primary">
-        Login with Steam
-    </MudButton>
-}
+    @if (IsSteamEnabled)
+    {
+        <MudItem md="6">
+            <MudButton OnClick="LoginWithSteam"
+                   Target="_blank"
+                   Variant="Variant.Filled"
+                   EndIcon="@Icons.Custom.Brands.Steam"
+                   Color="Color.Primary">
+                @Localize["Login.WithSteam"]
+            </MudButton>
+        </MudItem>
+    }
+</MudGrid>

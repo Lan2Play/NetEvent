@@ -4,5 +4,6 @@
     {
         OrganizationData,
         AuthenticationData,
+        StyleData,
     }
 }

@@ -12,10 +12,10 @@ namespace NetEvent.Client.Components
     public class NetEventDataGrid<T> : MudDataGrid<T>
     {
         [Inject]
-        private IDialogService _DialogService { get; set; } = default!;
+        private IDialogService DialogService { get; set; } = default!;
 
         [Inject]
-        private IStringLocalizer<App> _Localizer { get; set; } = default!;
+        private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         [Parameter]
         public EventCallback<EventCallbackArgs<T>> DeletedItemChanges { get; set; }
@@ -40,12 +40,12 @@ namespace NetEvent.Client.Components
                 await oldCommittedItemChanges.InvokeAsync(d);
                 CommittedItemChanges = oldCommittedItemChanges;
             });
-            var oldCancelledEditingItem = CancelledEditingItem;
-            CancelledEditingItem = new EventCallbackFactory().Create<T>(this, async d =>
+            var oldCancelledEditingItem = CanceledEditingItem;
+            CanceledEditingItem = new EventCallbackFactory().Create<T>(this, async d =>
             {
                 list.Remove(newItem);
                 await oldCancelledEditingItem.InvokeAsync(d);
-                CancelledEditingItem = oldCancelledEditingItem;
+                CanceledEditingItem = oldCancelledEditingItem;
             });
 
             list.Add(newItem);
@@ -74,7 +74,7 @@ namespace NetEvent.Client.Components
                 return;
             }
 
-            bool? result = await _DialogService.ShowMessageBox(_Localizer.GetString("NetEventDataGrid.DeleteDialog.Title"), _Localizer.GetString("NetEventDataGrid.DeleteDialog.Message"), yesText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Delete"), cancelText: _Localizer.GetString("NetEventDataGrid.DeleteDialog.Cancel"));
+            bool? result = await DialogService.ShowMessageBox(Localizer.GetString("NetEventDataGrid.DeleteDialog.Title"), Localizer.GetString("NetEventDataGrid.DeleteDialog.Message"), yesText: Localizer.GetString("NetEventDataGrid.DeleteDialog.Delete"), cancelText: Localizer.GetString("NetEventDataGrid.DeleteDialog.Cancel"));
             if (result == true)
             {
                 StateHasChanged();

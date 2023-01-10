@@ -6,14 +6,14 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Toolkit.Diagnostics;
 using NetEvent.Server.Models;
+using NetEvent.Shared;
 
 namespace NetEvent.Server.Modules.Authorization.Endpoints
 {
     public static class GetLoginExternalCallback
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly SignInManager<ApplicationUser> _SignInManager;
             private readonly UserManager<ApplicationUser> _UserManager;
@@ -34,7 +34,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 
                 if (info == null)
                 {
-                    return new Response(ReturnType.Error, $"Error loading external login information.");
+                    return new Response(ReturnType.Error, "Error loading external login information.");
                 }
 
                 var externalLoginResult = await _SignInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
@@ -42,6 +42,11 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                 if (externalLoginResult.Succeeded)
                 {
                     var existingUser = await _UserManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey).ConfigureAwait(false);
+                    if (existingUser == null)
+                    {
+                        const string errorMessage = "Existing user not found.";
+                        return new Response(ReturnType.Error, errorMessage);
+                    }
 
                     if (existingUser.EmailConfirmed)
                     {
@@ -77,6 +82,11 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                 {
                     var defaultRole = await _RoleManager.Roles.FirstAsync(x => x.IsDefault, cancellationToken);
 
+                    if (string.IsNullOrEmpty(defaultRole.Name))
+                    {
+                        return new Response(ReturnType.Error, "No default Role found!");
+                    }
+
                     result = await _UserManager.AddToRoleAsync(user, defaultRole.Name).ConfigureAwait(false);
 
                     if (result.Succeeded)
@@ -95,7 +105,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(string returnUrl)
             {
@@ -107,7 +117,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             public string ReturnUrl { get; }
         }
 
-        public class Response : ResponseBase<IResult>
+        public sealed class Response : ResponseBase<IResult>
         {
             public Response(IResult value) : base(value)
             {

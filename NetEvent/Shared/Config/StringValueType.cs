@@ -6,6 +6,10 @@
         {
         }
 
+        internal StringValueType(string defaultValue, bool isRichtTextValue) : base(defaultValue, ".*", isRichtTextValue)
+        {
+        }
+
         internal StringValueType(string defaultValue, int maxLength) : base(defaultValue, $".*{{0:{maxLength}}}")
         {
         }

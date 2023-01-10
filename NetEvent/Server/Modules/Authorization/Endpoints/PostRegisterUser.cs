@@ -15,7 +15,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 {
     public static class PostRegisterUser
     {
-        public class Handler : AuthRegisterHandlerBase, IRequestHandler<Request, Response>
+        public sealed class Handler : AuthRegisterHandlerBase, IRequestHandler<Request, Response>
         {
             private readonly UserManager<ApplicationUser> _UserManager;
             private readonly RoleManager<ApplicationRole> _RoleManager;
@@ -56,7 +56,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
                 if (result.Succeeded)
                 {
                     var defaultRole = await _RoleManager.Roles.FirstAsync(r => r.IsDefault, cancellationToken);
-                    result = await _UserManager.AddToRoleAsync(user, defaultRole.Name);
+                    result = await _UserManager.AddToRoleAsync(user, defaultRole.Name!);
 
                     if (result.Succeeded)
                     {
@@ -74,7 +74,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(RegisterRequestDto registerRequest, HttpContext httpContext)
             {
@@ -87,7 +87,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             public HttpContext HttpContext { get; }
         }
 
-        public class Response : ResponseBase
+        public sealed class Response : ResponseBase
         {
             public Response()
             {

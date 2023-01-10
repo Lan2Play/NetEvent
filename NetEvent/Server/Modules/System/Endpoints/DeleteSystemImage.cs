@@ -9,7 +9,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 {
     public static class DeleteSystemImage
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly ApplicationDbContext _ApplicationDbContext;
 

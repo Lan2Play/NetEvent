@@ -1,17 +1,34 @@
 ﻿@using NetEvent.Shared.Config
+@using TinyMCE.Blazor
+
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<MudItem xs="12" md="6">
+@if (Value != null)
+{
     @switch (SystemSetting.ValueType)
     {
         @case BooleanValueType bvt:
-            <MudCheckBox T="bool" Checked="@BooleanValueType.GetValue(Value?.Value)" CheckedChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" />
+            <MudCheckBox T="bool" Checked="BooleanValueType.GetValue(SettingValue)" CheckedChanged="@OnSettingsValueChanged" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
             break;
-        @case StringValueType svt:
-            <MudTextField T="string" Value="@Value?.Value" ValueChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" />
+        @case ColorValueType cvt:
+            <MudColorPicker Label="@Localize[SystemSetting.LabelKey]" Text="@SettingValue" TextChanged="@OnSettingsValueChanged" Style="@($"--mud-palette-action-default: {SettingValue};")" Clearable="true" Placeholder="@Localize["SystemSettingControl.SelectColor"]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
+            break;
+        @case RegexStringValueType svt:
+            @if (svt.IsRichTextValue)
+            {
+                <MudField Label="@Localize[SystemSetting.LabelKey]" Margin="Margin.Dense" Variant="Variant.Outlined" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])">
+                    <MudText Style="height: 500px; overflow-y: scroll;">
+                        <Editor Value="@SettingValue" ValueChanged="@OnSettingsValueChanged" Inline="true" ScriptSrc="/lib/tinymce/tinymce.min.js" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                    </MudText>
+                </MudField>
+            }
+            else
+            {
+                <MudTextField T="string" @bind-Value="SettingValue" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" />
+            }
             break;
         @case EnumValueType<string> esvt:
-            <MudSelect T="string" Value="@Value?.Value" ValueChanged="@(v => OnSettingsValueChanged(SystemSetting, v))" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+            <MudSelect T="string" @bind-Value="SettingValue" Label="@Localize[SystemSetting.LabelKey]" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Margin="Margin.Dense" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
                 @foreach (var enumItem in esvt.EnumItems)
                 {
                     <MudSelectItem Value="@enumItem" />
@@ -25,6 +42,5 @@
             <div>Missing InputType @SystemSetting.ValueType.GetType().Name for Setting @SystemSetting.Key</div>
             break;
     }
-</MudItem>
-
+}
 

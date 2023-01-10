@@ -1,31 +1,38 @@
 ﻿@using NetEvent.Shared
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Dashboard"]</MudButton>
-<MudDivider />
-<AuthorizeView Policy="Admin.Users.*">
-    <Authorized>
-        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/users" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudButton>
-        <MudDivider />
-    </Authorized>
-</AuthorizeView>
-<MudDivider />
-<AuthorizeView Policy="Admin.Settings.*">
-    <Authorized>
-        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/settings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Settings"]</MudButton>
-        <MudDivider />
-    </Authorized>
-</AuthorizeView>
-<MudDivider />
-<AuthorizeView Policy="Admin.SystemInfo.*">
-    <Authorized>
-        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/systeminfo" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.SystemInfo"]</MudButton>
-        <MudDivider />
-    </Authorized>
-</AuthorizeView>
-<AuthorizeView Policy="Admin.Images.*">
-    <Authorized>
-        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Default" Href="administration/images" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Images"]</MudButton>
-        <MudDivider />
-    </Authorized>
-</AuthorizeView>
+
+<MudNavMenu Color="Color.Primary">
+    <MudNavLink Href="/administration/dashboard" Icon="@Icons.Material.Outlined.AdminPanelSettings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Dashboard"]</MudNavLink>
+    <AuthorizeView Policy="Admin.Events.*">
+        <Authorized>
+            <MudNavLink Href="/administration/events" Icon="@Icons.Material.Outlined.Event" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Events"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Policy="Admin.Users.*">
+        <Authorized>
+            <MudNavLink Href="/administration/users" Icon="@Icons.Material.Outlined.Group" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Users"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Policy="Admin.Venues.*">
+        <Authorized>
+            <MudNavLink Href="/administration/venues" Icon="@Icons.Material.Outlined.Event" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Venues"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Policy="Admin.System.*">
+        <Authorized>
+            <MudNavLink Href="/administration/settings" Icon="@Icons.Material.Outlined.Settings" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Settings"]</MudNavLink>
+            <MudNavLink Href="/administration/systeminfo" Icon="@Icons.Material.Outlined.Info" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.SystemInfo"]</MudNavLink>
+            <MudNavLink Href="/administration/images" Icon="@Icons.Material.Outlined.Image" Match="NavLinkMatch.Prefix">@Localize["Administration.AdminMenu.Images"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+
+@*
+    <MudNavLink Href="/components/navmenu" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.Storage">Servers</MudNavLink>
+    <MudNavLink Href="/billing" Disabled="true">Billing</MudNavLink>
+    <MudNavGroup Title="Settings" Expanded="true">
+        <MudNavLink Href="/users">Users</MudNavLink>
+        <MudNavLink Href="/security">Security</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/about">About</MudNavLink>*@
+</MudNavMenu>

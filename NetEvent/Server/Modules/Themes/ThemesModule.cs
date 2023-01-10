@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -9,13 +8,13 @@ using NetEvent.Shared.Dto;
 
 namespace NetEvent.Server.Modules.Themes
 {
-    [ExcludeFromCodeCoverage]
     public class ThemesModule : ModuleBase
     {
-        public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
+        public override IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapGet("/api/themes/theme", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetTheme.Request())));
-            endpoints.MapPut("/api/themes/theme", async ([FromBody] ThemeDto theme, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutTheme.Request(theme))));
+            // BaseRoute: /api/themes
+            endpoints.MapGet("/theme", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetTheme.Request())));
+            endpoints.MapPut("/theme", async ([FromBody] ThemeDto theme, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutTheme.Request(theme))));
             return endpoints;
         }
 

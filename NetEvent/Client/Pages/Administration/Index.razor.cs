@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using NetEvent.Client.Services;
 using NetEvent.Shared.Dto.Administration;
+using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Client.Pages.Administration
 {
@@ -12,13 +13,22 @@ namespace NetEvent.Client.Pages.Administration
         [Inject]
         private IUserService UserService { get; set; } = default!;
 
-        public List<AdminUserDto>? Users { get; private set; }
+        [Inject]
+        private IEventService EventService { get; set; } = default!;
+
+        public IList<AdminUserDto>? Users { get; private set; }
+
+        public IList<EventDto>? Events { get; private set; }
 
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            Users = await UserService.GetUsersAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+            var loadUsers = UserService.GetUsersAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+            var loadEvents = EventService.GetEventsAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+
+            Users = await loadUsers;
+            Events = await loadEvents;
         }
     }
 }

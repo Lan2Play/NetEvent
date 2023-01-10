@@ -15,7 +15,10 @@
                 <MudText Typo="Typo.body2">@image.Image.UploadTime</MudText>
                 @if (image.IsUsed)
                 {
-                    <MudAlert Severity="Severity.Warning" Dense="true" Class="my-2">@Localize["Administration.Images.SettingsUsages", string.Join(", ", SystemSettings.GetSettingLabelKeys(@image.SettingUsages).Select(lk => Localize[lk]))]</MudAlert>
+                    <MudAlert Severity="Severity.Warning" Dense="true" Class="my-2">
+                        @Localize["Administration.Images.SettingsUsages", string.Join(", ", SystemSettings.GetSettingLabelKeys(@image.SettingUsages).Select(lk => Localize[lk]))]
+                        @Localize["Administration.Images.EventUsages", string.Join(", ", SystemSettings.GetSettingLabelKeys(@image.EventUsages).Select(lk => Localize[lk]))]
+                    </MudAlert>
                 }
             </MudCardContent>
 

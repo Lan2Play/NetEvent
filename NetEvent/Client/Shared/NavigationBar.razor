@@ -6,15 +6,37 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 @inject NetEventAuthenticationStateProvider SignOutManager
 
+@if (_Events.Any())
+{
+    <MudMenu Label="@Localize["Shared.NavigationBar.Events"]" Variant="Variant.Text" AnchorOrigin="Origin.BottomLeft" DisableElevation="true" Color="Color.Primary">
+        @foreach (var eventData in _Events)
+        {
+            <MudMenuItem Href="@GetEventUrl(eventData)">@eventData.Name</MudMenuItem>
+        }
+    </MudMenu>
+}
+
+<MudSpacer />
+
 <AuthorizeView>
     <Authorized>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="profile/manage" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Hello"] @context.User.Identity?.Name!</MudButton>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Secondary" OnClick="BeginSignOut">@Localize["Shared.NavigationBar.Logout"]</MudButton>
+        <MudMenu Label="@Localize["Shared.NavigationBar.Hello", context.User.Identity?.Name!]" Variant="Variant.Text" AnchorOrigin="Origin.BottomRight" Color="Color.Primary" EndIcon="@Icons.Material.Filled.KeyboardArrowDown" IconColor="Color.Secondary">
+            <MudMenuItem Href="profile/manage" Icon="@Icons.Material.Outlined.Person">@Localize["Shared.NavigationBar.Profile"]</MudMenuItem>
+
+            <AuthorizeView Context="admin" Policy="Admin.*">
+                <Authorized Context="admin">
+                    <MudMenuItem Href="administration/dashboard" Icon="@Icons.Material.Outlined.AdminPanelSettings">@Localize["Shared.NavigationBar.Administration"]</MudMenuItem>
+                </Authorized>
+            </AuthorizeView>
+
+            <MudDivider />
+
+            <MudMenuItem OnClick="BeginSignOut" Icon="@Icons.Material.Outlined.Logout">@Localize["Shared.NavigationBar.Logout"]</MudMenuItem>
+        </MudMenu>
     </Authorized>
     <NotAuthorized>
-        <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Href="register" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Register"]</MudButton>
+        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Primary" Href="register" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Register"]</MudButton>
         <MudButton Variant="Variant.Filled" DisableElevation="true" Color="Color.Secondary" Href="login" Match="NavLinkMatch.Prefix">@Localize["Shared.NavigationBar.Login"]</MudButton>
     </NotAuthorized>
 </AuthorizeView>
-
 

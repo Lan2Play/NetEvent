@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -27,8 +26,8 @@ namespace NetEvent.Server.Tests
             // Arrange
             var testData = new[]
             {
-                new SystemSettingValue { Key = SystemSettings.OrganizationName,  SerializedValue = "value" },
-                new SystemSettingValue { Key = SystemSettings.Logo, SerializedValue = "ImageId" }
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.OrganizationName,  SerializedValue = "value" },
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.Logo, SerializedValue = "ImageId" }
             };
 
             using (var scope = Application.Services.CreateScope())
@@ -44,11 +43,37 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.Equal(2, response?.Count);
-            Assert.All(response, x => Assert.True(SystemSettings.Instance.Settings[SystemSettingGroup.OrganizationData].First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
+            Assert.All(response!, x => Assert.True(new SystemSettings.OrganizationData().Settings.First(s => s.Key.Equals(x.Key, StringComparison.OrdinalIgnoreCase)).ValueType.IsValid(x.Value)));
             Assert.Equal(testData[0].Key, response?[0].Key);
             Assert.Equal(testData[0].SerializedValue, response?[0].Value);
             Assert.Equal(testData[1].Key, response?[1].Key);
             Assert.Equal(testData[1].SerializedValue, response?[1].Value);
+        }
+
+        [Fact]
+        public async Task GetOrganizationSettingHandler_Success_Test()
+        {
+            // Arrange
+            var testData = new[]
+            {
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.OrganizationName,  SerializedValue = "value" },
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.Logo, SerializedValue = "ImageId" }
+            };
+
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.SystemSettingValues.AddRangeAsync(testData);
+                dbContext.SaveChanges();
+            }
+
+            // Act
+            var response = await Client.GetFromJsonAsync<SystemSettingValueDto>($"/api/system/settings/{SystemSettingGroup.OrganizationData}/{SystemSettings.OrganizationData.Logo}");
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.Equal(testData[1].Key, response?.Key);
+            Assert.Equal(testData[1].SerializedValue, response?.Value);
         }
 
         [Fact]
@@ -57,8 +82,8 @@ namespace NetEvent.Server.Tests
             // Arrange
             var testData = new[]
             {
-                new SystemSettingValue { Key = SystemSettings.Standard,  SerializedValue = "True" },
-                new SystemSettingValue { Key = SystemSettings.Steam, SerializedValue = "False" }
+                new SystemSettingValue { Key = SystemSettings.AuthenticationData.Standard,  SerializedValue = "True" },
+                new SystemSettingValue { Key = SystemSettings.AuthenticationData.Steam, SerializedValue = "False" }
             };
 
             using (var scope = Application.Services.CreateScope())
@@ -74,7 +99,7 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.Equal(2, response?.Count);
-            Assert.All(response, x => Assert.True(SystemSettings.Instance.Settings[SystemSettingGroup.AuthenticationData].First(s => s.Key.Equals(x.Key)).ValueType.IsValid(x.Value)));
+            Assert.All(response!, x => Assert.True(new SystemSettings.AuthenticationData().Settings.First(s => s.Key.Equals(x.Key, StringComparison.OrdinalIgnoreCase)).ValueType.IsValid(x.Value)));
             Assert.Equal(testData[0].Key, response?[0].Key);
             Assert.Equal(testData[0].SerializedValue, response?[0].Value);
             Assert.Equal(testData[1].Key, response?[1].Key);
@@ -124,8 +149,6 @@ namespace NetEvent.Server.Tests
 
             var responseCreate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto(null, "value")));
             Assert.False(responseCreate.IsSuccessStatusCode);
-            var responseUpdate = await Client.PostAsync($"/api/system/settings/{SystemSettingGroup.OrganizationData}", JsonContent.Create(new SystemSettingValueDto("key", null)));
-            Assert.False(responseUpdate.IsSuccessStatusCode);
 
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
@@ -149,13 +172,13 @@ namespace NetEvent.Server.Tests
             Assert.Equal(currentDomain.GetAssemblies().Length, response?.Components.Count);
             Assert.NotNull(response?.Health);
             Assert.NotNull(response?.Versions);
-            Assert.NotEmpty(response?.Health);
-            Assert.NotEmpty(response?.Versions);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT"))?.Version);
-            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response?.Versions?.Find(x => x.Component.Equals("NETEVENT"))?.Version);
+            Assert.NotEmpty(response!.Health);
+            Assert.NotEmpty(response!.Versions);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response?.Versions?.Find(x => x.Component.Equals("NETEVENT", StringComparison.OrdinalIgnoreCase))?.Version);
         }
 
         [Fact]
@@ -173,12 +196,12 @@ namespace NetEvent.Server.Tests
             // Assert
             Assert.NotNull(response);
             Assert.NotNull(response?.Versions);
-            Assert.NotEmpty(response?.Versions);
+            Assert.NotEmpty(response!.Versions);
             Assert.NotEqual(0, response?.Versions.Count);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE"))?.Version);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDID"))?.Version);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER"))?.Version);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT"))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
         }
 
         [Fact]
@@ -198,7 +221,7 @@ namespace NetEvent.Server.Tests
             using var multipartFormContent = new MultipartFormDataContent();
 
             var fileStreamContent = new StreamContent(File.OpenRead("Data/Test.png"));
-            fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            fileStreamContent.Headers.ContentType = new("image/png");
             multipartFormContent.Add(fileStreamContent, name: "image", fileName: "Test.png");
 
             var responseCreate = await Client.PostAsync("/api/system/image/testImage", multipartFormContent);
@@ -210,25 +233,60 @@ namespace NetEvent.Server.Tests
         }
 
         [Fact]
-        public async Task PostGetDeleteSystemImagesHandler_Success_Test()
+        public Task PostGetDeleteSystemImagesHandler_Success_Test()
         {
-            using var multipartFormContent = new MultipartFormDataContent();
+            return RunWithFakeEvents(async events =>
+            {
+                using var multipartFormContent = new MultipartFormDataContent();
 
-            var fileStreamContent = new StreamContent(File.OpenRead("Data/Test.png"));
-            fileStreamContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
-            multipartFormContent.Add(fileStreamContent, name: "image", fileName: "Test.png");
+                var fileStreamContent = new StreamContent(File.OpenRead("Data/Test.png"));
+                fileStreamContent.Headers.ContentType = new("image/png");
+                multipartFormContent.Add(fileStreamContent, name: "image", fileName: "Test.png");
 
-            var responseCreate = await Client.PostAsync("/api/system/image/testImage", multipartFormContent);
-            Assert.True(responseCreate.IsSuccessStatusCode);
+                var responseCreate = await Client.PostAsync("/api/system/image/testImage", multipartFormContent);
+                Assert.True(responseCreate.IsSuccessStatusCode);
 
-            var images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
-            Assert.NotEmpty(images);
+                var images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
+                Assert.NotNull(images);
+                Assert.NotEmpty(images!);
 
-            var response = await Client.DeleteAsync($"api/system/image/{images!.First().Image.Id}");
-            response.EnsureSuccessStatusCode();
+                var response = await Client.DeleteAsync($"api/system/image/{images!.First().Image.Id}");
+                response.EnsureSuccessStatusCode();
 
-            images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
-            Assert.Empty(images);
+                images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");
+                Assert.NotNull(images);
+                Assert.Empty(images!);
+            });
+        }
+
+        [Fact]
+        public async Task GetNetEventStyle_Success_Test()
+        {
+            // Arrange
+            var testData = new[]
+            {
+                new SystemSettingValue { Key = SystemSettings.StyleData.PrimaryColor,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.PrimaryTextColor,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.SecondaryColor,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.SecondaryTextColor,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.Background,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.AppbarBackground,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.AppbarText,  SerializedValue = "#123456" },
+                new SystemSettingValue { Key = SystemSettings.StyleData.CustomCss,  SerializedValue = "test {background: red;}" },
+            };
+
+            using (var scope = Application.Services.CreateScope())
+            {
+                using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.SystemSettingValues.AddRangeAsync(testData);
+                dbContext.SaveChanges();
+            }
+
+            // Act
+            var response = await Client.GetStringAsync($"/css/netevent.css");
+
+            // Assert
+            Assert.NotNull(response);
         }
     }
 }

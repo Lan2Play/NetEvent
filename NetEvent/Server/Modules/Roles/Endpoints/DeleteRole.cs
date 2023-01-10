@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Microsoft.Toolkit.Diagnostics;
 using NetEvent.Server.Data;
+using NetEvent.Shared;
 
 namespace NetEvent.Server.Modules.Roles.Endpoints
 {
     public static class DeleteRole
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly NetEventRoleManager _RoleManager;
             private readonly ILogger<Handler> _Logger;
@@ -43,7 +43,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(string id)
             {
@@ -55,7 +55,7 @@ namespace NetEvent.Server.Modules.Roles.Endpoints
             public string Id { get; }
         }
 
-        public class Response : ResponseBase
+        public sealed class Response : ResponseBase
         {
             public Response()
             {

@@ -15,7 +15,7 @@ namespace NetEvent.Server.Migrations.Sqlite
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.7");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -50,42 +50,77 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = 2,
-                            ClaimType = "Admin.Users.Edit",
+                            ClaimType = "Admin.Users.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 3,
-                            ClaimType = "Admin.Settings.Organization.Read",
+                            ClaimType = "Admin.Roles.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 4,
-                            ClaimType = "Admin.Settings.Organization.Edit",
+                            ClaimType = "Admin.Roles.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 5,
-                            ClaimType = "Admin.SystemInfo.Read",
+                            ClaimType = "Admin.System.Read",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 6,
-                            ClaimType = "Admin.Images.Read",
+                            ClaimType = "Admin.System.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
                         new
                         {
                             Id = 7,
+                            ClaimType = "Admin.Images.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 8,
                             ClaimType = "Admin.Images.Edit",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ClaimType = "Admin.Events.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ClaimType = "Admin.Events.Edit",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ClaimType = "Admin.Venues.Read",
+                            ClaimValue = "",
+                            RoleId = "admin"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ClaimType = "Admin.Venues.Edit",
                             ClaimValue = "",
                             RoleId = "admin"
                         });
@@ -213,7 +248,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "user",
-                            ConcurrencyStamp = "fbe27a91-febf-46b2-a4a1-b3c449cd54ad",
                             IsDefault = true,
                             Name = "User",
                             NormalizedName = "USER"
@@ -221,7 +255,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "orga",
-                            ConcurrencyStamp = "f28440b0-82da-46a2-a418-d43e742cf092",
                             IsDefault = false,
                             Name = "Orga",
                             NormalizedName = "ORGA"
@@ -229,7 +262,6 @@ namespace NetEvent.Server.Migrations.Sqlite
                         new
                         {
                             Id = "admin",
-                            ConcurrencyStamp = "58717e1f-53d6-441d-abc0-5b84dcf2edc4",
                             IsDefault = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -313,7 +345,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "80c5ad79-5b67-4d71-a0e7-f562e1727cc6",
+                            ConcurrencyStamp = "f205a4d6-cbab-4163-9427-32802498bc59",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -321,9 +353,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJuD0kMPT9lUt7zsqNBsUs6h4ottomacgKuqhrkpAVlPLoe4wqAh+Lv6K77lnVZXUg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF+OwzkcGgbWzhEmVd7Xy0iRHQU842tguftE2WfkQvSDLy8ZHNXzDqg57vVgrCdioA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "78db4331-c0ff-40f9-97de-0d36fb9d2750",
+                            SecurityStamp = "a9023bf7-6259-40e8-a944-8aae466e9709",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -353,6 +385,52 @@ namespace NetEvent.Server.Migrations.Sqlite
                             ContentTemplate = "<h1>@Model.TemplateVariables[\"firstName\"], welcome to NetEvent.</h1>\n<p> Please confirm your E-Mail by clicking on the following link:</p><a href=\"@Model.TemplateVariables[\"confirmUrl\"]\">@Model.TemplateVariables[\"confirmUrl\"]</a>   ",
                             SubjectTemplate = "@Model.TemplateVariables[\"firstName\"], please confirm your E-Mail address."
                         });
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Event", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShortDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("State")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("VenueId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Visibility")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("eventFormat")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
+                    b.HasIndex("VenueId");
+
+                    b.ToTable("Events", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Server.Models.SystemImage", b =>
@@ -412,6 +490,66 @@ namespace NetEvent.Server.Migrations.Sqlite
                         },
                         new
                         {
+                            Key = "HideOrganizationNameInNavBar",
+                            SerializedValue = "False"
+                        },
+                        new
+                        {
+                            Key = "AboutUs",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "LegalNotice",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "PrivacyPolicy",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "PrimaryColor",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "PrimaryTextColor",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "SecondaryColor",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "SecondaryTextColor",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "Background",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AppbarBackground",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AppbarText",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "CustomCss",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
                             Key = "Standard",
                             SerializedValue = "True"
                         },
@@ -420,6 +558,35 @@ namespace NetEvent.Server.Migrations.Sqlite
                             Key = "Steam",
                             SerializedValue = "False"
                         });
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Venue", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Venues", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Shared.Dto.ThemeDto", b =>
@@ -485,6 +652,15 @@ namespace NetEvent.Server.Migrations.Sqlite
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Event", b =>
+                {
+                    b.HasOne("NetEvent.Server.Models.Venue", "Venue")
+                        .WithMany()
+                        .HasForeignKey("VenueId");
+
+                    b.Navigation("Venue");
                 });
 #pragma warning restore 612, 618
         }

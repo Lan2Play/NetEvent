@@ -10,7 +10,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
 {
     public static class GetSystemInfo
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             public Handler()
             {
@@ -26,7 +26,7 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 Assembly[] assems = currentDomain.GetAssemblies();
                 foreach (Assembly assem in assems)
                 {
-                    systeminfocomponents.Add(new SystemInfoComponentEntryDto(assem.ManifestModule.Name.ToString(), assem.ToString()));
+                    systeminfocomponents.Add(new SystemInfoComponentEntryDto(assem.ManifestModule.Name, assem.ToString()));
                 }
 
                 systeminfoversions.Add(new SystemInfoVersionEntryDto("NETEVENT", Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion));
@@ -50,14 +50,14 @@ namespace NetEvent.Server.Modules.System.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request()
             {
             }
         }
 
-        public class Response : ResponseBase<SystemInfoDto>
+        public sealed class Response : ResponseBase<SystemInfoDto>
         {
             public Response(SystemInfoDto value) : base(value)
             {

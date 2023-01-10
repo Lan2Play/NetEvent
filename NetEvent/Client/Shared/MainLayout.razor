@@ -5,7 +5,7 @@
 
 @inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<MudThemeProvider Theme="_ThemeManager.Theme" />
+<MudThemeProvider Theme="_ThemeManager.Theme" IsDarkMode="true" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -13,39 +13,61 @@
 
 <MudLayout>
     <MudAppBar ClipMode="_themeManager.DrawerClipMode" Elevation="_ThemeManager.DrawerElevation">
-        <AuthorizeView Roles="Admin">
-            <Authorized>
-                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-            </Authorized>
-        </AuthorizeView>
-        @if (!string.IsNullOrEmpty(_Logo))
+        @if (_DrawerVisible)
         {
-            <MudImage Src="@_Logo" Class="img-logo"></MudImage>
+            <AuthorizeView Policy="Admin.*">
+                <Authorized>
+                    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                </Authorized>
+            </AuthorizeView>
         }
-        <h1>@_OrganizationName</h1>
-        <MudSpacer />
+        <MudButton Variant="Variant.Text" DisableElevation="true" Color="Color.Primary" Href="/" Match="NavLinkMatch.Prefix">
+            @if (!string.IsNullOrEmpty(_Logo))
+            {
+                <MudImage Src="@_Logo" Class="img-logo" Style="height: var(--mud-appbar-height);"></MudImage>
+            }
+            @if (!_HideOrganizationNameInNavBar)
+            {
+                <h1>@_OrganizationName</h1>
+            }
+        </MudButton>
         <NavigationBar />
     </MudAppBar>
-    <AuthorizeView Policy="Admin.*">
-        <Authorized>
-            <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
-                <MudDrawerHeader>
-                    <MudText Typo="Typo.h5" Class="mt-1">@Localize["Shared.MainLayout.Administration"]</MudText>
-                </MudDrawerHeader>
-                <AdminMenu></AdminMenu>
-            </MudDrawer>
+    @if (_DrawerVisible)
+    {
+        <AuthorizeView Policy="Admin.*">
+            <Authorized>
+                <MudDrawer @bind-Open="_DrawerOpen" Elevation="2">
+                    <MudDrawerHeader>
+                        <MudText Typo="Typo.h5" Class="mt-1">@Localize["Shared.MainLayout.Administration"]</MudText>
+                    </MudDrawerHeader>
+                    <AdminMenu></AdminMenu>
+                </MudDrawer>
 
-        </Authorized>
-    </AuthorizeView>
+            </Authorized>
+        </AuthorizeView>
+    }
 
     <MudMainContent>
-        @Body
+        <MudContainer MaxWidth="@(_DrawerVisible ? MaxWidth.False : MaxWidth.Large)" Class="@(_DrawerVisible ? "pa-0" : string.Empty)">
+            @Body
+        </MudContainer>
     </MudMainContent>
 
     <MudAppBar Bottom="true" Fixed="false" Color="Color.Primary" Elevation="1">
-        <MudText Typo="Typo.subtitle2">© @_OrganizationName @DateTime.Now.Year @Localize["Shared.MainLayout.AllRightsReserved"] </MudText>
-        <MudSpacer />
-        <MudText Typo="Typo.subtitle2">@Localize["Shared.MainLayout.PoweredBy"] <MudLink Color="@Color.Secondary" Target="_blank" Href="https://github.com/Lan2Play/NetEvent">NetEvent</MudLink></MudText>
+        <MudContainer MaxWidth="@(_DrawerVisible ? MaxWidth.False : MaxWidth.Large)">
+            <MudGrid>
+                <MudItem md="4">
+                    <MudText Typo="Typo.subtitle2">© @_OrganizationName @DateTime.Now.Year @Localize["Shared.MainLayout.AllRightsReserved"]</MudText>
+                </MudItem>
+                <MudItem md="4">
+                    <MudLink Color="@Color.Secondary" Href="legalnotice">@Localize["Shared.MainLayout.LegalNotice"]</MudLink>
+                </MudItem>
+                <MudItem md="4">
+                    <MudText Typo="Typo.subtitle2">@Localize["Shared.MainLayout.PoweredBy"] <MudLink Color="@Color.Secondary" Target="_blank" Href="https://github.com/Lan2Play/NetEvent">NetEvent</MudLink></MudText>
+                </MudItem>
+            </MudGrid>
+        </MudContainer>
     </MudAppBar>
 </MudLayout>
 

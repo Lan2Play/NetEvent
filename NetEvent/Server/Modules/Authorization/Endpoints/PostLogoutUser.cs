@@ -10,7 +10,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 {
     public static class PostLogoutUser
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly SignInManager<ApplicationUser> _SignInManager;
             private readonly ILogger<Handler> _Logger;
@@ -38,11 +38,11 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
         }
 
-        public class Response : ResponseBase
+        public sealed class Response : ResponseBase
         {
             public Response()
             {

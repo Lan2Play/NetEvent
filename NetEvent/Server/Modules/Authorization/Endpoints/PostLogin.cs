@@ -11,7 +11,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 {
     public static class PostLogin
     {
-        public class Handler : IRequestHandler<Request, Response>
+        public sealed class Handler : IRequestHandler<Request, Response>
         {
             private readonly UserManager<ApplicationUser> _UserManager;
             private readonly SignInManager<ApplicationUser> _SignInManager;
@@ -60,7 +60,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             }
         }
 
-        public class Request : IRequest<Response>
+        public sealed class Request : IRequest<Response>
         {
             public Request(LoginRequestDto loginRequest)
             {
@@ -70,7 +70,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             public LoginRequestDto LoginRequest { get; }
         }
 
-        public class Response : ResponseBase
+        public sealed class Response : ResponseBase
         {
             public Response()
             {

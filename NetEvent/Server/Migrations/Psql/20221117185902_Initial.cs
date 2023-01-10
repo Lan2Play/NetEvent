@@ -4,10 +4,14 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace NetEvent.Server.Migrations.Psql
 {
+    /// <inheritdoc />
     public partial class Initial : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -103,6 +107,24 @@ namespace NetEvent.Server.Migrations.Psql
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Venues",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Slug = table.Column<string>(type: "text", nullable: true),
+                    Street = table.Column<string>(type: "text", nullable: true),
+                    Number = table.Column<string>(type: "text", nullable: true),
+                    ZipCode = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Venues", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,6 +233,32 @@ namespace NetEvent.Server.Migrations.Psql
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Slug = table.Column<string>(type: "text", nullable: true),
+                    State = table.Column<int>(type: "integer", nullable: false),
+                    Visibility = table.Column<int>(type: "integer", nullable: false),
+                    ShortDescription = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    VenueId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_Venues_VenueId",
+                        column: x => x.VenueId,
+                        principalTable: "Venues",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.InsertData(
                 table: "EmailTemplates",
                 columns: new[] { "TemplateId", "ContentTemplate", "SubjectTemplate" },
@@ -221,9 +269,9 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDefault", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "admin", "3ebb2eeb-d18d-482a-aa75-1dad2e49278e", false, "Admin", "ADMIN" },
-                    { "orga", "4f1f266e-56fa-42ef-b520-2de4d4128b60", false, "Orga", "ORGA" },
-                    { "user", "f2dd0fa0-bbfb-4bc0-8082-45f98e59bb4c", true, "User", "USER" }
+                    { "admin", null, false, "Admin", "ADMIN" },
+                    { "orga", null, false, "Orga", "ORGA" },
+                    { "user", null, true, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -231,10 +279,21 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: new[] { "Key", "SerializedValue" },
                 values: new object[,]
                 {
+                    { "AboutUs", "" },
+                    { "AppbarBackground", "" },
+                    { "AppbarText", "" },
+                    { "Background", "" },
+                    { "CustomCss", "" },
                     { "DataCultureInfo", "en-US" },
                     { "Favicon", "" },
+                    { "LegalNotice", "" },
                     { "Logo", "" },
                     { "OrganizationName", "NetEvent" },
+                    { "PrimaryColor", "" },
+                    { "PrimaryTextColor", "" },
+                    { "PrivacyPolicy", "" },
+                    { "SecondaryColor", "" },
+                    { "SecondaryTextColor", "" },
                     { "Standard", "True" },
                     { "Steam", "False" }
                 });
@@ -242,7 +301,7 @@ namespace NetEvent.Server.Migrations.Psql
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "d892b47a-f65d-4c89-b02d-eae19ce167d0", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAEAACcQAAAAELWQnCCGBmtBL9naruT+KkR4syKl2L58QwlBG761CoI5TZ+CADNRIuNFiLQRXT1Pog==", null, false, null, "9265af40-840a-4076-93db-be86f392e2a4", false, "admin" });
+                values: new object[] { "BAFC89CF-4F3E-4595-8256-CCA19C260FBD", 0, "52c12867-bd72-4aab-bea4-8c28a3eb2ab4", "admin@admin.de", true, "Admin", "istrator", false, null, "ADMIN@ADMIN.DE", "ADMIN", "AQAAAAIAAYagAAAAEBFWYpReeWM5orL5YUESF1QxaL/Jii8og1m7UPYa5RlfF9Fy8THluDm4JOSsa+99Gw==", null, false, null, "8a198d21-af03-4a7d-a921-ec5aa3da97f2", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "RoleClaims",
@@ -250,18 +309,34 @@ namespace NetEvent.Server.Migrations.Psql
                 values: new object[,]
                 {
                     { 1, "Admin.Users.Read", "", "admin" },
-                    { 2, "Admin.Users.Edit", "", "admin" },
-                    { 3, "Admin.Settings.Organization.Read", "", "admin" },
-                    { 4, "Admin.Settings.Organization.Edit", "", "admin" },
-                    { 5, "Admin.SystemInfo.Read", "", "admin" },
-                    { 6, "Admin.Images.Read", "", "admin" },
-                    { 7, "Admin.Images.Edit", "", "admin" }
+                    { 2, "Admin.Users.Write", "", "admin" },
+                    { 3, "Admin.Roles.Read", "", "admin" },
+                    { 4, "Admin.Roles.Write", "", "admin" },
+                    { 5, "Admin.System.Read", "", "admin" },
+                    { 6, "Admin.System.Write", "", "admin" },
+                    { 7, "Admin.Images.Read", "", "admin" },
+                    { 8, "Admin.Images.Edit", "", "admin" },
+                    { 9, "Admin.Events.Read", "", "admin" },
+                    { 10, "Admin.Events.Edit", "", "admin" },
+                    { 11, "Admin.Venues.Read", "", "admin" },
+                    { 12, "Admin.Venues.Edit", "", "admin" }
                 });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "admin", "BAFC89CF-4F3E-4595-8256-CCA19C260FBD" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_Slug",
+                table: "Events",
+                column: "Slug",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_VenueId",
+                table: "Events",
+                column: "VenueId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -301,10 +376,14 @@ namespace NetEvent.Server.Migrations.Psql
                 column: "RoleId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "EmailTemplates");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
@@ -329,6 +408,9 @@ namespace NetEvent.Server.Migrations.Psql
 
             migrationBuilder.DropTable(
                 name: "UserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Venues");
 
             migrationBuilder.DropTable(
                 name: "Role");
