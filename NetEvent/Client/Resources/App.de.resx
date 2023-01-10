@@ -371,9 +371,6 @@
   <data name="ConfirmationSuccess.Title" xml:space="preserve">
     <value>Bestätigung der E-Mail Adresse war erfolgreich</value>
   </data>
-  <data name="Administration.Settings.Organization" xml:space="preserve">
-    <value>Organisation</value>
-  </data>
   <data name="SystemSetting.OrganizationData.DataCultureInfo.Label" xml:space="preserve">
     <value>Sprache</value>
   </data>
