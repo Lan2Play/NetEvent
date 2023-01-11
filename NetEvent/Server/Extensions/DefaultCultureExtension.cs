@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetEvent.Server.Data;
-using NetEvent.Server.Models;
-using NetEvent.Shared;
 using NetEvent.Shared.Config;
 
 namespace NetEvent.Server.Extensions;
@@ -24,7 +22,7 @@ public static class DefaultCultureExtension
             {
                 using (var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
                 {
-                    var organizationCulture = new SystemSettings.OrganizationData().Settings.Select(x => x.Key.Equals(SystemSettings.OrganizationData.DataCultureInfo)).ToString();;
+                    var organizationCulture = new SystemSettings.OrganizationData().Settings.Select(x => x.Key.Equals(SystemSettings.OrganizationData.DataCultureInfo, StringComparison.OrdinalIgnoreCase)).ToString();
                     if (organizationCulture == null)
                     {
                         return Task.CompletedTask;

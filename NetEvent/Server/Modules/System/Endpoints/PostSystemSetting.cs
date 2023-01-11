@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using NetEvent.Server.Data;
@@ -6,7 +7,6 @@ using NetEvent.Server.Models;
 using NetEvent.Shared;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
-using System.Globalization;
 
 namespace NetEvent.Server.Modules.System.Endpoints
 {
