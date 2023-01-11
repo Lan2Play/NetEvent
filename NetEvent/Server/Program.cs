@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using NetEvent.Server.Configuration;
 using NetEvent.Server.Data;
 using NetEvent.Server.Data.Events;
+using NetEvent.Server.Data.SystemSettings;
 using NetEvent.Server.Extensions;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
@@ -105,6 +106,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IEventManager, EventManager>();
+builder.Services.AddScoped<ISystemSettingsManager, SystemSettingsManager>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ISlugHelper, SlugHelper>();
 
