@@ -5,6 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using NetEvent.Shared.Dto;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using NetEvent.Server;
 
 namespace NetEvent.Server.Modules.System.Endpoints
 {
@@ -12,8 +15,13 @@ namespace NetEvent.Server.Modules.System.Endpoints
     {
         public sealed class Handler : IRequestHandler<Request, Response>
         {
-            public Handler()
+            // TODO: remove localizer as soon as it is implemented somewhere where it makes sense
+            private IStringLocalizer<Localize> _Localizer { get; set; }
+
+            // TODO: remove localizer as soon as it is implemented somewhere where it makes sense
+            public Handler(IStringLocalizer<Localize> localizer)
             {
+                _Localizer = localizer;
             }
 
             public Task<Response> Handle(Request request, CancellationToken cancellationToken)
@@ -40,6 +48,9 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 systeminfohealth.Add(new SystemInfoHealthEntryDto("Email Service", "servername", false));
 
                 var systeminfo = new SystemInfoDto(systeminfocomponents, systeminfohealth, systeminfoversions);
+
+                 // TODO: remove localizer as soon as it is implemented somewhere where it makes sense
+                Console.WriteLine(_Localizer["test.test"]);
 
                 return Task.FromResult(new Response(systeminfo));
             }

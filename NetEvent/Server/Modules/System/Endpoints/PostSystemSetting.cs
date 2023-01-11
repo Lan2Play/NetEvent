@@ -6,6 +6,7 @@ using NetEvent.Server.Models;
 using NetEvent.Shared;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
+using System.Globalization;
 
 namespace NetEvent.Server.Modules.System.Endpoints
 {
@@ -39,6 +40,14 @@ namespace NetEvent.Server.Modules.System.Endpoints
                 }
 
                 await _ApplicationDbContext.SaveChangesAsync(cancellationToken);
+
+                // TODO: move special serverside handling to service
+                if (request.SystemSettingValue?.Key == SystemSettings.OrganizationData.DataCultureInfo)
+                {
+                    var cultureInfo = new CultureInfo(request.SystemSettingValue.Value);
+                    CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+                    CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+                }
 
                 return new Response();
             }

@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using NetEvent.Server.Configuration;
 using NetEvent.Server.Data;
 using NetEvent.Server.Data.Events;
+using NetEvent.Server.Extensions;
 using NetEvent.Server.Middleware;
 using NetEvent.Server.Models;
 using NetEvent.Server.Modules;
@@ -40,6 +41,8 @@ builder.WebHost.ConfigureKestrel((context, options) =>
         listenOptions.UseHttps();
     });
 });
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 switch (builder.Configuration["DBProvider"]?.ToLower(CultureInfo.InvariantCulture))
 {
@@ -163,6 +166,8 @@ app.UseAuthorization();
 app.MapFallbackToFile("index.html");
 
 app.MapEndpoints();
+
+await app.SetDefaultCulture();
 
 await app.RunAsync();
 
