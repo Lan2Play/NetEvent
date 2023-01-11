@@ -26,8 +26,6 @@ public static class DefaultCultureExtension
 
                     var organizationCulture = await context.SystemSettingValues.Where(s => s.Key == SystemSettings.OrganizationData.DataCultureInfo).FirstAsync().ConfigureAwait(false);
 
-                    Console.WriteLine($"Culture: {organizationCulture.SerializedValue}");
-
                     if (organizationCulture?.SerializedValue == null)
                     {
                         return;
