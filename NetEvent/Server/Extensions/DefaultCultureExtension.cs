@@ -24,16 +24,13 @@ public static class DefaultCultureExtension
             {
                 using (var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
                 {
-                    var organizationCulture = context.Set<SystemSettingValue>().Select(x => DtoMapper.Mapper.SystemSettingValueToSystemSettingValueDto(x)).ToList().Find(x => x.Key.Equals(SystemSettings.DataCultureInfo));
-
+                    var organizationCulture = new SystemSettings.OrganizationData().Settings.Select(x => x.Key.Equals(SystemSettings.OrganizationData.DataCultureInfo)).ToString();;
                     if (organizationCulture == null)
                     {
                         return Task.CompletedTask;
                     }
 
-                    var culture = organizationCulture.Value;
-
-                    var cultureInfo = new CultureInfo(culture);
+                    var cultureInfo = new CultureInfo(organizationCulture);
                     CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
                     CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
                 }
