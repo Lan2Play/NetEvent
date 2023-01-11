@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using NetEvent.Server.Data;
 using NetEvent.Shared.Config;
 
@@ -12,7 +13,7 @@ namespace NetEvent.Server.Extensions;
 
 public static class DefaultCultureExtension
 {
-    public static Task SetDefaultCulture(this WebApplication app)
+    public static async Task SetDefaultCulture(this WebApplication app)
     {
         var logger = app.Services.GetRequiredService<ILogger<WebApplication>>();
 
@@ -22,13 +23,17 @@ public static class DefaultCultureExtension
             {
                 using (var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
                 {
-                    var organizationCulture = new SystemSettings.OrganizationData().Settings.Select(x => x.Key.Equals(SystemSettings.OrganizationData.DataCultureInfo, StringComparison.OrdinalIgnoreCase)).ToString();
-                    if (organizationCulture == null)
+
+                    var organizationCulture = await context.SystemSettingValues.Where(s => s.Key == SystemSettings.OrganizationData.DataCultureInfo).FirstAsync().ConfigureAwait(false);
+
+                    Console.WriteLine($"Culture: {organizationCulture.SerializedValue}");
+
+                    if (organizationCulture?.SerializedValue == null)
                     {
-                        return Task.CompletedTask;
+                        return;
                     }
 
-                    var cultureInfo = new CultureInfo(organizationCulture);
+                    var cultureInfo = new CultureInfo(organizationCulture.SerializedValue);
                     CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
                     CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
                 }
@@ -39,6 +44,5 @@ public static class DefaultCultureExtension
             logger.LogError(ex, "Unable to get Culture");
         }
 
-        return Task.CompletedTask;
     }
 }
