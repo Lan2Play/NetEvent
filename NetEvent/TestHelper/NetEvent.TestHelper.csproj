@@ -4,8 +4,13 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <CodeAnalysisRuleSet>..\..\.sonarlint\lan2play_custom.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\.sonarlint\lan2play_netevent\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="Bogus" Version="34.0.2" />
   </ItemGroup>

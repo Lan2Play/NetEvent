@@ -47,7 +47,7 @@
                 </Column>
                 <Column T="AdminUserDto" CellClass="d-flex justify-end">
                     <CellTemplate>
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
                     </CellTemplate>
                     <EditTemplate>
                         <MudSelect @bind-Value="context.Item.Role" ToStringFunc="r => r.Name" Required RequiredError="@Localizer["Administration.Users.Roles.ErrorRoleRequired"]" Margin="@Margin.Dense">
@@ -84,7 +84,7 @@
                 <MudSpacer />
                 <MudTextField @bind-Value="_RoleSearchString" Placeholder="@Localizer["Administration.Users.Roles.Search"]" Adornment="Adornment.Start" Immediate="true"
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-                <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Add" OnClick="RolesDataGrid!.AddNewItemAsync" />
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Add" OnClick="RolesDataGrid!.AddNewItemAsync" />
             </ToolBarContent>
             <Columns>
                 <Column T="RoleDto" Field="Id" Title="@Localizer["Administration.Users.Roles.Id"]" IsEditable="false" />
@@ -126,8 +126,8 @@
                 </Column>
                 <Column T="RoleDto" CellClass="d-flex justify-end">
                     <CellTemplate>
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Outlined.Delete" OnClick="@(() => RolesDataGrid!.DeleteItemAsync(context.Item))" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="@(() => RolesDataGrid!.DeleteItemAsync(context.Item))" />
                     </CellTemplate>
                 </Column>
             </Columns>

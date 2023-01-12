@@ -968,6 +968,9 @@
       "level": "On",
       "severity": "Major"
     },
+    "javascript:S100": {
+      "level": "Off"
+    },
     "javascript:S4787": {
       "level": "Off"
     },
@@ -1074,9 +1077,6 @@
       "level": "Off"
     },
     "javascript:S138": {
-      "level": "Off"
-    },
-    "javascript:S100": {
       "level": "Off"
     },
     "javascript:S117": {

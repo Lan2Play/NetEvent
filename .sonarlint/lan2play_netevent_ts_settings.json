@@ -1,5 +1,9 @@
 {
   "sonarlint.rules": {
+    "typescript:S6480": {
+      "level": "On",
+      "severity": "Major"
+    },
     "typescript:S4123": {
       "level": "On",
       "severity": "Critical"
@@ -283,10 +287,6 @@
       "severity": "Blocker"
     },
     "typescript:S6486": {
-      "level": "On",
-      "severity": "Major"
-    },
-    "typescript:S6480": {
       "level": "On",
       "severity": "Major"
     },

@@ -45,4 +45,9 @@
     <Rule Id="SA1642" Action="None" />
     <Rule Id="SA1643" Action="None" />
   </Rules>
+  <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
+    <Rule Id="S2696" Action="None" />
+    <Rule Id="S927" Action="None" />
+    <Rule Id="S4144" Action="None" />
+  </Rules>
 </RuleSet>
