@@ -35,14 +35,14 @@ namespace NetEvent.Client.Services
 
                 eventDto.Id = long.Parse(await response.Content.ReadAsStringAsync(cancellationToken), CultureInfo.InvariantCulture);
 
-                return ServiceResult.Success("EventService.AddEventAsync.Success");
+                return ServiceResult.Success("EventService.AddAsync.Success");
             }
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to create event in backend.");
             }
 
-            return ServiceResult.Error("EventService.AddEventAsync.Error");
+            return ServiceResult.Error("EventService.AddAsync.Error");
         }
 
         public async Task<EventDto?> GetEventAsync(string slug, CancellationToken cancellationToken)
@@ -128,14 +128,14 @@ namespace NetEvent.Client.Services
 
                 response.EnsureSuccessStatusCode();
 
-                return ServiceResult.Success("EventService.UpdateEventAsync.Success");
+                return ServiceResult.Success("EventService.UpdateAsync.Success");
             }
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to update event in backend.");
             }
 
-            return ServiceResult.Error("EventService.UpdateEventAsync.Error");
+            return ServiceResult.Error("EventService.UpdateAsync.Error");
         }
 
         public async Task<ServiceResult> DeleteEventAsync(long id, CancellationToken cancellationToken)
@@ -148,14 +148,74 @@ namespace NetEvent.Client.Services
 
                 response.EnsureSuccessStatusCode();
 
-                return ServiceResult.Success("EventService.DeleteEventAsync.Success");
+                return ServiceResult.Success("EventService.DeleteAsync.Success");
             }
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to delete event in backend.");
             }
 
-            return ServiceResult.Error("EventService.DeleteEventAsync.Error");
+            return ServiceResult.Error("EventService.DeleteAsync.Error");
         }
+
+        public async Task<ServiceResult> CreateEventTicketTypeAsync(long eventId, EventTicketTypeDto eventTicketTypeDto, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.PostAsJsonAsync($"api/events/tickettype/{eventId}", eventTicketTypeDto, cancellationToken);
+                response.EnsureSuccessStatusCode();
+
+                eventTicketTypeDto.Id = long.Parse(await response.Content.ReadAsStringAsync(cancellationToken), CultureInfo.InvariantCulture);
+
+                return ServiceResult.Success("EventService.AddAsync.Success");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to create eventTicketType in backend.");
+            }
+
+            return ServiceResult.Error("EventService.AddAsync.Error");
+        }
+
+        public async Task<ServiceResult> UpdateEventTicketTypeAsync(EventTicketTypeDto eventTicketTypeDto, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.PutAsJsonAsync($"api/events/tickettype/{eventTicketTypeDto.Id}", eventTicketTypeDto, cancellationToken);
+                response.EnsureSuccessStatusCode();
+
+                return ServiceResult.Success("EventService.UpdateAsync.Success");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to update eventTicketType in backend.");
+            }
+
+            return ServiceResult.Error("EventService.UpdateAsync.Error");
+        }
+
+        public async Task<ServiceResult> DeleteEventTicketTypeAsync(long id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.DeleteAsync($"api/events/tickettype/{id}", cancellationToken);
+                response.EnsureSuccessStatusCode();
+
+                return ServiceResult.Success("EventService.DeleteAsync.Success");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to delete eventTicketType in backend.");
+            }
+
+            return ServiceResult.Error("EventService.DeleteAsync.Error");
+        }
+
     }
 }

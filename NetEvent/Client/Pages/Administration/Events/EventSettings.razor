@@ -1,0 +1,131 @@
+﻿@using NetEvent.Shared.Dto.Event;
+@using NetEvent.Shared.Dto;
+@using TinyMCE.Blazor;
+
+<MudCard Class="ma-4">
+    <MudForm Model="@Event" @ref="@_Form" Validation="@(_EventValidator.ValidateValue)" ValidationDelay="0">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@Localizer["Administration.Events.Event.Settings"]</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                @if (Event.Id > 0)
+                {
+                    <MudItem xs="2" md="1">
+                        <MudTextField @bind-Value="Event.Id"
+                                      For="@(() => Event.Id)"
+                                      Margin="Margin.Dense"
+                                      ReadOnly="true"
+                                      Disabled="true"
+                                      Immediate="true"
+                                      Variant="Variant.Outlined"
+                                      Label="@Localizer["Administration.Events.Event.Id"]" />
+                    </MudItem>
+                }
+
+                <MudItem xs="@(Event.Id > 0 ? 4 : 6)" md="@(Event.Id > 0 ? 5 : 6)">
+
+                    <MudTextField @bind-Value="Event.Name"
+                                  For="@(() => Event.Name)"
+                                  Margin="Margin.Dense"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localizer["Administration.Events.Event.Name"]" />
+                </MudItem>
+                <MudItem xs="6" sm="3">
+                    <MudSelect @bind-Value="Event.EventFormat"
+                               For="@(() => Event.EventFormat)"
+                               Margin="Margin.Dense"
+                               Label="@Localizer["Administration.Events.Event.EventFormat"]"
+                               Variant="Variant.Outlined"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var eventFormat in Enum.GetValues<EventFormatDto>())
+                        {
+                            <MudSelectItem Value="@eventFormat">@Localizer["Administration.Events.Event.EventFormat." + @eventFormat.ToString()]</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="6" lg="3">
+                    <MudSelect @bind-Value="Event.State"
+                               For="@(() => Event.State)"
+                               Margin="Margin.Dense"
+                               Label="@Localizer["Administration.Events.Event.PublishState"]"
+                               Variant="Variant.Outlined"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var publishState in Enum.GetValues<PublishStateDto>())
+                        {
+                            <MudSelectItem Value="@publishState">@Localizer["Administration.Events.Event.PublishState." + @publishState.ToString()]</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="6" lg="3">
+                    <MudSelect @bind-Value="Event.Visibility"
+                               For="@(() => Event.Visibility)"
+                               Margin="Margin.Dense"
+                               Label="@Localizer["Administration.Events.Event.VisibilityState"]"
+                               Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var visibilityState in Enum.GetValues<VisibilityStateDto>())
+                        {
+                            <MudSelectItem Value="@visibilityState">@Localizer["Administration.Events.Event.VisibilityState." + @visibilityState.ToString()]</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudSelect T="VenueDto" @bind-Value="Event.Venue"
+                               For="@(() => Event.Venue)"
+                               Clearable="true"
+                               Margin="Margin.Dense"
+                               Label="@Localizer["Administration.Events.Event.Venue"]"
+                               Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+
+                        @foreach (var venue in Venues)
+                        {
+                            <MudSelectItem Value="@venue">@venue.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="6" sm="3">
+                    <MudTextField T="DateTime?"
+                    @bind-Value="Event.StartDate"
+                                  For="@(() => Event.StartDate)"
+                                  Margin="Margin.Dense"
+                                  Format="s"
+                                  Label="@Localizer["Administration.Events.Event.StartDate"]"
+                                  Variant="Variant.Outlined"
+                                  InputType="InputType.DateTimeLocal" />
+                </MudItem>
+                <MudItem xs="6" sm="3">
+                    <MudTextField T="DateTime?"
+                    @bind-Value="Event.EndDate"
+                                  For="@(() => Event.EndDate)"
+                                  Margin="Margin.Dense"
+                                  Format="s"
+                                  Label="@Localizer["Administration.Events.Event.EndDate"]"
+                                  Variant="Variant.Outlined"
+                                  InputType="InputType.DateTimeLocal" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudField Label="@Localizer["Administration.Events.Event.ShortDescription"]"
+                              Margin="Margin.Dense"
+                              Variant="Variant.Outlined">
+                        <Editor @bind-Value="Event.ShortDescription" ScriptSrc="/lib/tinymce/tinymce.min.js" ValidateOnInput="true" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                    </MudField>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudField Label="@Localizer["Administration.Events.Event.Description"]"
+                              Margin="Margin.Dense"
+                              Variant="Variant.Outlined">
+                        <Editor @bind-Value="Event.Description" ScriptSrc="/lib/tinymce/tinymce.min.js" ValidateOnInput="true" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                    </MudField>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudForm>
+    <MudCardActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await SaveEvent())">
+            @(Event.Id >= 0 ? Localizer["Administration.Events.Event.Save"] : Localizer["Administration.Events.Event.Create"])
+        </MudButton>
+    </MudCardActions>
+</MudCard>

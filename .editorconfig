@@ -177,6 +177,11 @@ csharp_style_prefer_switch_expression = true:suggestion
 csharp_style_prefer_pattern_matching = true:silent
 csharp_style_prefer_not_pattern = true:suggestion
 csharp_style_prefer_extended_property_pattern = true:suggestion
+csharp_style_prefer_top_level_statements = true:silent
 
 [**/Migrations/**/*.cs]
 dotnet_analyzer_diagnostic.severity = none
+
+[*.razor]
+dotnet_diagnostic.S927.severity = none
+dotnet_diagnostic.S2696.severity = none

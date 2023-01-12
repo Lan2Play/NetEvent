@@ -471,12 +471,6 @@
   <data name="Administration.Events.Event.StartDate" xml:space="preserve">
     <value>Start date</value>
   </data>
-  <data name="EventService.DeleteEventAsync.Error" xml:space="preserve">
-    <value>Error deleting event</value>
-  </data>
-  <data name="EventService.DeleteEventAsync.Success" xml:space="preserve">
-    <value>Event deleted successfully</value>
-  </data>
   <data name="Administration.Events.Event.Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -674,5 +668,26 @@
   </data>
   <data name="SystemSetting.OrganizationData.HideOrganizationNameInNavBar.Label" xml:space="preserve">
     <value>Hide name of organization in navbar</value>
+  </data>
+  <data name="EventService.AddAsync.Error" xml:space="preserve">
+    <value>Error creating</value>
+  </data>
+  <data name="EventService.AddAsync.Success" xml:space="preserve">
+    <value>Created successfully</value>
+  </data>
+  <data name="EventService.DeleteAsync.Error" xml:space="preserve">
+    <value>Error deleting</value>
+  </data>
+  <data name="EventService.DeleteAsync.Success" xml:space="preserve">
+    <value>Deleted successfully</value>
+  </data>
+  <data name="EventService.UpdateAsync.Error" xml:space="preserve">
+    <value>Error updating</value>
+  </data>
+  <data name="EventService.UpdateAsync.Success" xml:space="preserve">
+    <value>Updated successfully</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets" xml:space="preserve">
+    <value>Tickets</value>
   </data>
 </root>
