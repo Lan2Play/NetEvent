@@ -17,9 +17,9 @@ namespace NetEvent.Shared.Dto.Event
 
         public long AvailableTickets { get; set; }
 
-        public DateTime SellStartDate { get; set; }
+        public DateTime? SellStartDate { get; set; }
 
-        public DateTime SellEndDate { get; set; }
+        public DateTime? SellEndDate { get; set; }
 
         public bool IsGiftable { get; set; }
     }

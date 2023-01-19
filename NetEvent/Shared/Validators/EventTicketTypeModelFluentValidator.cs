@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using FluentValidation;
+using NetEvent.Shared.Dto.Event;
+
+namespace NetEvent.Shared.Validators
+{
+    public class EventTicketTypeModelFluentValidator : AbstractValidator<EventTicketTypeDto>
+    {
+        public EventTicketTypeModelFluentValidator()
+        {
+            RuleFor(x => x.Name)
+               .NotEmpty()
+               .Length(1, 100);
+
+            RuleFor(x => x.Price)
+               .GreaterThanOrEqualTo(0);
+
+            RuleFor(x => x.AvailableTickets)
+               .GreaterThan(0);
+
+            RuleFor(x => x.SellEndDate)
+               .GreaterThan(x => x.SellStartDate);
+
+            RuleFor(x => x.SellStartDate)
+               .GreaterThan(DateTime.UtcNow);
+        }
+
+        public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
+        {
+            var result = await ValidateAsync(ValidationContext<EventTicketTypeDto>.CreateWithOptions((EventTicketTypeDto)model, x => x.IncludeProperties(propertyName)));
+            if (result.IsValid)
+            {
+                return Array.Empty<string>();
+            }
+
+            return result.Errors.Select(e => e.ErrorMessage);
+        };
+    }
+}

@@ -20,5 +20,8 @@ namespace NetEvent.Client.Services
         Task<ServiceResult> UpdateEventAsync(EventDto eventDto, CancellationToken cancellationToken);
 
         Task<ServiceResult> CreateEventAsync(EventDto eventDto, CancellationToken cancellationToken);
+        Task<EventTicketTypeDto?> GetEventTicketTypeAsync(long id, CancellationToken cancellationToken);
+        Task<ServiceResult> UpdateEventTicketTypeAsync(EventTicketTypeDto eventTicketTypeDto, CancellationToken cancellationToken);
+        Task<ServiceResult> CreateEventTicketTypeAsync(long eventId, EventTicketTypeDto eventTicketTypeDto, CancellationToken cancellationToken);
     }
 }

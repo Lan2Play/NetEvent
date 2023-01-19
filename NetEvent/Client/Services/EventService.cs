@@ -217,5 +217,28 @@ namespace NetEvent.Client.Services
             return ServiceResult.Error("EventService.DeleteAsync.Error");
         }
 
+        public async Task<EventTicketTypeDto?> GetEventTicketTypeAsync(long id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var eventTicketTypeDto = await client.GetFromJsonAsync<EventTicketTypeDto?>($"/api/events/tickettype/{id}", cancellationToken).ConfigureAwait(false);
+
+                if (eventTicketTypeDto == null)
+                {
+                    _Logger.LogError("Unable to get eventtickettype data from backend");
+                    return null;
+                }
+
+                return eventTicketTypeDto;
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to get eventtickettype data from backend");
+                return null;
+            }
+        }
+
     }
 }

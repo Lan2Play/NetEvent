@@ -33,6 +33,7 @@ namespace NetEvent.Server.Modules.Events
             ticketTypeEndPoints.MapPost("/{eventId}", async ([FromRoute] long eventId, [FromBody] EventTicketTypeDto eventTicketTypeDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostEventTicketType.Request(eventId, eventTicketTypeDto))));
             ticketTypeEndPoints.MapPut("/{eventTicketTypeId}", async ([FromRoute] long eventTicketTypeId, [FromBody] EventTicketTypeDto eventTicketTypeDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutEventTicketType.Request(eventTicketTypeId, eventTicketTypeDto))));
             ticketTypeEndPoints.MapDelete("/{eventTicketTypeId}", async ([FromRoute] long eventTicketTypeId, [FromServices] IMediator m) => ToApiResult(await m.Send(new DeleteEventTicketType.Request(eventTicketTypeId))));
+            ticketTypeEndPoints.MapGet("/{eventTicketTypeId}", async ([FromRoute] long eventTicketTypeId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetEventTicketType.Request(eventTicketTypeId))));
 
             return base.MapModuleWriteAuthEndpoints(endpoints);
         }

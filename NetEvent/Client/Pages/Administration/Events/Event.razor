@@ -28,5 +28,8 @@
     </div>
 
     <EventSettings Event="@_Event" Venues="@_Venues" />
-    <TicketTypes Event="@_Event" />
+    @if(_Event.Id > 0)
+    {
+        <TicketTypes Event="@_Event" />
+    }
 }
