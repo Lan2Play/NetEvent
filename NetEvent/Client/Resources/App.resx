@@ -690,4 +690,31 @@
   <data name="Administration.Events.Event.Tickets" xml:space="preserve">
     <value>Tickets</value>
   </data>
+  <data name="Administration.Events.EventTicketType.AvailableTickets" xml:space="preserve">
+    <value>Available Tickets</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Create" xml:space="preserve">
+    <value>Create Ticket Type</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Currency.Euro" xml:space="preserve">
+    <value>Euro (€)</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.IsGiftable" xml:space="preserve">
+    <value>Is giftable</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.SellEndDate" xml:space="preserve">
+    <value>Sell End</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.SellStartDate" xml:space="preserve">
+    <value>Sell Start</value>
+  </data>
 </root>

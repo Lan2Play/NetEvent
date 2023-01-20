@@ -15,13 +15,13 @@
                 {
                     <MudItem xs="2" md="1">
                         <MudTextField @bind-Value="Event.Id"
-                                      For="@(() => Event.Id)"
-                                      Margin="Margin.Dense"
-                                      ReadOnly="true"
-                                      Disabled="true"
-                                      Immediate="true"
-                                      Variant="Variant.Outlined"
-                                      Label="@Localizer["Administration.Events.Event.Id"]" />
+                                  For="@(() => Event.Id)"
+                                  Margin="Margin.Dense"
+                                  ReadOnly="true"
+                                  Disabled="true"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localizer["Administration.Events.Event.Id"]" />
                     </MudItem>
                 }
 
@@ -33,6 +33,26 @@
                                   Immediate="true"
                                   Variant="Variant.Outlined"
                                   Label="@Localizer["Administration.Events.Event.Name"]" />
+                </MudItem>
+                <MudItem xs="6" sm="3">
+                    <MudTextField T="DateTime?"
+                                  @bind-Value="Event.StartDate"
+                                  For="@(() => Event.StartDate)"
+                                  Margin="Margin.Dense"
+                                  Format="s"
+                                  Label="@Localizer["Administration.Events.Event.StartDate"]"
+                                  Variant="Variant.Outlined"
+                                  InputType="InputType.DateTimeLocal" />
+                </MudItem>
+                <MudItem xs="6" sm="3">
+                    <MudTextField T="DateTime?"
+                                  @bind-Value="Event.EndDate"
+                                  For="@(() => Event.EndDate)"
+                                  Margin="Margin.Dense"
+                                  Format="s"
+                                  Label="@Localizer["Administration.Events.Event.EndDate"]"
+                                  Variant="Variant.Outlined"
+                                  InputType="InputType.DateTimeLocal" />
                 </MudItem>
                 <MudItem xs="6" sm="3">
                     <MudSelect @bind-Value="Event.EventFormat"
@@ -76,6 +96,7 @@
                     <MudSelect T="VenueDto" @bind-Value="Event.Venue"
                                For="@(() => Event.Venue)"
                                Clearable="true"
+                               ToStringFunc="@(e => e.Name)"
                                Margin="Margin.Dense"
                                Label="@Localizer["Administration.Events.Event.Venue"]"
                                Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
@@ -85,26 +106,6 @@
                             <MudSelectItem Value="@venue">@venue.Name</MudSelectItem>
                         }
                     </MudSelect>
-                </MudItem>
-                <MudItem xs="6" sm="3">
-                    <MudTextField T="DateTime?"
-                    @bind-Value="Event.StartDate"
-                                  For="@(() => Event.StartDate)"
-                                  Margin="Margin.Dense"
-                                  Format="s"
-                                  Label="@Localizer["Administration.Events.Event.StartDate"]"
-                                  Variant="Variant.Outlined"
-                                  InputType="InputType.DateTimeLocal" />
-                </MudItem>
-                <MudItem xs="6" sm="3">
-                    <MudTextField T="DateTime?"
-                    @bind-Value="Event.EndDate"
-                                  For="@(() => Event.EndDate)"
-                                  Margin="Margin.Dense"
-                                  Format="s"
-                                  Label="@Localizer["Administration.Events.Event.EndDate"]"
-                                  Variant="Variant.Outlined"
-                                  InputType="InputType.DateTimeLocal" />
                 </MudItem>
                 <MudItem xs="12">
                     <MudField Label="@Localizer["Administration.Events.Event.ShortDescription"]"
