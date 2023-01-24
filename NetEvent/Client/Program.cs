@@ -39,6 +39,7 @@ namespace NetEvent.Client
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IThemeService, ThemeService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddSingleton<NavigationService>();
 
             builder.Services.AddHttpClient(Constants.BackendApiHttpClientName)
                 .ConfigureHttpClient(client =>
@@ -73,6 +74,7 @@ namespace NetEvent.Client
 
             var app = builder.Build();
             await app.SetDefaultCultureAsync();
+            await app.InitializeNavigationService();
 
             await app.RunAsync();
         }

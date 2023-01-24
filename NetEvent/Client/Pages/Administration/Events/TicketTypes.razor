@@ -1,4 +1,6 @@
 ﻿@using NetEvent.Client.Extensions;
+@using NetEvent.Shared.Dto.Event;
+
 <MudCard Class="ma-4">
     <MudCardHeader>
         <CardHeaderContent>
@@ -8,9 +10,29 @@
     <MudCardContent>
 
         <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.Add" Href="@UrlHelper.GetTicketTypesLink(Event.Id ,"new" )">@Localizer["Administration.Events.EventTicketType.Create"]</MudButton>
-        @foreach (var ticketType in Event.TicketTypes)
-        {
-            <div>@ticketType.Name</div>
-        }
+
+        <MudTable Items="@Event.TicketTypes" Hover="true" SortLabel="@Localizer["Administration.Events.Event.Tickets.Sort"]">
+            <HeaderContent>
+                <MudTh><MudTableSortLabel SortBy="new Func<EventTicketTypeDto, object>(x=>x.Name)">@Localizer["Administration.Events.Event.Tickets.Name"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<EventTicketTypeDto, object>(x=>x.SellStartDate)">@Localizer["Administration.Events.Event.Tickets.SellStartDate"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<EventTicketTypeDto, object>(x=>x.SellEndDate)">@Localizer["Administration.Events.Event.Tickets.SellEndDate"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<EventTicketTypeDto, object>(x=>x.AvailableTickets)">@Localizer["Administration.Events.Event.Tickets.AvailableTickets"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<EventTicketTypeDto, object>(x=>x.Price)">@Localizer["Administration.Events.Event.Tickets.Price"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<EventTicketTypeDto, object>(x=>x.IsGiftable)">@Localizer["Administration.Events.Event.Tickets.IsGiftable"]</MudTableSortLabel></MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.Name"]">@context.Name</MudTd>
+                <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.SellStartDate"]">@context.SellStartDate</MudTd>
+                <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.SellEndDate"]">@context.SellEndDate</MudTd>
+                <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.AvailableTickets"]">@context.AvailableTickets</MudTd>
+                <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.Price"]">@context.Price @context.Currency.ToSymbol()</MudTd>
+                <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.IsGiftable"]">@context.IsGiftable</MudTd>
+                <MudTd>
+                    <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.Edit" Href="@UrlHelper.GetTicketTypesLink(Event.Id ,context.Id )">@Localizer["Administration.Events.EventTicketType.Edit"]</MudButton>
+                    @*<MudButton Variant="Variant.Outlined" Color="Color.Secondary" StartIcon="@Icons.Material.Outlined.Remove" Href="@UrlHelper.GetTicketTypesLink(Event.Id ,"new" )">@Localizer["Administration.Events.EventTicketType.Create"]</MudButton>*@
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
     </MudCardContent>
 </MudCard>

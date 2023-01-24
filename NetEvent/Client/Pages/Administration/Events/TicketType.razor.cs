@@ -39,7 +39,7 @@ namespace NetEvent.Client.Pages.Administration.Events
         private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         [Inject]
-        private NavigationManager NavigationManager { get; set; } = default!;
+        private NavigationService NavigationService { get; set; } = default!;
 
         [Inject]
         private ISnackbar Snackbar { get; set; } = default!;
@@ -106,7 +106,7 @@ namespace NetEvent.Client.Pages.Administration.Events
 
                     if (result.Successful && _EventTicketType?.Id != null)
                     {
-                        NavigationManager.NavigateTo(UrlHelper.GetEventLink(_EventTicketType.Id, true));
+                        NavigationService.NavigateTo(UrlHelper.GetEventLink(_EventTicketType.Id, true));
                     }
                 }
 

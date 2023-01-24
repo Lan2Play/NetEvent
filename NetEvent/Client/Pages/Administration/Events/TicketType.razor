@@ -101,7 +101,10 @@ else if (_EventTicketType != null)
             </MudCardContent>
         </MudForm>
         <MudCardActions>
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await SaveEventTicketType())">
+            <MudButton Variant="Variant.Outlined" Color="Color.Secondary" Class="ml-auto" OnClick="@(() => NavigationService.NavigateBack())">
+                @Localizer["Administration.Events.EventTicketType.Cancel"]
+            </MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-4" OnClick="@(async () => await SaveEventTicketType())">
                 @(_EventTicketType.Id >= 0 ? Localizer["Administration.Events.EventTicketType.Save"] : Localizer["Administration.Events.EventTicketType.Create"])
             </MudButton>
         </MudCardActions>
