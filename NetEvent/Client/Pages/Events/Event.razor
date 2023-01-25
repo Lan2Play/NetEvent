@@ -9,6 +9,7 @@
 @using NetEvent.Shared.Config
 @using NetEvent.Shared.Dto
 @using System.Globalization
+@using NetEvent.Shared.Dto.Event;
 @using TinyMCE.Blazor
 
 <div class="ma-4">
@@ -48,6 +49,51 @@
             <MudText Typo="Typo.h6"><MudIcon Icon="@Icons.Material.Outlined.LocationCity"></MudIcon> @Localize["Administration.Events.Event.Venue"]</MudText>
             <MudText Typo="Typo.body1">@_Event.Venue.Street @_Event.Venue.Number</MudText>
             <MudText Typo="Typo.body1">@_Event.Venue.ZipCode @_Event.Venue.City</MudText>
+            <MudDivider Class="mt-4 mb-4"></MudDivider>
+        }
+
+        @if (_Event.TicketTypes != null && _Event.TicketTypes.Any())
+        {
+            <MudText Typo="Typo.h6"><MudIcon Icon="@Icons.Material.Outlined.LocationCity"></MudIcon> @Localize["Administration.Events.Event.Tickets"]</MudText>
+
+            <div class="d-flex align-stretch flex-wrap gap-4 ma-4">
+
+                @foreach (var ticketType in _Event.TicketTypes.Where(t => t.SellEndDate < DateTime.Now))
+                {
+                    <MudCard Class="d-flex flex-grow-1 flex-column" Style="width: 400px; max-width: 600px;">
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h6">@ticketType.Name</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudText Typo="Typo.h6">@ticketType.Price @ticketType.Currency.ToSymbol()</MudText>
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+
+                            <MudProgressLinear class="mb-4" Color="Color.Success" Rounded="true" Size="Size.Large" Value="@ticketType.AvailableTickets" Max="@ticketType.AvailableTickets">
+                                <MudText Typo="Typo.subtitle2" Color="Color.Dark">
+                                    <b>TODO remainingTickets / @ticketType.AvailableTickets @Localize["Administration.Events.Event.Tickets.Available"]</b>
+                                </MudText>
+                            </MudProgressLinear>
+
+                            @if (ticketType.SellStartDate >= DateTime.Now)
+                            {
+                                <MudText Typo="Typo.body2">@Localize["Administration.Events.Event.Tickets.AvailableFrom", ticketType.SellStartDate]</MudText>
+                            }
+                            else
+                            {
+                                <MudText Typo="Typo.body2">@Localize["Administration.Events.Event.Tickets.AvailableUntil", ticketType.SellEndDate]</MudText>
+                            }
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton Variant="Variant.Text" Color="Color.Primary">@Localize["Administration.Events.Event.Tickets.Buy"]</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                }
+
+            </div>
+
             <MudDivider Class="mt-4 mb-4"></MudDivider>
         }
 

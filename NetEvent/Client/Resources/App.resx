@@ -750,4 +750,16 @@
   <data name="Administration.Events.EventTicketType.Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Administration.Events.Event.Tickets.Available" xml:space="preserve">
+    <value>available</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.Buy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.AvailableFrom" xml:space="preserve">
+    <value>Available from {0}</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.AvailableUntil" xml:space="preserve">
+    <value>Available until {0}</value>
+  </data>
 </root>
