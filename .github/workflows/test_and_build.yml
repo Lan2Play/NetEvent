@@ -4,6 +4,7 @@ on:
     branches:
     - main
     - develop
+    - 'feature/Andy_Tickets'
     tags: [ v**]
     paths:
     - '**'
@@ -109,7 +110,7 @@ jobs:
         with:
           submodules: recursive
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2.0.0
+        uses: docker/setup-qemu-action@v2.1.0
       - name: Pull Latest Linux Base Image
         run: docker pull lan2play/netevent
       - name: set Version
@@ -119,12 +120,13 @@ jobs:
         if: ${{ !(startsWith(github.ref, 'refs/tags/v')) }}
         run:  echo "NETEVENTNETVER=0.0.1" >> $GITHUB_ENV
       - name: Build Linux Image
-        uses: docker/build-push-action@v3.1.1
+        uses: docker/build-push-action@v3.3.0
         with:
           context: .
           file: ./Dockerfile
           tags: |
             lan2play/netevent:latest
+            lan2play/netevent:tickets
           build-args: |
             BUILDNODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
             BUILDID=${{ github.run_id }}
@@ -135,11 +137,14 @@ jobs:
       # - name: Test Linux Image
       #   run: docker run --rm lan2play/netevent:latest /docker/test.sh
       - name: Login to DockerHub
-        if: ${{ (startsWith(github.ref, 'refs/tags/v')) }}
-        uses: docker/login-action@v2.0.0
+        if: ${{ (startsWith(github.ref, 'refs/tags/v')) ||	( github.event_name == 'push' && (github.ref_name == 'feature/Andy_Tickets' || github.base_ref == 'feature/Andy_Tickets') ) }}
+        uses: docker/login-action@v2.1.0
         with:
           username: ${{ secrets.NETEVENT_DOCKERHUB_USERNAME }}
           password: ${{ secrets.NETEVENT_DOCKERHUB_TOKEN }}
+      - name: Push to Docker HUB Tickets
+        if: ${{ github.event_name == 'push' && (github.ref_name == 'feature/Andy_Tickets' || github.base_ref == 'feature/Andy_Tickets')  }}
+        run: docker push lan2play/netevent:tickets      
       - name: Push to Docker HUB
         if: ${{ (startsWith(github.ref, 'refs/tags/v')) }}
         run: docker push lan2play/netevent:latest
