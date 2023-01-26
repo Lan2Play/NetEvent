@@ -57,6 +57,8 @@ namespace NetEvent.Shared
 
         public static partial EventTicketType ToEventTicketType(this EventTicketTypeDto eventTicketTypeToConvert);
 
+        public static partial CurrencyDto ToCurrencyDto(this Currency currency);
+
         public static partial VenueDto ToVenueDto(this Venue venue);
 
         public static partial Venue ToVenue(this VenueDto venue);

@@ -15,7 +15,7 @@ namespace NetEvent.Server.Migrations.Sqlite
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -345,7 +345,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "26cbb106-629e-4b0f-b528-03e4fbaf148e",
+                            ConcurrencyStamp = "5d10c057-f0c5-4439-9ea5-52da9de25db4",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -353,9 +353,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMVeCrEoGoqMFSa9mWv07gyORfXVq9Zash81NSc3Z4QmFWadfMKOABkphkaem7Q7nQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHl8xBgwOlrJfSfDpoRyQLa1TdrX7zMysaC62jvZEjAyngzzdjD+zyfPkY2zk66ZGQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "56b690d3-1bb2-4ef1-8fde-0397861a166b",
+                            SecurityStamp = "83f864b3-fb09-44e4-9e5c-748beadc4af3",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -471,6 +471,25 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.HasIndex("EventId");
 
                     b.ToTable("EventTicketTypes", (string)null);
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Purchase", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("PurchaseTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Purchases", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Server.Models.SystemImage", b =>
@@ -597,7 +616,49 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Key = "Steam",
                             SerializedValue = "False"
+                        },
+                        new
+                        {
+                            Key = "AdyenApiKey ",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AdyenClientKey ",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AdyenMerchantAccount ",
+                            SerializedValue = ""
                         });
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.TicketPurchase", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("PurchaseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("TicketId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("TicketPurchases", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Server.Models.Venue", b =>
@@ -712,9 +773,38 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.Navigation("Event");
                 });
 
+            modelBuilder.Entity("NetEvent.Server.Models.Purchase", b =>
+                {
+                    b.HasOne("NetEvent.Server.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.TicketPurchase", b =>
+                {
+                    b.HasOne("NetEvent.Server.Models.Purchase", "Purchase")
+                        .WithMany("TicketPurchases")
+                        .HasForeignKey("PurchaseId");
+
+                    b.HasOne("NetEvent.Server.Models.EventTicketType", "Ticket")
+                        .WithMany()
+                        .HasForeignKey("TicketId");
+
+                    b.Navigation("Purchase");
+
+                    b.Navigation("Ticket");
+                });
+
             modelBuilder.Entity("NetEvent.Server.Models.Event", b =>
                 {
                     b.Navigation("TicketTypes");
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Purchase", b =>
+                {
+                    b.Navigation("TicketPurchases");
                 });
 #pragma warning restore 612, 618
         }

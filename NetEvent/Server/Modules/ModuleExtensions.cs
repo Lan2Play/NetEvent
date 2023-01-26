@@ -57,7 +57,6 @@ namespace NetEvent.Server.Modules
                     writeModuleGroup.RequireAuthorization(writePolicy);
                 }
             }
-
             return app;
         }
 

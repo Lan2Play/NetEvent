@@ -103,6 +103,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IEventManager, EventManager>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPaymentManager, PaymentManager>();
 builder.Services.AddScoped<ISlugHelper, SlugHelper>();
 
 builder.Services.AddSingleton<IEmailRenderer, RazorEmailRenderer>();

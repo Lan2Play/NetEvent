@@ -28,6 +28,6 @@ namespace NetEvent.Shared.Dto.Event
 
         public EventFormatDto EventFormat { get; set; }
 
-        public ICollection<EventTicketTypeDto> TicketTypes { get; set; } = new Collection<EventTicketTypeDto>();
+        public ICollection<EventTicketTypeDto>? TicketTypes { get; set; } = new Collection<EventTicketTypeDto>();
     }
 }
