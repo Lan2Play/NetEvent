@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-checkout": "webpack --config webpack-checkout.config.js --output-path ../wwwroot/js/checkout --output-filename checkout.bundle.js --mode=production",
-    "build-checkout-dev": "webpack --config webpack-checkout.config.js --output-path ../wwwroot/js/checkout --output-filename checkout.bundle.js --mode=development",
-    "build": "npm run build-checkout",
-    "build-dev": "npm run build-checkout-dev"
+    "build": "webpack --config webpack.config.js --mode=production",
+    "build-dev": "webpack --config webpack.config.js --mode=development"
   },
   "keywords": [],
   "author": "",

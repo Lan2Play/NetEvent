@@ -111,14 +111,14 @@
                     <MudField Label="@Localizer["Administration.Events.Event.ShortDescription"]"
                               Margin="Margin.Dense"
                               Variant="Variant.Outlined">
-                        <Editor @bind-Value="Event.ShortDescription" ScriptSrc="/lib/tinymce/tinymce.min.js" ValidateOnInput="true" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                        <Editor @bind-Value="Event.ShortDescription" ScriptSrc="@NetEvent.Client.Extensions.TinyMceConfig.ScriptSrc" ValidateOnInput="true" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
                     </MudField>
                 </MudItem>
                 <MudItem xs="12">
                     <MudField Label="@Localizer["Administration.Events.Event.Description"]"
                               Margin="Margin.Dense"
                               Variant="Variant.Outlined">
-                        <Editor @bind-Value="Event.Description" ScriptSrc="/lib/tinymce/tinymce.min.js" ValidateOnInput="true" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
+                        <Editor @bind-Value="Event.Description" ScriptSrc="@NetEvent.Client.Extensions.TinyMceConfig.ScriptSrc" ValidateOnInput="true" Conf="NetEvent.Client.Extensions.TinyMceConfig.EditorConf" />
                     </MudField>
                 </MudItem>
             </MudGrid>

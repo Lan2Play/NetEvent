@@ -1,5 +1,11 @@
 module.exports = {
-    entry: './src/checkout.js',
+    entry: {
+        checkout: './src/checkout.js',
+    },
+    output: {
+        filename: '[name].js',
+        path: __dirname + '/../wwwroot/js',
+    },
     module: {
         rules: [
             {
