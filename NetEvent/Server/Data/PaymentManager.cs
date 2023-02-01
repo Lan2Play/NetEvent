@@ -67,6 +67,9 @@ namespace NetEvent.Server.Data
                 return null;
             }
 
+            await _DbContext.Purchases.AddAsync(purchase).ConfigureAwait(false);
+            await _DbContext.SaveChangesAsync().ConfigureAwait(false);
+
             var checkoutSessionRequest = new CreateCheckoutSessionRequest
             {
                 MerchantAccount = merchantAccount.SerializedValue,

@@ -87,7 +87,7 @@
                             }
                         </MudCardContent>
                         <MudCardActions>
-                            <MudButton Variant="Variant.Text" Color="Color.Primary">@Localize["Administration.Events.Event.Tickets.Buy"]</MudButton>
+                            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(async () => await BuyTicketAsync(ticketType))">@Localize["Administration.Events.Event.Tickets.Buy"]</MudButton>
                         </MudCardActions>
                     </MudCard>
                 }

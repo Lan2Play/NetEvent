@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
@@ -24,6 +25,9 @@ namespace NetEvent.Client.Pages.Events
 
         [Inject]
         private IStringLocalizer<App> Localizer { get; set; } = default!;
+
+        [Inject]
+        private ICartService CartService { get; set; } = default!;
 
         #endregion
 
@@ -55,6 +59,11 @@ namespace NetEvent.Client.Pages.Events
                 PublishStateDto.Published => Color.Transparent,
                 _ => throw new($"PublishState {state} is not supported!"),
             };
+        }
+
+        private async Task BuyTicketAsync(EventTicketTypeDto eventTicketType)
+        {
+            //CartService.AddToCart(eventTicketType);
         }
     }
 }
