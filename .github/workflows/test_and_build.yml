@@ -111,8 +111,8 @@ jobs:
           submodules: recursive
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2.1.0
-      - name: Pull Latest Linux Base Image
-        run: docker pull lan2play/netevent
+      # - name: Pull Latest Linux Base Image
+      #   run: docker pull lan2play/netevent
       - name: set Version
         if: ${{ (startsWith(github.ref, 'refs/tags/v')) }}
         run:  echo "NETEVENTNETVER=$(echo ${GITHUB_REF} | sed 's|refs/heads/||g' | sed 's|refs/tags/v||g' | sed 's|-beta||g' )" >> $GITHUB_ENV
