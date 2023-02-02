@@ -14,10 +14,11 @@ ENV NETEVENTNETVER=$NETEVENTNETVER
 WORKDIR /
 RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     wget bash apt-transport-https
+RUN wget -q -O - https://deb.nodesource.com/setup_current.x | bash -
 RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 RUN rm packages-microsoft-prod.deb
-RUN apt-get update -qqy && apt-get install -y dotnet-sdk-7.0 python3 python3-pip wget
+RUN apt-get update -qqy && apt-get install -y dotnet-sdk-7.0 python3 python3-pip nodejs
 RUN pip install lastversion
 RUN eval apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
