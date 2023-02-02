@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Adyen.Model.Checkout;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Administration;
@@ -62,5 +63,7 @@ namespace NetEvent.Shared
         public static partial VenueDto ToVenueDto(this Venue venue);
 
         public static partial Venue ToVenue(this VenueDto venue);
+
+        public static partial CheckoutSessionDto ToCheckoutSessionDto(this CreateCheckoutSessionResponse createCheckoutSessionResponse);
     }
 }

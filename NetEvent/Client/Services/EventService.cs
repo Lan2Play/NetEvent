@@ -7,6 +7,7 @@ using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Client.Services
@@ -240,5 +241,27 @@ namespace NetEvent.Client.Services
             }
         }
 
+        public async Task<ServiceResult<CheckoutSessionDto?>> BuyTicketAsync(long id, int amount, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var ticketCart = new CartDto { CartEntries = new[] { new CartEntryDto { TicketId = id, Amount = amount } } };
+
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.PostAsJsonAsync($"api/payment/buy", ticketCart, cancellationToken);
+                response.EnsureSuccessStatusCode();
+
+                var sessionResponse = await response.Content.ReadFromJsonAsync<CheckoutSessionDto>().ConfigureAwait(false);
+
+                return ServiceResult<CheckoutSessionDto?>.Success(sessionResponse, "EventService.AddAsync.Success");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to create eventTicketType in backend.");
+            }
+
+            return ServiceResult<CheckoutSessionDto?>.Error("EventService.AddAsync.Error");
+        }
     }
 }

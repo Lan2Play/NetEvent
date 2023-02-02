@@ -24,15 +24,10 @@ namespace NetEvent.Server.Modules.Payment.Endpoints
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new Response(await _PaymentManager.PayAsync(request.CartDto, request.User));
-                //var newVenue = request.Venue.ToVenue();
-                //var result = await _PaymentManager.CreateVenueAsync(newVenue).ConfigureAwait(false);
-                //if (!result.Succeeded || newVenue.Id == null)
-                //{
-                //    return new Response(ReturnType.Error, string.Join(Environment.NewLine, result.Errors));
-                //}
+                var sessionResponse = await _PaymentManager.PayAsync(request.CartDto, request.User);
+                var result = sessionResponse.ToCheckoutSessionDto();
 
-                //return new Response(newVenue.Id!.Value);
+                return new Response(result);
             }
         }
 
@@ -49,9 +44,9 @@ namespace NetEvent.Server.Modules.Payment.Endpoints
             public ClaimsPrincipal User { get; }
         }
 
-        public sealed class Response : ResponseBase<CreateCheckoutSessionResponse>
+        public sealed class Response : ResponseBase<CheckoutSessionDto>
         {
-            public Response(CreateCheckoutSessionResponse response) : base(response)
+            public Response(CheckoutSessionDto response) : base(response)
             {
             }
 

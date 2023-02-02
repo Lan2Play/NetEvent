@@ -73,21 +73,21 @@
 
                             <MudProgressLinear class="mb-4" Color="Color.Success" Rounded="true" Size="Size.Large" Value="@ticketType.AvailableTickets" Max="@ticketType.AvailableTickets">
                                 <MudText Typo="Typo.subtitle2" Color="Color.Dark">
-                                    <b>TODO remainingTickets / @ticketType.AvailableTickets @Localize["Administration.Events.Event.Tickets.Available"]</b>
+                                    <b>@Localize["Events.Event.Tickets.Available", "TODO remainingTickets / " + @ticketType.AvailableTickets]</b>
                                 </MudText>
                             </MudProgressLinear>
 
                             @if (ticketType.SellStartDate >= DateTime.Now)
                             {
-                                <MudText Typo="Typo.body2">@Localize["Administration.Events.Event.Tickets.AvailableFrom", ticketType.SellStartDate]</MudText>
+                                <MudText Typo="Typo.body2">@Localize["Events.Event.Tickets.AvailableFrom", ticketType.SellStartDate]</MudText>
                             }
                             else
                             {
-                                <MudText Typo="Typo.body2">@Localize["Administration.Events.Event.Tickets.AvailableUntil", ticketType.SellEndDate]</MudText>
+                                <MudText Typo="Typo.body2">@Localize["Events.Event.Tickets.AvailableUntil", ticketType.SellEndDate]</MudText>
                             }
                         </MudCardContent>
                         <MudCardActions>
-                            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(async () => await BuyTicketAsync(ticketType))">@Localize["Administration.Events.Event.Tickets.Buy"]</MudButton>
+                            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(async () => await BuyTicketAsync(ticketType))">@Localize["Events.Event.Tickets.Buy"]</MudButton>
                         </MudCardActions>
                     </MudCard>
                 }

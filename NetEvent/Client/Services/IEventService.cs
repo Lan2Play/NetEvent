@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Client.Services
@@ -20,8 +21,13 @@ namespace NetEvent.Client.Services
         Task<ServiceResult> UpdateEventAsync(EventDto eventDto, CancellationToken cancellationToken);
 
         Task<ServiceResult> CreateEventAsync(EventDto eventDto, CancellationToken cancellationToken);
+
         Task<EventTicketTypeDto?> GetEventTicketTypeAsync(long id, CancellationToken cancellationToken);
+
         Task<ServiceResult> UpdateEventTicketTypeAsync(EventTicketTypeDto eventTicketTypeDto, CancellationToken cancellationToken);
+
         Task<ServiceResult> CreateEventTicketTypeAsync(long eventId, EventTicketTypeDto eventTicketTypeDto, CancellationToken cancellationToken);
+
+        Task<ServiceResult<CheckoutSessionDto?>> BuyTicketAsync(long id, int amount, CancellationToken cancellationToken);
     }
 }

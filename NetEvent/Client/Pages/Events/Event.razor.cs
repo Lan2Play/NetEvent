@@ -63,6 +63,9 @@ namespace NetEvent.Client.Pages.Events
 
         private async Task BuyTicketAsync(EventTicketTypeDto eventTicketType)
         {
+            // /checkout/ticket/{tickettypeid}/{count}
+            NavigationManager.NavigateTo($"checkout/ticket/{eventTicketType.Id}");
+
             //CartService.AddToCart(eventTicketType);
         }
     }

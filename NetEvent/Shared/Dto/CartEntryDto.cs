@@ -9,5 +9,5 @@ public class CartEntryDto
     public int Amount { get; set; }
 
     [JsonPropertyName("ticketId")]
-    public int? TicketId { get; set; }
+    public long? TicketId { get; set; }
 }
