@@ -17,6 +17,7 @@ namespace NetVenue.Server.Modules.Payment
         public override IEndpointRouteBuilder MapModuleEndpoints(IEndpointRouteBuilder endpoints)
         {
             // BaseRoute: /api/payment
+            endpoints.MapGet("/paymentmethods/{amount:long}/{currency}", async ([FromRoute] long amount, [FromRoute] CurrencyDto currency, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetPaymentMethods.Request(amount, currency))));
             endpoints.MapPost("/buy", async ([FromBody] CartDto cartDto, ClaimsPrincipal user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostCart.Request(cartDto, user))));
             //endpoints.MapGet("/{venueId:long}", async ([FromRoute] long venueId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenue.Request(venueId))));
             //endpoints.MapGet("/{slug}", async ([FromRoute] string slug, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenue.Request(slug))));

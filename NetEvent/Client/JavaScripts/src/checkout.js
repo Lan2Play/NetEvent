@@ -29,9 +29,7 @@ const configuration = {
     }
 };
 
-const jsInterop = jsInterop || {};
-
-jsInterop.startPayment = async function (clientKey, sessionId, sessionData) {
+export async function startPaymentAsync(clientKey, sessionId, sessionData) {
     configuration.clientKey = clientKey;
     configuration.session.id = sessionId;
     configuration.session.sessionData = sessionData;

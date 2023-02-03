@@ -62,6 +62,7 @@ namespace NetEvent.Client.Pages.Checkout
             Amount ??= 1;
 
             EventTicketType = await EventService.GetEventTicketTypeAsync(TicketType, cts.Token).ConfigureAwait(false);
+            // TODO Load PaymentMethods via new IPaymentService
         }
 
         private async Task BuyTicketAsync()
@@ -75,10 +76,10 @@ namespace NetEvent.Client.Pages.Checkout
             var result = await EventService.BuyTicketAsync(EventTicketType.Id.Value, Amount.Value, cts.Token).ConfigureAwait(false);
             if (result.Successful && result.ResultData != null)
             {
-                var clientKey = SettingsService.GetSystemSettingAsync(SystemSettingGroup.PaymentData, SystemSettings.PaymentData.AdyenClientKey, cts.Token);
+                var clientKey = await SettingsService.GetSystemSettingAsync(SystemSettingGroup.PaymentData, SystemSettings.PaymentData.AdyenClientKey, cts.Token).ConfigureAwait(false);
 
                 CheckoutSession = result.ResultData;
-                await JsRuntime.InvokeVoidAsync("jsInterop.startPayment", clientKey, CheckoutSession.Id, CheckoutSession.SessionData).ConfigureAwait(false);
+                await JsRuntime.InvokeVoidAsync("checkout.startPaymentAsync", clientKey?.Value, CheckoutSession.Id, CheckoutSession.SessionData).ConfigureAwait(false);
             }
         }
     }

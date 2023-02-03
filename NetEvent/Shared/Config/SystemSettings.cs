@@ -59,9 +59,9 @@ namespace NetEvent.Shared.Config
 
         public class PaymentData : SettingGroupBase
         {
-            public const string AdyenApiKey = "AdyenApiKey ";
-            public const string AdyenClientKey = "AdyenClientKey ";
-            public const string AdyenMerchantAccount = "AdyenMerchantAccount ";
+            public const string AdyenApiKey = "AdyenApiKey";
+            public const string AdyenClientKey = "AdyenClientKey";
+            public const string AdyenMerchantAccount = "AdyenMerchantAccount";
 
             public PaymentData() : base(SystemSettingGroup.PaymentData)
             {

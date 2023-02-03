@@ -637,17 +637,17 @@ namespace NetEvent.Server.Migrations.Psql
                         },
                         new
                         {
-                            Key = "AdyenApiKey ",
+                            Key = "AdyenApiKey",
                             SerializedValue = ""
                         },
                         new
                         {
-                            Key = "AdyenClientKey ",
+                            Key = "AdyenClientKey",
                             SerializedValue = ""
                         },
                         new
                         {
-                            Key = "AdyenMerchantAccount ",
+                            Key = "AdyenMerchantAccount",
                             SerializedValue = ""
                         });
                 });

@@ -34,6 +34,39 @@ namespace NetEvent.Server.Data
             _Logger = logger;
         }
 
+        public async Task<PaymentMethodsResponse> GetPaymentMethodsAsync(long amount, CurrencyDto currency)
+        {
+            var merchantAccount = await _DbContext.SystemSettingValues.FindAsync(SystemSettings.PaymentData.AdyenMerchantAccount).ConfigureAwait(false);
+            var apiKey = await _DbContext.SystemSettingValues.FindAsync(SystemSettings.PaymentData.AdyenApiKey).ConfigureAwait(false);
+
+            if (string.IsNullOrEmpty(merchantAccount?.SerializedValue))
+            {
+                // TODO Error
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(apiKey?.SerializedValue))
+            {
+                // TODO Error
+                return null;
+            }
+
+            var client = new Adyen.Client(apiKey.SerializedValue, Adyen.Model.Enum.Environment.Test);
+            var checkout = new Checkout(client);
+
+            var paymentMethodsRequest = new PaymentMethodsRequest()
+            {
+                MerchantAccount = merchantAccount.SerializedValue,
+                CountryCode = new RegionInfo(CultureInfo.CurrentUICulture.LCID).TwoLetterISORegionName,
+                ShopperLocale = CultureInfo.CurrentUICulture.Name,
+                Amount = new Amount(currency.To3DigitIso(), amount),
+                Channel = PaymentMethodsRequest.ChannelEnum.Web
+            };
+
+            var paymentMethodsResponse = checkout.PaymentMethods(paymentMethodsRequest);
+            return paymentMethodsResponse;
+        }
+
         public async Task<CreateCheckoutSessionResponse> PayAsync(CartDto cart, ClaimsPrincipal claimsPrincipal)
         {
             var paymentId = Guid.NewGuid();
@@ -52,7 +85,6 @@ namespace NetEvent.Server.Data
                 // TODO Error
                 return null;
             }
-
 
             var purchase = await CreatePurchaseAsync(cart, claimsPrincipal).ConfigureAwait(false);
 
@@ -76,7 +108,7 @@ namespace NetEvent.Server.Data
                 Reference = paymentId.ToString(),
                 ReturnUrl = "https://your-company.com/checkout?shopperOrder=12xy..", // TODO Checkout Seite mit Polling/Events/...
                 Amount = new Amount(currencyGroup.First().Key.ToCurrencyDto().To3DigitIso(), purchase.Price),
-                CountryCode = CultureInfo.CurrentCulture.ToString(),
+                CountryCode = new RegionInfo(CultureInfo.CurrentUICulture.LCID).TwoLetterISORegionName,
             };
             var client = new Adyen.Client(apiKey.SerializedValue, Adyen.Model.Enum.Environment.Test);
             var checkout = new Checkout(client);

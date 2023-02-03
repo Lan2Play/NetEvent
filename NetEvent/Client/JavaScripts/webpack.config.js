@@ -4,6 +4,7 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
+        library: 'checkout',
         path: __dirname + '/../wwwroot/js',
     },
     module: {

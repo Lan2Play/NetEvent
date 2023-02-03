@@ -65,5 +65,7 @@ namespace NetEvent.Shared
         public static partial Venue ToVenue(this VenueDto venue);
 
         public static partial CheckoutSessionDto ToCheckoutSessionDto(this CreateCheckoutSessionResponse createCheckoutSessionResponse);
+   
+        public static partial PaymentMethodDto ToPaymentMethodDto(this PaymentMethod paymentMethods);
     }
 }

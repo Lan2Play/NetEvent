@@ -64,9 +64,9 @@ namespace NetEvent.Server.Migrations.Psql
                 columns: new[] { "Key", "SerializedValue" },
                 values: new object[,]
                 {
-                    { "AdyenApiKey ", "" },
-                    { "AdyenClientKey ", "" },
-                    { "AdyenMerchantAccount ", "" }
+                    { "AdyenApiKey", "" },
+                    { "AdyenClientKey", "" },
+                    { "AdyenMerchantAccount", "" }
                 });
 
             migrationBuilder.UpdateData(
@@ -104,17 +104,17 @@ namespace NetEvent.Server.Migrations.Psql
             migrationBuilder.DeleteData(
                 table: "SystemSettings",
                 keyColumn: "Key",
-                keyValue: "AdyenApiKey ");
+                keyValue: "AdyenApiKey");
 
             migrationBuilder.DeleteData(
                 table: "SystemSettings",
                 keyColumn: "Key",
-                keyValue: "AdyenClientKey ");
+                keyValue: "AdyenClientKey");
 
             migrationBuilder.DeleteData(
                 table: "SystemSettings",
                 keyColumn: "Key",
-                keyValue: "AdyenMerchantAccount ");
+                keyValue: "AdyenMerchantAccount");
 
             migrationBuilder.UpdateData(
                 table: "User",

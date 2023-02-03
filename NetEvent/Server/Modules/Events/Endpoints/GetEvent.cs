@@ -26,7 +26,7 @@ namespace NetEvent.Server.Modules.Events.Endpoints
                 Models.Event? eventModel;
                 if (request.Slug != null)
                 {
-                    eventModel = await _DbContext.Events.Where(e => e.Slug != null && e.Slug.Equals(request.Slug, StringComparison.OrdinalIgnoreCase)).Include(e => e.TicketTypes).FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+                    eventModel = await _DbContext.Events.Where(e => e.Slug == request.Slug).Include(e => e.TicketTypes).FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
                 }
                 else
                 {

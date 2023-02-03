@@ -63,9 +63,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                 columns: new[] { "Key", "SerializedValue" },
                 values: new object[,]
                 {
-                    { "AdyenApiKey ", "" },
-                    { "AdyenClientKey ", "" },
-                    { "AdyenMerchantAccount ", "" }
+                    { "AdyenApiKey", "" },
+                    { "AdyenClientKey", "" },
+                    { "AdyenMerchantAccount", "" }
                 });
 
             migrationBuilder.UpdateData(
@@ -103,17 +103,17 @@ namespace NetEvent.Server.Migrations.Sqlite
             migrationBuilder.DeleteData(
                 table: "SystemSettings",
                 keyColumn: "Key",
-                keyValue: "AdyenApiKey ");
+                keyValue: "AdyenApiKey");
 
             migrationBuilder.DeleteData(
                 table: "SystemSettings",
                 keyColumn: "Key",
-                keyValue: "AdyenClientKey ");
+                keyValue: "AdyenClientKey");
 
             migrationBuilder.DeleteData(
                 table: "SystemSettings",
                 keyColumn: "Key",
-                keyValue: "AdyenMerchantAccount ");
+                keyValue: "AdyenMerchantAccount");
 
             migrationBuilder.UpdateData(
                 table: "User",

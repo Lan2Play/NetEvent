@@ -765,4 +765,25 @@
   <data name="Events.Event.Tickets.Available" xml:space="preserve">
     <value>available {0}</value>
   </data>
+  <data name="Administration.Settings.PaymentData" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenApiKey.Hint" xml:space="preserve">
+    <value>https://docs.adyen.com/development-resources/api-credentials#generate-api-key</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenApiKey.Label" xml:space="preserve">
+    <value>Adyen Api Key</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenClientKey.Hint" xml:space="preserve">
+    <value>https://docs.adyen.com/development-resources/client-side-authentication#get-your-client-key</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenClientKey.Label" xml:space="preserve">
+    <value>Adyen Client Key</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenMerchantAccount.Hint" xml:space="preserve">
+    <value>https://ca-test.adyen.com/ca/ca/accounts/show.shtml?accountTypeCode=MerchantAccount</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenMerchantAccount.Label" xml:space="preserve">
+    <value>Adyen Merchant Account</value>
+  </data>
 </root>

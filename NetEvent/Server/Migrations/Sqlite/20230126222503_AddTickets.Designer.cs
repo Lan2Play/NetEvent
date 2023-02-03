@@ -622,17 +622,17 @@ namespace NetEvent.Server.Migrations.Sqlite
                         },
                         new
                         {
-                            Key = "AdyenApiKey ",
+                            Key = "AdyenApiKey",
                             SerializedValue = ""
                         },
                         new
                         {
-                            Key = "AdyenClientKey ",
+                            Key = "AdyenClientKey",
                             SerializedValue = ""
                         },
                         new
                         {
-                            Key = "AdyenMerchantAccount ",
+                            Key = "AdyenMerchantAccount",
                             SerializedValue = ""
                         });
                 });
