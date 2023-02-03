@@ -3,7 +3,6 @@
 if [[ "$DBProvider" = "psql" ]]
 then 
     export DBConnection="Host=$DBServer;Port=$DBPort;Username=$DBUser;Password=$DBPassword;Database=$DBName"
-    echo "DBConnection string: $DBConnection"
     # Database Wait check
     echo "---------------"
     echo "WAITING FOR $DBServer:$DBPort..."
@@ -12,6 +11,5 @@ fi
 if [[ "$DBProvider" = "sqlite" ]]
 then 
     export DBConnection="Data Source=$DBName"
-    echo "DBConnection string: $DBConnection"
     /NetEvent/NetEvent.Server
 fi
