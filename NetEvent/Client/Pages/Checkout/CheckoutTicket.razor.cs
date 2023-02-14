@@ -22,6 +22,8 @@ using NetEvent.Shared.Dto.Event;
 using Microsoft.Extensions.Localization;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Config;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace NetEvent.Client.Pages.Checkout
 {
@@ -31,6 +33,9 @@ namespace NetEvent.Client.Pages.Checkout
 
         [Inject]
         private IEventService EventService { get; set; } = default!;
+
+        [Inject]
+        private IPaymentService PaymentService { get; set; } = default!;
 
         [Inject]
         private ISystemSettingsDataService SettingsService { get; set; } = default!;
@@ -55,6 +60,7 @@ namespace NetEvent.Client.Pages.Checkout
 
         private EventTicketTypeDto? EventTicketType;
         private CheckoutSessionDto? CheckoutSession;
+        private IReadOnlyCollection<PaymentMethodDto>? PaymentMethods;
 
         protected override async Task OnInitializedAsync()
         {
@@ -62,7 +68,17 @@ namespace NetEvent.Client.Pages.Checkout
             Amount ??= 1;
 
             EventTicketType = await EventService.GetEventTicketTypeAsync(TicketType, cts.Token).ConfigureAwait(false);
-            // TODO Load PaymentMethods via new IPaymentService
+            if (EventTicketType != null)
+            {
+                var result = await PaymentService.LoadPaymentMethodsAsync(EventTicketType.Price, EventTicketType.Currency, cts.Token).ConfigureAwait(false);
+                if (result.Successful)
+                {
+                    PaymentMethods = result.ResultData;
+                    var clientKey = await SettingsService.GetSystemSettingAsync(SystemSettingGroup.PaymentData, SystemSettings.PaymentData.AdyenClientKey, cts.Token).ConfigureAwait(false);
+                    var paymentMethod = JsonSerializer.Serialize(new { paymentMethods = PaymentMethods }, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault });
+                    await JsRuntime.InvokeVoidAsync("checkout.startPaymentAsync", clientKey?.Value, paymentMethod).ConfigureAwait(false);
+                }
+            }
         }
 
         private async Task BuyTicketAsync()
@@ -73,7 +89,7 @@ namespace NetEvent.Client.Pages.Checkout
             }
 
             var cts = new CancellationTokenSource();
-            var result = await EventService.BuyTicketAsync(EventTicketType.Id.Value, Amount.Value, cts.Token).ConfigureAwait(false);
+            var result = await PaymentService.BuyTicketAsync(EventTicketType.Id.Value, Amount.Value, cts.Token).ConfigureAwait(false);
             if (result.Successful && result.ResultData != null)
             {
                 var clientKey = await SettingsService.GetSystemSettingAsync(SystemSettingGroup.PaymentData, SystemSettings.PaymentData.AdyenClientKey, cts.Token).ConfigureAwait(false);

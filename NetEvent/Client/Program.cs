@@ -40,7 +40,7 @@ namespace NetEvent.Client
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IThemeService, ThemeService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
-            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
 
             builder.Services.AddSingleton<NavigationService>();
 

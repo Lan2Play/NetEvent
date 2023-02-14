@@ -57,6 +57,9 @@ namespace NetEvent.Client.Pages.Administration.Events
         private EventTicketTypeDto _EventTicketType = default!;
         private MudForm? _Form = default!;
         private long _EventId;
+        private CurrencyConverter? CurrencyConverter;
+
+        public double Price { get => _EventTicketType.Currency.ToCurrencyValue(_EventTicketType.Price); set => _EventTicketType.Price = _EventTicketType.Currency.ToCurrencyBaseValue(value); }
 
         protected override async Task OnInitializedAsync()
         {
@@ -79,6 +82,8 @@ namespace NetEvent.Client.Pages.Administration.Events
                     SellEndDate = DateTime.Today.AddDays(_DayOffset).AddHours(24 - DateTime.Today.Hour),
                 };
             }
+
+            CurrencyConverter = new CurrencyConverter(_EventTicketType.Currency);
 
             _Loading = false;
         }

@@ -1,4 +1,5 @@
 ﻿@page "/administration/event/{eventId}/tickettype/{ticketTypeId}"
+@using NetEvent.Client.Extensions;
 @using NetEvent.Shared.Dto.Event;
 
 @if (_Loading)
@@ -43,17 +44,12 @@ else if (_EventTicketType != null)
                     <MudItem xs="6" sm="3">
                         <MudTextField @bind-Value="_EventTicketType.Price"
                                   For="@(() => _EventTicketType.Price)"
+                                  Converter="@CurrencyConverter"
                                   Margin="Margin.Dense"
-                                  Immediate="true"
+                                  Immediate="false"
                                   InputType="InputType.Number"
                                   Variant="Variant.Outlined"
                                   Label="@Localizer["Administration.Events.EventTicketType.Price"]" />
-                    </MudItem>
-                    <MudItem xs="6" sm="3">
-                        <MudCheckBox T="bool"
-                                 @bind-Value="_EventTicketType.IsGiftable"
-                                 For="@(() => _EventTicketType.IsGiftable)"
-                                 Label="@Localizer["Administration.Events.EventTicketType.IsGiftable"]" />
                     </MudItem>
                     <MudItem xs="6" lg="3">
                         <MudSelect @bind-Value="_EventTicketType.Currency"
@@ -67,6 +63,12 @@ else if (_EventTicketType != null)
                                 <MudSelectItem Value="@publishState">@Localizer["Administration.Events.EventTicketType.Currency." + @publishState.ToString()]</MudSelectItem>
                             }
                         </MudSelect>
+                    </MudItem>
+                    <MudItem xs="6" sm="3">
+                        <MudCheckBox T="bool"
+                                 @bind-Value="_EventTicketType.IsGiftable"
+                                 For="@(() => _EventTicketType.IsGiftable)"
+                                 Label="@Localizer["Administration.Events.EventTicketType.IsGiftable"]" />
                     </MudItem>
                     <MudItem xs="6" lg="3">
                         <MudTextField @bind-Value="_EventTicketType.AvailableTickets"

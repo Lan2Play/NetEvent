@@ -17,7 +17,7 @@ else
                     <MudText Typo="Typo.h6">@EventTicketType.Name</MudText>
                 </CardHeaderContent>
                 <CardHeaderActions>
-                    <MudText Typo="Typo.h6">@EventTicketType.Price @EventTicketType.Currency.ToSymbol()</MudText>
+                    <MudText Typo="Typo.h6">@EventTicketType.Currency.ToCurrencyValue(EventTicketType.Price) @EventTicketType.Currency.ToSymbol()</MudText>
                 </CardHeaderActions>
             </MudCardHeader>
             <MudCardContent>
@@ -32,4 +32,6 @@ else
     </div>
 }
 
-<div id="payment-container"></div>
+<div id="dropin-container"></div>
+
+@*<div id="payment-container"></div>*@

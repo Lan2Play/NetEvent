@@ -54,9 +54,8 @@ namespace NetEvent.Server.Data
             var client = new Adyen.Client(apiKey.SerializedValue, Adyen.Model.Enum.Environment.Test);
             var checkout = new Checkout(client);
 
-            var paymentMethodsRequest = new PaymentMethodsRequest()
+            var paymentMethodsRequest = new PaymentMethodsRequest(merchantAccount: merchantAccount.SerializedValue)
             {
-                MerchantAccount = merchantAccount.SerializedValue,
                 CountryCode = new RegionInfo(CultureInfo.CurrentUICulture.LCID).TwoLetterISORegionName,
                 ShopperLocale = CultureInfo.CurrentUICulture.Name,
                 Amount = new Amount(currency.To3DigitIso(), amount),

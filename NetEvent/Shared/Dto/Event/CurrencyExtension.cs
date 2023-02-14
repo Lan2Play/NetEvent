@@ -21,5 +21,23 @@ namespace NetEvent.Shared.Dto.Event
                 _ => throw new NotSupportedException($"The Currency {currency} is not implemented!"),
             };
         }
+
+        public static int ToCurrencyBaseValue(this CurrencyDto currency, double value)
+        {
+            return currency switch
+            {
+                CurrencyDto.Euro => (int)(value * 100),
+                _ => throw new NotSupportedException($"The Currency {currency} is not implemented!"),
+            };
+        }
+
+        public static double ToCurrencyValue(this CurrencyDto currency, int baseValue)
+        {
+            return currency switch
+            {
+                CurrencyDto.Euro => baseValue / 100d,
+                _ => throw new NotSupportedException($"The Currency {currency} is not implemented!"),
+            };
+        }
     }
 }

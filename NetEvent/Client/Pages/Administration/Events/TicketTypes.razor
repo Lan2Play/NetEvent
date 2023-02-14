@@ -26,7 +26,7 @@
                 <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.SellStartDate"]">@context.SellStartDate</MudTd>
                 <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.SellEndDate"]">@context.SellEndDate</MudTd>
                 <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.AvailableTickets"]">@context.AvailableTickets</MudTd>
-                <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.Price"]">@context.Price @context.Currency.ToSymbol()</MudTd>
+                <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.Price"]">@context.Currency.ToCurrencyValue(context.Price) @context.Currency.ToSymbol()</MudTd>
                 <MudTd DataLabel="@Localizer["Administration.Events.Event.Tickets.IsGiftable"]">@context.IsGiftable</MudTd>
                 <MudTd>
                     <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.Edit" Href="@UrlHelper.GetTicketTypesLink(Event.Id ,context.Id )">@Localizer["Administration.Events.EventTicketType.Edit"]</MudButton>

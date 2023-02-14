@@ -27,7 +27,7 @@ namespace NetEvent.Client.Pages.Events
         private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         [Inject]
-        private ICartService CartService { get; set; } = default!;
+        private IPaymentService CartService { get; set; } = default!;
 
         #endregion
 

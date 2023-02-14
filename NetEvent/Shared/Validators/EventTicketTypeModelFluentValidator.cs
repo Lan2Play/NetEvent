@@ -25,7 +25,7 @@ namespace NetEvent.Shared.Validators
                .GreaterThan(x => x.SellStartDate);
 
             RuleFor(x => x.SellStartDate)
-               .GreaterThan(DateTime.UtcNow);
+               .NotNull();
         }
 
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
