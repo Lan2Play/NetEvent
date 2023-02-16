@@ -38,7 +38,7 @@ namespace NetEvent.Client.Services
             return cart;
         }
 
-        public async Task<ServiceResult<CheckoutSessionDto?>> BuyTicketAsync(long id, int amount, CancellationToken cancellationToken)
+        public async Task<ServiceResult<PurchaseDto?>> BuyTicketAsync(long id, int amount, CancellationToken cancellationToken)
         {
             try
             {
@@ -46,19 +46,19 @@ namespace NetEvent.Client.Services
 
                 var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
 
-                var response = await client.PostAsJsonAsync($"api/payment/buy", ticketCart, cancellationToken);
+                var response = await client.PostAsJsonAsync($"api/payment/checkout/buy", ticketCart, cancellationToken);
                 response.EnsureSuccessStatusCode();
 
-                var sessionResponse = await response.Content.ReadFromJsonAsync<CheckoutSessionDto>().ConfigureAwait(false);
+                var sessionResponse = await response.Content.ReadFromJsonAsync<PurchaseDto>().ConfigureAwait(false);
 
-                return ServiceResult<CheckoutSessionDto?>.Success(sessionResponse, "EventService.AddAsync.Success");
+                return ServiceResult<PurchaseDto?>.Success(sessionResponse, "EventService.AddAsync.Success");
             }
             catch (Exception ex)
             {
                 _Logger.LogError(ex, "Unable to create eventTicketType in backend.");
             }
 
-            return ServiceResult<CheckoutSessionDto?>.Error("EventService.AddAsync.Error");
+            return ServiceResult<PurchaseDto?>.Error("EventService.AddAsync.Error");
         }
 
         public async Task<ServiceResult<IReadOnlyCollection<PaymentMethodDto>?>> LoadPaymentMethodsAsync(long amount, CurrencyDto currency, CancellationToken cancellationToken)
@@ -77,6 +77,25 @@ namespace NetEvent.Client.Services
             }
 
             return ServiceResult<IReadOnlyCollection<PaymentMethodDto>?>.Error("PaymentService.LoadPaymentMethodsAsync.Error");
+        }
+
+        public async Task<ServiceResult<PaymentResponseDto>> MakePaymentAsync(string purchaseId, string paymentDataJson, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var client = _HttpClientFactory.CreateClient(Constants.BackendApiHttpClientName);
+
+                var response = await client.PostAsJsonAsync($"api/payment/checkout/{purchaseId}/payments", paymentDataJson, cancellationToken);
+                response.EnsureSuccessStatusCode();
+                var paymentResponse = await response.Content.ReadFromJsonAsync<PaymentResponseDto>().ConfigureAwait(false);
+                return ServiceResult<PaymentResponseDto>.Success(paymentResponse);
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError(ex, "Unable to create eventTicketType in backend.");
+            }
+
+            return ServiceResult<PaymentResponseDto>.Error("PaymentService.LoadPaymentMethodsAsync.Error");
         }
     }
 }

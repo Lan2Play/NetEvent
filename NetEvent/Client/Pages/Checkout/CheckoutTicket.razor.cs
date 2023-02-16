@@ -24,6 +24,7 @@ using NetEvent.Shared.Dto;
 using NetEvent.Shared.Config;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using System.IO;
 
 namespace NetEvent.Client.Pages.Checkout
 {
@@ -36,6 +37,9 @@ namespace NetEvent.Client.Pages.Checkout
 
         [Inject]
         private IPaymentService PaymentService { get; set; } = default!;
+
+        [Inject]
+        private NavigationService NavigationService { get; set; } = default!;
 
         [Inject]
         private ISystemSettingsDataService SettingsService { get; set; } = default!;
@@ -61,6 +65,7 @@ namespace NetEvent.Client.Pages.Checkout
         private EventTicketTypeDto? EventTicketType;
         private CheckoutSessionDto? CheckoutSession;
         private IReadOnlyCollection<PaymentMethodDto>? PaymentMethods;
+        private PurchaseDto _Purchase;
 
         protected override async Task OnInitializedAsync()
         {
@@ -68,16 +73,9 @@ namespace NetEvent.Client.Pages.Checkout
             Amount ??= 1;
 
             EventTicketType = await EventService.GetEventTicketTypeAsync(TicketType, cts.Token).ConfigureAwait(false);
-            if (EventTicketType != null)
+            if (EventTicketType == null)
             {
-                var result = await PaymentService.LoadPaymentMethodsAsync(EventTicketType.Price, EventTicketType.Currency, cts.Token).ConfigureAwait(false);
-                if (result.Successful)
-                {
-                    PaymentMethods = result.ResultData;
-                    var clientKey = await SettingsService.GetSystemSettingAsync(SystemSettingGroup.PaymentData, SystemSettings.PaymentData.AdyenClientKey, cts.Token).ConfigureAwait(false);
-                    var paymentMethod = JsonSerializer.Serialize(new { paymentMethods = PaymentMethods }, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault });
-                    await JsRuntime.InvokeVoidAsync("checkout.startPaymentAsync", clientKey?.Value, paymentMethod).ConfigureAwait(false);
-                }
+                NavigationService.NavigateBack();
             }
         }
 
@@ -92,11 +90,37 @@ namespace NetEvent.Client.Pages.Checkout
             var result = await PaymentService.BuyTicketAsync(EventTicketType.Id.Value, Amount.Value, cts.Token).ConfigureAwait(false);
             if (result.Successful && result.ResultData != null)
             {
-                var clientKey = await SettingsService.GetSystemSettingAsync(SystemSettingGroup.PaymentData, SystemSettings.PaymentData.AdyenClientKey, cts.Token).ConfigureAwait(false);
-
-                CheckoutSession = result.ResultData;
-                await JsRuntime.InvokeVoidAsync("checkout.startPaymentAsync", clientKey?.Value, CheckoutSession.Id, CheckoutSession.SessionData).ConfigureAwait(false);
+                _Purchase = result.ResultData;
+                var paymentMethods = await PaymentService.LoadPaymentMethodsAsync(EventTicketType.Price, EventTicketType.Currency, cts.Token).ConfigureAwait(false);
+                if (result.Successful)
+                {
+                    PaymentMethods = paymentMethods.ResultData;
+                    var clientKey = await SettingsService.GetSystemSettingAsync(SystemSettingGroup.PaymentData, SystemSettings.PaymentData.AdyenClientKey, cts.Token).ConfigureAwait(false);
+                    var paymentMethod = JsonSerializer.Serialize(new { paymentMethods = PaymentMethods }, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault });
+                    await JsRuntime.InvokeVoidAsync("checkout.startPaymentAsync", clientKey?.Value, paymentMethod, DotNetObjectReference.Create(this)).ConfigureAwait(false);
+                }
             }
+        }
+
+        [JSInvokable]
+        public async Task<string?> MakePayment(JsonElement data)
+        {
+            Console.WriteLine(_Purchase.Id);
+            var dataJson = data.GetRawText();
+            var paymentResponse = await PaymentService.MakePaymentAsync(_Purchase.Id, dataJson, CancellationToken.None).ConfigureAwait(false);
+            return paymentResponse?.ResultData?.PaymentResponseJson;
+        }
+
+        [JSInvokable]
+        public Task<object> MakeDetailsCall(object data)
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        [JSInvokable]
+        public Task<object> TestMethod(object data)
+        {
+            return Task.FromResult<object>(null);
         }
     }
 }

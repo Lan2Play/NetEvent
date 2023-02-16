@@ -58,7 +58,7 @@ public class TicketPurchaseRefund
 public class Purchase
 {
     [Key]
-    public long? Id { get; set; }
+    public string? Id { get; set; }
 
     public DateTime? PurchaseTime { get; set; }
 
@@ -83,7 +83,7 @@ public class TicketPurchase
     [ForeignKey(nameof(TicketId))]
     public EventTicketType? Ticket { get; set; }
 
-    public long? PurchaseId { get; set; }
+    public string? PurchaseId { get; set; }
 
     [ForeignKey(nameof(PurchaseId))]
     public Purchase? Purchase { get; set; }

@@ -18,7 +18,10 @@ namespace NetVenue.Server.Modules.Payment
         {
             // BaseRoute: /api/payment
             endpoints.MapGet("/paymentmethods/{amount:long}/{currency}", async ([FromRoute] long amount, [FromRoute] CurrencyDto currency, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetPaymentMethods.Request(amount, currency))));
-            endpoints.MapPost("/buy", async ([FromBody] CartDto cartDto, ClaimsPrincipal user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostCart.Request(cartDto, user))));
+            endpoints.MapPost("/checkout/buy", async ([FromBody] CartDto cartDto, ClaimsPrincipal user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostCart.Request(cartDto, user))));
+            endpoints.MapPost("/checkout/{purchaseId}/payments", async ([FromRoute] string purchaseId, [FromBody] string paymentMethodData, ClaimsPrincipal user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostDropInData.Request(user, purchaseId, paymentMethodData))));
+            endpoints.MapPost("/checkout/{purchaseId}/payments/details", async ([FromRoute] string purchaseId, [FromBody] string paymentMethodData, ClaimsPrincipal user, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostDropInData.Request(user, purchaseId, paymentMethodData))));
+
             //endpoints.MapGet("/{venueId:long}", async ([FromRoute] long venueId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenue.Request(venueId))));
             //endpoints.MapGet("/{slug}", async ([FromRoute] string slug, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenue.Request(slug))));
             //endpoints.MapGet("/", async ([FromServices] IMediator m) => ToApiResult(await m.Send(new GetVenues.Request())));

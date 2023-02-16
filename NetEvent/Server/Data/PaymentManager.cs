@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Adyen.Model.Checkout;
+using Adyen.Model.Checkout.Details;
 using Adyen.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -66,10 +67,8 @@ namespace NetEvent.Server.Data
             return paymentMethodsResponse;
         }
 
-        public async Task<CreateCheckoutSessionResponse> PayAsync(CartDto cart, ClaimsPrincipal claimsPrincipal)
+        public async Task<Purchase> PurchaseAsync(CartDto cart, ClaimsPrincipal claimsPrincipal)
         {
-            var paymentId = Guid.NewGuid();
-
             var merchantAccount = await _DbContext.SystemSettingValues.FindAsync(SystemSettings.PaymentData.AdyenMerchantAccount).ConfigureAwait(false);
             var apiKey = await _DbContext.SystemSettingValues.FindAsync(SystemSettings.PaymentData.AdyenApiKey).ConfigureAwait(false);
 
@@ -89,30 +88,71 @@ namespace NetEvent.Server.Data
 
             if (purchase == null)
             {
+                // TODO Error
                 return null;
             }
 
             var currencyGroup = purchase.TicketPurchases.GroupBy(x => x.Currency);
             if (currencyGroup.Count() > 1)
             {
+                // TODO Error
                 return null;
             }
 
             await _DbContext.Purchases.AddAsync(purchase).ConfigureAwait(false);
             await _DbContext.SaveChangesAsync().ConfigureAwait(false);
 
-            var checkoutSessionRequest = new CreateCheckoutSessionRequest
+            return purchase;
+        }
+
+        public async Task<PaymentResponse?> SubmitDropInEventDataAsync(ClaimsPrincipal claimsPrincipal, string purchaseId, string paymentMethodData)
+        {
+            var merchantAccount = await _DbContext.SystemSettingValues.FindAsync(SystemSettings.PaymentData.AdyenMerchantAccount).ConfigureAwait(false);
+            var apiKey = await _DbContext.SystemSettingValues.FindAsync(SystemSettings.PaymentData.AdyenApiKey).ConfigureAwait(false);
+            var purchase = await _DbContext.Purchases.Include(p => p.TicketPurchases).FirstOrDefaultAsync(p => p.Id == purchaseId).ConfigureAwait(false);
+
+            if (string.IsNullOrEmpty(merchantAccount?.SerializedValue))
             {
+                // TODO Error
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(apiKey?.SerializedValue))
+            {
+                // TODO Error
+                return null;
+            }
+
+
+            if (purchase == null)
+            {
+                // TODO Error
+                return null;
+            }
+
+            var currencyGroup = purchase.TicketPurchases.GroupBy(x => x.Currency);
+            if (currencyGroup.Count() > 1)
+            {
+                // TODO Error
+                return null;
+            }
+
+            var paymentRequest = new PaymentRequest
+            {
+                PaymentMethod = System.Text.Json.JsonSerializer.Deserialize<IPaymentMethodDetails>(paymentMethodData),
                 MerchantAccount = merchantAccount.SerializedValue,
-                Reference = paymentId.ToString(),
+                Reference = purchase.Id,
                 ReturnUrl = "https://your-company.com/checkout?shopperOrder=12xy..", // TODO Checkout Seite mit Polling/Events/...
                 Amount = new Amount(currencyGroup.First().Key.ToCurrencyDto().To3DigitIso(), purchase.Price),
-                CountryCode = new RegionInfo(CultureInfo.CurrentUICulture.LCID).TwoLetterISORegionName,
+                //CountryCode = new RegionInfo(CultureInfo.CurrentUICulture.LCID).TwoLetterISORegionName,
             };
             var client = new Adyen.Client(apiKey.SerializedValue, Adyen.Model.Enum.Environment.Test);
             var checkout = new Checkout(client);
-            return checkout.Sessions(checkoutSessionRequest);
+            var paymentResult = await checkout.PaymentsAsync(paymentRequest).ConfigureAwait(false);
+            return paymentResult;
         }
+
+        #region Helpers
 
         private async Task<Purchase?> CreatePurchaseAsync(CartDto cart, ClaimsPrincipal claimsPrincipal)
         {
@@ -126,11 +166,16 @@ namespace NetEvent.Server.Data
                 return null;
             }
 
-            var maxPurchaseId = await _DbContext.Purchases.MaxAsync(x => x.Id).ConfigureAwait(false);
+            string purchaseId;
+            do
+            {
+                purchaseId = Guid.NewGuid().ToString();
+            }
+            while ((await _DbContext.Purchases.FindAsync(purchaseId)) != null);
 
             var purchase = new Purchase
             {
-                Id = maxPurchaseId + 1,
+                Id = purchaseId,
                 PurchaseTime = DateTime.UtcNow,
                 User = user,
                 UserId = user.Id,
@@ -170,5 +215,7 @@ namespace NetEvent.Server.Data
                 purchase.TicketPurchases = ticketPurchases;
             }
         }
+
+        #endregion
     }
 }

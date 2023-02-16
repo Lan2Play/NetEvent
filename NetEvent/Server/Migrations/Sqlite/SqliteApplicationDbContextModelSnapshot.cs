@@ -345,7 +345,7 @@ namespace NetEvent.Server.Migrations.Sqlite
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5d10c057-f0c5-4439-9ea5-52da9de25db4",
+                            ConcurrencyStamp = "d07882b0-10fa-4ee6-8bf2-231f80fb4656",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -353,9 +353,9 @@ namespace NetEvent.Server.Migrations.Sqlite
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHl8xBgwOlrJfSfDpoRyQLa1TdrX7zMysaC62jvZEjAyngzzdjD+zyfPkY2zk66ZGQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJoG+/hCI6v6EHNg+X2s0QzmdcRbSeNwg8rNju5+pXfaezhvxch9oAXvljZaNVeJbg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "83f864b3-fb09-44e4-9e5c-748beadc4af3",
+                            SecurityStamp = "dce345b2-0622-4092-9182-afc2c76cc50a",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -475,9 +475,8 @@ namespace NetEvent.Server.Migrations.Sqlite
 
             modelBuilder.Entity("NetEvent.Server.Models.Purchase", b =>
                 {
-                    b.Property<long?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("PurchaseTime")
                         .HasColumnType("TEXT");
@@ -646,8 +645,8 @@ namespace NetEvent.Server.Migrations.Sqlite
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("PurchaseId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("PurchaseId")
+                        .HasColumnType("TEXT");
 
                     b.Property<long?>("TicketId")
                         .HasColumnType("INTEGER");

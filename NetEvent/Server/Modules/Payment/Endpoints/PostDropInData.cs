@@ -3,12 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using NetEvent.Server.Data;
-using NetEvent.Shared;
 using NetEvent.Shared.Dto;
+using Json = System.Text.Json;
 
 namespace NetEvent.Server.Modules.Payment.Endpoints
 {
-    public static class PostCart
+    public static class PostDropInData
     {
         public sealed class Handler : IRequestHandler<Request, Response>
         {
@@ -21,29 +21,33 @@ namespace NetEvent.Server.Modules.Payment.Endpoints
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var purchase = await _PaymentManager.PurchaseAsync(request.CartDto, request.User);
-                var result = purchase.ToPurchaseDto();
+                var paymentResponse = await _PaymentManager.SubmitDropInEventDataAsync(request.User, request.PurchaseId, request.PaymentMethodData);
 
+                var paymentResponseJson = Json.JsonSerializer.Serialize(paymentResponse);
+                var result = new PaymentResponseDto { PaymentResponseJson = paymentResponseJson };
                 return new Response(result);
             }
         }
 
         public sealed class Request : IRequest<Response>
         {
-            public Request(CartDto cartDto, ClaimsPrincipal user)
+            public Request(ClaimsPrincipal user, string purchaseId, string paymentMethodData)
             {
-                CartDto = cartDto;
                 User = user;
+                PurchaseId = purchaseId;
+                PaymentMethodData = paymentMethodData;
             }
 
-            public CartDto CartDto { get; }
-
             public ClaimsPrincipal User { get; }
+
+            public string PaymentMethodData { get; internal set; }
+
+            public string PurchaseId { get; internal set; }
         }
 
-        public sealed class Response : ResponseBase<PurchaseDto>
+        public sealed class Response : ResponseBase<PaymentResponseDto>
         {
-            public Response(PurchaseDto response) : base(response)
+            public Response(PaymentResponseDto response) : base(response)
             {
             }
 

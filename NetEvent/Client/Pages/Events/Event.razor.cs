@@ -61,11 +61,11 @@ namespace NetEvent.Client.Pages.Events
             };
         }
 
-        private async Task BuyTicketAsync(EventTicketTypeDto eventTicketType)
+        private Task BuyTicketAsync(EventTicketTypeDto eventTicketType)
         {
             // /checkout/ticket/{tickettypeid}/{count}
             NavigationManager.NavigateTo($"checkout/ticket/{eventTicketType.Id}");
-
+            return Task.CompletedTask;
             //CartService.AddToCart(eventTicketType);
         }
     }
