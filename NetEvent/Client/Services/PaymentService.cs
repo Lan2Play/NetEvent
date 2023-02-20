@@ -87,7 +87,7 @@ namespace NetEvent.Client.Services
 
                 var response = await client.PostAsJsonAsync($"api/payment/checkout/{purchaseId}/payments", paymentDataJson, cancellationToken);
                 response.EnsureSuccessStatusCode();
-                var paymentResponse = await response.Content.ReadFromJsonAsync<PaymentResponseDto>().ConfigureAwait(false);
+                var paymentResponse = await response.Content.ReadFromJsonAsync<PaymentResponseDto>(cancellationToken: cancellationToken).ConfigureAwait(false);
                 return ServiceResult<PaymentResponseDto>.Success(paymentResponse);
             }
             catch (Exception ex)

@@ -25,6 +25,7 @@ using NetEvent.Shared.Config;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace NetEvent.Client.Pages.Checkout
 {
@@ -66,6 +67,9 @@ namespace NetEvent.Client.Pages.Checkout
         private CheckoutSessionDto? CheckoutSession;
         private IReadOnlyCollection<PaymentMethodDto>? PaymentMethods;
         private PurchaseDto _Purchase;
+        private Severity _ResultSeverity;
+        private LocalizedString? _Result;
+        private LocalizedString? _ResultRefused;
 
         protected override async Task OnInitializedAsync()
         {
@@ -96,7 +100,7 @@ namespace NetEvent.Client.Pages.Checkout
                 {
                     PaymentMethods = paymentMethods.ResultData;
                     var clientKey = await SettingsService.GetSystemSettingAsync(SystemSettingGroup.PaymentData, SystemSettings.PaymentData.AdyenClientKey, cts.Token).ConfigureAwait(false);
-                    var paymentMethod = JsonSerializer.Serialize(new { paymentMethods = PaymentMethods }, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault });
+                    var paymentMethod = System.Text.Json.JsonSerializer.Serialize(new { paymentMethods = PaymentMethods }, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault });
                     await JsRuntime.InvokeVoidAsync("checkout.startPaymentAsync", clientKey?.Value, paymentMethod, DotNetObjectReference.Create(this)).ConfigureAwait(false);
                 }
             }
@@ -108,6 +112,7 @@ namespace NetEvent.Client.Pages.Checkout
             Console.WriteLine(_Purchase.Id);
             var dataJson = data.GetRawText();
             var paymentResponse = await PaymentService.MakePaymentAsync(_Purchase.Id, dataJson, CancellationToken.None).ConfigureAwait(false);
+
             return paymentResponse?.ResultData?.PaymentResponseJson;
         }
 
@@ -118,9 +123,47 @@ namespace NetEvent.Client.Pages.Checkout
         }
 
         [JSInvokable]
-        public Task<object> TestMethod(object data)
+        public void ShowResult(int resultCode, string? refusedCode)
         {
-            return Task.FromResult<object>(null);
+            // https://docs.adyen.com/online-payments/payment-result-codes
+            switch (resultCode)
+            {
+                case 0 /* AuthenticationFinished */:
+                case 1 /* AuthenticationNotRequired */:
+                case 2 /* Authorised */:
+                case 9 /* Received */:
+                    _ResultSeverity = Severity.Success;
+                    break;
+                case 5 /* Error */:
+                    _ResultSeverity = Severity.Error;
+                    break;
+                case 3 /* Cancelled */:
+                case 4 /* ChallengeShopper */:
+                case 6 /* IdentifyShopper */:
+                case 7 /* Pending */:
+                case 8 /* PresentToShopper */:
+                case 10 /* RedirectShopper */:
+                    _ResultSeverity = Severity.Info;
+                    break;
+                case 11 /* Refused */:
+                    _ResultSeverity = Severity.Warning;
+
+
+
+                    break;
+                default:
+                    _ResultSeverity = Severity.Normal;
+                    break;
+            }
+
+            _Result = Localizer[$"CheckoutTicket.Result.{resultCode}"];
+            if (refusedCode != null)
+            {
+                // https://docs.adyen.com/development-resources/refusal-reasons
+                _ResultRefused = Localizer[$"CheckoutTicket.ResultRefused.{refusedCode}"];
+            }
+
+            StateHasChanged();
         }
     }
 }

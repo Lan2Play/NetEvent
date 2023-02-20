@@ -23,9 +23,6 @@ const configuration = {
 
 
 export async function startPaymentAsync(clientKey, paymentMethods, checkoutTickets) {
-
-    checkoutTickets.invokeMethodAsync('TestMethod', 123);
-
     configuration.clientKey = clientKey;
     configuration.paymentMethodsResponse = JSON.parse(paymentMethods);
 
@@ -40,7 +37,8 @@ export async function startPaymentAsync(clientKey, paymentMethods, checkoutTicke
                     dropin.handleAction(responseData.action);
                 } else {
                     // Your function to show the final result to the shopper
-                    showFinalResult(responseData);
+                    //dropin.setStatus(responseData.ResultCode);
+                    checkoutTickets.invokeMethodAsync('ShowResult', responseData.ResultCode, responseData.RefusalReasonCode);
                 }
             })
             .catch(error => {
@@ -57,7 +55,8 @@ export async function startPaymentAsync(clientKey, paymentMethods, checkoutTicke
                     dropin.handleAction(response.action);
                 } else {
                     // Your function to show the final result to the shopper
-                    showFinalResult(response);
+                    //dropin.setStatus(responseData.ResultCode);
+                    checkoutTickets.invokeMethod('ShowResult', responseData.ResultCode, responseData.RefusalReasonCode);
                 }
             })
             .catch(error => {

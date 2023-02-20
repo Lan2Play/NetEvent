@@ -34,4 +34,9 @@ else
 
 <div id="dropin-container"></div>
 
+@if (_Result != null)
+{
+    <MudAlert Severity="@_ResultSeverity"><strong>@_Result</strong><br />@_ResultRefused</MudAlert>
+}
+
 @*<div id="payment-container"></div>*@

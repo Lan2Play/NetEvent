@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Adyen.Model.Checkout;
 using Adyen.Model.Checkout.Details;
+using Adyen.Model.Enum;
 using Adyen.Service;
+using Adyen.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -17,6 +20,7 @@ using NetEvent.Shared;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Event;
+using Newtonsoft.Json;
 
 namespace NetEvent.Server.Data
 {
@@ -137,15 +141,29 @@ namespace NetEvent.Server.Data
                 return null;
             }
 
-            var paymentRequest = new PaymentRequest
+            var paymentRequest = JsonConvert.DeserializeObject<PaymentRequest>(paymentMethodData);
+
+            if (paymentRequest == null)
             {
-                PaymentMethod = System.Text.Json.JsonSerializer.Deserialize<IPaymentMethodDetails>(paymentMethodData),
-                MerchantAccount = merchantAccount.SerializedValue,
-                Reference = purchase.Id,
-                ReturnUrl = "https://your-company.com/checkout?shopperOrder=12xy..", // TODO Checkout Seite mit Polling/Events/...
-                Amount = new Amount(currencyGroup.First().Key.ToCurrencyDto().To3DigitIso(), purchase.Price),
-                //CountryCode = new RegionInfo(CultureInfo.CurrentUICulture.LCID).TwoLetterISORegionName,
-            };
+                // TODO Error
+                return null;
+            }
+
+            paymentRequest.MerchantAccount = merchantAccount.SerializedValue;
+            paymentRequest.Reference = purchase.Id;
+            paymentRequest.ReturnUrl = "https://your-company.com/checkout?shopperOrder=12xy..";
+            paymentRequest.Amount = new Amount(currencyGroup.First().Key.ToCurrencyDto().To3DigitIso(), purchase.Price);
+            paymentRequest.ShopperInteraction = PaymentRequest.ShopperInteractionEnum.Ecommerce;
+
+            //var paymentRequest = new PaymentRequest
+            //{
+            //    PaymentMethod = System.Text.Json.JsonSerializer.Deserialize<DefaultPaymentMethodDetails>(paymentMethodData),
+            //    MerchantAccount = merchantAccount.SerializedValue,
+            //    Reference = purchase.Id,
+            //    ReturnUrl = "https://your-company.com/checkout?shopperOrder=12xy..", // TODO Checkout Seite mit Polling/Events/...
+            //    Amount = new Amount(currencyGroup.First().Key.ToCurrencyDto().To3DigitIso(), purchase.Price),
+            //    //CountryCode = new RegionInfo(CultureInfo.CurrentUICulture.LCID).TwoLetterISORegionName,
+            //};
             var client = new Adyen.Client(apiKey.SerializedValue, Adyen.Model.Enum.Environment.Test);
             var checkout = new Checkout(client);
             var paymentResult = await checkout.PaymentsAsync(paymentRequest).ConfigureAwait(false);
