@@ -43,7 +43,7 @@ namespace NetEvent.Client.Pages.Administration
 
         #region Users
 
-        public List<AdminUserDto> AllUsers { get; private set; } = new List<AdminUserDto>();
+        public IEnumerable<AdminUserDto> AllUsers { get; private set; } = new List<AdminUserDto>();
 
         private string? _UsersSearchString;
 

@@ -18,7 +18,10 @@ namespace NetEvent.Server.Modules
 
         public virtual IServiceCollection RegisterModule(IServiceCollection builder)
         {
-            builder.AddMediatR(typeof(ModuleBase));
+            builder.AddMediatR(c =>
+            {
+                c.RegisterServicesFromAssemblyContaining<ModuleBase>();
+            });
             return builder;
         }
 

@@ -148,8 +148,6 @@ namespace NetEvent.Client.Pages.Checkout
                 case 11 /* Refused */:
                     _ResultSeverity = Severity.Warning;
 
-
-
                     break;
                 default:
                     _ResultSeverity = Severity.Normal;
