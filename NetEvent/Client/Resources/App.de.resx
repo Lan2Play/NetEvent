@@ -122,7 +122,7 @@
     <comment />
   </data>
   <data name="Shared.NavigationBar.Hello" xml:space="preserve">
-    <value>Hallo,</value>
+    <value>Hallo, {0}</value>
     <comment />
   </data>
   <data name="Shared.NavigationBar.Logout" xml:space="preserve">
@@ -433,5 +433,11 @@
   </data>
   <data name="Administration.Systeminfo.Health.Value" xml:space="preserve">
     <value>Wert</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.Favicon.Label" xml:space="preserve">
+    <value>Favicon</value>
+  </data>
+  <data name="Administration.Settings.OrganizationData" xml:space="preserve">
+    <value>Organisation</value>
   </data>
 </root>
