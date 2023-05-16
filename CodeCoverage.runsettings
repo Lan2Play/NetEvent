@@ -1,5 +1,5 @@
 <ModulePaths>
-  <Exclude>
-   <ModulePath>.*Migrations.*</ModulePath>
-  </Exclude>
-</ModulePaths
+    <Exclude>
+        <ModulePath>.*Migrations.*</ModulePath>
+    </Exclude>
+</ModulePaths>

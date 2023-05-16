@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Adyen;
 using Adyen.Model.Checkout;
-using Adyen.Model.Checkout.Details;
-using Adyen.Model.Enum;
-using Adyen.Service;
-using Adyen.Util;
-using Microsoft.AspNetCore.Identity;
+using Adyen.Service.Checkout;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NetEvent.Server.Helpers;
 using NetEvent.Server.Models;
-using NetEvent.Server.Modules;
 using NetEvent.Shared;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
@@ -56,8 +51,13 @@ namespace NetEvent.Server.Data
                 return null;
             }
 
-            var client = new Adyen.Client(apiKey.SerializedValue, Adyen.Model.Enum.Environment.Test);
-            var checkout = new Checkout(client);
+            var config = new Config
+            {
+                XApiKey = apiKey.SerializedValue,
+                Environment = Adyen.Model.Environment.Test
+            };
+            var client = new Adyen.Client(config);
+            var checkout = new PaymentsService(client);
 
             var paymentMethodsRequest = new PaymentMethodsRequest(merchantAccount: merchantAccount.SerializedValue)
             {
@@ -164,8 +164,15 @@ namespace NetEvent.Server.Data
             //    Amount = new Amount(currencyGroup.First().Key.ToCurrencyDto().To3DigitIso(), purchase.Price),
             //    //CountryCode = new RegionInfo(CultureInfo.CurrentUICulture.LCID).TwoLetterISORegionName,
             //};
-            var client = new Adyen.Client(apiKey.SerializedValue, Adyen.Model.Enum.Environment.Test);
-            var checkout = new Checkout(client);
+
+            //Create the http client
+            var config = new Config
+            {
+                XApiKey = apiKey.SerializedValue,
+                Environment = Adyen.Model.Environment.Test
+            };
+            var client = new Adyen.Client(config);
+            var checkout = new PaymentsService(client);
             var paymentResult = await checkout.PaymentsAsync(paymentRequest).ConfigureAwait(false);
             return paymentResult;
         }
