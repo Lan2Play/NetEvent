@@ -49,7 +49,7 @@
                 </TemplateColumn>
                 <TemplateColumn T="AdminUserDto" CellClass="d-flex justify-end">
                     <CellTemplate>
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
                     </CellTemplate>
                     <EditTemplate>
                         <MudSelect @bind-Value="context.Item.Role" ToStringFunc="r => r.Name" Required RequiredError="@Localizer["Administration.Users.Roles.ErrorRoleRequired"]" Margin="@Margin.Dense">
@@ -128,7 +128,7 @@
                 </TemplateColumn>
                 <TemplateColumn T="RoleDto" CellClass="d-flex justify-end">
                     <CellTemplate>
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItem" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="@(() => RolesDataGrid!.DeleteItemAsync(context.Item))" />
                     </CellTemplate>
                 </TemplateColumn>
