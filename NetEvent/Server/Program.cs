@@ -125,6 +125,11 @@ else
     builder.Services.TryAddScoped<IEmailSender, NullEmailSender>();
 }
 
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
+
 builder.WebHost.UseStaticWebAssets();
 
 var app = builder.Build();
@@ -151,6 +156,7 @@ else
     app.UseHsts();
 }
 
+app.UseResponseCompression();
 app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
