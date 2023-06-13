@@ -1,1 +1,10 @@
-{"sonar.exclusions":["**/Migrations/**/*"],"sonar.global.exclusions":["**/build-wrapper-dump.json"],"sonar.inclusions":[]}
+{
+  "sonar.exclusions": [
+    "**/Migrations/**/*",
+    "**/*.razor"
+  ],
+  "sonar.global.exclusions": [
+    "**/build-wrapper-dump.json"
+  ],
+  "sonar.inclusions": []
+}
