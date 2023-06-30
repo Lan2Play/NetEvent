@@ -240,6 +240,5 @@ namespace NetEvent.Client.Services
                 return null;
             }
         }
-
      }
 }

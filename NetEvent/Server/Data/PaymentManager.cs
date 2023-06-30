@@ -127,7 +127,6 @@ namespace NetEvent.Server.Data
                 return null;
             }
 
-
             if (purchase == null)
             {
                 // TODO Error
@@ -217,12 +216,7 @@ namespace NetEvent.Server.Data
             var ticketPurchases = new List<TicketPurchase>();
             foreach (var cartTicket in cart.CartEntries.Where(e => e.TicketId != null))
             {
-                var ticketType = await _DbContext.Tickets.FindAsync(cartTicket.TicketId).ConfigureAwait(false);
-                if (ticketType == null)
-                {
-                    throw new NotSupportedException($"TicketId {cartTicket.TicketId} not found!");
-                }
-
+                var ticketType = await _DbContext.Tickets.FindAsync(cartTicket.TicketId).ConfigureAwait(false) ?? throw new NotSupportedException($"TicketId {cartTicket.TicketId} not found!");
                 ticketPurchases.AddRange(Enumerable.Repeat<object?>(null, cartTicket.Amount).Select(_ => new TicketPurchase
                 {
                     Id = ++maxTicketPurchaseId,

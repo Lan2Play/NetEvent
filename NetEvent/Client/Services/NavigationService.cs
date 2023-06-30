@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Threading.Tasks;
-using System.Threading;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Logging;
-using NetEvent.Shared.Config;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace NetEvent.Client.Services
 {
-    public class NavigationService : IDisposable
+    public sealed class NavigationService : IDisposable
     {
         private const int MinHistorySize = 256;
         private const int AdditionalHistorySize = 64;

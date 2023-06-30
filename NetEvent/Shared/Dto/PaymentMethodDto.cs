@@ -26,27 +26,3 @@ public class PaymentMethodDto
     [JsonPropertyName("type")]
     public string? Type { get; set; }
 }
-
-public class PaymentMethodGroupDto
-{
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    [JsonPropertyName("paymentMethodData")]
-    public string PaymentMethodData { get; set; }
-
-    [JsonPropertyName("type")]
-    public string Type { get; set; }
-}
-
-public class PaymentMethodIssuerDto
-{
-    [JsonPropertyName("disabled")]
-    public bool Disabled { get; set; }
-
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}

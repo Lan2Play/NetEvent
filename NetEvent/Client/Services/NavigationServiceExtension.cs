@@ -10,12 +10,9 @@ namespace NetEvent.Client.Services
         public static Task InitializeNavigationService(this WebAssemblyHost app)
         {
             var navigationService = app.Services.GetRequiredService<NavigationService>();
-            if (navigationService == null)
-            {
-                throw new NotSupportedException("Start without NavigationServce is not possible!");
-            }
-
-            return Task.CompletedTask;
+            return navigationService == null
+                ? throw new NotSupportedException("Start without NavigationServce is not possible!")
+                : Task.CompletedTask;
         }
     }
 }

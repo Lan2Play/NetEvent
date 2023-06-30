@@ -6,7 +6,6 @@ using NetEvent.Server.Data.Events;
 
 namespace NetEvent.Server.Modules.Events.Endpoints
 {
-
     public static class DeleteEventTicketType
     {
         public sealed class Handler : IRequestHandler<Request, Response>

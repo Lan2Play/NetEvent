@@ -49,7 +49,7 @@ namespace NetEvent.Client.Services
                 var response = await client.PostAsJsonAsync($"api/payment/checkout/buy", ticketCart, cancellationToken);
                 response.EnsureSuccessStatusCode();
 
-                var sessionResponse = await response.Content.ReadFromJsonAsync<PurchaseDto>().ConfigureAwait(false);
+                var sessionResponse = await response.Content.ReadFromJsonAsync<PurchaseDto>(cancellationToken: cancellationToken).ConfigureAwait(false);
 
                 return ServiceResult<PurchaseDto?>.Success(sessionResponse, "EventService.AddAsync.Success");
             }

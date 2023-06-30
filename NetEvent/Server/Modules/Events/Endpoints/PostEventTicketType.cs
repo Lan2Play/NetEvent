@@ -8,7 +8,6 @@ using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Server.Modules.Events.Endpoints
 {
-
     public static class PostEventTicketType
     {
         public sealed class Handler : IRequestHandler<Request, Response>

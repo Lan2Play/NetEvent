@@ -2,7 +2,6 @@
 
 namespace NetEvent.Shared.Dto.Event
 {
-
     public class EventTicketTypeDto
     {
         public long? Id { get; set; }
