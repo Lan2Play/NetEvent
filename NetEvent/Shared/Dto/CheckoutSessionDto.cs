@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
-using System.Xml.Linq;
+﻿using System.Text.Json.Serialization;
 
 namespace NetEvent.Shared.Dto;
 

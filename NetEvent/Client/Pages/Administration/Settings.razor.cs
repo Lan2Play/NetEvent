@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using NetEvent.Client.Services;
-using NetEvent.Shared.Config;
-using NetEvent.Shared.Dto;
+﻿using NetEvent.Shared.Config;
 
 namespace NetEvent.Client.Pages.Administration
 {
