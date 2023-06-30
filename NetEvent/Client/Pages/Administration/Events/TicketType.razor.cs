@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using MudBlazor;
-using NetEvent.Shared.Dto.Event;
-using NetEvent.Client.Services;
 using System.Globalization;
 using System.Threading;
-using NetEvent.Shared.Validators;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using MudBlazor;
 using NetEvent.Client.Extensions;
+using NetEvent.Client.Services;
+using NetEvent.Shared.Dto.Event;
+using NetEvent.Shared.Validators;
 
 namespace NetEvent.Client.Pages.Administration.Events
 {

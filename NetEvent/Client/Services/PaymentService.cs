@@ -1,13 +1,13 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading;
-using System;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
-using NetEvent.Shared.Dto;
-using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
+using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Event;
-using System.Collections.Generic;
 
 namespace NetEvent.Client.Services
 {

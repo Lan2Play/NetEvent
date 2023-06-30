@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using MudBlazor;
 using NetEvent.Client.Services;
-using System.Threading;
-using NetEvent.Shared.Dto.Event;
-using Microsoft.Extensions.Localization;
-using NetEvent.Shared.Dto;
 using NetEvent.Shared.Config;
-using System.Text.Json.Serialization;
-using System.Text.Json;
+using NetEvent.Shared.Dto;
+using NetEvent.Shared.Dto.Event;
 
 namespace NetEvent.Client.Pages.Checkout
 {
@@ -108,38 +108,37 @@ namespace NetEvent.Client.Pages.Checkout
             return Task.FromResult<object>(null);
         }
 
+        private static class PurchaseResultCode
+        {
+            public const int AuthenticationFinished = 0;
+            public const int AuthenticationNotRequired = 1;
+            public const int Authorised = 2;
+            public const int Received = 9;
+
+            public const int Cancelled = 3;
+
+            public const int Error = 5;
+            public const int ChallengeShopper = 4;
+            public const int IdentifyShopper = 6;
+            public const int Pending = 7;
+            public const int PresentToShopper = 8;
+            public const int RedirectShopper = 10;
+
+            public const int Refused = 11;
+        }
+
         [JSInvokable]
         public void ShowResult(int resultCode, string? refusedCode)
         {
             // https://docs.adyen.com/online-payments/payment-result-codes
-            switch (resultCode)
+            _ResultSeverity = resultCode switch
             {
-                case 0 /* AuthenticationFinished */:
-                case 1 /* AuthenticationNotRequired */:
-                case 2 /* Authorised */:
-                case 9 /* Received */:
-                    _ResultSeverity = Severity.Success;
-                    break;
-                case 5 /* Error */:
-                    _ResultSeverity = Severity.Error;
-                    break;
-                case 3 /* Cancelled */:
-                case 4 /* ChallengeShopper */:
-                case 6 /* IdentifyShopper */:
-                case 7 /* Pending */:
-                case 8 /* PresentToShopper */:
-                case 10 /* RedirectShopper */:
-                    _ResultSeverity = Severity.Info;
-                    break;
-                case 11 /* Refused */:
-                    _ResultSeverity = Severity.Warning;
-
-                    break;
-                default:
-                    _ResultSeverity = Severity.Normal;
-                    break;
-            }
-
+                PurchaseResultCode.AuthenticationFinished or PurchaseResultCode.AuthenticationNotRequired or PurchaseResultCode.Authorised or PurchaseResultCode.Received => Severity.Success,
+                PurchaseResultCode.Error => Severity.Error,
+                PurchaseResultCode.Cancelled or PurchaseResultCode.ChallengeShopper or PurchaseResultCode.IdentifyShopper or PurchaseResultCode.Pending or PurchaseResultCode.PresentToShopper or PurchaseResultCode.RedirectShopper => Severity.Info,
+                PurchaseResultCode.Refused => Severity.Warning,
+                _ => Severity.Normal,
+            };
             _Result = Localizer[$"CheckoutTicket.Result.{resultCode}"];
             if (refusedCode != null)
             {

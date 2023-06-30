@@ -52,8 +52,6 @@ namespace NetEvent.Client.Services
             _NavigationManager.NavigateTo(backPageUrl);
         }
 
-        // .. All other navigation methods.
-
         private void OnLocationChanged(object sender, LocationChangedEventArgs e)
         {
             EnsureSize();
