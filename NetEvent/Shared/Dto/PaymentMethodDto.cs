@@ -9,7 +9,7 @@ public class PaymentMethodDto
     public string? Brand { get; set; }
 
     [JsonPropertyName("brands")]
-    public List<string> Brands { get; set; }
+    public IReadOnlyList<string> Brands { get; set; }
 
     [JsonPropertyName("configuration")]
     public Dictionary<string, string> Configuration { get; set; }
@@ -18,7 +18,7 @@ public class PaymentMethodDto
     public PaymentMethodGroupDto Group { get; set; }
 
     [JsonPropertyName("issuers")]
-    public List<PaymentMethodIssuerDto> Issuers { get; set; }
+    public IReadOnlyList<PaymentMethodIssuerDto> Issuers { get; set; }
 
     [JsonPropertyName("name")]
     public string? Name { get; set; }

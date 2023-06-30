@@ -36,6 +36,6 @@ namespace NetEvent.Server.Models
         public Venue? Venue { get; set; }
 
         [InverseProperty(nameof(EventTicketType.Event))]
-        public List<EventTicketType>? TicketTypes { get; set; }
+        public IList<EventTicketType>? TicketTypes { get; set; }
     }
 }

@@ -8,17 +8,17 @@ namespace NetEvent.Shared.Dto
         {
         }
 
-        public SystemInfoDto(List<SystemInfoComponentEntryDto> components, List<SystemInfoHealthEntryDto> health, List<SystemInfoVersionEntryDto> versions)
+        public SystemInfoDto(IReadOnlyList<SystemInfoComponentEntryDto> components, IReadOnlyList<SystemInfoHealthEntryDto> health, IReadOnlyList<SystemInfoVersionEntryDto> versions)
         {
             Components = components;
             Health = health;
             Versions = versions;
         }
 
-        public List<SystemInfoComponentEntryDto> Components { get; set; } = default!;
+        public IReadOnlyList<SystemInfoComponentEntryDto> Components { get; set; } = default!;
 
-        public List<SystemInfoHealthEntryDto> Health { get; set; } = default!;
+        public IReadOnlyList<SystemInfoHealthEntryDto> Health { get; set; } = default!;
 
-        public List<SystemInfoVersionEntryDto> Versions { get; set; } = default!;
+        public IReadOnlyList<SystemInfoVersionEntryDto> Versions { get; set; } = default!;
     }
 }

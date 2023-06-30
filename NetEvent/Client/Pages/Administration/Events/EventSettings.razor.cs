@@ -33,7 +33,7 @@ namespace NetEvent.Client.Pages.Administration.Events
         public EventDto Event { get; set; } = default!;
 
         [Parameter]
-        public List<VenueDto> Venues { get; set; } = default!;
+        public IList<VenueDto> Venues { get; set; } = default!;
 
         private readonly EventModelFluentValidator _EventValidator = new();
 

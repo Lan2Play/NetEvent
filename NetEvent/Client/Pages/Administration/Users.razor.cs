@@ -98,7 +98,7 @@ namespace NetEvent.Client.Pages.Administration
 
         #region Roles
 
-        public List<RoleDto> AllRoles { get; private set; } = new List<RoleDto>();
+        public IList<RoleDto> AllRoles { get; private set; } = new List<RoleDto>();
 
         public RoleDto? SelectedRole { get; private set; }
 

@@ -19,7 +19,7 @@ public class Purchase
     public ApplicationUser? User { get; set; }
 
     [InverseProperty(nameof(TicketPurchase.Purchase))]
-    public List<TicketPurchase>? TicketPurchases { get; set; }
+    public IList<TicketPurchase>? TicketPurchases { get; set; }
 
     public int Price => TicketPurchases?.Sum(x => x.Price) ?? 0;
 }
