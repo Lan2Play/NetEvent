@@ -4,6 +4,8 @@ namespace NetEvent.Shared.Dto.Event
 {
     public static class CurrencyExtension
     {
+        private const double _CurrencyBaseFactor = 100d;
+
         public static string ToSymbol(this CurrencyDto currency)
         {
             return currency switch
@@ -26,7 +28,7 @@ namespace NetEvent.Shared.Dto.Event
         {
             return currency switch
             {
-                CurrencyDto.Euro => (int)(value * 100),
+                CurrencyDto.Euro => (int)(value * _CurrencyBaseFactor),
                 _ => throw new NotSupportedException($"The Currency {currency} is not implemented!"),
             };
         }
@@ -35,7 +37,7 @@ namespace NetEvent.Shared.Dto.Event
         {
             return currency switch
             {
-                CurrencyDto.Euro => baseValue / 100d,
+                CurrencyDto.Euro => baseValue / _CurrencyBaseFactor,
                 _ => throw new NotSupportedException($"The Currency {currency} is not implemented!"),
             };
         }

@@ -9,11 +9,13 @@ namespace NetEvent.Shared.Validators
 {
     public class EventTicketTypeModelFluentValidator : AbstractValidator<EventTicketTypeDto>
     {
+        private const int _MaxNameLength = 100;
+
         public EventTicketTypeModelFluentValidator()
         {
             RuleFor(x => x.Name)
                .NotEmpty()
-               .Length(1, 100);
+               .Length(1, _MaxNameLength);
 
             RuleFor(x => x.Price)
                .GreaterThanOrEqualTo(0);
