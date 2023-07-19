@@ -157,7 +157,7 @@ namespace NetEvent.Server.Tests
 
                 // Assert
                 Assert.NotNull(updatedEvent?.TicketTypes);
-                Assert.Equal(1, updatedEvent.TicketTypes.Count);
+                Assert.Single(updatedEvent.TicketTypes);
                 Assert.Equal(fakeEventTicketType.Name, updatedEvent.TicketTypes.First().Name, StringComparer.Ordinal);
             },
             true);
@@ -188,7 +188,7 @@ namespace NetEvent.Server.Tests
 
                 // Assert
                 Assert.NotNull(updatedEvent?.TicketTypes);
-                Assert.Equal(1, updatedEvent.TicketTypes.Count);
+                Assert.Single(updatedEvent.TicketTypes);
                 Assert.Equal(fakeEventTicketType.Name, updatedEvent.TicketTypes.First().Name, StringComparer.Ordinal);
             },
             true);
@@ -216,7 +216,7 @@ namespace NetEvent.Server.Tests
 
                 // Assert
                 Assert.NotNull(updatedEvent?.TicketTypes);
-                Assert.Equal(0, updatedEvent.TicketTypes.Count);
+                Assert.Empty(updatedEvent.TicketTypes);
             },
             true);
         }

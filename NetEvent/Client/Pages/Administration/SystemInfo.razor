@@ -12,78 +12,78 @@
 
 <MudTabs Elevation="1" Rounded="true">
     <MudTabPanel Text="@Localize["Administration.Systeminfo.Health"]">
-        <MudTable Items="@_SystemInfos.Health" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<SystemInfoHealthEntryDto,bool>(FilterFuncHealth1)"> 
-        <ToolBarContent>
-            <MudSpacer />
-             <MudTextField @bind-Value="searchStringHealth" Placeholder="@Localize["Administration.Systeminfo.Health.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> 
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SystemInfoHealthEntryDto, object>(x=>x.Component)">@Localize["Administration.Systeminfo.Health.Component"]</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoHealthEntryDto, object>(x=>x.Value)">@Localize["Administration.Systeminfo.Health.Value"]</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoHealthEntryDto, object>(x=>x.Healthy)">@Localize["Administration.Systeminfo.Health.Healthy"]</MudTableSortLabel></MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Component">@context.Component</MudTd>
-            <MudTd DataLabel="Value">@context.Value</MudTd>
-            <MudTd DataLabel="Healthy">
-                @if (context.Healthy)
-                {
-                        <MudIcon Icon="@Icons.Filled.CheckCircle" Color="Color.Success" />
-                }
-                else
-                {
-                        <MudIcon Icon="@Icons.Filled.Error" Color="Color.Error" />
-                }         
-            </MudTd>
-        </RowTemplate>
-        </MudTable> 
+        <MudTable Items="@_SystemInfos.Health" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<SystemInfoHealthEntryDto,bool>(FilterFuncHealth1)">
+            <ToolBarContent>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchStringHealth" Placeholder="@Localize["Administration.Systeminfo.Health.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SystemInfoHealthEntryDto, object>(x=>x.Component)">@Localize["Administration.Systeminfo.Health.Component"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoHealthEntryDto, object>(x=>x.Value)">@Localize["Administration.Systeminfo.Health.Value"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoHealthEntryDto, object>(x=>x.Healthy)">@Localize["Administration.Systeminfo.Health.Healthy"]</MudTableSortLabel></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Component">@context.Component</MudTd>
+                <MudTd DataLabel="Value">@context.Value</MudTd>
+                <MudTd DataLabel="Healthy">
+                    @if (context.Healthy)
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" />
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.Error" Color="Color.Error" />
+                    }
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
     </MudTabPanel>
     <MudTabPanel Text="@Localize["Administration.Systeminfo.Versions"]">
-        <MudTable Items="@_SystemInfos.Versions" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<SystemInfoVersionEntryDto,bool>(FilterFuncVersions1)"> 
-        <ToolBarContent>
-            <MudSpacer />
-             <MudTextField @bind-Value="searchStringVersions" Placeholder="@Localize["Administration.Systeminfo.Versions.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> 
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SystemInfoVersionEntryDto, object>(x=>x.Component)">@Localize["Administration.Systeminfo.Versions.Component"]</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoVersionEntryDto, object>(x=>x.Version)">@Localize["Administration.Systeminfo.Versions.Version"]</MudTableSortLabel></MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Component">@context.Component</MudTd>
-            <MudTd DataLabel="Version">@context.Version</MudTd>
-        </RowTemplate>
-        </MudTable> 
+        <MudTable Items="@_SystemInfos.Versions" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<SystemInfoVersionEntryDto,bool>(FilterFuncVersions1)">
+            <ToolBarContent>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchStringVersions" Placeholder="@Localize["Administration.Systeminfo.Versions.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SystemInfoVersionEntryDto, object>(x=>x.Component)">@Localize["Administration.Systeminfo.Versions.Component"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoVersionEntryDto, object>(x=>x.Version ?? string.Empty)">@Localize["Administration.Systeminfo.Versions.Version"]</MudTableSortLabel></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Component">@context.Component</MudTd>
+                <MudTd DataLabel="Version">@context.Version</MudTd>
+            </RowTemplate>
+        </MudTable>
     </MudTabPanel>
     <MudTabPanel Text="@Localize["Administration.Systeminfo.Components"]">
         <MudTable Items="@_SystemInfos.Components" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<SystemInfoComponentEntryDto,bool>(FilterFuncComponents)">
             <ToolBarContent>
-            <MudSpacer />
-             <MudTextField @bind-Value="searchStringComponents" Placeholder="@Localize["Administration.Systeminfo.Components.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> 
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SystemInfoComponentEntryDto, object>(x=>x.Component)">@Localize["Administration.Systeminfo.Components.Component"]</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoComponentEntryDto, object>(x=>x.Version)">@Localize["Administration.Systeminfo.Components.Version"]</MudTableSortLabel></MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Component">@context.Component</MudTd>
-            <MudTd DataLabel="Version">@context.Version</MudTd>
-        </RowTemplate>
-        </MudTable> 
+                <MudSpacer />
+                <MudTextField @bind-Value="searchStringComponents" Placeholder="@Localize["Administration.Systeminfo.Components.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SystemInfoComponentEntryDto, object>(x=>x.Component)">@Localize["Administration.Systeminfo.Components.Component"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoComponentEntryDto, object>(x=>x.Version)">@Localize["Administration.Systeminfo.Components.Version"]</MudTableSortLabel></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Component">@context.Component</MudTd>
+                <MudTd DataLabel="Version">@context.Version</MudTd>
+            </RowTemplate>
+        </MudTable>
     </MudTabPanel>
     <MudTabPanel Text="@Localize["Administration.Systeminfo.ClientComponents"]">
         <MudTable Items="@_ClientComponents" Dense="true" Hover="true" Bordered="false" Striped="true" Filter="new Func<SystemInfoComponentEntryDto,bool>(FilterFuncComponentsClient)">
             <ToolBarContent>
-            <MudSpacer />
-             <MudTextField @bind-Value="searchStringClientComponents" Placeholder="@Localize["Administration.Systeminfo.ClientComponents.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> 
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SystemInfoComponentEntryDto, object>(x=>x.Component)">@Localize["Administration.Systeminfo.ClientComponents.Component"]</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoComponentEntryDto, object>(x=>x.Version)">@Localize["Administration.Systeminfo.ClientComponents.Version"]</MudTableSortLabel></MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Component">@context.Component</MudTd>
-            <MudTd DataLabel="Version">@context.Version</MudTd>
-        </RowTemplate>
-        </MudTable> 
+                <MudSpacer />
+                <MudTextField @bind-Value="searchStringClientComponents" Placeholder="@Localize["Administration.Systeminfo.ClientComponents.SearchPlaceholder"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<SystemInfoComponentEntryDto, object>(x=>x.Component)">@Localize["Administration.Systeminfo.ClientComponents.Component"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<SystemInfoComponentEntryDto, object>(x=>x.Version)">@Localize["Administration.Systeminfo.ClientComponents.Version"]</MudTableSortLabel></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Component">@context.Component</MudTd>
+                <MudTd DataLabel="Version">@context.Version</MudTd>
+            </RowTemplate>
+        </MudTable>
     </MudTabPanel>
 </MudTabs>
