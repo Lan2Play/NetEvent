@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -39,6 +40,9 @@ namespace NetEvent.Client
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IThemeService, ThemeService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
+
+            builder.Services.AddSingleton<NavigationService>();
 
             builder.Services.AddHttpClient(Constants.BackendApiHttpClientName)
                 .ConfigureHttpClient(client =>
@@ -70,9 +74,11 @@ namespace NetEvent.Client
                 config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
 #pragma warning restore S109
             });
+            builder.Services.AddBlazoredLocalStorage();
 
             var app = builder.Build();
             await app.SetDefaultCultureAsync();
+            await app.InitializeNavigationService();
 
             await app.RunAsync();
         }

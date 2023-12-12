@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -150,6 +151,65 @@ namespace NetEvent.Server.Data.Events
             }
 
             _Logger.LogError("Error updating Venue {name}", venueToUpdate.Name);
+            return EventResult.Failed(new EventError());
+        }
+
+        public async Task<EventResult> CreateTicketAsync(EventTicketType ticketToCreate)
+        {
+            var maxId = await _DbContext.Tickets.MaxAsync(x => x.Id);
+            ticketToCreate.Id = maxId.HasValue ? maxId.Value + 1 : 1;
+            ticketToCreate.Slug = _SlugHelper.GenerateSlug(ticketToCreate.Name);
+
+            var addResult = await _DbContext.Tickets.AddAsync(ticketToCreate, CancellationToken);
+            if (addResult.State == EntityState.Added)
+            {
+                await _DbContext.SaveChangesAsync();
+                _Logger.LogInformation("Successfully created Ticket {name}", ticketToCreate.Name);
+                return EventResult.Success;
+            }
+
+            _Logger.LogError("Error creating Ticket {name}", ticketToCreate.Name);
+            return EventResult.Failed(new EventError());
+        }
+
+        public async Task<EventResult> DeleteTicketAsync(long ticketId)
+        {
+            var ticketToDelete = await _DbContext.Tickets.FindAsync(ticketId);
+            if (ticketToDelete == null)
+            {
+                return EventResult.Failed(new EventError { Description = $"Ticket with Id '{ticketId}' was not found" });
+            }
+
+            _DbContext.Tickets.Remove(ticketToDelete);
+            await _DbContext.SaveChangesAsync();
+
+            return EventResult.Success;
+        }
+
+        public async Task<EventResult> UpdateTicketAsync(EventTicketType ticketToUpdate)
+        {
+            var oldTicketType = await _DbContext.Tickets.Where(t => t.Id == ticketToUpdate.Id).Include(t => t.Event).FirstAsync(CancellationToken).ConfigureAwait(false);
+            if (oldTicketType == null)
+            {
+                _Logger.LogError("Error updating Ticket {name} with {id}. It was not found.", ticketToUpdate.Name, ticketToUpdate.Id);
+                return EventResult.Failed(new EventError());
+            }
+
+            ticketToUpdate.Slug = _SlugHelper.GenerateSlug(ticketToUpdate.Name);
+            ticketToUpdate.EventId = oldTicketType.EventId;
+            ticketToUpdate.Event = oldTicketType.Event;
+            _DbContext.Entry(oldTicketType).State = EntityState.Detached;
+
+            var result = _DbContext.Tickets.Update(ticketToUpdate);
+
+            if (result.State == EntityState.Modified)
+            {
+                await _DbContext.SaveChangesAsync();
+                _Logger.LogInformation("Successfully updated Ticket {name}", ticketToUpdate.Name);
+                return EventResult.Success;
+            }
+
+            _Logger.LogError("Error updating Ticket {name}", ticketToUpdate.Name);
             return EventResult.Failed(new EventError());
         }
     }

@@ -1,6 +1,5 @@
 ﻿@page "/administration/settings"
 @attribute [Authorize(Policy = "Admin.System.*")]
-@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
 @using Microsoft.AspNetCore.Authorization
 @using NetEvent.Client.Components.Administration
@@ -10,27 +9,11 @@
 
     <AuthorizeView Policy="Admin.System.*">
         <Authorized>
-
             @foreach (var settingsGroup in _SystemSettings.SettingsGroups)
             {
-                <MudTabPanel Text="@Localize[$"Administration.Settings.{settingsGroup.SettingGroup}"]">
-                    @if (_Loading)
-                    {
-                        <div>@Localize["Administration.Settings.LoadingData"]</div>
-                    }
-                    else
-                    {
-                        <MudGrid>
-                            @foreach (var systemSetting in settingsGroup.Settings)
-                            {
-                                <MudItem xs="12" md="6">
-                                    <SystemSettingControl SystemSetting="systemSetting" Value="@GetValue(systemSetting.Key)" />
-                                </MudItem>
-                            }
-                        </MudGrid>
-                    }
-                </MudTabPanel>
+                <SystemSettingGroupTab SettingsGroup="@settingsGroup"/>
             }
+
         </Authorized>
     </AuthorizeView>
 </MudTabs>

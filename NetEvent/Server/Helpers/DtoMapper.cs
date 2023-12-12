@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Adyen.Model.Checkout;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
 using NetEvent.Shared.Dto.Administration;
@@ -18,10 +19,10 @@ namespace NetEvent.Shared
 
         public static partial CurrentUserDto ToCurrentUserDto(this ApplicationUser applicationUser);
 
-        [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
-        [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
-        [MapperIgnoreTarget(nameof(CurrentUserDto.Claims))]
-        public static partial CurrentUserDto ToCurrentUserDto(this ClaimsPrincipal claimsPrincipal);
+        //[MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
+        //[MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
+        //[MapperIgnoreTarget(nameof(CurrentUserDto.Claims))]
+        //public static partial CurrentUserDto ToCurrentUserDto(this ClaimsPrincipal claimsPrincipal);
 
         [MapperIgnoreTarget(nameof(RoleDto.Claims))]
         public static partial RoleDto ToRoleDto(this ApplicationRole applicationRole);
@@ -53,8 +54,20 @@ namespace NetEvent.Shared
 
         public static partial Event ToEvent(this EventDto eventToConvert);
 
+        public static partial EventTicketTypeDto ToEventTicketTypeDto(this EventTicketType eventTicketTypeToConvert);
+
+        public static partial EventTicketType ToEventTicketType(this EventTicketTypeDto eventTicketTypeToConvert);
+
+        public static partial CurrencyDto ToCurrencyDto(this Currency currency);
+
         public static partial VenueDto ToVenueDto(this Venue venue);
 
         public static partial Venue ToVenue(this VenueDto venue);
+
+        public static partial CheckoutSessionDto ToCheckoutSessionDto(this CreateCheckoutSessionResponse createCheckoutSessionResponse);
+
+        public static partial PaymentMethodDto ToPaymentMethodDto(this PaymentMethod paymentMethods);
+
+        public static partial PurchaseDto ToPurchaseDto(this Purchase purchase);
     }
 }

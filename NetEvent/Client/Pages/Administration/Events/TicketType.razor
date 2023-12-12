@@ -1,0 +1,115 @@
+﻿@page "/administration/event/{eventId}/tickettype/{ticketTypeId}"
+@using NetEvent.Client.Extensions;
+@using NetEvent.Shared.Dto.Event;
+
+@if (_Loading)
+{
+    <NetEventLoading />
+}
+else if (_EventTicketType != null)
+{
+    <MudCard Class="ma-4">
+
+        <MudForm Model="@_EventTicketType" @ref="@_Form" Validation="@(_EventTicketTypeValidator.ValidateValue)" ValidationDelay="0">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">@Localizer["Administration.Events.Event.Settings"]</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudGrid>
+                    @if (_EventTicketType.Id > 0)
+                    {
+                        <MudItem xs="2" md="1">
+                            <MudTextField @bind-Value="_EventTicketType.Id"
+                                  For="@(() => _EventTicketType.Id)"
+                                  Margin="Margin.Dense"
+                                  ReadOnly="true"
+                                  Disabled="true"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localizer["Administration.Events.EventTicketType.Id"]" />
+                        </MudItem>
+                    }
+
+                    <MudItem xs="@(_EventTicketType.Id > 0 ? 10 : 12)" md="@(_EventTicketType.Id > 0 ? 11 : 12)">
+
+                        <MudTextField @bind-Value="_EventTicketType.Name"
+                                  For="@(() => _EventTicketType.Name)"
+                                  Margin="Margin.Dense"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localizer["Administration.Events.EventTicketType.Name"]" />
+                    </MudItem>
+                    <MudItem xs="6" sm="3">
+                        <MudTextField @bind-Value="_EventTicketType.Price"
+                                  For="@(() => _EventTicketType.Price)"
+                                  Converter="@CurrencyConverter"
+                                  Margin="Margin.Dense"
+                                  Immediate="false"
+                                  InputType="InputType.Number"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localizer["Administration.Events.EventTicketType.Price"]" />
+                    </MudItem>
+                    <MudItem xs="6" lg="3">
+                        <MudSelect @bind-Value="_EventTicketType.Currency"
+                               For="@(() => _EventTicketType.Currency)"
+                               Margin="Margin.Dense"
+                               Label="@Localizer["Administration.Events.EventTicketType.Currency"]"
+                               Variant="Variant.Outlined"
+                               AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var publishState in Enum.GetValues<CurrencyDto>())
+                            {
+                                <MudSelectItem Value="@publishState">@Localizer["Administration.Events.EventTicketType.Currency." + @publishState.ToString()]</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="6" sm="3">
+                        <MudCheckBox T="bool"
+                                 @bind-Value="_EventTicketType.IsGiftable"
+                                 For="@(() => _EventTicketType.IsGiftable)"
+                                 Label="@Localizer["Administration.Events.EventTicketType.IsGiftable"]" />
+                    </MudItem>
+                    <MudItem xs="6" lg="3">
+                        <MudTextField @bind-Value="_EventTicketType.AvailableTickets"
+                                  For="@(() => _EventTicketType.AvailableTickets)"
+                                  Margin="Margin.Dense"
+                                  Immediate="true"
+                                  InputType="InputType.Number"
+                                  Variant="Variant.Outlined"
+                                  Label="@Localizer["Administration.Events.EventTicketType.AvailableTickets"]" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudTextField T="DateTime?"
+                                  @bind-Value="_EventTicketType.SellStartDate"
+                                  For="@(() => _EventTicketType.SellStartDate)"
+                                  Margin="Margin.Dense"
+                                  Format="s"
+                                  Label="@Localizer["Administration.Events.EventTicketType.SellStartDate"]"
+                                  Variant="Variant.Outlined"
+                                  InputType="InputType.DateTimeLocal" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudTextField T="DateTime?"
+                                  @bind-Value="_EventTicketType.SellEndDate"
+                                  For="@(() => _EventTicketType.SellEndDate)"
+                                  Margin="Margin.Dense"
+                                  Format="s"
+                                  Label="@Localizer["Administration.Events.EventTicketType.SellEndDate"]"
+                                  Variant="Variant.Outlined"
+                                  InputType="InputType.DateTimeLocal" />
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </MudForm>
+        <MudCardActions>
+            <MudButton Variant="Variant.Outlined" Color="Color.Secondary" Class="ml-auto" OnClick="@(() => NavigationService.NavigateBack())">
+                @Localizer["Administration.Events.EventTicketType.Cancel"]
+            </MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-4" OnClick="@(async () => await SaveEventTicketType())">
+                @(_EventTicketType.Id >= 0 ? Localizer["Administration.Events.EventTicketType.Save"] : Localizer["Administration.Events.EventTicketType.Create"])
+            </MudButton>
+        </MudCardActions>
+    </MudCard>
+}
+

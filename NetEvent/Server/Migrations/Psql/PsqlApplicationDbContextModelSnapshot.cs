@@ -17,7 +17,7 @@ namespace NetEvent.Server.Migrations.Psql
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -99,7 +99,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = 8,
-                            ClaimType = "Admin.Images.Edit",
+                            ClaimType = "Admin.Images.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
@@ -113,7 +113,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = 10,
-                            ClaimType = "Admin.Events.Edit",
+                            ClaimType = "Admin.Events.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         },
@@ -127,7 +127,7 @@ namespace NetEvent.Server.Migrations.Psql
                         new
                         {
                             Id = 12,
-                            ClaimType = "Admin.Venues.Edit",
+                            ClaimType = "Admin.Venues.Write",
                             ClaimValue = "",
                             RoleId = "admin"
                         });
@@ -354,7 +354,7 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Id = "BAFC89CF-4F3E-4595-8256-CCA19C260FBD",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9b5238c9-c5a4-4790-8eb0-b78510682b41",
+                            ConcurrencyStamp = "b379aa23-f095-4145-baba-e76f442552c0",
                             Email = "admin@admin.de",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -362,9 +362,9 @@ namespace NetEvent.Server.Migrations.Psql
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.DE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN5rDB2K6wk0FXO84PGiPx3h+VPc4QgpcSbFjQMFGAKW4SU+0nIM5Ee+5MXgDpZs1w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELfWRDoThz05sToVRCMx7OHbxw1L91Pm2RW5UN3xXun3e2YpIX0NJ1s8fmgFZnB+Eg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "34e28843-865a-4bed-a77e-0d90d60b7547",
+                            SecurityStamp = "0c5c2bf4-2389-49dd-bbe2-8c7b3962ef2b",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -410,6 +410,9 @@ namespace NetEvent.Server.Migrations.Psql
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("EventFormat")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -431,9 +434,6 @@ namespace NetEvent.Server.Migrations.Psql
                     b.Property<int>("Visibility")
                         .HasColumnType("integer");
 
-                    b.Property<int>("eventFormat")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Slug")
@@ -442,6 +442,66 @@ namespace NetEvent.Server.Migrations.Psql
                     b.HasIndex("VenueId");
 
                     b.ToTable("Events", (string)null);
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.EventTicketType", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+
+                    b.Property<long>("AvailableTickets")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("EventId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsGiftable")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("SellEndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("SellStartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("EventTicketTypes", (string)null);
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Purchase", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("PurchaseTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Purchases", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Server.Models.SystemImage", b =>
@@ -486,6 +546,11 @@ namespace NetEvent.Server.Migrations.Psql
                         },
                         new
                         {
+                            Key = "HideOrganizationNameInNavBar",
+                            SerializedValue = "False"
+                        },
+                        new
+                        {
                             Key = "DataCultureInfo",
                             SerializedValue = "en-US"
                         },
@@ -498,11 +563,6 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Key = "Logo",
                             SerializedValue = ""
-                        },
-                        new
-                        {
-                            Key = "HideOrganizationNameInNavBar",
-                            SerializedValue = "False"
                         },
                         new
                         {
@@ -568,7 +628,51 @@ namespace NetEvent.Server.Migrations.Psql
                         {
                             Key = "Steam",
                             SerializedValue = "False"
+                        },
+                        new
+                        {
+                            Key = "AdyenApiKey",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AdyenClientKey",
+                            SerializedValue = ""
+                        },
+                        new
+                        {
+                            Key = "AdyenMerchantAccount",
+                            SerializedValue = ""
                         });
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.TicketPurchase", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PurchaseId")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("TicketId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("TicketPurchases", (string)null);
                 });
 
             modelBuilder.Entity("NetEvent.Server.Models.Venue", b =>
@@ -674,6 +778,49 @@ namespace NetEvent.Server.Migrations.Psql
                         .HasForeignKey("VenueId");
 
                     b.Navigation("Venue");
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.EventTicketType", b =>
+                {
+                    b.HasOne("NetEvent.Server.Models.Event", "Event")
+                        .WithMany("TicketTypes")
+                        .HasForeignKey("EventId");
+
+                    b.Navigation("Event");
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Purchase", b =>
+                {
+                    b.HasOne("NetEvent.Server.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.TicketPurchase", b =>
+                {
+                    b.HasOne("NetEvent.Server.Models.Purchase", "Purchase")
+                        .WithMany("TicketPurchases")
+                        .HasForeignKey("PurchaseId");
+
+                    b.HasOne("NetEvent.Server.Models.EventTicketType", "Ticket")
+                        .WithMany()
+                        .HasForeignKey("TicketId");
+
+                    b.Navigation("Purchase");
+
+                    b.Navigation("Ticket");
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Event", b =>
+                {
+                    b.Navigation("TicketTypes");
+                });
+
+            modelBuilder.Entity("NetEvent.Server.Models.Purchase", b =>
+                {
+                    b.Navigation("TicketPurchases");
                 });
 #pragma warning restore 612, 618
         }

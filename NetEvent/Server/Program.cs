@@ -103,6 +103,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IEventManager, EventManager>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPaymentManager, PaymentManager>();
 builder.Services.AddScoped<ISlugHelper, SlugHelper>();
 
 builder.Services.AddSingleton<IEmailRenderer, RazorEmailRenderer>();
@@ -123,6 +124,11 @@ else
 {
     builder.Services.TryAddScoped<IEmailSender, NullEmailSender>();
 }
+
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 
 builder.WebHost.UseStaticWebAssets();
 
@@ -150,6 +156,7 @@ else
     app.UseHsts();
 }
 
+app.UseResponseCompression();
 app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();

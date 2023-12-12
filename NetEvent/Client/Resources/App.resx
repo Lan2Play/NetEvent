@@ -471,12 +471,6 @@
   <data name="Administration.Events.Event.StartDate" xml:space="preserve">
     <value>Start date</value>
   </data>
-  <data name="EventService.DeleteEventAsync.Error" xml:space="preserve">
-    <value>Error deleting event</value>
-  </data>
-  <data name="EventService.DeleteEventAsync.Success" xml:space="preserve">
-    <value>Event deleted successfully</value>
-  </data>
   <data name="Administration.Events.Event.Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -677,6 +671,123 @@
   </data>
   <data name="SystemSetting.OrganizationData.HideOrganizationNameInNavBar.Label" xml:space="preserve">
     <value>Hide name of organization in navbar</value>
+  </data>
+  <data name="EventService.AddAsync.Error" xml:space="preserve">
+    <value>Error creating</value>
+  </data>
+  <data name="EventService.AddAsync.Success" xml:space="preserve">
+    <value>Created successfully</value>
+  </data>
+  <data name="EventService.DeleteAsync.Error" xml:space="preserve">
+    <value>Error deleting</value>
+  </data>
+  <data name="EventService.DeleteAsync.Success" xml:space="preserve">
+    <value>Deleted successfully</value>
+  </data>
+  <data name="EventService.UpdateAsync.Error" xml:space="preserve">
+    <value>Error updating</value>
+  </data>
+  <data name="EventService.UpdateAsync.Success" xml:space="preserve">
+    <value>Updated successfully</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.AvailableTickets" xml:space="preserve">
+    <value>Available Tickets</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Create" xml:space="preserve">
+    <value>Create Ticket Type</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Currency.Euro" xml:space="preserve">
+    <value>Euro (€)</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.IsGiftable" xml:space="preserve">
+    <value>Is giftable</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.SellEndDate" xml:space="preserve">
+    <value>Sell End</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.SellStartDate" xml:space="preserve">
+    <value>Sell Start</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.AvailableTickets" xml:space="preserve">
+    <value>Available Tickets</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.IsGiftable" xml:space="preserve">
+    <value>Is Giftable</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.SellEndDate" xml:space="preserve">
+    <value>Sell End</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.SellStartDate" xml:space="preserve">
+    <value>Sell Start</value>
+  </data>
+  <data name="Administration.Events.Event.Tickets.Sort" xml:space="preserve">
+    <value>Sort by</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Administration.Events.EventTicketType.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Events.Event.Tickets.Buy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="Events.Event.Tickets.AvailableFrom" xml:space="preserve">
+    <value>Available from {0}</value>
+  </data>
+  <data name="Events.Event.Tickets.AvailableUntil" xml:space="preserve">
+    <value>Available until {0}</value>
+  </data>
+  <data name="Events.Event.Tickets.BuyNow" xml:space="preserve">
+    <value>Buy now</value>
+  </data>
+  <data name="Events.Event.Tickets.Available" xml:space="preserve">
+    <value>available {0}</value>
+  </data>
+  <data name="Administration.Settings.PaymentData" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenApiKey.Hint" xml:space="preserve">
+    <value>https://docs.adyen.com/development-resources/api-credentials#generate-api-key</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenApiKey.Label" xml:space="preserve">
+    <value>Adyen Api Key</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenClientKey.Hint" xml:space="preserve">
+    <value>https://docs.adyen.com/development-resources/client-side-authentication#get-your-client-key</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenClientKey.Label" xml:space="preserve">
+    <value>Adyen Client Key</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenMerchantAccount.Hint" xml:space="preserve">
+    <value>https://ca-test.adyen.com/ca/ca/accounts/show.shtml?accountTypeCode=MerchantAccount</value>
+  </data>
+  <data name="SystemSetting.PaymentData.AdyenMerchantAccount.Label" xml:space="preserve">
+    <value>Adyen Merchant Account</value>
   </data>
   <data name="Events.Event.NotFound" xml:space="preserve">
     <value>Event not found</value>

@@ -5,5 +5,6 @@
         OrganizationData,
         AuthenticationData,
         StyleData,
+        PaymentData,
     }
 }

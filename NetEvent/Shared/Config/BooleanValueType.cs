@@ -1,4 +1,6 @@
-﻿namespace NetEvent.Shared.Config
+﻿using System.Globalization;
+
+namespace NetEvent.Shared.Config
 {
     public class BooleanValueType : ValueType<bool>
     {
@@ -6,7 +8,7 @@
         {
         }
 
-        public override string DefaultValueSerialized => DefaultValue.ToString();
+        public override string DefaultValueSerialized => DefaultValue.ToString(CultureInfo.InvariantCulture);
 
         public override bool IsValid(bool value) => true;
 

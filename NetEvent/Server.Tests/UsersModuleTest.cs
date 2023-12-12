@@ -138,7 +138,7 @@ namespace NetEvent.Server.Tests
                 var roles = await userManager.GetRolesAsync(applicationUser);
 
                 // Assert
-                Assert.Equal(1, roles.Count);
+                Assert.Single(roles);
                 Assert.Equal(applicationRole.Name, roles[0]);
             }
         }

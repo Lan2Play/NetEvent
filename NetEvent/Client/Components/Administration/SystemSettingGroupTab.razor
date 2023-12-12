@@ -1,0 +1,18 @@
+﻿<MudTabPanel Text="@Localizer[$"Administration.Settings.{SettingsGroup.SettingGroup}"]">
+    @if (_Loading)
+    {
+        <div>@Localizer["Administration.Settings.LoadingData"]</div>
+    }
+    else
+    {
+        <MudGrid>
+            @foreach (var systemSetting in SettingsGroup.Settings)
+            {
+                <MudItem xs="12" md="6">
+                    <SystemSettingControl SystemSetting="systemSetting" Value="@GetValue(systemSetting.Key)" />
+                </MudItem>
+            }
+        </MudGrid>
+    }
+
+</MudTabPanel>

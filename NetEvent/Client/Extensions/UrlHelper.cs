@@ -21,5 +21,10 @@
 
             return $"/venue/{id}";
         }
+
+        public static string GetTicketTypesLink(object eventId, object id)
+        {
+            return $"/administration/event/{eventId}/tickettype/{id}";
+        }
     }
 }

@@ -25,6 +25,9 @@ namespace NetEvent.Client.Pages.Events
         [Inject]
         private IStringLocalizer<App> Localizer { get; set; } = default!;
 
+        [Inject]
+        private IPaymentService CartService { get; set; } = default!;
+
         #endregion
 
         [Parameter]
@@ -55,6 +58,14 @@ namespace NetEvent.Client.Pages.Events
                 PublishStateDto.Published => Color.Transparent,
                 _ => throw new($"PublishState {state} is not supported!"),
             };
+        }
+
+        private Task BuyTicketAsync(EventTicketTypeDto eventTicketType)
+        {
+            // /checkout/ticket/{tickettypeid}/{count}
+            NavigationManager.NavigateTo($"checkout/ticket/{eventTicketType.Id}");
+            return Task.CompletedTask;
+            //CartService.AddToCart(eventTicketType);
         }
     }
 }

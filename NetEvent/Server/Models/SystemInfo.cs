@@ -4,10 +4,10 @@ namespace NetEvent.Server.Models
 {
     public class SystemInfo
     {
-        public List<SystemInfoComponentEntry>? Components { get; set; }
+        public IList<SystemInfoComponentEntry>? Components { get; set; }
 
-        public List<SystemInfoHealthEntry>? Health { get; set; }
+        public IList<SystemInfoHealthEntry>? Health { get; set; }
 
-        public List<SystemInfoVersionEntry>? Versions { get; set; }
+        public IList<SystemInfoVersionEntry>? Versions { get; set; }
     }
 }
