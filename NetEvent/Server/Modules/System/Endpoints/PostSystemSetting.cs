@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using NetEvent.Server.Data;
-using NetEvent.Server.Models;
 using NetEvent.Shared;
 using NetEvent.Shared.Config;
 using NetEvent.Shared.Dto;
+using NetEvent.Server.Data.SystemSettings;
+using System;
 
 namespace NetEvent.Server.Modules.System.Endpoints
 {
@@ -13,34 +13,25 @@ namespace NetEvent.Server.Modules.System.Endpoints
     {
         public sealed class Handler : IRequestHandler<Request, Response>
         {
-            private readonly ApplicationDbContext _ApplicationDbContext;
+            private readonly ISystemSettingsManager _SystemSettingsManager;
 
-            public Handler(ApplicationDbContext applicationDbContext)
+            public Handler(ISystemSettingsManager systemSettingsManager)
             {
-                _ApplicationDbContext = applicationDbContext;
+                _SystemSettingsManager = systemSettingsManager;
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                if (request.SystemSettingValue?.Key == null)
+
+                var newSystemSettingValue = request.SystemSettingValue.ToSystemSettingValue();
+                var result = await _SystemSettingsManager.UpdateAsync(newSystemSettingValue).ConfigureAwait(false);
+                if (!result.Succeeded)
                 {
-                    return new Response(ReturnType.Error, "Empty key is not allowed");
+                    return new Response(ReturnType.Error, string.Join(Environment.NewLine, result.Errors));
                 }
 
-                var data = await _ApplicationDbContext.FindAsync<SystemSettingValue>(new object[] { request.SystemSettingValue.Key }, cancellationToken);
-                if (data != null)
-                {
-                    data.SerializedValue = request.SystemSettingValue.Value;
-                }
-                else
-                {
-                    var serverData = request.SystemSettingValue.ToSystemSettingValue();
-                    await _ApplicationDbContext.AddAsync(serverData, cancellationToken);
-                }
+                return new Response(newSystemSettingValue.ToSystemSettingValueDto());
 
-                await _ApplicationDbContext.SaveChangesAsync(cancellationToken);
-
-                return new Response();
             }
         }
 
@@ -57,9 +48,10 @@ namespace NetEvent.Server.Modules.System.Endpoints
             public SystemSettingValueDto SystemSettingValue { get; }
         }
 
-        public sealed class Response : ResponseBase
+
+        public sealed class Response : ResponseBase<SystemSettingValueDto>
         {
-            public Response()
+            public Response(SystemSettingValueDto updatedSystemSetting) : base(updatedSystemSetting)
             {
             }
 
@@ -67,5 +59,6 @@ namespace NetEvent.Server.Modules.System.Endpoints
             {
             }
         }
+
     }
 }
