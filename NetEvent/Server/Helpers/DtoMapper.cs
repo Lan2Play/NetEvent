@@ -19,10 +19,10 @@ namespace NetEvent.Shared
 
         public static partial CurrentUserDto ToCurrentUserDto(this ApplicationUser applicationUser);
 
-        [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
-        [MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
-        [MapperIgnoreTarget(nameof(CurrentUserDto.Claims))]
-        public static partial CurrentUserDto ToCurrentUserDto(this ClaimsPrincipal claimsPrincipal);
+        //[MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.IsAuthenticated)}", nameof(CurrentUserDto.IsAuthenticated))]
+        //[MapProperty($"{nameof(ClaimsPrincipal.Identity)}.{nameof(ClaimsPrincipal.Identity.Name)}", nameof(CurrentUserDto.UserName))]
+        //[MapperIgnoreTarget(nameof(CurrentUserDto.Claims))]
+        //public static partial CurrentUserDto ToCurrentUserDto(this ClaimsPrincipal claimsPrincipal);
 
         [MapperIgnoreTarget(nameof(RoleDto.Claims))]
         public static partial RoleDto ToRoleDto(this ApplicationRole applicationRole);
