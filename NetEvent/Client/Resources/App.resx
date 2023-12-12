@@ -648,6 +648,9 @@
   <data name="SystemSetting.StyleData.SecondaryTextColor.Label" xml:space="preserve">
     <value>Secondary text color</value>
   </data>
+  <data name="SystemSettingControl.SelectColor" xml:space="preserve">
+    <value>Select color</value>
+  </data>
   <data name="Login.WithSteam" xml:space="preserve">
     <value>Login with Steam</value>
   </data>
@@ -785,5 +788,8 @@
   </data>
   <data name="SystemSetting.PaymentData.AdyenMerchantAccount.Label" xml:space="preserve">
     <value>Adyen Merchant Account</value>
+  </data>
+  <data name="Events.Event.NotFound" xml:space="preserve">
+    <value>Event not found</value>
   </data>
 </root>

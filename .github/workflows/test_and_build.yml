@@ -49,7 +49,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
@@ -87,7 +87,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.NETEVENT_SONAR_TOKEN }}
-        run:  ./sonar/scanner/dotnet-sonarscanner begin /k:"Lan2Play_NetEvent" /o:"lan2play" /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="./**/*.opencover.xml"
+        run:  ./sonar/scanner/dotnet-sonarscanner begin /k:"Lan2Play_NetEvent" /o:"lan2play" /d:sonar.token="${{ secrets.NETEVENT_SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="./**/*.opencover.xml"
       - name: dotnet build
         run:  dotnet build --no-restore
       - name: dotnet test
@@ -97,7 +97,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.NETEVENT_SONAR_TOKEN }}
-        run: ./sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.NETEVENT_SONAR_TOKEN }}"
+        run: ./sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.NETEVENT_SONAR_TOKEN }}"
 
   build_docker_linux_x64:
     runs-on: ubuntu-latest
@@ -111,8 +111,8 @@ jobs:
           submodules: recursive
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2.1.0
-      # - name: Pull Latest Linux Base Image
-      #   run: docker pull lan2play/netevent
+      - name: Pull Latest Linux Base Image
+        run: docker pull lan2play/netevent
       - name: set Version
         if: ${{ (startsWith(github.ref, 'refs/tags/v')) }}
         run:  echo "NETEVENTNETVER=$(echo ${GITHUB_REF} | sed 's|refs/heads/||g' | sed 's|refs/tags/v||g' | sed 's|-beta||g' )" >> $GITHUB_ENV
@@ -120,7 +120,7 @@ jobs:
         if: ${{ !(startsWith(github.ref, 'refs/tags/v')) }}
         run:  echo "NETEVENTNETVER=0.0.1" >> $GITHUB_ENV
       - name: Build Linux Image
-        uses: docker/build-push-action@v3.3.0
+        uses: docker/build-push-action@v4.0.0
         with:
           context: .
           file: ./Dockerfile

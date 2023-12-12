@@ -8,6 +8,11 @@ If you encounter serious errors while using NetEvent and you are not able to fix
 
 If you plan to add a feature to NetEvent, please open an issue as well and draft a pull request as soon as you have done something, so no one has to do work that someone already did.
 
+You can also join our discord to get in contact with us and the other contributors:
+
+.. image:: https://discordapp.com/api/guilds/748086853449810013/widget.png?style=banner3
+   :target: https://discord.gg/zF5C9WPWFq
+
 
 Documentation
 --------------
