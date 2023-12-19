@@ -4,6 +4,6 @@
     {
         Draft,
         Preview,
-        Published
+        Published,
     }
 }

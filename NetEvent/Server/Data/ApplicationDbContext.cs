@@ -55,7 +55,7 @@ namespace NetEvent.Server.Data
                     NormalizedEmail = "admin@admin.de".ToUpper(CultureInfo.InvariantCulture),
                     FirstName = "Admin",
                     EmailConfirmed = true,
-                    LastName = "istrator"
+                    LastName = "istrator",
                 };
                 adminUser.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(adminUser, "Test123..");
                 _ = entity.HasData(adminUser);

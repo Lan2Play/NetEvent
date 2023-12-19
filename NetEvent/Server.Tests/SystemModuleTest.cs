@@ -27,7 +27,7 @@ namespace NetEvent.Server.Tests
             var testData = new[]
             {
                 new SystemSettingValue { Key = SystemSettings.OrganizationData.OrganizationName,  SerializedValue = "value" },
-                new SystemSettingValue { Key = SystemSettings.OrganizationData.Logo, SerializedValue = "ImageId" }
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.Logo, SerializedValue = "ImageId" },
             };
 
             using (var scope = Application.Services.CreateScope())
@@ -57,7 +57,7 @@ namespace NetEvent.Server.Tests
             var testData = new[]
             {
                 new SystemSettingValue { Key = SystemSettings.OrganizationData.OrganizationName,  SerializedValue = "value" },
-                new SystemSettingValue { Key = SystemSettings.OrganizationData.Logo, SerializedValue = "ImageId" }
+                new SystemSettingValue { Key = SystemSettings.OrganizationData.Logo, SerializedValue = "ImageId" },
             };
 
             using (var scope = Application.Services.CreateScope())
@@ -83,7 +83,7 @@ namespace NetEvent.Server.Tests
             var testData = new[]
             {
                 new SystemSettingValue { Key = SystemSettings.AuthenticationData.Standard,  SerializedValue = "True" },
-                new SystemSettingValue { Key = SystemSettings.AuthenticationData.Steam, SerializedValue = "False" }
+                new SystemSettingValue { Key = SystemSettings.AuthenticationData.Steam, SerializedValue = "False" },
             };
 
             using (var scope = Application.Services.CreateScope())

@@ -4,5 +4,5 @@ public enum PublishStateDto
 {
     Draft,
     Preview,
-    Published
+    Published,
 }

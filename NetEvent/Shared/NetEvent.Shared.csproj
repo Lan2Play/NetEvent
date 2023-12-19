@@ -1,20 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
 	  <Nullable>enable</Nullable>
 	  <!--<ImplicitUsings>enable</ImplicitUsings>-->
-	  <CodeAnalysisRuleSet>..\..\.sonarlint\lan2play_custom.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\..\.sonarlint\lan2play_netevent\CSharp\SonarLint.xml" Link="SonarLint.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.2" />
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

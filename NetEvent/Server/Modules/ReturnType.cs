@@ -5,6 +5,6 @@
         None,
         Ok,
         NotFound,
-        Error
+        Error,
     }
 }

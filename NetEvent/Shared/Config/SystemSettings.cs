@@ -12,7 +12,7 @@ namespace NetEvent.Shared.Config
             {
                 new OrganizationData(),
                 new StyleData(),
-                new AuthenticationData()
+                new AuthenticationData(),
             };
         }
 

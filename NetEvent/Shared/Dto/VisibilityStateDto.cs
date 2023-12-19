@@ -4,5 +4,5 @@ public enum VisibilityStateDto
 {
     Everyone,
     LoggedIn,
-    Invited
+    Invited,
 }
