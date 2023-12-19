@@ -31,7 +31,7 @@ namespace NetEvent.Server.Tests
 
         protected System.Net.Http.HttpClient Client { get; }
 
-        private bool disposedValue;
+        private bool _DisposedValue;
 
         protected ModuleTestBase()
         {
@@ -139,7 +139,7 @@ namespace NetEvent.Server.Tests
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_DisposedValue)
             {
                 if (disposing)
                 {
@@ -147,7 +147,7 @@ namespace NetEvent.Server.Tests
                     Application?.Dispose();
                 }
 
-                disposedValue = true;
+                _DisposedValue = true;
             }
         }
 

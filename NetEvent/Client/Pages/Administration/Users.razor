@@ -70,7 +70,7 @@
     <MudTabPanel Text="@Localize["Administration.Users.Roles.Title"]">
         <NetEventDataGrid T="RoleDto"
                           MultiSelection="false"
-                          @ref="RolesDataGrid"
+                          @ref="_RolesDataGrid"
                           Items="@AllRoles"
                           SortMode="SortMode.Single"
                           Filterable="false"
@@ -87,7 +87,7 @@
                 <MudSpacer />
                 <MudTextField @bind-Value="_RoleSearchString" Placeholder="@Localize["Administration.Users.Roles.Search"]" Adornment="Adornment.Start" Immediate="true"
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Add" OnClick="RolesDataGrid!.AddNewItemAsync" />
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Add" OnClick="_RolesDataGrid!.AddNewItemAsync" />
             </ToolBarContent>
             <Columns>
                 <PropertyColumn T="RoleDto" TProperty="string" Property="x => x.Id" Title="@Localize["Administration.Users.Roles.Id"]" IsEditable="false" />
@@ -130,7 +130,7 @@
                 <TemplateColumn T="RoleDto" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="@(() => RolesDataGrid!.DeleteItemAsync(context.Item))" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="@(() => _RolesDataGrid!.DeleteItemAsync(context.Item))" />
                     </CellTemplate>
                 </TemplateColumn>
             </Columns>

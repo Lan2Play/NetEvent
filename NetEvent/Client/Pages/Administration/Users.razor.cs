@@ -14,31 +14,31 @@ namespace NetEvent.Client.Pages.Administration
 {
     public partial class Users
     {
-        [Inject]
-        private IUserService _UserService { get; set; } = default!;
+        private readonly NetEventDataGrid<RoleDto>? _RolesDataGrid;
 
         [Inject]
-        private IRoleService _RoleService { get; set; } = default!;
+        private IUserService UserService { get; set; } = default!;
 
         [Inject]
-        private ISnackbar _Snackbar { get; set; } = default!;
+        private IRoleService RoleService { get; set; } = default!;
 
         [Inject]
-        private IStringLocalizer<App> _Localizer { get; set; } = default!;
+        private ISnackbar Snackbar { get; set; } = default!;
 
-        private NetEventDataGrid<RoleDto>? RolesDataGrid;
+        [Inject]
+        private IStringLocalizer<App> Localizer { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            AllUsers = await _UserService.GetUsersAsync(cancellationTokenSource.Token);
+            AllUsers = await UserService.GetUsersAsync(cancellationTokenSource.Token);
             await LoadRoles(cancellationTokenSource.Token);
         }
 
         private async Task LoadRoles(CancellationToken cancellationToken)
         {
-            AllRoles = await _RoleService.GetRolesAsync(cancellationToken);
+            AllRoles = await RoleService.GetRolesAsync(cancellationToken);
         }
 
         #region Users
@@ -82,16 +82,16 @@ namespace NetEvent.Client.Pages.Administration
         {
             using var cancellationTokenSource = new CancellationTokenSource();
 
-            var result = await _UserService.UpdateUserAsync(updatedUser, cancellationTokenSource.Token).ConfigureAwait(false);
+            var result = await UserService.UpdateUserAsync(updatedUser, cancellationTokenSource.Token).ConfigureAwait(false);
 
             if (result.Successful)
             {
-                result = await _UserService.UpdateUserRoleAsync(updatedUser.Id, updatedUser.Role.Id, cancellationTokenSource.Token).ConfigureAwait(false);
+                result = await UserService.UpdateUserRoleAsync(updatedUser.Id, updatedUser.Role.Id, cancellationTokenSource.Token).ConfigureAwait(false);
             }
 
             if (!string.IsNullOrEmpty(result.MessageKey) && !string.IsNullOrEmpty(updatedUser.Email))
             {
-                _Snackbar.Add(_Localizer.GetString(result.MessageKey, updatedUser.Email), result.Successful ? Severity.Success : Severity.Error);
+                Snackbar.Add(Localizer.GetString(result.MessageKey, updatedUser.Email), result.Successful ? Severity.Success : Severity.Error);
             }
         }
         #endregion
@@ -129,16 +129,16 @@ namespace NetEvent.Client.Pages.Administration
             ServiceResult result;
             if (string.IsNullOrEmpty(updatedRole.Id))
             {
-                result = await _RoleService.AddRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+                result = await RoleService.AddRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
             }
             else
             {
-                result = await _RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
+                result = await RoleService.UpdateRoleAsync(updatedRole, cancellationTokenSource.Token).ConfigureAwait(false);
             }
 
             if (!string.IsNullOrEmpty(result.MessageKey))
             {
-                _Snackbar.Add(_Localizer.GetString(result.MessageKey, updatedRole.Name), result.Successful ? Severity.Success : Severity.Error);
+                Snackbar.Add(Localizer.GetString(result.MessageKey, updatedRole.Name), result.Successful ? Severity.Success : Severity.Error);
             }
 
             await LoadRoles(cancellationTokenSource.Token);
@@ -147,11 +147,11 @@ namespace NetEvent.Client.Pages.Administration
         private async Task DeletedItemChanges(EventCallbackArgs<RoleDto> deletedRoleArgs)
         {
             using var cancellationTokenSource = new CancellationTokenSource();
-            var result = await _RoleService.DeleteRoleAsync(deletedRoleArgs.Value, cancellationTokenSource.Token).ConfigureAwait(false);
+            var result = await RoleService.DeleteRoleAsync(deletedRoleArgs.Value, cancellationTokenSource.Token).ConfigureAwait(false);
 
             if (!string.IsNullOrEmpty(result.MessageKey))
             {
-                _Snackbar.Add(_Localizer.GetString(result.MessageKey, deletedRoleArgs.Value.Name), result.Successful ? Severity.Success : Severity.Error);
+                Snackbar.Add(Localizer.GetString(result.MessageKey, deletedRoleArgs.Value.Name), result.Successful ? Severity.Success : Severity.Error);
             }
 
             if (!result.Successful)
@@ -164,9 +164,9 @@ namespace NetEvent.Client.Pages.Administration
         {
             return selectedValues.Count switch
             {
-                int n when n == 1 => $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionSingular"]}",
-                int n when n > 1 => $"{selectedValues.Count} {_Localizer["Administration.Users.Roles.SelectPermissionPlural"]}",
-                _ => (string)_Localizer["Administration.Users.Roles.NothingSelected"],
+                int n when n == 1 => $"{selectedValues.Count} {Localizer["Administration.Users.Roles.SelectPermissionSingular"]}",
+                int n when n > 1 => $"{selectedValues.Count} {Localizer["Administration.Users.Roles.SelectPermissionPlural"]}",
+                _ => (string)Localizer["Administration.Users.Roles.NothingSelected"],
             };
         }
         #endregion

@@ -9,6 +9,14 @@ namespace NetEvent.Client.Components
 {
     public partial class ImageValueTypeUpload
     {
+        private const string ImageUrl = "/api/system/image/";
+        private bool _Clearing;
+        private string _DragClass = string.Empty;
+        private IBrowserFile? _FileName;
+        private string? _ImageFileName;
+        private string? _ImageSrc;
+        private bool _Uploading;
+
         [Parameter]
         public ImageValueType ImageValueType { get; set; } = default!;
 
@@ -18,65 +26,57 @@ namespace NetEvent.Client.Components
         [Inject]
         private ISystemSettingsDataService SystemSettingsDataService { get; set; } = default!;
 
-        private const string ImageUrl = "/api/system/image/";
-        private bool Clearing;
-        private string DragClass = string.Empty;
-        private IBrowserFile? fileName;
-        private string? imageFileName;
-        private string? imageSrc;
-        private bool uploading;
-
         protected override async Task OnInitializedAsync()
         {
             using var cancellationTokenSource = new CancellationTokenSource();
-            imageFileName = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSetting.Key, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
-            if (!string.IsNullOrEmpty(imageFileName))
+            _ImageFileName = (await SystemSettingsDataService.GetSystemSettingAsync(SystemSettingGroup.OrganizationData, SystemSetting.Key, cancellationTokenSource.Token).ConfigureAwait(false))?.Value;
+            if (!string.IsNullOrEmpty(_ImageFileName))
             {
-                imageSrc = $"{ImageUrl}{imageFileName}";
+                _ImageSrc = $"{ImageUrl}{_ImageFileName}";
             }
         }
 
         private async Task OnInputFileChanged(InputFileChangeEventArgs e)
         {
-            uploading = true;
-            fileName = e.File;
+            _Uploading = true;
+            _FileName = e.File;
 
             using var cancellationTokenSource = new CancellationTokenSource();
             var uploadResult = await SystemSettingsDataService.UploadSystemImage(e.File, cancellationTokenSource.Token);
             if (uploadResult.Successful)
             {
-                imageFileName = uploadResult.ResultData;
-                if (!string.IsNullOrEmpty(imageFileName))
+                _ImageFileName = uploadResult.ResultData;
+                if (!string.IsNullOrEmpty(_ImageFileName))
                 {
-                    await SystemSettingsDataService.UpdateSystemSetting(SystemSettingGroup.OrganizationData, new NetEvent.Shared.Dto.SystemSettingValueDto { Key = SystemSetting.Key, Value = imageFileName }, cancellationTokenSource.Token).ConfigureAwait(false);
-                    imageSrc = $"{ImageUrl}{imageFileName}";
+                    await SystemSettingsDataService.UpdateSystemSetting(SystemSettingGroup.OrganizationData, new NetEvent.Shared.Dto.SystemSettingValueDto { Key = SystemSetting.Key, Value = _ImageFileName }, cancellationTokenSource.Token).ConfigureAwait(false);
+                    _ImageSrc = $"{ImageUrl}{_ImageFileName}";
                 }
             }
 
             ClearDragClass();
-            uploading = false;
+            _Uploading = false;
         }
 
         private async Task Clear()
         {
-            Clearing = true;
-            fileName = null;
+            _Clearing = true;
+            _FileName = null;
             ClearDragClass();
-            imageFileName = string.Empty;
+            _ImageFileName = string.Empty;
             using var cancellationTokenSource = new CancellationTokenSource();
-            await SystemSettingsDataService.UpdateSystemSetting(SystemSettingGroup.OrganizationData, new NetEvent.Shared.Dto.SystemSettingValueDto { Key = SystemSetting.Key, Value = imageFileName }, cancellationTokenSource.Token).ConfigureAwait(false);
-            imageSrc = string.Empty;
-            Clearing = false;
+            await SystemSettingsDataService.UpdateSystemSetting(SystemSettingGroup.OrganizationData, new NetEvent.Shared.Dto.SystemSettingValueDto { Key = SystemSetting.Key, Value = _ImageFileName }, cancellationTokenSource.Token).ConfigureAwait(false);
+            _ImageSrc = string.Empty;
+            _Clearing = false;
         }
 
         private void SetDragClass()
         {
-            DragClass = $"border-dashed";
+            _DragClass = $"border-dashed";
         }
 
         private void ClearDragClass()
         {
-            DragClass = string.Empty;
+            _DragClass = string.Empty;
         }
     }
 }
