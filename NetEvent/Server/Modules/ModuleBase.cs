@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +17,7 @@ namespace NetEvent.Server.Modules
 
         public virtual IServiceCollection RegisterModule(IServiceCollection builder)
         {
-            builder.AddMediatR(typeof(ModuleBase));
+            builder.AddMediatR(c => { c.RegisterServicesFromAssemblyContaining<ModuleBase>(); });
             return builder;
         }
 
