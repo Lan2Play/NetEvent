@@ -11,10 +11,10 @@ namespace NetEvent.Client.Pages.Administration
     public partial class SystemInfo
     {
         private readonly IList<SystemInfoComponentEntryDto> _ClientComponents = new List<SystemInfoComponentEntryDto>();
-        private readonly string _SearchStringComponents = string.Empty;
-        private readonly string _SearchStringClientComponents = string.Empty;
-        private readonly string _SearchStringVersions = string.Empty;
-        private readonly string _SearchStringHealth = string.Empty;
+        private string _SearchStringComponents = string.Empty;
+        private string _SearchStringClientComponents = string.Empty;
+        private string _SearchStringVersions = string.Empty;
+        private string _SearchStringHealth = string.Empty;
         private SystemInfoDto _SystemInfos = new();
 
         #region Injects

@@ -187,6 +187,7 @@ dotnet_diagnostic.SA1309.severity = none
 dotnet_diagnostic.SA1306.severity = none
 dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1124.severity = none
+dotnet_diagnostic.SA1602.severity = none
 
 [**/Migrations/**/*.cs]
 dotnet_analyzer_diagnostic.severity = none
