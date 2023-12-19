@@ -179,7 +179,7 @@ csharp_style_prefer_pattern_matching = true:silent
 csharp_style_prefer_not_pattern = true:suggestion
 csharp_style_prefer_extended_property_pattern = true:suggestion
 csharp_style_prefer_top_level_statements = true:silent
-csharp_style_prefer_primary_constructors = true:suggestion
+csharp_style_prefer_primary_constructors = false:suggestion
 dotnet_diagnostic.SA1101.severity = none
 dotnet_diagnostic.SA1633.severity = none
 dotnet_diagnostic.SA1128.severity = none
@@ -188,6 +188,7 @@ dotnet_diagnostic.SA1306.severity = none
 dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1124.severity = none
 dotnet_diagnostic.SA1602.severity = none
+dotnet_diagnostic.SA1202.severity = none
 
 [**/Migrations/**/*.cs]
 dotnet_analyzer_diagnostic.severity = none

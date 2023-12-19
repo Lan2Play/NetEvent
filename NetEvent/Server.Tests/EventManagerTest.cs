@@ -16,7 +16,7 @@ namespace NetEvent.Server.Tests
             using var scope = Application.Services.CreateScope();
             var eventManager = scope.ServiceProvider.GetRequiredService<IEventManager>();
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-            var result = await eventManager.ValidateEventAsync(null).ConfigureAwait(false);
+            var result = await eventManager.ValidateEventAsync(null);
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
             Assert.NotNull(result);
@@ -28,7 +28,7 @@ namespace NetEvent.Server.Tests
         {
             using var scope = Application.Services.CreateScope();
             var eventManager = scope.ServiceProvider.GetRequiredService<IEventManager>();
-            var result = await eventManager.DeleteAsync(Fakers.EventFaker(Fakers.VenueFaker().Generate(2)).Generate()).ConfigureAwait(false);
+            var result = await eventManager.DeleteAsync(Fakers.EventFaker(Fakers.VenueFaker().Generate(2)).Generate());
 
             Assert.NotNull(result);
             Assert.False(result.Succeeded);
@@ -39,7 +39,7 @@ namespace NetEvent.Server.Tests
         {
             using var scope = Application.Services.CreateScope();
             var eventManager = scope.ServiceProvider.GetRequiredService<IEventManager>();
-            var result = await eventManager.DeleteAsync(1337).ConfigureAwait(false);
+            var result = await eventManager.DeleteAsync(1337);
 
             Assert.NotNull(result);
             Assert.False(result.Succeeded);

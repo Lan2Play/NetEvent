@@ -14,7 +14,7 @@ namespace NetEvent.Client.Pages.Administration
 {
     public partial class Users
     {
-        private readonly NetEventDataGrid<RoleDto>? _RolesDataGrid;
+        private NetEventDataGrid<RoleDto>? _RolesDataGrid;
 
         [Inject]
         private IUserService UserService { get; set; } = default!;
