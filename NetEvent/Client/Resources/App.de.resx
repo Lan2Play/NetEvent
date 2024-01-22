@@ -122,7 +122,7 @@
     <comment />
   </data>
   <data name="Shared.NavigationBar.Hello" xml:space="preserve">
-    <value>Hallo,</value>
+    <value>Hallo, {0}</value>
     <comment />
   </data>
   <data name="Shared.NavigationBar.Logout" xml:space="preserve">
@@ -371,9 +371,6 @@
   <data name="ConfirmationSuccess.Title" xml:space="preserve">
     <value>Bestätigung der E-Mail Adresse war erfolgreich</value>
   </data>
-  <data name="Administration.Settings.Organization" xml:space="preserve">
-    <value>Organisation</value>
-  </data>
   <data name="SystemSetting.OrganizationData.DataCultureInfo.Label" xml:space="preserve">
     <value>Sprache</value>
   </data>
@@ -436,5 +433,251 @@
   </data>
   <data name="Administration.Systeminfo.Health.Value" xml:space="preserve">
     <value>Wert</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.Favicon.Label" xml:space="preserve">
+    <value>Favicon</value>
+  </data>
+  <data name="Administration.Settings.OrganizationData" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="Shared.NavigationBar.Administration" xml:space="preserve">
+    <value>Verwaltung</value>
+  </data>
+  <data name="Shared.NavigationBar.Profile" xml:space="preserve">
+    <value>Profil bearbeiten</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.AboutUs.Label" xml:space="preserve">
+    <value>Über uns</value>
+  </data>
+  <data name="Administration.AdminMenu.Images" xml:space="preserve">
+    <value>Bilderverwaltung</value>
+  </data>
+  <data name="Administration.Images.Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Shared.MainLayout.AllRightsReserved" xml:space="preserve">
+    <value>Alle Rechte vorbehalten.</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.LegalNotice.Label" xml:space="preserve">
+    <value>Impressum</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.PrivacyPolicy.Label" xml:space="preserve">
+    <value>Datenschutzbestimmungen</value>
+  </data>
+  <data name="SystemSetting.StyleData.PrimaryTextColor.Label" xml:space="preserve">
+    <value>Primäre Textfarbe</value>
+  </data>
+  <data name="Index.Minutes" xml:space="preserve">
+    <value>{0} Minuten</value>
+  </data>
+  <data name="Index.Next" xml:space="preserve">
+    <value>Die nächste Veranstaltung folgt bald</value>
+  </data>
+  <data name="Administration.Venues.Venue.Save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Administration.Venues.Venue.Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="VenueService.AddVenueAsync.Error" xml:space="preserve">
+    <value>Fehler beim Hinzufügen des Veranstaltungsortes {0}</value>
+  </data>
+  <data name="VenueService.UpdateVenueAsync.Error" xml:space="preserve">
+    <value>Fehler bei der Aktualisierung des Veranstaltungsorts {0}</value>
+  </data>
+  <data name="SystemSetting.StyleData.SecondaryTextColor.Label" xml:space="preserve">
+    <value>Sekundäre Textfarbe</value>
+  </data>
+  <data name="Events.Event.NotFound" xml:space="preserve">
+    <value>Veranstaltung nicht gefunden</value>
+  </data>
+  <data name="Administration.Events.Event.ShortDescription" xml:space="preserve">
+    <value>Kurze Beschreibung</value>
+  </data>
+  <data name="Shared.MainLayout.LegalNotice" xml:space="preserve">
+    <value>Impressum</value>
+  </data>
+  <data name="Index.Seconds" xml:space="preserve">
+    <value>{0} Sekunden</value>
+  </data>
+  <data name="Administration.AdminMenu.Venues" xml:space="preserve">
+    <value>Veranstaltungsorte</value>
+  </data>
+  <data name="Administration.Venues.Venue.City" xml:space="preserve">
+    <value>Stadt</value>
+  </data>
+  <data name="Administration.Venues.Venue.Create" xml:space="preserve">
+    <value>Veranstaltungsort erstellen</value>
+  </data>
+  <data name="Administration.Venues.Venue.Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Administration.Venues.Venue.Edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="Index.About" xml:space="preserve">
+    <value>Über {0}</value>
+  </data>
+  <data name="Administration.Settings.StyleData" xml:space="preserve">
+    <value>Stil</value>
+  </data>
+  <data name="SystemSetting.StyleData.AppbarBackground.Label" xml:space="preserve">
+    <value>Appbar-Hintergrundfarbe</value>
+  </data>
+  <data name="SystemSetting.StyleData.AppbarText.Label" xml:space="preserve">
+    <value>Appbar-Textfarbe</value>
+  </data>
+  <data name="SystemSetting.StyleData.Background.Label" xml:space="preserve">
+    <value>Hintergrundfarbe</value>
+  </data>
+  <data name="SystemSetting.StyleData.CustomCss.Label" xml:space="preserve">
+    <value>Benutzerdefiniertes CSS</value>
+  </data>
+  <data name="SystemSetting.StyleData.PrimaryColor.Label" xml:space="preserve">
+    <value>Primäre Farbe</value>
+  </data>
+  <data name="Index.Days" xml:space="preserve">
+    <value>{0} Tage</value>
+  </data>
+  <data name="Index.Hours" xml:space="preserve">
+    <value>{0} Stunden</value>
+  </data>
+  <data name="Administration.Events.Event.Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="Administration.Settings.AuthenticationData" xml:space="preserve">
+    <value>Authentifizierung</value>
+  </data>
+  <data name="SystemSetting.AuthenticationData.Standard.Label" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="SystemSetting.AuthenticationData.Steam.Label" xml:space="preserve">
+    <value>Steam</value>
+  </data>
+  <data name="Administration.Events.Event.Save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Administration.AdminMenu.Events" xml:space="preserve">
+    <value>Veranstaltungen</value>
+  </data>
+  <data name="Administration.Events.Event.Create" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="Administration.Events.Event.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Administration.Events.Event.Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Administration.Events.Event.EndDate" xml:space="preserve">
+    <value>Enddatum</value>
+  </data>
+  <data name="Administration.Events.Event.StartDate" xml:space="preserve">
+    <value>Startdatum</value>
+  </data>
+  <data name="EventService.DeleteEventAsync.Error" xml:space="preserve">
+    <value>Fehler beim Löschen der Veranstaltung</value>
+  </data>
+  <data name="EventService.DeleteEventAsync.Success" xml:space="preserve">
+    <value>Veranstaltung erfolgreich gelöscht</value>
+  </data>
+  <data name="Administration.Events.Event.Edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="Administration.Events.Event.Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="Administration.Events.Event.PublishState.Draft" xml:space="preserve">
+    <value>Entwurf</value>
+  </data>
+  <data name="Administration.Events.Event.PublishState.Preview" xml:space="preserve">
+    <value>Vorschau</value>
+  </data>
+  <data name="Administration.Events.Event.PublishState.Published" xml:space="preserve">
+    <value>Veröffentlicht</value>
+  </data>
+  <data name="Administration.Events.Event.VisibilityState" xml:space="preserve">
+    <value>Sichtbarkeit</value>
+  </data>
+  <data name="Administration.Events.Event.VisibilityState.Everyone" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="Administration.Events.Event.VisibilityState.Invited" xml:space="preserve">
+    <value>Nur eingeladene Nutzer</value>
+  </data>
+  <data name="Administration.Events.Event.VisibilityState.LoggedIn" xml:space="preserve">
+    <value>Nur eingeloggte Nutzer</value>
+  </data>
+  <data name="Shared.NavigationBar.Events" xml:space="preserve">
+    <value>Veranstaltungen</value>
+  </data>
+  <data name="Administration.Events.Event.Show" xml:space="preserve">
+    <value>Veranstaltungsseite anzeigen</value>
+  </data>
+  <data name="Administration.Index.Events" xml:space="preserve">
+    <value>Veranstaltungen</value>
+  </data>
+  <data name="Administration.Images.EventUsages" xml:space="preserve">
+    <value>Das Bild wird bei den folgenden Veranstaltungen verwendet: {0}</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.Logo.Label" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="ImageValueTypeUpload.Clear" xml:space="preserve">
+    <value>Bild entfernen</value>
+  </data>
+  <data name="Administration.Venues.Venue.Street" xml:space="preserve">
+    <value>Straße</value>
+  </data>
+  <data name="Administration.Venues.Venue.ZipCode" xml:space="preserve">
+    <value>Postleitzahl</value>
+  </data>
+  <data name="Index.NoUpcomingEvent" xml:space="preserve">
+    <value>Keine Veranstaltung geplant</value>
+  </data>
+  <data name="VenueService.AddVenueAsync.Success" xml:space="preserve">
+    <value>Veranstaltungsort {0} erfolgreich hinzugefügt</value>
+  </data>
+  <data name="VenueService.DeleteVenueAsync.Error" xml:space="preserve">
+    <value>Fehler beim Löschen des Veranstaltungsorts {0}</value>
+  </data>
+  <data name="VenueService.DeleteVenueAsync.Success" xml:space="preserve">
+    <value>Veranstaltungsort {0} erfolgreich gelöscht</value>
+  </data>
+  <data name="VenueService.UpdateVenueAsync.Success" xml:space="preserve">
+    <value>Veranstaltungsort {0} erfolgreich hinzugefügt</value>
+  </data>
+  <data name="Administration.Events.Event.NoVenue" xml:space="preserve">
+    <value>Kein Veranstaltungsort</value>
+  </data>
+  <data name="Administration.Events.Event.Venue" xml:space="preserve">
+    <value>Veranstaltungsort</value>
+  </data>
+  <data name="SystemSetting.OrganizationData.Favicon.Hint" xml:space="preserve">
+    <value>In Browser-Tabs verwendetes Symbol</value>
+  </data>
+  <data name="SystemSetting.StyleData.SecondaryColor.Label" xml:space="preserve">
+    <value>Sekundärfarbe</value>
+  </data>
+  <data name="SystemSettingControl.SelectColor" xml:space="preserve">
+    <value>Farbe auswählen</value>
+  </data>
+  <data name="Login.WithSteam" xml:space="preserve">
+    <value>Anmeldung mit Steam</value>
+  </data>
+  <data name="LegalNotice.LegalNotice" xml:space="preserve">
+    <value>Impressum</value>
+  </data>
+  <data name="LegalNotice.PrivacyPolicy" xml:space="preserve">
+    <value>Datenschutzbestimmungen</value>
+  </data>
+  <data name="Administration.Events.Event.EventFormat" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="Administration.Events.Event.EventFormat.Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="Administration.Events.Event.EventFormat.Presence" xml:space="preserve">
+    <value>Anwesenheit</value>
   </data>
 </root>
