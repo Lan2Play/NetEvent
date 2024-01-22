@@ -28,7 +28,7 @@ namespace NetEvent.Server.Tests
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                await dbContext.Roles.AddRangeAsync(fakeRoles).ConfigureAwait(false);
+                await dbContext.Roles.AddRangeAsync(fakeRoles);
                 dbContext.SaveChanges();
             }
 
@@ -53,7 +53,7 @@ namespace NetEvent.Server.Tests
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                await dbContext.Roles.AddRangeAsync(fakeRoles).ConfigureAwait(false);
+                await dbContext.Roles.AddRangeAsync(fakeRoles);
                 dbContext.SaveChanges();
             }
 

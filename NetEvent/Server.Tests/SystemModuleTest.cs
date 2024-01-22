@@ -42,12 +42,12 @@ namespace NetEvent.Server.Tests
 
             // Assert
             Assert.NotNull(response);
-            Assert.Equal(2, response?.Count);
-            Assert.All(response!, x => Assert.True(new SystemSettings.OrganizationData().Settings.First(s => s.Key.Equals(x.Key, StringComparison.OrdinalIgnoreCase)).ValueType.IsValid(x.Value)));
-            Assert.Equal(testData[0].Key, response?[0].Key);
-            Assert.Equal(testData[0].SerializedValue, response?[0].Value);
-            Assert.Equal(testData[1].Key, response?[1].Key);
-            Assert.Equal(testData[1].SerializedValue, response?[1].Value);
+            Assert.Equal(2, response.Count);
+            Assert.All(response, x => Assert.True(new SystemSettings.OrganizationData().Settings.First(s => s.Key.Equals(x.Key, StringComparison.OrdinalIgnoreCase)).ValueType.IsValid(x.Value)));
+            Assert.Equal(testData[0].Key, response[0].Key);
+            Assert.Equal(testData[0].SerializedValue, response[0].Value);
+            Assert.Equal(testData[1].Key, response[1].Key);
+            Assert.Equal(testData[1].SerializedValue, response[1].Value);
         }
 
         [Fact]
@@ -72,8 +72,8 @@ namespace NetEvent.Server.Tests
 
             // Assert
             Assert.NotNull(response);
-            Assert.Equal(testData[1].Key, response?.Key);
-            Assert.Equal(testData[1].SerializedValue, response?.Value);
+            Assert.Equal(testData[1].Key, response.Key);
+            Assert.Equal(testData[1].SerializedValue, response.Value);
         }
 
         [Fact]
@@ -98,12 +98,12 @@ namespace NetEvent.Server.Tests
 
             // Assert
             Assert.NotNull(response);
-            Assert.Equal(2, response?.Count);
+            Assert.Equal(2, response.Count);
             Assert.All(response!, x => Assert.True(new SystemSettings.AuthenticationData().Settings.First(s => s.Key.Equals(x.Key, StringComparison.OrdinalIgnoreCase)).ValueType.IsValid(x.Value)));
-            Assert.Equal(testData[0].Key, response?[0].Key);
-            Assert.Equal(testData[0].SerializedValue, response?[0].Value);
-            Assert.Equal(testData[1].Key, response?[1].Key);
-            Assert.Equal(testData[1].SerializedValue, response?[1].Value);
+            Assert.Equal(testData[0].Key, response[0].Key);
+            Assert.Equal(testData[0].SerializedValue, response[0].Value);
+            Assert.Equal(testData[1].Key, response[1].Key);
+            Assert.Equal(testData[1].SerializedValue, response[1].Value);
         }
 
         [Fact]
@@ -119,7 +119,7 @@ namespace NetEvent.Server.Tests
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                var databaseOrganizationDataCreate = await dbContext.FindAsync<SystemSettingValue>(organizationDataCreate.Key).ConfigureAwait(false);
+                var databaseOrganizationDataCreate = await dbContext.FindAsync<SystemSettingValue>(organizationDataCreate.Key);
 
                 Assert.Equal("key", databaseOrganizationDataCreate?.Key);
                 Assert.Equal("value", databaseOrganizationDataCreate?.SerializedValue);
@@ -135,7 +135,7 @@ namespace NetEvent.Server.Tests
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                var databaseOrganizationDataUpdate = await dbContext.FindAsync<SystemSettingValue>(organizationDataUpdate.Key).ConfigureAwait(false);
+                var databaseOrganizationDataUpdate = await dbContext.FindAsync<SystemSettingValue>(organizationDataUpdate.Key);
 
                 Assert.Equal("key", databaseOrganizationDataUpdate?.Key);
                 Assert.Equal("value2", databaseOrganizationDataUpdate?.SerializedValue);
@@ -168,17 +168,17 @@ namespace NetEvent.Server.Tests
 
             // Assert
             Assert.NotNull(response);
-            Assert.NotNull(response?.Components);
-            Assert.Equal(currentDomain.GetAssemblies().Length, response?.Components.Count);
-            Assert.NotNull(response?.Health);
-            Assert.NotNull(response?.Versions);
-            Assert.NotEmpty(response!.Health);
-            Assert.NotEmpty(response!.Versions);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("TEST", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response?.Versions?.Find(x => x.Component.Equals("NETEVENT", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.NotNull(response.Components);
+            Assert.Equal(currentDomain.GetAssemblies().Length, response.Components.Count);
+            Assert.NotNull(response.Health);
+            Assert.NotNull(response.Versions);
+            Assert.NotEmpty(response.Health);
+            Assert.NotEmpty(response.Versions);
+            Assert.Equal("TEST", response.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response.Versions?.Find(x => x.Component.Equals("NETEVENT", StringComparison.OrdinalIgnoreCase))?.Version);
         }
 
         [Fact]
@@ -195,13 +195,13 @@ namespace NetEvent.Server.Tests
 
             // Assert
             Assert.NotNull(response);
-            Assert.NotNull(response?.Versions);
-            Assert.NotEmpty(response!.Versions);
-            Assert.NotEqual(0, response?.Versions.Count);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("dev", response?.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.NotNull(response.Versions);
+            Assert.NotEmpty(response.Versions);
+            Assert.NotEmpty(response.Versions);
+            Assert.Equal("dev", response.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
         }
 
         [Fact]

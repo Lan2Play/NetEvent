@@ -28,7 +28,7 @@ namespace NetEvent.Server.Tests
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                await dbContext.Users.AddRangeAsync(fakeUsers).ConfigureAwait(false);
+                await dbContext.Users.AddRangeAsync(fakeUsers);
                 dbContext.SaveChanges();
             }
 
@@ -51,7 +51,7 @@ namespace NetEvent.Server.Tests
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                await dbContext.Users.AddAsync(fakeUser).ConfigureAwait(false);
+                await dbContext.Users.AddAsync(fakeUser);
                 dbContext.SaveChanges();
             }
 
@@ -87,7 +87,7 @@ namespace NetEvent.Server.Tests
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                await dbContext.Users.AddAsync(applicationUser).ConfigureAwait(false);
+                await dbContext.Users.AddAsync(applicationUser);
                 dbContext.SaveChanges();
             }
 
@@ -102,7 +102,7 @@ namespace NetEvent.Server.Tests
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                var databaseUser = await dbContext.FindAsync<ApplicationUser>(applicationUser.Id).ConfigureAwait(false);
+                var databaseUser = await dbContext.FindAsync<ApplicationUser>(applicationUser.Id);
 
                 // Assert
                 Assert.Equal(fakeUser.FirstName, databaseUser?.FirstName);
@@ -122,8 +122,8 @@ namespace NetEvent.Server.Tests
             using (var scope = Application.Services.CreateScope())
             {
                 using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                await dbContext.Users.AddAsync(applicationUser).ConfigureAwait(false);
-                await dbContext.Roles.AddAsync(applicationRole).ConfigureAwait(false);
+                await dbContext.Users.AddAsync(applicationUser);
+                await dbContext.Roles.AddAsync(applicationRole);
                 dbContext.SaveChanges();
             }
 

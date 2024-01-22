@@ -25,7 +25,7 @@ namespace NetEvent.Server.Tests
             return RunWithFakeVenues(async fakeVenues =>
             {
                 // Act
-                var venues = await Client.GetFromJsonAsync<IEnumerable<VenueDto>>("/api/venues").ConfigureAwait(false);
+                var venues = await Client.GetFromJsonAsync<IEnumerable<VenueDto>>("/api/venues");
 
                 // Assert
                 Assert.NotNull(venues);
@@ -40,7 +40,7 @@ namespace NetEvent.Server.Tests
             return RunWithFakeVenues(async fakeVenues =>
             {
                 // Act
-                var venueById = await Client.GetFromJsonAsync<VenueDto>($"/api/venues/{fakeVenues[0].Id}").ConfigureAwait(false);
+                var venueById = await Client.GetFromJsonAsync<VenueDto>($"/api/venues/{fakeVenues[0].Id}");
 
                 // Assert
                 Assert.NotNull(venueById);
@@ -55,7 +55,7 @@ namespace NetEvent.Server.Tests
             return RunWithFakeVenues(async fakeVenues =>
             {
                 // Act
-                var venueBySlug = await Client.GetFromJsonAsync<VenueDto>($"/api/venues/{fakeVenues[0].Slug}").ConfigureAwait(false);
+                var venueBySlug = await Client.GetFromJsonAsync<VenueDto>($"/api/venues/{fakeVenues[0].Slug}");
 
                 // Assert
                 Assert.NotNull(venueBySlug);
@@ -72,9 +72,9 @@ namespace NetEvent.Server.Tests
                 var fakeVenue = Fakers.VenueFaker().Generate();
 
                 // Act
-                var postResult = await Client.PostAsJsonAsync($"/api/venues/", fakeVenue).ConfigureAwait(false);
+                var postResult = await Client.PostAsJsonAsync($"/api/venues/", fakeVenue);
                 postResult.EnsureSuccessStatusCode();
-                var venues = await Client.GetFromJsonAsync<IEnumerable<VenueDto>>("/api/venues").ConfigureAwait(false);
+                var venues = await Client.GetFromJsonAsync<IEnumerable<VenueDto>>("/api/venues");
 
                 // Assert
                 Assert.NotNull(venues);
@@ -94,9 +94,9 @@ namespace NetEvent.Server.Tests
                 fakeVenue.Name = faker.Name.JobTitle();
 
                 // Act
-                var postResult = await Client.PutAsJsonAsync($"/api/venues/{fakeVenue.Id}", fakeVenue).ConfigureAwait(false);
+                var postResult = await Client.PutAsJsonAsync($"/api/venues/{fakeVenue.Id}", fakeVenue);
                 postResult.EnsureSuccessStatusCode();
-                var updatedVenue = await Client.GetFromJsonAsync<VenueDto>($"/api/venues/{fakeVenue.Id}").ConfigureAwait(false);
+                var updatedVenue = await Client.GetFromJsonAsync<VenueDto>($"/api/venues/{fakeVenue.Id}");
 
                 // Assert
                 Assert.NotNull(updatedVenue);
@@ -114,10 +114,10 @@ namespace NetEvent.Server.Tests
                 var fakeVenue = fakeVenues[0];
 
                 // Act
-                var postResult = await Client.DeleteAsync($"/api/venues/{fakeVenue.Id}").ConfigureAwait(false);
+                var postResult = await Client.DeleteAsync($"/api/venues/{fakeVenue.Id}");
                 postResult.EnsureSuccessStatusCode();
-                await Assert.ThrowsAsync<HttpRequestException>(async () => await Client.GetFromJsonAsync<VenueDto>($"/api/venues/{fakeVenue.Id}").ConfigureAwait(false)).ConfigureAwait(false);
-                var venues = await Client.GetFromJsonAsync<IEnumerable<VenueDto>>("/api/venues").ConfigureAwait(false);
+                await Assert.ThrowsAsync<HttpRequestException>(async () => await Client.GetFromJsonAsync<VenueDto>($"/api/venues/{fakeVenue.Id}"));
+                var venues = await Client.GetFromJsonAsync<IEnumerable<VenueDto>>("/api/venues");
 
                 // Assert
                 Assert.NotNull(venues);

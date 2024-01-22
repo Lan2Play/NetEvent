@@ -21,7 +21,7 @@ namespace NetEvent.Server.Tests
             return RunWithFakeEvents(async fakeEvents =>
             {
                 // Act
-                var events = await Client.GetFromJsonAsync<IEnumerable<EventDto>>("/api/events").ConfigureAwait(false);
+                var events = await Client.GetFromJsonAsync<IEnumerable<EventDto>>("/api/events");
 
                 // Assert
                 Assert.NotNull(events);
@@ -36,7 +36,7 @@ namespace NetEvent.Server.Tests
             return RunWithFakeEvents(async fakeEvents =>
             {
                 // Act
-                var upcomingEvent = await Client.GetFromJsonAsync<EventDto>("/api/events/upcoming").ConfigureAwait(false);
+                var upcomingEvent = await Client.GetFromJsonAsync<EventDto>("/api/events/upcoming");
 
                 // Assert
                 Assert.NotNull(upcomingEvent);
@@ -51,7 +51,7 @@ namespace NetEvent.Server.Tests
             return RunWithFakeEvents(async fakeEvents =>
             {
                 // Act
-                var eventById = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvents[0].Id}").ConfigureAwait(false);
+                var eventById = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvents[0].Id}");
 
                 // Assert
                 Assert.NotNull(eventById);
@@ -66,7 +66,7 @@ namespace NetEvent.Server.Tests
             return RunWithFakeEvents(async fakeEvents =>
             {
                 // Act
-                var eventBySlug = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvents[0].Slug}").ConfigureAwait(false);
+                var eventBySlug = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvents[0].Slug}");
 
                 // Assert
                 Assert.NotNull(eventBySlug);
@@ -84,9 +84,9 @@ namespace NetEvent.Server.Tests
                 var fakeEvent = Fakers.EventFaker(new[] { fakeVenue }).Generate();
 
                 // Act
-                var postResult = await Client.PostAsJsonAsync($"/api/events/", fakeEvent).ConfigureAwait(false);
+                var postResult = await Client.PostAsJsonAsync($"/api/events/", fakeEvent);
                 postResult.EnsureSuccessStatusCode();
-                var events = await Client.GetFromJsonAsync<IEnumerable<EventDto>>("/api/events").ConfigureAwait(false);
+                var events = await Client.GetFromJsonAsync<IEnumerable<EventDto>>("/api/events");
 
                 // Assert
                 Assert.NotNull(events);
@@ -106,9 +106,9 @@ namespace NetEvent.Server.Tests
                 fakeEvent.Name = faker.Name.JobTitle();
 
                 // Act
-                var postResult = await Client.PutAsJsonAsync($"/api/events/{fakeEvent.Id}", fakeEvent).ConfigureAwait(false);
+                var postResult = await Client.PutAsJsonAsync($"/api/events/{fakeEvent.Id}", fakeEvent);
                 postResult.EnsureSuccessStatusCode();
-                var updatedEvent = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvent.Id}").ConfigureAwait(false);
+                var updatedEvent = await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvent.Id}");
 
                 // Assert
                 Assert.NotNull(updatedEvent);
@@ -126,10 +126,10 @@ namespace NetEvent.Server.Tests
                 var fakeEvent = fakeEvents[0];
 
                 // Act
-                var postResult = await Client.DeleteAsync($"/api/events/{fakeEvent.Id}").ConfigureAwait(false);
+                var postResult = await Client.DeleteAsync($"/api/events/{fakeEvent.Id}");
                 postResult.EnsureSuccessStatusCode();
-                await Assert.ThrowsAsync<HttpRequestException>(async () => await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvent.Id}").ConfigureAwait(false)).ConfigureAwait(false);
-                var events = await Client.GetFromJsonAsync<IEnumerable<EventDto>>("/api/events").ConfigureAwait(false);
+                await Assert.ThrowsAsync<HttpRequestException>(async () => await Client.GetFromJsonAsync<EventDto>($"/api/events/{fakeEvent.Id}"));
+                var events = await Client.GetFromJsonAsync<IEnumerable<EventDto>>("/api/events");
 
                 // Assert
                 Assert.NotNull(events);
