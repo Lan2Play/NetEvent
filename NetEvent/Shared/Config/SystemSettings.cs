@@ -13,6 +13,7 @@ namespace NetEvent.Shared.Config
                 new OrganizationData(),
                 new StyleData(),
                 new AuthenticationData(),
+                new PaymentData(),
             };
         }
 
@@ -53,6 +54,20 @@ namespace NetEvent.Shared.Config
             {
                 CreateSystemSettingWithHint(Standard, new BooleanValueType(true));
                 CreateSystemSettingWithHint(Steam, new BooleanValueType(false));
+            }
+        }
+
+        public class PaymentData : SettingGroupBase
+        {
+            public const string AdyenApiKey = "AdyenApiKey";
+            public const string AdyenClientKey = "AdyenClientKey";
+            public const string AdyenMerchantAccount = "AdyenMerchantAccount";
+
+            public PaymentData() : base(SystemSettingGroup.PaymentData)
+            {
+                CreateSystemSettingWithHint(AdyenApiKey, new StringValueType(string.Empty));
+                CreateSystemSettingWithHint(AdyenClientKey, new StringValueType(string.Empty));
+                CreateSystemSettingWithHint(AdyenMerchantAccount, new StringValueType(string.Empty));
             }
         }
 

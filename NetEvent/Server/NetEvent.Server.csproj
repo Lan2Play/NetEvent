@@ -7,6 +7,7 @@
     <UserSecretsId>NetEvent.Server-22C6183C-4927-4801-90E6-4AC1E79183B5</UserSecretsId>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <Version>0.0.1</Version>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="Adyen" Version="13.1.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.4" />

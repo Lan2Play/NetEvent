@@ -192,3 +192,7 @@ dotnet_diagnostic.SA1202.severity = none
 
 [**/Migrations/**/*.cs]
 dotnet_analyzer_diagnostic.severity = none
+
+[*.razor]
+dotnet_diagnostic.S927.severity = none
+dotnet_diagnostic.S2696.severity = none

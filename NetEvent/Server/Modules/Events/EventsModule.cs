@@ -24,9 +24,16 @@ namespace NetEvent.Server.Modules.Events
 
         public override IEndpointRouteBuilder MapModuleWriteAuthEndpoints(IEndpointRouteBuilder endpoints)
         {
+            // BaseRoute: /api/events
             endpoints.MapPost("/", async ([FromBody] EventDto eventDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostEvent.Request(eventDto))));
             endpoints.MapPut("/{eventId}", async ([FromRoute] long eventId, [FromBody] EventDto eventDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutEvent.Request(eventId, eventDto))));
             endpoints.MapDelete("/{eventId}", async ([FromRoute] long eventId, [FromServices] IMediator m) => ToApiResult(await m.Send(new DeleteEvent.Request(eventId))));
+
+            var ticketTypeEndPoints = endpoints.MapGroup("/tickettype");
+            ticketTypeEndPoints.MapPost("/{eventId}", async ([FromRoute] long eventId, [FromBody] EventTicketTypeDto eventTicketTypeDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PostEventTicketType.Request(eventId, eventTicketTypeDto))));
+            ticketTypeEndPoints.MapPut("/{eventTicketTypeId}", async ([FromRoute] long eventTicketTypeId, [FromBody] EventTicketTypeDto eventTicketTypeDto, [FromServices] IMediator m) => ToApiResult(await m.Send(new PutEventTicketType.Request(eventTicketTypeId, eventTicketTypeDto))));
+            ticketTypeEndPoints.MapDelete("/{eventTicketTypeId}", async ([FromRoute] long eventTicketTypeId, [FromServices] IMediator m) => ToApiResult(await m.Send(new DeleteEventTicketType.Request(eventTicketTypeId))));
+            ticketTypeEndPoints.MapGet("/{eventTicketTypeId}", async ([FromRoute] long eventTicketTypeId, [FromServices] IMediator m) => ToApiResult(await m.Send(new GetEventTicketType.Request(eventTicketTypeId))));
 
             return base.MapModuleWriteAuthEndpoints(endpoints);
         }
@@ -36,6 +43,11 @@ namespace NetEvent.Server.Modules.Events
             builder.Entity<Event>(entity =>
             {
                 entity.ToTable(name: "Events");
+            });
+
+            builder.Entity<EventTicketType>(entity =>
+            {
+                entity.ToTable(name: "EventTicketTypes");
             });
         }
     }

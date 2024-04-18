@@ -1,5 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using Bogus;
 using NetEvent.Server.Models;
 using NetEvent.Shared.Dto;
@@ -52,6 +55,20 @@ namespace NetEvent.TestHelper
          .RuleFor(e => e.EndDate, (f, e) => e.StartDate?.AddDays(Random.Shared.Next(1, 30)))
          .RuleFor(e => e.Venue, (f, e) => venues.ElementAtOrDefault(Random.Shared.Next(venues.Count() - 1)))
          .RuleFor(e => e.VenueId, (f, e) => e.Venue?.Id ?? 0);
+
+        public static Faker<EventTicketType> EventTicketTypeFaker(IEnumerable<Event> events) => new Faker<EventTicketType>()
+            .RuleFor(v => v.Id, (f, v) => f.IndexFaker)
+            .RuleFor(e => e.Name, (f, e) => f.Name.FirstName())
+            .RuleFor(e => e.Slug, (f, e) => new SlugHelper().GenerateSlug(e.Name))
+            .RuleFor(e => e.Price, (f, e) => f.Random.Int(0))
+            .RuleFor(e => e.Currency, (f, e) => Currency.Euro)
+            .RuleFor(e => e.AvailableTickets, (f, e) => f.Random.Int(1))
+            .RuleFor(e => e.SellStartDate, (f, e) => DateTime.UtcNow.AddDays(Random.Shared.Next(1, 30)))
+            .RuleFor(e => e.SellEndDate, (f, e) => e.SellStartDate.AddDays(Random.Shared.Next(1, 30)))
+            .RuleFor(e => e.IsGiftable, (f, e) => f.Random.Bool())
+            .RuleFor(e => e.Event, (f, e) => events.ElementAtOrDefault(Random.Shared.Next(events.Count() - 1)))
+            .RuleFor(e => e.EventId, (f, e) => e.Event?.Id);
+
 
         public static Faker<Venue> VenueFaker() => new Faker<Venue>()
             .RuleFor(v => v.Id, (f, v) => f.IndexFaker)

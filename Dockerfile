@@ -7,17 +7,18 @@ LABEL stage=builder
 LABEL org.opencontainers.image.authors="Alexander@volzit.de"
 
 #args
-ARG NETEVENTNETVER
+ARG NETEVENTNETVER=0.0.1
 ENV NETEVENTNETVER=$NETEVENTNETVER
 
 #install prereqs
 WORKDIR /
 RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     wget bash apt-transport-https
+RUN wget -q -O - https://deb.nodesource.com/setup_current.x | bash -
 RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 RUN rm packages-microsoft-prod.deb
-RUN apt-get update -qqy && apt-get install -y dotnet-sdk-7.0 python3 python3-pip wget
+RUN apt-get update -qqy && apt-get install -y dotnet-sdk-7.0 python3 python3-pip nodejs
 RUN pip install lastversion
 RUN eval apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -61,13 +62,14 @@ RUN chmod +x /usr/local/bin/start-container
 RUN chmod +x /usr/local/bin/wait-for.sh
 
 #install prereqs
-RUN apt-get update -qqy && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    wget apt-transport-https
-RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-RUN dpkg -i packages-microsoft-prod.deb
-RUN rm packages-microsoft-prod.deb
-RUN apt-get update -qqy && apt-get install -y aspnetcore-runtime-7.0 netcat curl
-RUN eval apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update -qqy && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y wget apt-transport-https && \
+    wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+    dpkg -i packages-microsoft-prod.deb && \
+    rm packages-microsoft-prod.deb && \
+    apt-get update -qqy && \
+    apt-get install -y aspnetcore-runtime-7.0 netcat curl && \
+    eval apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #copy NetEvent files
 WORKDIR /NetEvent

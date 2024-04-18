@@ -1,0 +1,42 @@
+﻿@page "/checkout/ticket/{ticketType:long}"
+@page "/checkout/ticket/{ticketType:long}/{amount:int}"
+@using NetEvent.Shared.Dto.Event;
+
+@if (EventTicketType == null)
+{
+    <NetEventLoading></NetEventLoading>
+}
+else
+{
+    <div class="d-flex align-stretch flex-wrap gap-4 ma-4">
+
+        <MudCard Class="d-flex flex-grow-1 flex-column" Style="width: 400px; max-width: 600px;">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    c
+                    <MudText Typo="Typo.h6">@EventTicketType.Name</MudText>
+                </CardHeaderContent>
+                <CardHeaderActions>
+                    <MudText Typo="Typo.h6">@EventTicketType.Currency.ToCurrencyValue(EventTicketType.Price) @EventTicketType.Currency.ToSymbol()</MudText>
+                </CardHeaderActions>
+            </MudCardHeader>
+            <MudCardContent>
+
+                TODO: Confirm AGB?
+
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" Disabled="@(CheckoutSession != null)" OnClick="@(async () => await BuyTicketAsync())">@Localizer["Events.Event.Tickets.BuyNow"]</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </div>
+}
+
+<div id="dropin-container"></div>
+
+@if (_Result != null)
+{
+    <MudAlert Severity="@_ResultSeverity"><strong>@_Result</strong><br />@_ResultRefused</MudAlert>
+}
+
+@*<div id="payment-container"></div>*@

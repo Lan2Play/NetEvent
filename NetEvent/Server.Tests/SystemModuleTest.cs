@@ -174,11 +174,11 @@ namespace NetEvent.Server.Tests
             Assert.NotNull(response.Versions);
             Assert.NotEmpty(response.Health);
             Assert.NotEmpty(response.Versions);
-            Assert.Equal("TEST", response.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("TEST", response.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("TEST", response.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("TEST", response.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response.Versions?.Find(x => x.Component.Equals("NETEVENT", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response.Versions?.FirstOrDefault(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response.Versions?.FirstOrDefault(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response.Versions?.FirstOrDefault(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("TEST", response.Versions?.FirstOrDefault(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal(Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion, response.Versions?.FirstOrDefault(x => x.Component.Equals("NETEVENT", StringComparison.OrdinalIgnoreCase))?.Version);
         }
 
         [Fact]
@@ -198,10 +198,10 @@ namespace NetEvent.Server.Tests
             Assert.NotNull(response.Versions);
             Assert.NotEmpty(response.Versions);
             Assert.NotEmpty(response.Versions);
-            Assert.Equal("dev", response.Versions?.Find(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("dev", response.Versions?.Find(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("dev", response.Versions?.Find(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
-            Assert.Equal("dev", response.Versions?.Find(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response.Versions?.FirstOrDefault(x => x.Component.Equals("BUILDNODE", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response.Versions?.FirstOrDefault(x => x.Component.Equals("BUILDID", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response.Versions?.FirstOrDefault(x => x.Component.Equals("BUILDNUMBER", StringComparison.OrdinalIgnoreCase))?.Version);
+            Assert.Equal("dev", response.Versions?.FirstOrDefault(x => x.Component.Equals("SOURCE_COMMIT", StringComparison.OrdinalIgnoreCase))?.Version);
         }
 
         [Fact]
@@ -250,7 +250,7 @@ namespace NetEvent.Server.Tests
                 Assert.NotNull(images);
                 Assert.NotEmpty(images!);
 
-                var response = await Client.DeleteAsync($"api/system/image/{images!.First().Image.Id}");
+                var response = await Client.DeleteAsync($"api/system/image/{images![0].Image.Id}");
                 response.EnsureSuccessStatusCode();
 
                 images = await Client.GetFromJsonAsync<List<SystemImageWithUsagesDto>>("/api/system/image/all");

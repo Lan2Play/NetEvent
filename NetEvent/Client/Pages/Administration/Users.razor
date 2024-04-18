@@ -1,17 +1,16 @@
 ﻿@page "/administration/users"
 @attribute [Authorize(Policy = "Admin.Users.*")]
 
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Identity
-@using NetEvent.Client.Components
-@using NetEvent.Shared.Dto
-@using NetEvent.Shared.Dto.Administration
-@using NetEvent.Shared.Policy
-
-@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Identity;
+@using NetEvent.Client.Components;
+@using NetEvent.Shared.Dto;
+@using NetEvent.Shared.Dto.Administration;
+@using NetEvent.Shared.Policy;
+@using System.Net.Http.Json
 
 <MudTabs Elevation="1" Rounded="true">
-    <MudTabPanel Text="@Localize["Administration.Users.Title"]">
+    <MudTabPanel Text="@Localizer["Administration.Users.Title"]">
 
         <NetEventDataGrid T="AdminUserDto"
                           MultiSelection="false"
@@ -24,26 +23,27 @@
                           CommittedItemChanges="@CommittedUserChangesAsync"
                           QuickFilter="@_usersQuickFilter"
                           Hideable="true">
-            <ToolBarContent>
-                <MudText Typo="Typo.h6">@Localize["Administration.Users.Title"]</MudText>
+           @* <ToolBarContent>
+                <MudText Typo="Typo.h6">@Localizer["Administration.Users.Title"]</MudText>
                 <MudSpacer />
-                <MudTextField @bind-Value="_UsersSearchString" Placeholder="@Localize["Administration.Users.Search"]" Adornment="Adornment.Start" Immediate="true"
+                <MudTextField @bind-Value="_UsersSearchString" Placeholder="@Localizer["Administration.Users.Search"]" Adornment="Adornment.Start" Immediate="true"
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-            </ToolBarContent>
+            </ToolBarContent>*@
+
             <Columns>
-                <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.UserName" Title="@Localize["Administration.Users.UserName"]" />
-                <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.FirstName" Title="@Localize["Administration.Users.FirstName"]" />
-                <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.LastName" Title="@Localize["Administration.Users.LastName"]" />
-                <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.Email" Title="@Localize["Administration.Users.Email"]" />
-                <PropertyColumn T="AdminUserDto" TProperty="bool" Property="x => x.EmailConfirmed" Title="@Localize["Administration.Users.EmailConfirmed"]">
+                <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.UserName" Title="@Localizer["Administration.Users.UserName"]" />
+                <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.FirstName" Title="@Localizer["Administration.Users.FirstName"]" />
+                <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.LastName" Title="@Localizer["Administration.Users.LastName"]" />
+                <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.Email" Title="@Localizer["Administration.Users.Email"]" />
+                <PropertyColumn T="AdminUserDto" TProperty="bool" Property="x => x.EmailConfirmed" Title="@Localizer["Administration.Users.EmailConfirmed"]">
                     <CellTemplate>
                         <MudCheckBox Value="@context.Item.EmailConfirmed" ReadOnly="true" />
                     </CellTemplate>
                     <EditTemplate>
-                        <MudCheckBox @bind-Value="@context.Item.EmailConfirmed" Label="@Localize["Administration.Users.EmailConfirmed"]" />
+                        <MudCheckBox @bind-Value="@context.Item.EmailConfirmed" Label="@Localizer["Administration.Users.EmailConfirmed"]" />
                     </EditTemplate>
                 </PropertyColumn>
-                <PropertyColumn T="AdminUserDto" TProperty="RoleDto" Property="x => x.Role" Title="@Localize["Administration.Users.Role"]">
+                <PropertyColumn T="AdminUserDto" TProperty="RoleDto" Property="x => x.Role" Title="@Localizer["Administration.Users.Role"]">
                     <CellTemplate>
                         @context.Item.Role?.Name
                     </CellTemplate>
@@ -53,7 +53,7 @@
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
                     </CellTemplate>
                     <EditTemplate>
-                        <MudSelect @bind-Value="context.Item.Role" ToStringFunc="r => r.Name" Required RequiredError="@Localize["Administration.Users.Roles.ErrorRoleRequired"]" Margin="@Margin.Dense">
+                        <MudSelect @bind-Value="context.Item.Role" ToStringFunc="r => r.Name" Required RequiredError="@Localizer["Administration.Users.Roles.ErrorRoleRequired"]" Margin="@Margin.Dense">
                             @foreach (var role in AllRoles)
                             {
                                 <MudSelectItem Value="@(role)">@role.Name</MudSelectItem>
@@ -62,12 +62,12 @@
                     </EditTemplate>
                 </TemplateColumn>
             </Columns>
-            <PagerContent>
+          @*  <PagerContent>
                 <MudDataGridPager T="AdminUserDto" />
-            </PagerContent>
+            </PagerContent>*@
         </NetEventDataGrid>
     </MudTabPanel>
-    <MudTabPanel Text="@Localize["Administration.Users.Roles.Title"]">
+    <MudTabPanel Text="@Localizer["Administration.Users.Roles.Title"]">
         <NetEventDataGrid T="RoleDto"
                           MultiSelection="false"
                           @ref="_RolesDataGrid"
@@ -75,17 +75,17 @@
                           SortMode="SortMode.Single"
                           Filterable="false"
                           ReadOnly="false"
-                          @bind-SelectedItem="@SelectedRole"
+        @bind-SelectedItem="@SelectedRole"
                           EditMode="DataGridEditMode.Form"
                           EditTrigger="DataGridEditTrigger.Manual"
                           CommittedItemChanges="@CommittedRoleChangesAsync"
                           DeletedItemChanges="@DeletedItemChanges"
                           QuickFilter="@_roleQuickFilter"
                           Hideable="true">
-            <ToolBarContent>
-                <MudText Typo="Typo.h6">@Localize["Administration.Users.Roles.Title"]</MudText>
+@*            <ToolBarContent>
+                <MudText Typo="Typo.h6">@Localizer["Administration.Users.Roles.Title"]</MudText>
                 <MudSpacer />
-                <MudTextField @bind-Value="_RoleSearchString" Placeholder="@Localize["Administration.Users.Roles.Search"]" Adornment="Adornment.Start" Immediate="true"
+                <MudTextField @bind-Value="_RoleSearchString" Placeholder="@Localizer["Administration.Users.Roles.Search"]" Adornment="Adornment.Start" Immediate="true"
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
                 <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Add" OnClick="_RolesDataGrid!.AddNewItemAsync" />
             </ToolBarContent>
@@ -114,10 +114,10 @@
                         <MudSelect T="string"
                                    MultiSelection="true"
                                    SelectAll="true"
-                                   @bind-SelectedValues="context.Item.Claims"
+                        @bind-SelectedValues="context.Item.Claims"
                                    Margin="@Margin.Dense"
-                                   SelectAllText="@Localize["Administration.Users.Roles.SelectAllPermissions"]"
-                                   Label="@Localize["Administration.Users.Roles.Permissions"]"
+                                   SelectAllText="@Localizer["Administration.Users.Roles.SelectAllPermissions"]"
+                                   Label="@Localizer["Administration.Users.Roles.Permissions"]"
                                    MultiSelectionTextFunc="@(new Func<List<string>, string>(CreateSelectionLabel))"
                                    HelperText="@SelectionLabelValue" @bind-Value="SelectionLabelValue">
                             @foreach (var policy in Policies.AvailablePolicies)
@@ -134,9 +134,9 @@
                     </CellTemplate>
                 </TemplateColumn>
             </Columns>
-            <PagerContent>
+          @*  <PagerContent>
                 <MudDataGridPager T="RoleDto" />
-            </PagerContent>
+            </PagerContent>*@
         </NetEventDataGrid>
     </MudTabPanel>
 </MudTabs>

@@ -21,5 +21,11 @@ namespace NetEvent.Server.Data.Events
         Task<EventResult> DeleteVenueAsync(long venueId);
 
         Task<EventResult> UpdateVenueAsync(Venue venueToUpdate);
+
+        Task<EventResult> CreateTicketAsync(EventTicketType ticketToCreate);
+
+        Task<EventResult> DeleteTicketAsync(long ticketId);
+
+        Task<EventResult> UpdateTicketAsync(EventTicketType ticketToUpdate);
     }
 }

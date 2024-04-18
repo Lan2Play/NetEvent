@@ -29,8 +29,15 @@
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
 
     <script src="_framework/blazor.webassembly.js"></script>
-    <script src="_content/TinyMCE.Blazor/tinymce-blazor.js"></script>
-
+    <script src="_content/TinyMCE.Blazor/tinymce-blazor.js" async></script>
+    <script src="js/checkout.js" async></script>
+  <!--  <script>
+        Blazor.start().then(function () {
+            var customScript = document.createElement('script');
+            customScript.setAttribute('src', 'js/checkout.js');
+            document.head.appendChild(customScript);
+        });
+    </script>-->
 </body>
 
 </html>

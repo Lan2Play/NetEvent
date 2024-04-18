@@ -10,6 +10,8 @@ namespace NetEvent.Client.Extensions
         private const int _HeaderHeight = 64;
         private const int _EditorHeight = 500;
 
+        public const string ScriptSrc = "/lib/tinymce/tinymce.min.js";
+
         /// <summary>
         /// Provide Editor Config for TinyMce
         /// More Information: https://www.tiny.cloud/docs/tinymce/6/editor-important-options/

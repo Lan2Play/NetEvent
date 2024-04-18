@@ -107,7 +107,7 @@ namespace NetEvent.Server.Tests
             Assert.NotNull(loadedRoles);
             Assert.Equal(1, loadedRoles?.Count);
 
-            var claims = loadedRoles?.First().Claims;
+            var claims = loadedRoles?[0].Claims;
             Assert.NotNull(claims);
             if (claims != null)
             {
@@ -163,7 +163,7 @@ namespace NetEvent.Server.Tests
             Assert.NotNull(roles);
             Assert.Equal(roleCount, roles?.Count);
 
-            var response = await Client.DeleteAsync($"api/roles/{roles?.First().Id}");
+            var response = await Client.DeleteAsync($"api/roles/{roles?[0].Id}");
             response.EnsureSuccessStatusCode();
 
             roles = await Client.GetFromJsonAsync<List<RoleDto>>("/api/roles");

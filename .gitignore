@@ -5,6 +5,7 @@
 
 # NetEvent specific
 NetEvent/Client/wwwroot/lib/
+NetEvent/Client/wwwroot/js/
 
 # User-specific files
 *.rsuser

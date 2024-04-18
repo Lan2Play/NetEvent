@@ -1,0 +1,122 @@
+{
+  "sonarlint.rules": {
+    "css:S4659": {
+      "level": "On",
+      "parameters": {
+        "ignorePseudoClasses": "local,global,export,import,deep"
+      },
+      "severity": "Major"
+    },
+    "css:S4655": {
+      "level": "On",
+      "severity": "Major"
+    },
+    "css:S4670": {
+      "level": "On",
+      "parameters": {
+        "ignoreTypes": "/^(mat|md|fa)-/",
+        "ignore": "custom-elements"
+      },
+      "severity": "Critical"
+    },
+    "css:S4649": {
+      "level": "On",
+      "severity": "Major"
+    },
+    "css:S4662": {
+      "level": "On",
+      "parameters": {
+        "ignoreAtRules": "value,at-root,content,debug,each,else,error,for,function,if,include,mixin,return,warn,while,extend,use,forward,tailwind,apply,layer,/^@.*/"
+      },
+      "severity": "Major"
+    },
+    "css:S4667": {
+      "level": "On",
+      "severity": "Major"
+    },
+    "css:S4648": {
+      "level": "On",
+      "severity": "Major"
+    },
+    "css:S4647": {
+      "level": "On",
+      "severity": "Blocker"
+    },
+    "css:S1116": {
+      "level": "On",
+      "severity": "Minor"
+    },
+    "css:S1128": {
+      "level": "On",
+      "severity": "Minor"
+    },
+    "css:S4656": {
+      "level": "On",
+      "parameters": {
+        "ignoreFallbacks": "true"
+      },
+      "severity": "Major"
+    },
+    "css:S4666": {
+      "level": "On",
+      "severity": "Major"
+    },
+    "css:S4668": {
+      "level": "On",
+      "severity": "Blocker"
+    },
+    "css:S4661": {
+      "level": "On",
+      "severity": "Major"
+    },
+    "css:S4663": {
+      "level": "On",
+      "severity": "Minor"
+    },
+    "css:S4660": {
+      "level": "On",
+      "parameters": {
+        "ignorePseudoElements": "ng-deep,v-deep,deep"
+      },
+      "severity": "Major"
+    },
+    "css:S4654": {
+      "level": "On",
+      "parameters": {
+        "ignoreSelectors": "/^:export.*/, /^:import.*/",
+        "ignoreTypes": "composes, /^mso-/"
+      },
+      "severity": "Blocker"
+    },
+    "css:S4657": {
+      "level": "On",
+      "severity": "Critical"
+    },
+    "css:S4651": {
+      "level": "On",
+      "severity": "Critical"
+    },
+    "css:S4650": {
+      "level": "On",
+      "severity": "Blocker"
+    },
+    "css:S4653": {
+      "level": "On",
+      "severity": "Blocker"
+    },
+    "css:S4652": {
+      "level": "On",
+      "severity": "Major"
+    },
+    "css:S4658": {
+      "level": "On",
+      "severity": "Major"
+    },
+    "css:S5362": {
+      "level": "Off"
+    },
+    "css:S4664": {
+      "level": "Off"
+    }
+  }
+}
