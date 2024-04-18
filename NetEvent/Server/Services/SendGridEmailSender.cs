@@ -33,7 +33,7 @@ namespace NetEvent.Server.Services
                 From = new EmailAddress(_SendGridConfiguration.EmailSenderAddress),
                 Subject = subject,
                 PlainTextContent = content,
-                HtmlContent = content
+                HtmlContent = content,
             };
 
             msg.AddTo(new EmailAddress(recipient));

@@ -11,6 +11,7 @@
 
 <MudTabs Elevation="1" Rounded="true">
     <MudTabPanel Text="@Localizer["Administration.Users.Title"]">
+
         <NetEventDataGrid T="AdminUserDto"
                           MultiSelection="false"
                           Items="@AllUsers"
@@ -31,22 +32,22 @@
 
             <Columns>
                 <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.UserName" Title="@Localizer["Administration.Users.UserName"]" />
-                <PropertyColumn T="AdminUserDto" TProperty="String"  Property="x => x.FirstName" Title="@Localizer["Administration.Users.FirstName"]" />
+                <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.FirstName" Title="@Localizer["Administration.Users.FirstName"]" />
                 <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.LastName" Title="@Localizer["Administration.Users.LastName"]" />
                 <PropertyColumn T="AdminUserDto" TProperty="String" Property="x => x.Email" Title="@Localizer["Administration.Users.Email"]" />
-                <TemplateColumn T="AdminUserDto" Field="EmailConfirmed" Title="@Localizer["Administration.Users.EmailConfirmed"]">
+                <PropertyColumn T="AdminUserDto" TProperty="bool" Property="x => x.EmailConfirmed" Title="@Localizer["Administration.Users.EmailConfirmed"]">
                     <CellTemplate>
-                        <MudCheckBox Checked="@context.Item.EmailConfirmed" ReadOnly="true" />
+                        <MudCheckBox Value="@context.Item.EmailConfirmed" ReadOnly="true" />
                     </CellTemplate>
                     <EditTemplate>
-                        <MudCheckBox @bind-Checked="@context.Item.EmailConfirmed" Label="@Localizer["Administration.Users.EmailConfirmed"]" />
+                        <MudCheckBox @bind-Value="@context.Item.EmailConfirmed" Label="@Localizer["Administration.Users.EmailConfirmed"]" />
                     </EditTemplate>
-                </TemplateColumn>
-                <TemplateColumn T="AdminUserDto" Field="Role" Title="@Localizer["Administration.Users.Role"]">
+                </PropertyColumn>
+                <PropertyColumn T="AdminUserDto" TProperty="RoleDto" Property="x => x.Role" Title="@Localizer["Administration.Users.Role"]">
                     <CellTemplate>
                         @context.Item.Role?.Name
                     </CellTemplate>
-                </TemplateColumn>
+                </PropertyColumn>
                 <TemplateColumn T="AdminUserDto" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
@@ -69,7 +70,7 @@
     <MudTabPanel Text="@Localizer["Administration.Users.Roles.Title"]">
         <NetEventDataGrid T="RoleDto"
                           MultiSelection="false"
-        @ref="RolesDataGrid"
+                          @ref="_RolesDataGrid"
                           Items="@AllRoles"
                           SortMode="SortMode.Single"
                           Filterable="false"
@@ -86,20 +87,20 @@
                 <MudSpacer />
                 <MudTextField @bind-Value="_RoleSearchString" Placeholder="@Localizer["Administration.Users.Roles.Search"]" Adornment="Adornment.Start" Immediate="true"
                               AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Add" OnClick="RolesDataGrid!.AddNewItemAsync" />
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Add" OnClick="_RolesDataGrid!.AddNewItemAsync" />
             </ToolBarContent>
-*@            <Columns>
-                <PropertyColumn T="RoleDto" TProperty="String" Property="x => x.Id" Title="@Localizer["Administration.Users.Roles.Id"]" IsEditable="false" />
-                <PropertyColumn T="RoleDto" TProperty="String" Property="x => x.Name" Title="@Localizer["Administration.Users.Roles.Name"]" />
-                <TemplateColumn T="RoleDto" Field="IsDefault" Title="@Localizer["Administration.Users.Roles.IsDefault"]">
+            <Columns>
+                <PropertyColumn T="RoleDto" TProperty="string" Property="x => x.Id" Title="@Localize["Administration.Users.Roles.Id"]" IsEditable="false" />
+                <PropertyColumn T="RoleDto" TProperty="string" Property="x => x.Name" Title="@Localize["Administration.Users.Roles.Name"]" />
+                <PropertyColumn T="RoleDto" TProperty="bool" Property="x => x.IsDefault" Title="@Localize["Administration.Users.Roles.IsDefault"]">
                     <CellTemplate>
-                        <MudCheckBox Checked="@context.Item.IsDefault" ReadOnly="true" />
+                        <MudCheckBox Value="@context.Item.IsDefault" ReadOnly="true" />
                     </CellTemplate>
                     <EditTemplate>
-                        <MudCheckBox @bind-Checked="@context.Item.IsDefault" Label="@Localizer["Administration.Users.Roles.IsDefault"]" />
+                        <MudCheckBox @bind-Value="@context.Item.IsDefault" Label="@Localize["Administration.Users.Roles.IsDefault"]" />
                     </EditTemplate>
-                </TemplateColumn>
-                <TemplateColumn T="RoleDto" Title="@Localizer["Administration.Users.Roles.Claims"]">
+                </PropertyColumn>
+                <TemplateColumn T="RoleDto" Title="@Localize["Administration.Users.Roles.Claims"]">
                     <CellTemplate>
                         @if (@context.Item.Claims != null)
                         {
@@ -129,7 +130,7 @@
                 <TemplateColumn T="RoleDto" CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="@(() => RolesDataGrid!.DeleteItemAsync(context.Item))" />
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="@(() => _RolesDataGrid!.DeleteItemAsync(context.Item))" />
                     </CellTemplate>
                 </TemplateColumn>
             </Columns>

@@ -10,19 +10,19 @@ namespace NetEvent.Client.Pages.Administration
 {
     public partial class SystemInfo
     {
+        private readonly IList<SystemInfoComponentEntryDto> _ClientComponents = new List<SystemInfoComponentEntryDto>();
+        private string _SearchStringComponents = string.Empty;
+        private string _SearchStringClientComponents = string.Empty;
+        private string _SearchStringVersions = string.Empty;
+        private string _SearchStringHealth = string.Empty;
+        private SystemInfoDto _SystemInfos = new();
+
         #region Injects
 
         [Inject]
         private ISystemInfoDataService SystemInfoDataService { get; set; } = default!;
 
         #endregion
-
-        private readonly IList<SystemInfoComponentEntryDto> _ClientComponents = new List<SystemInfoComponentEntryDto>();
-        private SystemInfoDto _SystemInfos = new();
-        private string searchStringComponents = string.Empty;
-        private string searchStringClientComponents = string.Empty;
-        private string searchStringVersions = string.Empty;
-        private string searchStringHealth = string.Empty;
 
         protected override async Task OnInitializedAsync()
         {
@@ -37,9 +37,9 @@ namespace NetEvent.Client.Pages.Administration
             }
         }
 
-        private bool FilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry) => InternalFilterFuncComponents(systeminfocomponententry, searchStringComponents);
+        private bool FilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry) => InternalFilterFuncComponents(systeminfocomponententry, _SearchStringComponents);
 
-        private bool FilterFuncComponentsClient(SystemInfoComponentEntryDto systeminfocomponententry) => InternalFilterFuncComponents(systeminfocomponententry, searchStringClientComponents);
+        private bool FilterFuncComponentsClient(SystemInfoComponentEntryDto systeminfocomponententry) => InternalFilterFuncComponents(systeminfocomponententry, _SearchStringClientComponents);
 
         private static bool InternalFilterFuncComponents(SystemInfoComponentEntryDto systeminfocomponententry, string searchString)
         {
@@ -61,7 +61,7 @@ namespace NetEvent.Client.Pages.Administration
             return false;
         }
 
-        private bool FilterFuncVersions1(SystemInfoVersionEntryDto systeminfoversionentry) => FilterFuncVersions(systeminfoversionentry, searchStringVersions);
+        private bool FilterFuncVersions1(SystemInfoVersionEntryDto systeminfoversionentry) => FilterFuncVersions(systeminfoversionentry, _SearchStringVersions);
 
         private static bool FilterFuncVersions(SystemInfoVersionEntryDto systeminfoversionentry, string searchString)
         {
@@ -83,7 +83,7 @@ namespace NetEvent.Client.Pages.Administration
             return false;
         }
 
-        private bool FilterFuncHealth1(SystemInfoHealthEntryDto systeminfohealthentry) => FilterFuncHealth(systeminfohealthentry, searchStringHealth);
+        private bool FilterFuncHealth1(SystemInfoHealthEntryDto systeminfohealthentry) => FilterFuncHealth(systeminfohealthentry, _SearchStringHealth);
 
         private static bool FilterFuncHealth(SystemInfoHealthEntryDto systeminfohealthentry, string searchString)
         {

@@ -32,7 +32,7 @@ namespace NetEvent.Server.Services
                 Subject = subject,
                 Body = content,
                 IsBodyHtml = true,
-                From = new MailAddress(_SmtpConfig.EmailSenderAddress)
+                From = new MailAddress(_SmtpConfig.EmailSenderAddress),
             };
 
             message.To.Add(recipient);

@@ -1,26 +1,26 @@
 ﻿@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localize
 
-<MudField Label="@Localize[SystemSetting.LabelKey]" Margin="Margin.Dense" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" Class="@DragClass" @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass">
-    @if (!Clearing)
+<MudField Label="@Localize[SystemSetting.LabelKey]" Margin="Margin.Dense" HelperText="@(string.IsNullOrEmpty(SystemSetting.DescriptionKey) ? string.Empty : Localize[SystemSetting.DescriptionKey])" Variant="Variant.Outlined" Class="@_DragClass" @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass">
+    @if (!_Clearing)
     {
         <InputFile OnChange="OnInputFileChanged" class="absolute mud-width-full mud-height-full overflow-hidden z-2" style="opacity:0;" accept=".jpg, .jpeg, .png" />
     }
 
-    @if (string.IsNullOrEmpty(imageFileName))
+    @if (string.IsNullOrEmpty(_ImageFileName))
     {
         <MudText Typo="Typo.body2">@Localize["ImageValueTypeUpload.DragAndDropHint"]</MudText>
     }
 
-    @if (uploading)
+    @if (_Uploading)
     {
         <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
-        <MudChip Color="Color.Dark" Text="@fileName?.Name" />
+        <MudChip Color="Color.Dark" Text="@_FileName?.Name" />
     }
 
-    @if (!string.IsNullOrEmpty(imageFileName))
+    @if (!string.IsNullOrEmpty(_ImageFileName))
     {
         <div class="container">
-            <MudImage Src="@imageSrc" Fluid="true"></MudImage>
+            <MudImage Src="@_ImageSrc" Fluid="true"></MudImage>
             <MudButton OnClick="Clear" Class="show-on-hover center-in-container" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" Variant="Variant.Text">@Localize["ImageValueTypeUpload.Clear"]</MudButton>
         </div>
     }

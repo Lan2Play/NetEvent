@@ -30,7 +30,7 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
             var uriBuilder = new UriBuilder(encodedUrl)
             {
                 Path = string.Empty,
-                Query = string.Empty
+                Query = string.Empty,
             };
 
             var baseUri = uriBuilder.ToString();
@@ -43,13 +43,13 @@ namespace NetEvent.Server.Modules.Authorization.Endpoints
 
             var subjectModel = new NetEventEmailRenderModel(new Dictionary<string, string>()
             {
-                { "firstName", user.FirstName ?? string.Empty }
+                { "firstName", user.FirstName ?? string.Empty },
             });
 
             var contentModel = new NetEventEmailRenderModel(new Dictionary<string, string>()
             {
                 { "firstName", user.FirstName ?? string.Empty },
-                { "confirmUrl", url }
+                { "confirmUrl", url },
             });
 
             if (user.Email == null)

@@ -4,6 +4,6 @@
     {
         Everyone,
         LoggedIn,
-        Invited
+        Invited,
     }
 }

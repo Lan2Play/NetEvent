@@ -14,6 +14,8 @@ namespace NetEvent.Client.Pages.Administration
 {
     public partial class Users
     {
+        private NetEventDataGrid<RoleDto>? _RolesDataGrid;
+
         [Inject]
         private IUserService UserService { get; set; } = default!;
 
@@ -25,8 +27,6 @@ namespace NetEvent.Client.Pages.Administration
 
         [Inject]
         private IStringLocalizer<App> Localizer { get; set; } = default!;
-
-        private NetEventDataGrid<RoleDto>? RolesDataGrid;
 
         protected override async Task OnInitializedAsync()
         {
